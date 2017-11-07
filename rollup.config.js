@@ -1,6 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
+import json from 'rollup-plugin-json';
 import pkg from './package.json';
 
 let presets = pkg.babel.presets;
@@ -30,6 +31,9 @@ export default [
 		},
 		name: 'Wealth',
 		plugins: [
+			json({
+				preferConst: true
+			}),
 			resolve(),
 			babel(babelConfig),
 			commonjs()
@@ -39,7 +43,8 @@ export default [
 		input: 'src/index.js',
 		external: [
 			...Object.keys(pkg.dependencies),
-			'validator/lib/isInt'
+			'validator/lib/isInt',
+			'validator/lib/isFloat'
 		],
 		output: [
 			{
@@ -52,6 +57,9 @@ export default [
 			}
 		],
 		plugins: [
+			json({
+				preferConst: true
+			}),
 			babel(babelConfig)
 		]
 	}
