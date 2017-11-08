@@ -2,6 +2,7 @@ import BigNumber from 'bignumber.js';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
 import CurrencyFormatter from 'currency-formatter';
+import Currency from "./Currency";
 
 export default class Money {
 
@@ -28,8 +29,7 @@ export default class Money {
 	};
 
 	constructor(value = '0', currency = 'USD', options = {}) {
-		this._currency = currency;
-		this._currencySettings = CurrencyFormatter.findCurrency(currency);
+		this._currency = new Currency(currency);
 		this._options = {...this.constructor.DEFAULT_SETTINGS, ...options};
 		this._value = this._preProcessInputValue(value);
 	}
@@ -47,12 +47,12 @@ export default class Money {
 	}
 
 	multiply(value, rounding = this._options.roundingMode) {
-		let newValue = this._value.times(value).round(this._currencySettings.decimalDigits, rounding);
+		let newValue = this._value.times(value).round(this._currency.getDecimalDigits(), rounding);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency, this._options);
 	}
 
 	divide(value, rounding = this._options.roundingMode) {
-		let newValue = this._value.dividedBy(value).round(this._currencySettings.decimalDigits, rounding);
+		let newValue = this._value.dividedBy(value).round(this._currency.getDecimalDigits(), rounding);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency, this._options);
 	}
 
@@ -96,6 +96,67 @@ export default class Money {
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency, this._options);
 	}
 
+	allocate(ratios) {
+		let
+			remainder = this._value,
+			results = [],
+			total = ratios.reduce((total, ratio) => total.plus(ratio), new BigNumber('0'));
+
+		for(let ratio of ratios) {
+			let share = this._value.times(ratio).dividedBy(total).floor();
+			results.push(share);
+			remainder = remainder.minus(share);
+		}
+
+		let i = 0;
+
+		while(true) {
+			const
+				BN = this._getBigNumberConstructor(),
+				unit = (new BN('1'))
+					.dividedBy(this._currency.getDecimalDigits())
+					.round(this._currency.getDecimalDigits(), this._options.roundingMode);
+
+			results[i] = results[i].plus(unit);
+			remainder = remainder.minus(unit);
+
+			++i;
+
+			if(remainder.lessThanOrEqualTo(0)) {
+				break;
+			}
+
+			if(i === results.length) {
+				i = 0;
+			}
+		}
+
+		// for(let i = 0; remainder.comparedTo(0) === 1; ++i) {
+		// 	const
+		// 		BN = this._getBigNumberConstructor(),
+		// 		unit = (new BN('1'))
+		// 			.dividedBy(this._currency.getDecimalDigits())
+		// 			.round(this._currency.getDecimalDigits(), this._options.roundingMode);
+		//
+		// 	results[i] = results[i].plus(unit);
+		// 	remainder = remainder.minus(unit);
+		//
+		// 	if(i === results.length - 1) {
+		// 		i = 0;
+		// 	}
+		// }
+
+		for(let [index, result] of results.entries()) {
+			results[index] = new this.constructor(this._convertBigNumberToStringInteger(result), this._currency);
+		}
+
+		return results;
+	}
+
+	allocateTo() {
+
+	}
+
 	clone() {
 		return this.constructor(this.getAmount(), this._currency, this._options);
 	}
@@ -115,13 +176,13 @@ export default class Money {
 	toJSON() {
 		return {
 			amount: this.getAmount(),
-			currency: this._currency
+			currency: this._currency.getCode()
 		};
 	}
 
 	format() {
 		return CurrencyFormatter.format(this._value.toString(), {
-			code: this._currency
+			code: this._currency.getCode()
 		});
 	}
 
@@ -130,17 +191,14 @@ export default class Money {
 			return value._getInnerBigNumber();
 		}
 
-		const BN = BigNumber.another({
-			DECIMAL_PLACES: this._currencySettings.decimalDigits,
-			ROUNDING_MODE: this._options.roundingMode
-		});
+		const BN = this._getBigNumberConstructor();
 
 		if(Number.isInteger(value) || (typeof value === 'string' && isInt(value))) {
 			value = new BN(value);
 
 			return value
-				.dividedBy(10 ** this._currencySettings.decimalDigits)
-				.round(this._currencySettings.decimalDigits, this._options.roundingMode);
+				.dividedBy(10 ** this._currency.getDecimalDigits())
+				.round(this._currency.getDecimalDigits(), this._options.roundingMode);
 		}
 
 		if(typeof value === 'string' && isFloat(value)) {
@@ -151,11 +209,18 @@ export default class Money {
 	}
 
 	_convertBigNumberToStringInteger(value) {
-		return value.times(10 ** this._currencySettings.decimalDigits).toString();
+		return value.times(10 ** this._currency.getDecimalDigits()).toString();
 	}
 
 	_getInnerBigNumber() {
 		return this._value;
+	}
+
+	_getBigNumberConstructor() {
+		return BigNumber.another({
+			DECIMAL_PLACES: this._currency.getDecimalDigits(),
+			ROUNDING_MODE: this._options.roundingMode
+		});
 	}
 
 	static parse(value, currency, options = {}) {

@@ -117,6 +117,12 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.ceil().equals(moneyB)).toBe(true);
 	});
 
+	test('"$89.67".allocate([70, 24, 6]) === []', () => {
+		let money = new Money('8967', 'USD');
+
+		expect(money.allocate([70, 24, 6]).map(allocation => allocation.toString())).toBe(['6300', '2200', '500']);
+	});
+
 	test('format(5442) == "$54.42"', () => {
 		let	moneyA = new Money('5442', 'USD');
 		expect(moneyA.format()).toBe('$54.42');
