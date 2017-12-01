@@ -98,67 +98,36 @@ export default class Money {
 
 	allocate(ratios) {
 		let
-			remainder = this._value,
-			results = [],
+			allocations = [],
+			totalValue = this.clone({roundingMode: this.constructor.ROUND_FLOOR}),
+			remainder = this.clone(),
 			total = ratios.reduce((total, ratio) => total.plus(ratio), new BigNumber('0'));
 
 		for(let ratio of ratios) {
-			let share = this._value.times(ratio).dividedBy(total).floor();
-			results.push(share);
-			remainder = remainder.minus(share);
+			let share = totalValue.multiply(ratio, Money.ROUND_FLOOR).divide(total, Money.ROUND_FLOOR);
+			allocations.push(share);
+			remainder = remainder.subtract(share);
 		}
 
-		let i = 0;
-
-		while(true) {
-			const
-				BN = this._getBigNumberConstructor(),
-				unit = (new BN('1'))
-					.dividedBy(this._currency.getDecimalDigits())
-					.round(this._currency.getDecimalDigits(), this._options.roundingMode);
-
-			results[i] = results[i].plus(unit);
-			remainder = remainder.minus(unit);
-
-			++i;
-
-			if(remainder.lessThanOrEqualTo(0)) {
-				break;
-			}
-
-			if(i === results.length) {
-				i = 0;
-			}
-		}
-
-		// for(let i = 0; remainder.comparedTo(0) === 1; ++i) {
-		// 	const
-		// 		BN = this._getBigNumberConstructor(),
-		// 		unit = (new BN('1'))
-		// 			.dividedBy(this._currency.getDecimalDigits())
-		// 			.round(this._currency.getDecimalDigits(), this._options.roundingMode);
-		//
-		// 	results[i] = results[i].plus(unit);
-		// 	remainder = remainder.minus(unit);
-		//
-		// 	if(i === results.length - 1) {
-		// 		i = 0;
-		// 	}
-		// }
-
-		for(let [index, result] of results.entries()) {
-			results[index] = new this.constructor(this._convertBigNumberToStringInteger(result), this._currency);
-		}
-
-		return results;
+		return this._addRemainderToAllocations(allocations, remainder);
 	}
 
-	allocateTo() {
+	allocateTo(count) {
+		let
+			allocations = [],
+			totalValue = this.clone({roundingMode: this.constructor.ROUND_FLOOR}),
+			baseShare = totalValue.divide(count, Money.ROUND_FLOOR),
+			remainder = totalValue.subtract(baseShare.multiply(count));
 
+		for(let i = 0; i < count; i++) {
+			allocations.push(baseShare.clone());
+		}
+
+		return this._addRemainderToAllocations(allocations, remainder);
 	}
 
-	clone() {
-		return this.constructor(this.getAmount(), this._currency, this._options);
+	clone(options = {}) {
+		return new this.constructor(this.getAmount(), this._currency, {...this._options, ...options});
 	}
 
 	getAmount() {
@@ -171,6 +140,10 @@ export default class Money {
 
 	getCurrency() {
 		return this._currency;
+	}
+
+	getSmallestUnit(options = {}) {
+		return new this.constructor(this._getSmallestUnitAsBigNumber().toString(), this._currency, {...this._options, ...options});
 	}
 
 	toJSON() {
@@ -186,18 +159,40 @@ export default class Money {
 		});
 	}
 
+	_addRemainderToAllocations(allocations, remainder) {
+		let
+			i = 0,
+			noMoney = new this.constructor('0', this._currency),
+			smallestUnit = this.getSmallestUnit();
+
+		while(!remainder.equals(noMoney)) {
+			allocations[i] = allocations[i].add(smallestUnit);
+			remainder = remainder.subtract(smallestUnit);
+
+			i++;
+
+			if(i === allocations.length) {
+				i = 0;
+			}
+		}
+
+		return allocations;
+	}
+
 	_preProcessInputValue(value) {
 		if(value instanceof Money) {
 			return value._getInnerBigNumber();
 		}
 
+		let divisor = this._getSmallestUnitDivisor();
+
 		const BN = this._getBigNumberConstructor();
 
-		if(Number.isInteger(value) || (typeof value === 'string' && isInt(value))) {
+		if(divisor.greaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {
 			value = new BN(value);
 
 			return value
-				.dividedBy(10 ** this._currency.getDecimalDigits())
+				.dividedBy(divisor)
 				.round(this._currency.getDecimalDigits(), this._options.roundingMode);
 		}
 
@@ -208,8 +203,17 @@ export default class Money {
 		throw new Error('The input value must be either an integer, an integer-like string, a float-like string or a "Money" instance.');
 	}
 
+	_getSmallestUnitDivisor() {
+		let	decimalDigits = this._currency.getDecimalDigits();
+		return (new BigNumber('10')).toPower(decimalDigits);
+	}
+
+	_getSmallestUnitAsBigNumber() {
+		return (new BigNumber('1')).dividedBy(this._getSmallestUnitDivisor());
+	}
+
 	_convertBigNumberToStringInteger(value) {
-		return value.times(10 ** this._currency.getDecimalDigits()).toString();
+		return value.times(this._getSmallestUnitDivisor()).toString();
 	}
 
 	_getInnerBigNumber() {

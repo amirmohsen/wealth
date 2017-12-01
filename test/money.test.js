@@ -117,10 +117,16 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.ceil().equals(moneyB)).toBe(true);
 	});
 
-	test('"$89.67".allocate([70, 24, 6]) === []', () => {
+	test('"$89.67".allocate([70, 24, 6]) === ["$62.77", "$21.52", "$5.38"]', () => {
 		let money = new Money('8967', 'USD');
 
-		expect(money.allocate([70, 24, 6]).map(allocation => allocation.toString())).toBe(['6300', '2200', '500']);
+		expect(money.allocate([70, 24, 6]).map(allocation => allocation.toString())).toEqual(['6277', '2152', '538']);
+	});
+
+	test('"$483.41".allocateTo(3) === ["$161.14", "$161.14", "$161.13"]', () => {
+		let money = new Money('48341', 'USD');
+
+		expect(money.allocateTo(3).map(allocation => allocation.toString())).toEqual(['16114', '16114', '16113']);
 	});
 
 	test('format(5442) == "$54.42"', () => {
