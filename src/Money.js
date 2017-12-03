@@ -1,34 +1,27 @@
 import BigNumber from 'bignumber.js';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
-import CurrencyFormatter from 'currency-formatter';
-import Currency from "./Currency";
+import Currency from './Currency';
 
 export default class Money {
 
-	static ROUND_UP = BigNumber.ROUND_UP;
-
-	static ROUND_DOWN = BigNumber.ROUND_DOWN;
-
-	static ROUND_CEIL = BigNumber.ROUND_CEIL;
-
-	static ROUND_FLOOR = BigNumber.ROUND_FLOOR;
-
-	static ROUND_HALF_UP = BigNumber.ROUND_HALF_UP;
-
-	static ROUND_HALF_DOWN = BigNumber.ROUND_HALF_DOWN;
-
-	static ROUND_HALF_EVEN = BigNumber.ROUND_HALF_EVEN;
-
-	static ROUND_HALF_CEIL = BigNumber.ROUND_HALF_CEIL;
-
-	static ROUND_HALF_FLOOR = BigNumber.ROUND_HALF_FLOOR;
+	static ROUNDING_MODES = {
+		ROUND_UP: BigNumber.ROUND_UP,
+		ROUND_DOWN: BigNumber.ROUND_DOWN,
+		ROUND_CEIL: BigNumber.ROUND_CEIL,
+		ROUND_FLOOR: BigNumber.ROUND_FLOOR,
+		ROUND_HALF_UP: BigNumber.ROUND_HALF_UP,
+		ROUND_HALF_DOWN: BigNumber.ROUND_HALF_DOWN,
+		ROUND_HALF_EVEN: BigNumber.ROUND_HALF_EVEN,
+		ROUND_HALF_CEIL: BigNumber.ROUND_HALF_CEIL,
+		ROUND_HALF_FLOOR: BigNumber.ROUND_HALF_FLOOR
+	};
 
 	static DEFAULT_SETTINGS = {
 		roundingMode: BigNumber.ROUND_UP
 	};
 
-	constructor(value = '0', currency = 'USD', options = {}) {
+	constructor(value, currency, options = {}) {
 		this._currency = new Currency(currency);
 		this._options = {...this.constructor.DEFAULT_SETTINGS, ...options};
 		this._value = this._preProcessInputValue(value);
@@ -36,13 +29,13 @@ export default class Money {
 
 	add(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		let newValue = this._value.plus(value._getInnerBigNumber());
+		let newValue = this._value.plus(value.getAmountAsBigNumber());
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency, this._options);
 	}
 
 	subtract(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		let newValue = this._value.minus(value._getInnerBigNumber());
+		let newValue = this._value.minus(value.getAmountAsBigNumber());
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency, this._options);
 	}
 
@@ -58,27 +51,32 @@ export default class Money {
 
 	equals(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		return this._value.equals(value._getInnerBigNumber());
+		return this._value.equals(value.getAmountAsBigNumber());
 	}
 
 	greaterThan(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		return this._value.greaterThan(value._getInnerBigNumber());
+		return this._value.greaterThan(value.getAmountAsBigNumber());
 	}
 
 	greaterThanOrEqualTo(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		return this._value.greaterThanOrEqualTo(value._getInnerBigNumber());
+		return this._value.greaterThanOrEqualTo(value.getAmountAsBigNumber());
 	}
 
 	lessThan(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		return this._value.lessThan(value._getInnerBigNumber());
+		return this._value.lessThan(value.getAmountAsBigNumber());
 	}
 
 	lessThanOrEqualTo(value) {
 		value = new this.constructor(value, this._currency, this._options);
-		return this._value.lessThanOrEqualTo(value._getInnerBigNumber());
+		return this._value.lessThanOrEqualTo(value.getAmountAsBigNumber());
+	}
+
+	round(rounding = this._options.roundingMode) {
+		let newValue = this._value.round(this._currency.getDecimalDigits(), rounding);
+		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency, this._options);
 	}
 
 	absolute() {
@@ -99,12 +97,15 @@ export default class Money {
 	allocate(ratios) {
 		let
 			allocations = [],
-			totalValue = this.clone({roundingMode: this.constructor.ROUND_FLOOR}),
+			totalValue = this.clone({roundingMode: this.constructor.ROUNDING_MODES.ROUND_FLOOR}),
 			remainder = this.clone(),
 			total = ratios.reduce((total, ratio) => total.plus(ratio), new BigNumber('0'));
 
 		for(let ratio of ratios) {
-			let share = totalValue.multiply(ratio, Money.ROUND_FLOOR).divide(total, Money.ROUND_FLOOR);
+			let share = totalValue
+				.multiply(ratio, this.constructor.ROUNDING_MODES.ROUND_FLOOR)
+				.divide(total, this.constructor.ROUNDING_MODES.ROUND_FLOOR);
+
 			allocations.push(share);
 			remainder = remainder.subtract(share);
 		}
@@ -115,8 +116,8 @@ export default class Money {
 	allocateTo(count) {
 		let
 			allocations = [],
-			totalValue = this.clone({roundingMode: this.constructor.ROUND_FLOOR}),
-			baseShare = totalValue.divide(count, Money.ROUND_FLOOR),
+			totalValue = this.clone({roundingMode: this.constructor.ROUNDING_MODES.ROUND_FLOOR}),
+			baseShare = totalValue.divide(count, this.constructor.ROUNDING_MODES.ROUND_FLOOR),
 			remainder = totalValue.subtract(baseShare.multiply(count));
 
 		for(let i = 0; i < count; i++) {
@@ -128,6 +129,22 @@ export default class Money {
 
 	clone(options = {}) {
 		return new this.constructor(this.getAmount(), this._currency, {...this._options, ...options});
+	}
+
+	format() {
+		return this._currency.format(this._value.toString());
+	}
+
+	getAmountAsBigNumber() {
+		return this._value;
+	}
+
+	getAmountAsStringInteger() {
+		return this.getAmount();
+	}
+
+	getAmountAsStringFloat() {
+		return this._value.toString();
 	}
 
 	getAmount() {
@@ -149,14 +166,8 @@ export default class Money {
 	toJSON() {
 		return {
 			amount: this.getAmount(),
-			currency: this._currency.getCode()
+			currency: this._currency.toString()
 		};
-	}
-
-	format() {
-		return CurrencyFormatter.format(this._value.toString(), {
-			code: this._currency.getCode()
-		});
 	}
 
 	_addRemainderToAllocations(allocations, remainder) {
@@ -181,7 +192,7 @@ export default class Money {
 
 	_preProcessInputValue(value) {
 		if(value instanceof Money) {
-			return value._getInnerBigNumber();
+			return value.getAmountAsBigNumber();
 		}
 
 		let divisor = this._getSmallestUnitDivisor();
@@ -216,10 +227,6 @@ export default class Money {
 		return value.times(this._getSmallestUnitDivisor()).toString();
 	}
 
-	_getInnerBigNumber() {
-		return this._value;
-	}
-
 	_getBigNumberConstructor() {
 		return BigNumber.another({
 			DECIMAL_PLACES: this._currency.getDecimalDigits(),
@@ -228,7 +235,8 @@ export default class Money {
 	}
 
 	static parse(value, currency, options = {}) {
-		value = CurrencyFormatter.unformat(value, {code: currency}).toString();
-		return new this(value.toString(), currency, options);
+		currency = new Currency(currency);
+		value = currency.unformat(value);
+		return new this(value, currency, options);
 	}
 }

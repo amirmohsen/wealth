@@ -2,13 +2,13 @@
   "name": "wealth",
   "version": "0.0.0",
   "repository": "https://github.com/amirmohsen/wealth",
-  "description": "A money library",
+  "description": "A full-featured money library",
   "scripts": {
     "build": "rollup -c -m",
     "dev": "rollup -c -m -w",
-    "test": "jest",
     "pretest": "npm run build",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "jest"
   },
   "files": [
     "dist"
@@ -19,7 +19,11 @@
   "keywords": [
     "flexverse",
     "money",
-    "currency"
+    "currency",
+    "calculation",
+    "formatting",
+    "allocation",
+    "serializable"
   ],
   "author": {
     "name": "Amir Abdolrazaghi",

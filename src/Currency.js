@@ -2,7 +2,7 @@ import CurrencyFormatter from 'currency-formatter';
 
 export default class Currency {
 
-	constructor(currency = 'USD') {
+	constructor(currency) {
 		this._currencySettings = CurrencyFormatter.findCurrency(this._preProcess(currency));
 	}
 
@@ -50,10 +50,30 @@ export default class Currency {
 		return this._currencySettings.decimalDigits;
 	}
 
+	format(value) {
+		return CurrencyFormatter.format(value, {
+			code: this._currencySettings.code
+		});
+	}
+
+	unformat(value) {
+		return CurrencyFormatter.unformat(value, {
+			code: this._currencySettings.code
+		}).toString();
+	}
+
 	_preProcess(currency) {
 		if(currency instanceof Currency) {
 			return currency.getCode();
 		}
 		return currency;
+	}
+
+	static getCurrencySettings(code) {
+		return CurrencyFormatter.findCurrency(code);
+	}
+
+	static getAllCurrenciesSettings() {
+		return CurrencyFormatter.currencies;
 	}
 }
