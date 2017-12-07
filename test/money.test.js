@@ -17,16 +17,16 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.subtract(moneyB).toString()).toBe('76138');
 	});
 
-	test('$0.05 * 4.05 = $0.21', () => {
+	test('$0.05 * 4.05 = $0.20', () => {
 		let	moneyA = new Money('5', 'USD');
 
-		expect(moneyA.multiply('4.05').toString()).toBe('21');
+		expect(moneyA.multiply('4.05').toString()).toBe('20');
 	});
 
-	test('$1096.37 / 80.47 = $13.63', () => {
+	test('$1096.37 / 80.47 = $13.62', () => {
 		let moneyA = new Money('109637', 'USD');
 
-		expect(moneyA.divide('80.47').toString()).toBe('1363');
+		expect(moneyA.divide('80.47').toString()).toBe('1362');
 	});
 
 	test('OMR10.381 + OMR8404.977 = OMR8415.358', () => {
@@ -45,16 +45,16 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.subtract(moneyB).toString()).toBe('761329');
 	});
 
-	test('OMR1.705 * 4.05 = OMR6.906', () => {
+	test('OMR1.705 * 4.05 = OMR6.905', () => {
 		let	moneyA = new Money('1705', 'OMR');
 
-		expect(moneyA.multiply('4.05').toString()).toBe('6906');
+		expect(moneyA.multiply('4.05').toString()).toBe('6905');
 	});
 
-	test('OMR1096.347 / 80 = OMR13.705', () => {
+	test('OMR1096.347 / 80 = OMR13.704', () => {
 		let moneyA = new Money('1096347', 'OMR');
 
-		expect(moneyA.divide('80').toString()).toBe('13705');
+		expect(moneyA.divide('80').toString()).toBe('13704');
 	});
 
 	test('¥10 + ¥8404 = ¥8414', () => {
