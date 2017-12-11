@@ -1,6 +1,6 @@
 .idea
 node_modules
-dist
-examples/dist
+lib
+docs
 npm-debug.log
 yarn-error.log

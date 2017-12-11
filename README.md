@@ -22,7 +22,7 @@ import {Money, Currency} from 'wealth';
 
 let
 	price = new Money('8078', 'USD'), // $80.78
-	discountedPercentage = 0.82, // 82% (18$ discount)
+	discountedPercentage = 0.82, // 82% ($18 discount)
 	discountedPrice = price.multiply(discountedPercentage), // $66.24
 	dollarCurrency = price.getCurrency(), // instanceof Currency
 	dollarSign = price.getCurrency().getSymbol(); // $

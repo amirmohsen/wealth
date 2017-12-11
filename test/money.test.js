@@ -1,4 +1,4 @@
-import {Money} from '../dist/wealth.esm';
+import {Money} from '../lib/wealth.esm';
 
 describe('The "Money" class: ', () => {
 	test('$10.38 + $8404.97 = $8415.35', () => {
