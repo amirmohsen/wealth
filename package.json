@@ -9,7 +9,7 @@
     "pretest": "npm run build",
     "prepublishOnly": "npm run build",
     "test": "jest",
-    "docs": "./node_modules/.bin/esdoc"
+    "docs": "esdoc"
   },
   "files": [
     "lib"

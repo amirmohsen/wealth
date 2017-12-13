@@ -6,7 +6,7 @@ import pkg from './package.json';
 
 let presets = pkg.babel.presets;
 
-presets[1].push({
+presets[0].push({
 	modules: false
 });
 

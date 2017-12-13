@@ -29,4 +29,4 @@ let
 ```
 
 # Documentation
-See the [documentation](docs.md) for a complete API reference with examples.
+See the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.
