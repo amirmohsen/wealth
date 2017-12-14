@@ -583,8 +583,8 @@
     "longname": "src/Currency.js~Currency",
     "access": "public",
     "export": true,
-    "importPath": "wealth/lib/Currency.js",
-    "importStyle": "Currency",
+    "importPath": "wealth",
+    "importStyle": "{Currency}",
     "description": "",
     "examples": [
       "let currency = new Currency('USD');"
@@ -1189,8 +1189,8 @@
     "longname": "src/Money.js~Money",
     "access": "public",
     "export": true,
-    "importPath": "wealth/lib/Money.js",
-    "importStyle": "Money",
+    "importPath": "wealth",
+    "importStyle": "{Money}",
     "description": "",
     "examples": [
       "let price = new Money('7856', 'USD'); // $78.56"
@@ -2495,7 +2495,7 @@
   },
   {
     "kind": "index",
-    "content": "# Wealth\r\n\r\nWealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.\r\n\r\nThere are many libraries out there that handle money or currency, but there's not one that offers a complete feature set.\r\nThis library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid\r\nreinventing the wheel.\r\n\r\nUnder the hood, it uses [bignumber.js](https://github.com/MikeMcl/bignumber.js/) for calculations\r\nand [Currency Formatter](https://github.com/smirzaei/currency-formatter) for formatting.\r\n\r\n# Installation\r\n`npm install wealth`\r\n\r\nor\r\n\r\n`yarn add wealth`\r\n\r\n# Basic Example\r\n```js\r\nimport {Money, Currency} from 'wealth';\r\n\r\nlet\r\n\tprice = new Money('8078', 'USD'), // $80.78\r\n\tdiscountedPercentage = 0.82, // 82% ($18 discount)\r\n\tdiscountedPrice = price.multiply(discountedPercentage), // $66.24\r\n\tdollarCurrency = price.getCurrency(), // instanceof Currency\r\n\tdollarSign = price.getCurrency().getSymbol(); // $\r\n```\r\n\r\n# Documentation\r\nSee the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.",
+    "content": "# Wealth\n\nWealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.\n\nThere are many libraries out there that handle money or currency, but there's not one that offers a complete feature set.\nThis library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid\nreinventing the wheel.\n\nUnder the hood, it uses [bignumber.js](https://github.com/MikeMcl/bignumber.js/) for calculations\nand [Currency Formatter](https://github.com/smirzaei/currency-formatter) for formatting.\n\n# Installation\n`npm install wealth`\n\nor\n\n`yarn add wealth`\n\n# Basic Example\n```js\nimport {Money, Currency} from 'wealth';\n\nlet\n\tprice = new Money('8078', 'USD'), // $80.78\n\tdiscountedPercentage = 0.82, // 82% ($18 discount)\n\tdiscountedPrice = price.multiply(discountedPercentage), // $66.24\n\tdollarCurrency = price.getCurrency(), // instanceof Currency\n\tdollarSign = dollarCurrency.getSymbol(); // $\n```\n\n# Documentation\nSee the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.\n",
     "longname": "C:\\Users\\amirm\\projects\\personal\\code\\wealth\\README.md",
     "name": "./README.md",
     "static": true,
@@ -2503,7 +2503,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"wealth\",\n  \"version\": \"0.0.0\",\n  \"repository\": \"https://github.com/amirmohsen/wealth\",\n  \"description\": \"A full-featured money library\",\n  \"scripts\": {\n    \"build\": \"rollup -c -m\",\n    \"dev\": \"rollup -c -m -w\",\n    \"pretest\": \"npm run build\",\n    \"prepublishOnly\": \"npm run build\",\n    \"test\": \"jest\",\n    \"docs\": \"esdoc\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"main\": \"lib/wealth.cjs.js\",\n  \"module\": \"lib/wealth.esm.js\",\n  \"browser\": \"lib/wealth.umd.js\",\n  \"keywords\": [\n    \"flexverse\",\n    \"money\",\n    \"currency\",\n    \"calculation\",\n    \"formatting\",\n    \"allocation\",\n    \"serializable\"\n  ],\n  \"author\": {\n    \"name\": \"Amir Abdolrazaghi\",\n    \"email\": \"amir@flexverse.tech\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/amirmohsen/wealth/issues\"\n  },\n  \"homepage\": \"https://github.com/amirmohsen/wealth#readme\",\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\"\n      ]\n    ],\n    \"plugins\": [\n      \"syntax-decorators\",\n      \"transform-decorators-legacy\",\n      \"transform-class-properties\",\n      \"transform-object-rest-spread\"\n    ]\n  },\n  \"dependencies\": {\n    \"bignumber.js\": \"^4.1.0\",\n    \"currency-formatter\": \"^1.3.1\",\n    \"validator\": \"^9.1.1\"\n  },\n  \"devDependencies\": {\n    \"babel-jest\": \"^21.2.0\",\n    \"babel-plugin-external-helpers\": \"^6.22.0\",\n    \"babel-plugin-syntax-decorators\": \"^6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"babel-plugin-transform-object-rest-spread\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.3.3\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.1\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"jest\": \"^21.2.1\",\n    \"rollup\": \"^0.50.0\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-commonjs\": \"^8.0.2\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"wealth\",\n  \"version\": \"0.0.1\",\n  \"repository\": \"https://github.com/amirmohsen/wealth\",\n  \"description\": \"A full-featured money library\",\n  \"scripts\": {\n    \"build\": \"rollup -c -m\",\n    \"dev\": \"rollup -c -m -w\",\n    \"pretest\": \"npm run build\",\n    \"prepublishOnly\": \"npm run build\",\n    \"test\": \"jest\",\n    \"docs\": \"esdoc\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"main\": \"lib/wealth.cjs.js\",\n  \"module\": \"lib/wealth.esm.js\",\n  \"browser\": \"lib/wealth.umd.js\",\n  \"keywords\": [\n    \"flexverse\",\n    \"money\",\n    \"currency\",\n    \"calculation\",\n    \"formatting\",\n    \"allocation\",\n    \"serializable\"\n  ],\n  \"author\": {\n    \"name\": \"Amir Abdolrazaghi\",\n    \"email\": \"amir@flexverse.tech\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/amirmohsen/wealth/issues\"\n  },\n  \"homepage\": \"https://github.com/amirmohsen/wealth#readme\",\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\"\n      ]\n    ],\n    \"plugins\": [\n      \"syntax-decorators\",\n      \"transform-decorators-legacy\",\n      \"transform-class-properties\",\n      \"transform-object-rest-spread\"\n    ]\n  },\n  \"dependencies\": {\n    \"bignumber.js\": \"^4.1.0\",\n    \"currency-formatter\": \"^1.3.1\",\n    \"validator\": \"^9.1.1\"\n  },\n  \"devDependencies\": {\n    \"babel-jest\": \"^21.2.0\",\n    \"babel-plugin-external-helpers\": \"^6.22.0\",\n    \"babel-plugin-syntax-decorators\": \"^6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"babel-plugin-transform-object-rest-spread\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.3.3\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.1\",\n    \"esdoc-named-import-plugin\": \"0.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"jest\": \"^21.2.1\",\n    \"rollup\": \"^0.50.0\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-commonjs\": \"^8.0.2\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\"\n  }\n}\n",
     "longname": "C:\\Users\\amirm\\projects\\personal\\code\\wealth\\package.json",
     "name": "package.json",
     "static": true,
