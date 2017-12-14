@@ -12,15 +12,7 @@
 			"name": "esdoc-standard-plugin"
 		},
 		{
-			"name": "esdoc-importpath-plugin",
-			"option": {
-				"replaces": [
-					{
-						"from": "^src/",
-						"to": "lib/"
-					}
-				]
-			}
+			"name": "esdoc-named-import-plugin"
 		}
 	]
 }

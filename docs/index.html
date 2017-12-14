@@ -51,7 +51,7 @@ let
     discountedPercentage = 0.82, // 82% ($18 discount)
     discountedPrice = price.multiply(discountedPercentage), // $66.24
     dollarCurrency = price.getCurrency(), // instanceof Currency
-    dollarSign = price.getCurrency().getSymbol(); // $</code>
+    dollarSign = dollarCurrency.getSymbol(); // $</code>
 </code></pre>
 <h1 id="documentation">Documentation</h1><p>See the <a href="http://amirmohsen.github.io/wealth">documentation</a> for a complete API reference with examples.</p>
 </div>

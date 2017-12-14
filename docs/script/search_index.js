@@ -1,14 +1,14 @@
 window.esdocSearchIndex = [
   [
-    "wealth/lib/currency.js~currency",
+    "wealth~currency",
     "class/src/Currency.js~Currency.html",
-    "<span>Currency</span> <span class=\"search-result-import-path\">wealth/lib/Currency.js</span>",
+    "<span>Currency</span> <span class=\"search-result-import-path\">wealth</span>",
     "class"
   ],
   [
-    "wealth/lib/money.js~money",
+    "wealth~money",
     "class/src/Money.js~Money.html",
-    "<span>Money</span> <span class=\"search-result-import-path\">wealth/lib/Money.js</span>",
+    "<span>Money</span> <span class=\"search-result-import-path\">wealth</span>",
     "class"
   ],
   [

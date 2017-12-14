@@ -25,7 +25,7 @@ let
 	discountedPercentage = 0.82, // 82% ($18 discount)
 	discountedPrice = price.multiply(discountedPercentage), // $66.24
 	dollarCurrency = price.getCurrency(), // instanceof Currency
-	dollarSign = price.getCurrency().getSymbol(); // $
+	dollarSign = dollarCurrency.getSymbol(); // $
 ```
 
 # Documentation

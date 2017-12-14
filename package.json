@@ -1,6 +1,6 @@
 {
   "name": "wealth",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": "https://github.com/amirmohsen/wealth",
   "description": "A full-featured money library",
   "scripts": {
@@ -64,6 +64,7 @@
     "esdoc": "^1.0.4",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-importpath-plugin": "^1.0.1",
+    "esdoc-named-import-plugin": "0.0.0",
     "esdoc-standard-plugin": "^1.0.0",
     "jest": "^21.2.1",
     "rollup": "^0.50.0",
