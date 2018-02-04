@@ -2,6 +2,8 @@ import BigNumber from 'bignumber.js';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
 import Currency from './Currency';
+import CurrencyMismatchError from './CurrencyMismatchError';
+import WrongMoneyInputError from './WrongMoneyInputError';
 
 /**
  * @example
@@ -197,6 +199,15 @@ export default class Money {
 	}
 
 	/**
+	 * Checks if the current currency is the same as that of the parameter
+	 * @param {number|string|Money} value - value to check currency against the current value; type same as constructor
+	 * @returns {boolean} - true if the current value has the same currency as the parameter
+	 */
+	hasSameCurrency(value) {
+		return this._currency.is(value.getCurrency());
+	}
+
+	/**
 	 * Split the current value by an array of ratios
 	 * @param {number[]|string[]} ratios - an array of numbers by which to divide up the current value
 	 * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value
@@ -322,6 +333,12 @@ export default class Money {
 		};
 	}
 
+	_checkValueCurrency(value) {
+		if(!this.hasSameCurrency(value)) {
+			throw new CurrencyMismatchError();
+		}
+	}
+
 	/**
 	 * Used by allocation methods to add the remainder to the array of allocations
 	 * @param {Money[]} allocations - an array of Money instances already allocated
@@ -357,6 +374,7 @@ export default class Money {
 	 */
 	_preProcessInputValue(value) {
 		if(value instanceof Money) {
+			this._checkValueCurrency(value);
 			return value.getAmountAsBigNumber();
 		}
 
@@ -376,7 +394,7 @@ export default class Money {
 			return new BN(value);
 		}
 
-		throw new Error('The input value must be either an integer, an integer-like string, a float-like string or a "Money" instance.');
+		throw new WrongMoneyInputError('The input value must be either an integer, an integer-like string, a float-like string or a "Money" instance.');
 	}
 
 	/**

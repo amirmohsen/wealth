@@ -18,6 +18,16 @@ export default class Currency {
 	}
 
 	/**
+	 * Check if the paremeter currency the same as the current currency
+	 * @param {string|Currency} currency - Currency string code or instance of Currency
+	 * @returns {boolean} - returns true if the parameter currency is the same as the current currency
+	 */
+	is(currency) {
+		currency = new Currency(currency);
+		return this.getCode() === currency.getCode();
+	}
+
+	/**
 	 * Get currency settings
 	 * @returns {Object} - Currency settings
 	 */
@@ -85,7 +95,7 @@ export default class Currency {
 	 * Does the currency symbol go to the left of the value?
 	 * @returns {boolean} - True if currency symbol goes to the left of the value.
 	 */
-	getSymbolOnLeft() {
+	hasSymbolOnLeft() {
 		return this._currencySettings.symbolOnLeft;
 	}
 
@@ -93,7 +103,7 @@ export default class Currency {
 	 * Is there a space between amount and symbol of the currency?
 	 * @returns {boolean} - True if there's a symbol between amount and symbol of the currency.
 	 */
-	getSpaceBetweenAmountAndSymbol() {
+	hasSpaceBetweenAmountAndSymbol() {
 		return this._currencySettings.spaceBetweenAmountAndSymbol;
 	}
 

@@ -12,4 +12,8 @@ describe('The "Currency" class: ', () => {
 	test('(new Currency("EUR")).getSymbol() === "€"', () => {
 		expect((new Currency('EUR')).getSymbol()).toBe('€');
 	});
+
+	test('(new Currency("GBP")).is(new Currency("USD")) === false', () => {
+		expect((new Currency('GBP')).is(new Currency('USD'))).toBe(false);
+	});
 });
