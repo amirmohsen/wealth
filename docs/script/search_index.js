@@ -6,9 +6,27 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "wealth~currencymismatcherror",
+    "class/src/CurrencyMismatchError.js~CurrencyMismatchError.html",
+    "<span>CurrencyMismatchError</span> <span class=\"search-result-import-path\">wealth</span>",
+    "class"
+  ],
+  [
     "wealth~money",
     "class/src/Money.js~Money.html",
     "<span>Money</span> <span class=\"search-result-import-path\">wealth</span>",
+    "class"
+  ],
+  [
+    "wealth~wealtherror",
+    "class/src/WealthError.js~WealthError.html",
+    "<span>WealthError</span> <span class=\"search-result-import-path\">wealth</span>",
+    "class"
+  ],
+  [
+    "wealth~wronginputerror",
+    "class/src/WrongInputError.js~WrongInputError.html",
+    "<span>WrongInputError</span> <span class=\"search-result-import-path\">wealth</span>",
     "class"
   ],
   [
@@ -354,27 +372,33 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/currency.js~currency#getspacebetweenamountandsymbol",
-    "class/src/Currency.js~Currency.html#instance-method-getSpaceBetweenAmountAndSymbol",
-    "src/Currency.js~Currency#getSpaceBetweenAmountAndSymbol",
-    "method"
-  ],
-  [
     "src/currency.js~currency#getsymbol",
     "class/src/Currency.js~Currency.html#instance-method-getSymbol",
     "src/Currency.js~Currency#getSymbol",
     "method"
   ],
   [
-    "src/currency.js~currency#getsymbolonleft",
-    "class/src/Currency.js~Currency.html#instance-method-getSymbolOnLeft",
-    "src/Currency.js~Currency#getSymbolOnLeft",
-    "method"
-  ],
-  [
     "src/currency.js~currency#getthousandsseparator",
     "class/src/Currency.js~Currency.html#instance-method-getThousandsSeparator",
     "src/Currency.js~Currency#getThousandsSeparator",
+    "method"
+  ],
+  [
+    "src/currency.js~currency#hasspacebetweenamountandsymbol",
+    "class/src/Currency.js~Currency.html#instance-method-hasSpaceBetweenAmountAndSymbol",
+    "src/Currency.js~Currency#hasSpaceBetweenAmountAndSymbol",
+    "method"
+  ],
+  [
+    "src/currency.js~currency#hassymbolonleft",
+    "class/src/Currency.js~Currency.html#instance-method-hasSymbolOnLeft",
+    "src/Currency.js~Currency#hasSymbolOnLeft",
+    "method"
+  ],
+  [
+    "src/currency.js~currency#is",
+    "class/src/Currency.js~Currency.html#instance-method-is",
+    "src/Currency.js~Currency#is",
     "method"
   ],
   [
@@ -414,6 +438,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/currencymismatcherror.js",
+    "file/src/CurrencyMismatchError.js.html",
+    "src/CurrencyMismatchError.js",
+    "file"
+  ],
+  [
+    "src/currencymismatcherror.js~currencymismatcherror#constructor",
+    "class/src/CurrencyMismatchError.js~CurrencyMismatchError.html#instance-constructor-constructor",
+    "src/CurrencyMismatchError.js~CurrencyMismatchError#constructor",
+    "method"
+  ],
+  [
     "src/money.js",
     "file/src/Money.js.html",
     "src/Money.js",
@@ -423,6 +459,12 @@ window.esdocSearchIndex = [
     "src/money.js~money#_addremaindertoallocations",
     "class/src/Money.js~Money.html#instance-method-_addRemainderToAllocations",
     "src/Money.js~Money#_addRemainderToAllocations",
+    "method"
+  ],
+  [
+    "src/money.js~money#_checkvaluecurrency",
+    "class/src/Money.js~Money.html#instance-method-_checkValueCurrency",
+    "src/Money.js~Money#_checkValueCurrency",
     "method"
   ],
   [
@@ -582,6 +624,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/money.js~money#hassamecurrency",
+    "class/src/Money.js~Money.html#instance-method-hasSameCurrency",
+    "src/Money.js~Money#hasSameCurrency",
+    "method"
+  ],
+  [
     "src/money.js~money#lessthan",
     "class/src/Money.js~Money.html#instance-method-lessThan",
     "src/Money.js~Money#lessThan",
@@ -627,6 +675,30 @@ window.esdocSearchIndex = [
     "src/money.js~money.parse",
     "class/src/Money.js~Money.html#static-method-parse",
     "src/Money.js~Money.parse",
+    "method"
+  ],
+  [
+    "src/wealtherror.js",
+    "file/src/WealthError.js.html",
+    "src/WealthError.js",
+    "file"
+  ],
+  [
+    "src/wealtherror.js~wealtherror#constructor",
+    "class/src/WealthError.js~WealthError.html#instance-constructor-constructor",
+    "src/WealthError.js~WealthError#constructor",
+    "method"
+  ],
+  [
+    "src/wronginputerror.js",
+    "file/src/WrongInputError.js.html",
+    "src/WrongInputError.js",
+    "file"
+  ],
+  [
+    "src/wronginputerror.js~wronginputerror#constructor",
+    "class/src/WrongInputError.js~WrongInputError.html#instance-constructor-constructor",
+    "src/WrongInputError.js~WrongInputError#constructor",
     "method"
   ],
   [

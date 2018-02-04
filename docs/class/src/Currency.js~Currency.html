@@ -30,7 +30,10 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WealthError.js~WealthError.html">WealthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -409,35 +412,6 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getSpaceBetweenAmountAndSymbol">getSpaceBetweenAmountAndSymbol</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Is there a space between amount and symbol of the currency?</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getSymbol">getSymbol</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
@@ -467,7 +441,65 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getSymbolOnLeft">getSymbolOnLeft</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getThousandsSeparator">getThousandsSeparator</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get currency thousands separator</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-hasSpaceBetweenAmountAndSymbol">hasSpaceBetweenAmountAndSymbol</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Is there a space between amount and symbol of the currency?</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-hasSymbolOnLeft">hasSymbolOnLeft</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -496,13 +528,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getThousandsSeparator">getThousandsSeparator</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-is">is</a></span></span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get currency thousands separator</p>
+        <div data-ice="description"><p>Check if the paremeter currency the same as the current currency</p>
 </div>
       </div>
     </td>
@@ -683,7 +715,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber164">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber174">source</a></span></span>
     </span>
   </h3>
 
@@ -740,7 +772,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber156">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber166">source</a></span></span>
     </span>
   </h3>
 
@@ -926,7 +958,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
@@ -983,7 +1015,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber113">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber123">source</a></span></span>
     </span>
   </h3>
 
@@ -1057,7 +1089,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -1114,7 +1146,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber104">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber114">source</a></span></span>
     </span>
   </h3>
 
@@ -1171,7 +1203,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber90">source</a></span></span>
     </span>
   </h3>
 
@@ -1228,7 +1260,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber34">source</a></span></span>
     </span>
   </h3>
 
@@ -1274,63 +1306,6 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getSpaceBetweenAmountAndSymbol">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">getSpaceBetweenAmountAndSymbol</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber96">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Is there a space between amount and symbol of the currency?</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>True if there&apos;s a symbol between amount and symbol of the currency.</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getSymbol">
     <span class="access" data-ice="access">public</span>
     
@@ -1342,7 +1317,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber64">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber74">source</a></span></span>
     </span>
   </h3>
 
@@ -1388,63 +1363,6 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getSymbolOnLeft">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">getSymbolOnLeft</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber88">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Does the currency symbol go to the left of the value?</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>True if currency symbol goes to the left of the value.</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getThousandsSeparator">
     <span class="access" data-ice="access">public</span>
     
@@ -1456,7 +1374,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber72">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
@@ -1502,6 +1420,194 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-hasSpaceBetweenAmountAndSymbol">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">hasSpaceBetweenAmountAndSymbol</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber106">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Is there a space between amount and symbol of the currency?</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>True if there&apos;s a symbol between amount and symbol of the currency.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-hasSymbolOnLeft">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">hasSymbolOnLeft</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber98">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Does the currency symbol go to the left of the value?</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>True if currency symbol goes to the left of the value.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-is">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">is</span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber25">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Check if the paremeter currency the same as the current currency</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">currency</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Currency string code or instance of Currency</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>returns true if the parameter currency is the same as the current currency</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-parse">
     <span class="access" data-ice="access">public</span>
     
@@ -1513,7 +1619,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber133">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -1587,7 +1693,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber40">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
@@ -1644,7 +1750,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -1701,7 +1807,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber124">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -1777,7 +1883,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber144">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber154">source</a></span></span>
     </span>
   </h3>
 

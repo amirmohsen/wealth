@@ -3,7 +3,7 @@ import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
 import Currency from './Currency';
 import CurrencyMismatchError from './CurrencyMismatchError';
-import WrongMoneyInputError from './WrongMoneyInputError';
+import WrongInputError from './WrongInputError';
 
 /**
  * @example
@@ -106,7 +106,7 @@ export default class Money {
 	 * @returns {Money} - new Money instance after multiplication
 	 */
 	multiply(value, rounding = this.constructor.ROUNDING.HALF_UP) {
-		let newValue = this._value.times(value).round(this._currency.getDecimalDigits(), rounding);
+		let newValue = this._value.times(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
@@ -117,7 +117,7 @@ export default class Money {
 	 * @returns {Money} - new Money instance after division
 	 */
 	divide(value, rounding = this.constructor.ROUNDING.HALF_UP) {
-		let newValue = this._value.dividedBy(value).round(this._currency.getDecimalDigits(), rounding);
+		let newValue = this._value.dividedBy(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
@@ -128,7 +128,7 @@ export default class Money {
 	 */
 	equals(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.equals(value.getAmountAsBigNumber());
+		return this._value.isEqualTo(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -138,7 +138,7 @@ export default class Money {
 	 */
 	greaterThan(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.greaterThan(value.getAmountAsBigNumber());
+		return this._value.isGreaterThan(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -148,7 +148,7 @@ export default class Money {
 	 */
 	greaterThanOrEqualTo(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.greaterThanOrEqualTo(value.getAmountAsBigNumber());
+		return this._value.isGreaterThanOrEqualTo(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -158,7 +158,7 @@ export default class Money {
 	 */
 	lessThan(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.lessThan(value.getAmountAsBigNumber());
+		return this._value.isLessThan(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -168,7 +168,7 @@ export default class Money {
 	 */
 	lessThanOrEqualTo(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.lessThanOrEqualTo(value.getAmountAsBigNumber());
+		return this._value.isLessThanOrEqualTo(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -185,7 +185,7 @@ export default class Money {
 	 * @returns {Money} - new Money instance with the floor value
 	 */
 	floor() {
-		let newValue = this._value.floor();
+		let newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.FLOOR);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
@@ -194,16 +194,19 @@ export default class Money {
 	 * @returns {Money} - new Money instance with the ceiling value
 	 */
 	ceil() {
-		let newValue = this._value.ceil();
+		let newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.CEIL);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
 	/**
 	 * Checks if the current currency is the same as that of the parameter
-	 * @param {number|string|Money} value - value to check currency against the current value; type same as constructor
+	 * @param {Money} value - value to check currency against the current value; type same as constructor
 	 * @returns {boolean} - true if the current value has the same currency as the parameter
 	 */
 	hasSameCurrency(value) {
+		if(!(value instanceof Money)) {
+			throw new WrongInputError('The input value must be a "Money" instance.');
+		}
 		return this._currency.is(value.getCurrency());
 	}
 
@@ -333,6 +336,11 @@ export default class Money {
 		};
 	}
 
+	/**
+	 * Check that the currency of the passed value matches the current currency. If not, throw an error.
+	 * @param {Money} value - The money object which is used for currency check
+	 * @private
+	 */
 	_checkValueCurrency(value) {
 		if(!this.hasSameCurrency(value)) {
 			throw new CurrencyMismatchError();
@@ -382,19 +390,19 @@ export default class Money {
 
 		const BN = this._getBigNumberConstructor();
 
-		if(divisor.greaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {
+		if(divisor.isGreaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {
 			value = new BN(value);
 
 			return value
 				.dividedBy(divisor)
-				.round(this._currency.getDecimalDigits());
+				.decimalPlaces(this._currency.getDecimalDigits());
 		}
 
 		if(typeof value === 'string' && isFloat(value)) {
 			return new BN(value);
 		}
 
-		throw new WrongMoneyInputError('The input value must be either an integer, an integer-like string, a float-like string or a "Money" instance.');
+		throw new WrongInputError('The input value must be either an integer, an integer-like string, a float-like string or a "Money" instance.');
 	}
 
 	/**
@@ -405,7 +413,7 @@ export default class Money {
 	 */
 	_getSmallestUnitDivisor() {
 		let	decimalDigits = this._currency.getDecimalDigits();
-		return (new BigNumber('10')).toPower(decimalDigits);
+		return (new BigNumber('10')).exponentiatedBy(decimalDigits);
 	}
 
 	/**
@@ -433,7 +441,7 @@ export default class Money {
 	 * @private
 	 */
 	_getBigNumberConstructor() {
-		return BigNumber.another({
+		return BigNumber.clone({
 			DECIMAL_PLACES: 20,
 			ROUNDING_MODE: this.constructor.ROUNDING.HALF_UP
 		});

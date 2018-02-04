@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wealth</title>
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/WrongInputError.js | wealth</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -38,26 +38,32 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wealth">Wealth</h1><p>Wealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.</p>
-<p>There are many libraries out there that handle money or currency, but there&apos;s not one that offers a complete feature set.
-This library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid
-reinventing the wheel.</p>
-<p>Under the hood, it uses <a href="https://github.com/MikeMcl/bignumber.js/">bignumber.js</a> for calculations
-and <a href="https://github.com/smirzaei/currency-formatter">Currency Formatter</a> for formatting.</p>
-<h1 id="installation">Installation</h1><p><code>npm install wealth</code></p>
-<p>or</p>
-<p><code>yarn add wealth</code></p>
-<h1 id="basic-example">Basic Example</h1><pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Currency} from &apos;wealth&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/WrongInputError.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import WealthError from &apos;./WealthError&apos;;
 
-let
-    price = new Money(&apos;8078&apos;, &apos;USD&apos;), // $80.78
-    discountedPercentage = 0.82, // 82% ($18 discount)
-    discountedPrice = price.multiply(discountedPercentage), // $66.24
-    dollarCurrency = price.getCurrency(), // instanceof Currency
-    dollarSign = dollarCurrency.getSymbol(); // $</code>
+/**
+ * Error thrown when the input argument is wrong
+ * @example
+ * try {
+ *  // operation
+ * }
+ * catch(e) {
+ *  if(e instanceof WrongInputError) {
+ *      // handle error
+ *  }
+ * }
+ */
+export default class WrongInputError extends WealthError {
+
+	/**
+	 * @param {string} message - Error message
+	 */
+	constructor(message = &apos;Wrong input argument&apos;) {
+		super(message);
+	}
+}
 </code></pre>
-<h1 id="documentation">Documentation</h1><p>See the <a href="http://amirmohsen.github.io/wealth">documentation</a> for a complete API reference with examples.</p>
-</div>
+
 </div>
 
 <footer class="footer">

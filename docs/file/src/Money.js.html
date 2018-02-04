@@ -30,7 +30,10 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WealthError.js~WealthError.html">WealthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -40,6 +43,8 @@
 import isInt from &apos;validator/lib/isInt&apos;;
 import isFloat from &apos;validator/lib/isFloat&apos;;
 import Currency from &apos;./Currency&apos;;
+import CurrencyMismatchError from &apos;./CurrencyMismatchError&apos;;
+import WrongInputError from &apos;./WrongInputError&apos;;
 
 /**
  * @example
@@ -142,7 +147,7 @@ export default class Money {
 	 * @returns {Money} - new Money instance after multiplication
 	 */
 	multiply(value, rounding = this.constructor.ROUNDING.HALF_UP) {
-		let newValue = this._value.times(value).round(this._currency.getDecimalDigits(), rounding);
+		let newValue = this._value.times(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
@@ -153,7 +158,7 @@ export default class Money {
 	 * @returns {Money} - new Money instance after division
 	 */
 	divide(value, rounding = this.constructor.ROUNDING.HALF_UP) {
-		let newValue = this._value.dividedBy(value).round(this._currency.getDecimalDigits(), rounding);
+		let newValue = this._value.dividedBy(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
@@ -164,7 +169,7 @@ export default class Money {
 	 */
 	equals(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.equals(value.getAmountAsBigNumber());
+		return this._value.isEqualTo(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -174,7 +179,7 @@ export default class Money {
 	 */
 	greaterThan(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.greaterThan(value.getAmountAsBigNumber());
+		return this._value.isGreaterThan(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -184,7 +189,7 @@ export default class Money {
 	 */
 	greaterThanOrEqualTo(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.greaterThanOrEqualTo(value.getAmountAsBigNumber());
+		return this._value.isGreaterThanOrEqualTo(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -194,7 +199,7 @@ export default class Money {
 	 */
 	lessThan(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.lessThan(value.getAmountAsBigNumber());
+		return this._value.isLessThan(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -204,7 +209,7 @@ export default class Money {
 	 */
 	lessThanOrEqualTo(value) {
 		value = new this.constructor(value, this._currency);
-		return this._value.lessThanOrEqualTo(value.getAmountAsBigNumber());
+		return this._value.isLessThanOrEqualTo(value.getAmountAsBigNumber());
 	}
 
 	/**
@@ -221,7 +226,7 @@ export default class Money {
 	 * @returns {Money} - new Money instance with the floor value
 	 */
 	floor() {
-		let newValue = this._value.floor();
+		let newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.FLOOR);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
 	}
 
@@ -230,8 +235,20 @@ export default class Money {
 	 * @returns {Money} - new Money instance with the ceiling value
 	 */
 	ceil() {
-		let newValue = this._value.ceil();
+		let newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.CEIL);
 		return new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);
+	}
+
+	/**
+	 * Checks if the current currency is the same as that of the parameter
+	 * @param {Money} value - value to check currency against the current value; type same as constructor
+	 * @returns {boolean} - true if the current value has the same currency as the parameter
+	 */
+	hasSameCurrency(value) {
+		if(!(value instanceof Money)) {
+			throw new WrongInputError(&apos;The input value must be a &quot;Money&quot; instance.&apos;);
+		}
+		return this._currency.is(value.getCurrency());
 	}
 
 	/**
@@ -361,6 +378,17 @@ export default class Money {
 	}
 
 	/**
+	 * Check that the currency of the passed value matches the current currency. If not, throw an error.
+	 * @param {Money} value - The money object which is used for currency check
+	 * @private
+	 */
+	_checkValueCurrency(value) {
+		if(!this.hasSameCurrency(value)) {
+			throw new CurrencyMismatchError();
+		}
+	}
+
+	/**
 	 * Used by allocation methods to add the remainder to the array of allocations
 	 * @param {Money[]} allocations - an array of Money instances already allocated
 	 * @param {Money} remainder - a Money instance with the remainder yet to be added to the array of allocations
@@ -395,6 +423,7 @@ export default class Money {
 	 */
 	_preProcessInputValue(value) {
 		if(value instanceof Money) {
+			this._checkValueCurrency(value);
 			return value.getAmountAsBigNumber();
 		}
 
@@ -402,19 +431,19 @@ export default class Money {
 
 		const BN = this._getBigNumberConstructor();
 
-		if(divisor.greaterThan(1) &amp;&amp; (Number.isInteger(value) || (typeof value === &apos;string&apos; &amp;&amp; isInt(value)))) {
+		if(divisor.isGreaterThan(1) &amp;&amp; (Number.isInteger(value) || (typeof value === &apos;string&apos; &amp;&amp; isInt(value)))) {
 			value = new BN(value);
 
 			return value
 				.dividedBy(divisor)
-				.round(this._currency.getDecimalDigits());
+				.decimalPlaces(this._currency.getDecimalDigits());
 		}
 
 		if(typeof value === &apos;string&apos; &amp;&amp; isFloat(value)) {
 			return new BN(value);
 		}
 
-		throw new Error(&apos;The input value must be either an integer, an integer-like string, a float-like string or a &quot;Money&quot; instance.&apos;);
+		throw new WrongInputError(&apos;The input value must be either an integer, an integer-like string, a float-like string or a &quot;Money&quot; instance.&apos;);
 	}
 
 	/**
@@ -425,7 +454,7 @@ export default class Money {
 	 */
 	_getSmallestUnitDivisor() {
 		let	decimalDigits = this._currency.getDecimalDigits();
-		return (new BigNumber(&apos;10&apos;)).toPower(decimalDigits);
+		return (new BigNumber(&apos;10&apos;)).exponentiatedBy(decimalDigits);
 	}
 
 	/**
@@ -453,7 +482,7 @@ export default class Money {
 	 * @private
 	 */
 	_getBigNumberConstructor() {
-		return BigNumber.another({
+		return BigNumber.clone({
 			DECIMAL_PLACES: 20,
 			ROUNDING_MODE: this.constructor.ROUNDING.HALF_UP
 		});
@@ -470,7 +499,8 @@ export default class Money {
 		value = currency.unformat(value);
 		return new this(value, currency);
 	}
-}</code></pre>
+}
+</code></pre>
 
 </div>
 

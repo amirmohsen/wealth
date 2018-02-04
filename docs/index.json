@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/Currency.js",
-    "content": "import CurrencyFormatter from 'currency-formatter';\r\n\r\n/**\r\n * @example\r\n * let currency = new Currency('USD');\r\n */\r\nexport default class Currency {\r\n\r\n\t/**\r\n\t * @param {string|Currency} currency - Currency string code or instance of Currency\r\n\t */\r\n\tconstructor(currency) {\r\n\t\t/**\r\n\t\t * @type {object} - an object holding currency details such as decimal digits, etc.\r\n\t\t * @private\r\n\t\t */\r\n\t\tthis._currencySettings = CurrencyFormatter.findCurrency(this._preProcess(currency));\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency settings\r\n\t * @returns {Object} - Currency settings\r\n\t */\r\n\tgetSettings() {\r\n\t\treturn this._currencySettings;\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency code\r\n\t * @returns {string} - Currency code\r\n\t */\r\n\ttoString() {\r\n\t\treturn this.getCode();\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency code\r\n\t * @returns {string} - Currency code\r\n\t */\r\n\ttoJSON() {\r\n\t\treturn this.getCode();\r\n\t}\r\n\r\n\t/**\r\n\t * Clone the currency instance\r\n\t * @returns {Currency} - new Currency instance\r\n\t */\r\n\tclone() {\r\n\t\treturn new this.constructor(this.getCode());\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency code\r\n\t * @returns {string} - Currency code\r\n\t */\r\n\tgetCode() {\r\n\t\treturn this._currencySettings.code;\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency symbol\r\n\t * @returns {string} - Currency symbol\r\n\t */\r\n\tgetSymbol() {\r\n\t\treturn this._currencySettings.symbol;\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency thousands separator\r\n\t * @returns {string} - Currency thousands separator\r\n\t */\r\n\tgetThousandsSeparator() {\r\n\t\treturn this._currencySettings.thousandsSeparator;\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency decimal separator\r\n\t * @returns {string} - Currency decimal separator\r\n\t */\r\n\tgetDecimalSeparator() {\r\n\t\treturn this._currencySettings.decimalSeparator;\r\n\t}\r\n\r\n\t/**\r\n\t * Does the currency symbol go to the left of the value?\r\n\t * @returns {boolean} - True if currency symbol goes to the left of the value.\r\n\t */\r\n\tgetSymbolOnLeft() {\r\n\t\treturn this._currencySettings.symbolOnLeft;\r\n\t}\r\n\r\n\t/**\r\n\t * Is there a space between amount and symbol of the currency?\r\n\t * @returns {boolean} - True if there's a symbol between amount and symbol of the currency.\r\n\t */\r\n\tgetSpaceBetweenAmountAndSymbol() {\r\n\t\treturn this._currencySettings.spaceBetweenAmountAndSymbol;\r\n\t}\r\n\r\n\t/**\r\n\t * Get the number of decimal digits for this currency\r\n\t * @returns {number} - Number of decimal digits\r\n\t */\r\n\tgetDecimalDigits() {\r\n\t\treturn this._currencySettings.decimalDigits;\r\n\t}\r\n\r\n\t/**\r\n\t * Format a monetary value\r\n\t * @param {string|number} value - Monetary value to be formatted\r\n\t * @returns {string} - Formatted string of the value\r\n\t */\r\n\tformat(value) {\r\n\t\treturn CurrencyFormatter.format(value, {\r\n\t\t\tcode: this._currencySettings.code\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Unformat a monetary value from a formatted value (same as `parse`)\r\n\t * @param {string} value - Formatted value to be parsed into a monetary value\r\n\t * @returns {string} - Parsed monetary value\r\n\t */\r\n\tunformat(value) {\r\n\t\treturn this.parse(value);\r\n\t}\r\n\r\n\t/**\r\n\t * Parse a monetary value from a formatted value (same as `unformat`)\r\n\t * @param {string} value - Formatted value to be parsed into a monetary value\r\n\t * @returns {string} - Parsed monetary value\r\n\t */\r\n\tparse(value) {\r\n\t\treturn CurrencyFormatter.unformat(value, {\r\n\t\t\tcode: this._currencySettings.code\r\n\t\t}).toString();\r\n\t}\r\n\r\n\t/**\r\n\t * Used by the constructor to pre-process the input\r\n\t * @param {string|Currency} currency - Currency code or instance of Currency\r\n\t * @returns {string} - Currency code\r\n\t */\r\n\t_preProcess(currency) {\r\n\t\tif(currency instanceof Currency) {\r\n\t\t\treturn currency.getCode();\r\n\t\t}\r\n\t\treturn currency;\r\n\t}\r\n\r\n\t/**\r\n\t * Get currency settings for the specified currency\r\n\t * @param {string} code - Currency code\r\n\t * @return {object} - Currency settings\r\n\t */\r\n\tstatic getCurrencySettings(code) {\r\n\t\treturn CurrencyFormatter.findCurrency(code);\r\n\t}\r\n\r\n\t/**\r\n\t * Get an array of currency settings for all currencies\r\n\t * @return {object[]} - Settings for all currencies\r\n\t */\r\n\tstatic getAllCurrenciesSettings() {\r\n\t\treturn CurrencyFormatter.currencies;\r\n\t}\r\n}",
+    "content": "import CurrencyFormatter from 'currency-formatter';\n\n/**\n * @example\n * let currency = new Currency('USD');\n */\nexport default class Currency {\n\n\t/**\n\t * @param {string|Currency} currency - Currency string code or instance of Currency\n\t */\n\tconstructor(currency) {\n\t\t/**\n\t\t * @type {object} - an object holding currency details such as decimal digits, etc.\n\t\t * @private\n\t\t */\n\t\tthis._currencySettings = CurrencyFormatter.findCurrency(this._preProcess(currency));\n\t}\n\n\t/**\n\t * Check if the paremeter currency the same as the current currency\n\t * @param {string|Currency} currency - Currency string code or instance of Currency\n\t * @returns {boolean} - returns true if the parameter currency is the same as the current currency\n\t */\n\tis(currency) {\n\t\tcurrency = new Currency(currency);\n\t\treturn this.getCode() === currency.getCode();\n\t}\n\n\t/**\n\t * Get currency settings\n\t * @returns {Object} - Currency settings\n\t */\n\tgetSettings() {\n\t\treturn this._currencySettings;\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\ttoString() {\n\t\treturn this.getCode();\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\ttoJSON() {\n\t\treturn this.getCode();\n\t}\n\n\t/**\n\t * Clone the currency instance\n\t * @returns {Currency} - new Currency instance\n\t */\n\tclone() {\n\t\treturn new this.constructor(this.getCode());\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\tgetCode() {\n\t\treturn this._currencySettings.code;\n\t}\n\n\t/**\n\t * Get currency symbol\n\t * @returns {string} - Currency symbol\n\t */\n\tgetSymbol() {\n\t\treturn this._currencySettings.symbol;\n\t}\n\n\t/**\n\t * Get currency thousands separator\n\t * @returns {string} - Currency thousands separator\n\t */\n\tgetThousandsSeparator() {\n\t\treturn this._currencySettings.thousandsSeparator;\n\t}\n\n\t/**\n\t * Get currency decimal separator\n\t * @returns {string} - Currency decimal separator\n\t */\n\tgetDecimalSeparator() {\n\t\treturn this._currencySettings.decimalSeparator;\n\t}\n\n\t/**\n\t * Does the currency symbol go to the left of the value?\n\t * @returns {boolean} - True if currency symbol goes to the left of the value.\n\t */\n\thasSymbolOnLeft() {\n\t\treturn this._currencySettings.symbolOnLeft;\n\t}\n\n\t/**\n\t * Is there a space between amount and symbol of the currency?\n\t * @returns {boolean} - True if there's a symbol between amount and symbol of the currency.\n\t */\n\thasSpaceBetweenAmountAndSymbol() {\n\t\treturn this._currencySettings.spaceBetweenAmountAndSymbol;\n\t}\n\n\t/**\n\t * Get the number of decimal digits for this currency\n\t * @returns {number} - Number of decimal digits\n\t */\n\tgetDecimalDigits() {\n\t\treturn this._currencySettings.decimalDigits;\n\t}\n\n\t/**\n\t * Format a monetary value\n\t * @param {string|number} value - Monetary value to be formatted\n\t * @returns {string} - Formatted string of the value\n\t */\n\tformat(value) {\n\t\treturn CurrencyFormatter.format(value, {\n\t\t\tcode: this._currencySettings.code\n\t\t});\n\t}\n\n\t/**\n\t * Unformat a monetary value from a formatted value (same as `parse`)\n\t * @param {string} value - Formatted value to be parsed into a monetary value\n\t * @returns {string} - Parsed monetary value\n\t */\n\tunformat(value) {\n\t\treturn this.parse(value);\n\t}\n\n\t/**\n\t * Parse a monetary value from a formatted value (same as `unformat`)\n\t * @param {string} value - Formatted value to be parsed into a monetary value\n\t * @returns {string} - Parsed monetary value\n\t */\n\tparse(value) {\n\t\treturn CurrencyFormatter.unformat(value, {\n\t\t\tcode: this._currencySettings.code\n\t\t}).toString();\n\t}\n\n\t/**\n\t * Used by the constructor to pre-process the input\n\t * @param {string|Currency} currency - Currency code or instance of Currency\n\t * @returns {string} - Currency code\n\t */\n\t_preProcess(currency) {\n\t\tif(currency instanceof Currency) {\n\t\t\treturn currency.getCode();\n\t\t}\n\t\treturn currency;\n\t}\n\n\t/**\n\t * Get currency settings for the specified currency\n\t * @param {string} code - Currency code\n\t * @return {object} - Currency settings\n\t */\n\tstatic getCurrencySettings(code) {\n\t\treturn CurrencyFormatter.findCurrency(code);\n\t}\n\n\t/**\n\t * Get an array of currency settings for all currencies\n\t * @return {object[]} - Settings for all currencies\n\t */\n\tstatic getAllCurrenciesSettings() {\n\t\treturn CurrencyFormatter.currencies;\n\t}\n}\n",
     "static": true,
     "longname": "C:/Users/amirm/projects/personal/code/wealth/src/Currency.js",
     "access": "public",
@@ -640,6 +640,46 @@
   {
     "__docId__": 52,
     "kind": "method",
+    "name": "is",
+    "memberof": "src/Currency.js~Currency",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Currency.js~Currency#is",
+    "access": "public",
+    "description": "Check if the paremeter currency the same as the current currency",
+    "lineNumber": 25,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean} - returns true if the parameter currency is the same as the current currency"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string",
+          "Currency"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "currency",
+        "description": "Currency string code or instance of Currency"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "returns true if the parameter currency is the same as the current currency"
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
     "name": "getSettings",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
@@ -648,7 +688,7 @@
     "longname": "src/Currency.js~Currency#getSettings",
     "access": "public",
     "description": "Get currency settings",
-    "lineNumber": 24,
+    "lineNumber": 34,
     "unknown": [
       {
         "tagName": "@returns",
@@ -666,7 +706,7 @@
     "params": []
   },
   {
-    "__docId__": 53,
+    "__docId__": 54,
     "kind": "method",
     "name": "toString",
     "memberof": "src/Currency.js~Currency",
@@ -676,35 +716,7 @@
     "longname": "src/Currency.js~Currency#toString",
     "access": "public",
     "description": "Get currency code",
-    "lineNumber": 32,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{string} - Currency code"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "Currency code"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 54,
-    "kind": "method",
-    "name": "toJSON",
-    "memberof": "src/Currency.js~Currency",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Currency.js~Currency#toJSON",
-    "access": "public",
-    "description": "Get currency code",
-    "lineNumber": 40,
+    "lineNumber": 42,
     "unknown": [
       {
         "tagName": "@returns",
@@ -724,43 +736,15 @@
   {
     "__docId__": 55,
     "kind": "method",
-    "name": "clone",
+    "name": "toJSON",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/Currency.js~Currency#clone",
-    "access": "public",
-    "description": "Clone the currency instance",
-    "lineNumber": 48,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{Currency} - new Currency instance"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Currency"
-      ],
-      "spread": false,
-      "description": "new Currency instance"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 56,
-    "kind": "method",
-    "name": "getCode",
-    "memberof": "src/Currency.js~Currency",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Currency.js~Currency#getCode",
+    "longname": "src/Currency.js~Currency#toJSON",
     "access": "public",
     "description": "Get currency code",
-    "lineNumber": 56,
+    "lineNumber": 50,
     "unknown": [
       {
         "tagName": "@returns",
@@ -778,7 +762,63 @@
     "params": []
   },
   {
+    "__docId__": 56,
+    "kind": "method",
+    "name": "clone",
+    "memberof": "src/Currency.js~Currency",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Currency.js~Currency#clone",
+    "access": "public",
+    "description": "Clone the currency instance",
+    "lineNumber": 58,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Currency} - new Currency instance"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Currency"
+      ],
+      "spread": false,
+      "description": "new Currency instance"
+    },
+    "params": []
+  },
+  {
     "__docId__": 57,
+    "kind": "method",
+    "name": "getCode",
+    "memberof": "src/Currency.js~Currency",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Currency.js~Currency#getCode",
+    "access": "public",
+    "description": "Get currency code",
+    "lineNumber": 66,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{string} - Currency code"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "Currency code"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 58,
     "kind": "method",
     "name": "getSymbol",
     "memberof": "src/Currency.js~Currency",
@@ -788,7 +828,7 @@
     "longname": "src/Currency.js~Currency#getSymbol",
     "access": "public",
     "description": "Get currency symbol",
-    "lineNumber": 64,
+    "lineNumber": 74,
     "unknown": [
       {
         "tagName": "@returns",
@@ -806,7 +846,7 @@
     "params": []
   },
   {
-    "__docId__": 58,
+    "__docId__": 59,
     "kind": "method",
     "name": "getThousandsSeparator",
     "memberof": "src/Currency.js~Currency",
@@ -816,7 +856,7 @@
     "longname": "src/Currency.js~Currency#getThousandsSeparator",
     "access": "public",
     "description": "Get currency thousands separator",
-    "lineNumber": 72,
+    "lineNumber": 82,
     "unknown": [
       {
         "tagName": "@returns",
@@ -834,7 +874,7 @@
     "params": []
   },
   {
-    "__docId__": 59,
+    "__docId__": 60,
     "kind": "method",
     "name": "getDecimalSeparator",
     "memberof": "src/Currency.js~Currency",
@@ -844,7 +884,7 @@
     "longname": "src/Currency.js~Currency#getDecimalSeparator",
     "access": "public",
     "description": "Get currency decimal separator",
-    "lineNumber": 80,
+    "lineNumber": 90,
     "unknown": [
       {
         "tagName": "@returns",
@@ -862,17 +902,17 @@
     "params": []
   },
   {
-    "__docId__": 60,
+    "__docId__": 61,
     "kind": "method",
-    "name": "getSymbolOnLeft",
+    "name": "hasSymbolOnLeft",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/Currency.js~Currency#getSymbolOnLeft",
+    "longname": "src/Currency.js~Currency#hasSymbolOnLeft",
     "access": "public",
     "description": "Does the currency symbol go to the left of the value?",
-    "lineNumber": 88,
+    "lineNumber": 98,
     "unknown": [
       {
         "tagName": "@returns",
@@ -890,17 +930,17 @@
     "params": []
   },
   {
-    "__docId__": 61,
+    "__docId__": 62,
     "kind": "method",
-    "name": "getSpaceBetweenAmountAndSymbol",
+    "name": "hasSpaceBetweenAmountAndSymbol",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/Currency.js~Currency#getSpaceBetweenAmountAndSymbol",
+    "longname": "src/Currency.js~Currency#hasSpaceBetweenAmountAndSymbol",
     "access": "public",
     "description": "Is there a space between amount and symbol of the currency?",
-    "lineNumber": 96,
+    "lineNumber": 106,
     "unknown": [
       {
         "tagName": "@returns",
@@ -918,7 +958,7 @@
     "params": []
   },
   {
-    "__docId__": 62,
+    "__docId__": 63,
     "kind": "method",
     "name": "getDecimalDigits",
     "memberof": "src/Currency.js~Currency",
@@ -928,7 +968,7 @@
     "longname": "src/Currency.js~Currency#getDecimalDigits",
     "access": "public",
     "description": "Get the number of decimal digits for this currency",
-    "lineNumber": 104,
+    "lineNumber": 114,
     "unknown": [
       {
         "tagName": "@returns",
@@ -946,7 +986,7 @@
     "params": []
   },
   {
-    "__docId__": 63,
+    "__docId__": 64,
     "kind": "method",
     "name": "format",
     "memberof": "src/Currency.js~Currency",
@@ -956,7 +996,7 @@
     "longname": "src/Currency.js~Currency#format",
     "access": "public",
     "description": "Format a monetary value",
-    "lineNumber": 113,
+    "lineNumber": 123,
     "unknown": [
       {
         "tagName": "@returns",
@@ -986,7 +1026,7 @@
     }
   },
   {
-    "__docId__": 64,
+    "__docId__": 65,
     "kind": "method",
     "name": "unformat",
     "memberof": "src/Currency.js~Currency",
@@ -996,46 +1036,7 @@
     "longname": "src/Currency.js~Currency#unformat",
     "access": "public",
     "description": "Unformat a monetary value from a formatted value (same as `parse`)",
-    "lineNumber": 124,
-    "unknown": [
-      {
-        "tagName": "@returns",
-        "tagValue": "{string} - Parsed monetary value"
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "value",
-        "description": "Formatted value to be parsed into a monetary value"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "Parsed monetary value"
-    }
-  },
-  {
-    "__docId__": 65,
-    "kind": "method",
-    "name": "parse",
-    "memberof": "src/Currency.js~Currency",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/Currency.js~Currency#parse",
-    "access": "public",
-    "description": "Parse a monetary value from a formatted value (same as `unformat`)",
-    "lineNumber": 133,
+    "lineNumber": 134,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1066,6 +1067,45 @@
   {
     "__docId__": 66,
     "kind": "method",
+    "name": "parse",
+    "memberof": "src/Currency.js~Currency",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Currency.js~Currency#parse",
+    "access": "public",
+    "description": "Parse a monetary value from a formatted value (same as `unformat`)",
+    "lineNumber": 143,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{string} - Parsed monetary value"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "Formatted value to be parsed into a monetary value"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "Parsed monetary value"
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
     "name": "_preProcess",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
@@ -1074,7 +1114,7 @@
     "longname": "src/Currency.js~Currency#_preProcess",
     "access": "private",
     "description": "Used by the constructor to pre-process the input",
-    "lineNumber": 144,
+    "lineNumber": 154,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1104,7 +1144,7 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 68,
     "kind": "method",
     "name": "getCurrencySettings",
     "memberof": "src/Currency.js~Currency",
@@ -1114,7 +1154,7 @@
     "longname": "src/Currency.js~Currency.getCurrencySettings",
     "access": "public",
     "description": "Get currency settings for the specified currency",
-    "lineNumber": 156,
+    "lineNumber": 166,
     "params": [
       {
         "nullable": null,
@@ -1137,7 +1177,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 69,
     "kind": "method",
     "name": "getAllCurrenciesSettings",
     "memberof": "src/Currency.js~Currency",
@@ -1147,7 +1187,7 @@
     "longname": "src/Currency.js~Currency.getAllCurrenciesSettings",
     "access": "public",
     "description": "Get an array of currency settings for all currencies",
-    "lineNumber": 164,
+    "lineNumber": 174,
     "return": {
       "nullable": null,
       "types": [
@@ -1159,10 +1199,67 @@
     "params": []
   },
   {
-    "__docId__": 69,
+    "__docId__": 70,
+    "kind": "file",
+    "name": "src/CurrencyMismatchError.js",
+    "content": "import WealthError from './WealthError';\n\n/**\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n */\nexport default class CurrencyMismatchError extends WealthError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Currency mismatch between values') {\n\t\tsuper(message);\n\t}\n}\n",
+    "static": true,
+    "longname": "C:/Users/amirm/projects/personal/code/wealth/src/CurrencyMismatchError.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 71,
+    "kind": "class",
+    "name": "CurrencyMismatchError",
+    "memberof": "src/CurrencyMismatchError.js",
+    "static": true,
+    "longname": "src/CurrencyMismatchError.js~CurrencyMismatchError",
+    "access": "public",
+    "export": true,
+    "importPath": "wealth",
+    "importStyle": "{CurrencyMismatchError}",
+    "description": "Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.",
+    "examples": [
+      "try {\n // operation\n}\ncatch(e) {\n if(e instanceof CurrencyMismatchError) {\n     // handle error\n }\n}"
+    ],
+    "lineNumber": 15,
+    "interface": false,
+    "extends": [
+      "src/WealthError.js~WealthError"
+    ]
+  },
+  {
+    "__docId__": 72,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/CurrencyMismatchError.js~CurrencyMismatchError",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/CurrencyMismatchError.js~CurrencyMismatchError#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "message",
+        "description": "Error message"
+      }
+    ]
+  },
+  {
+    "__docId__": 73,
     "kind": "file",
     "name": "src/index.js",
-    "content": "export {default as Money} from './Money';\r\nexport {default as Currency} from './Currency';",
+    "content": "export {default as Money} from './Money';\nexport {default as Currency} from './Currency';\nexport {default as WealthError} from './WealthError';\nexport {default as CurrencyMismatchError} from './CurrencyMismatchError';\nexport {default as WrongInputError} from './WrongInputError';\n",
     "static": true,
     "longname": "C:/Users/amirm/projects/personal/code/wealth/src/index.js",
     "access": "public",
@@ -1170,10 +1267,10 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 70,
+    "__docId__": 74,
     "kind": "file",
     "name": "src/Money.js",
-    "content": "import BigNumber from 'bignumber.js';\r\nimport isInt from 'validator/lib/isInt';\r\nimport isFloat from 'validator/lib/isFloat';\r\nimport Currency from './Currency';\r\n\r\n/**\r\n * @example\r\n * let price = new Money('7856', 'USD'); // $78.56\r\n */\r\nexport default class Money {\r\n\r\n\t/**\r\n\t * Rounding modes you can use in your operations.\r\n\t * These map directly to [`BigNumber`'s rounding modes](http://mikemcl.github.io/bignumber.js/#constructor-properties).\r\n\t * @type {object} ROUNDING - rounding modes\r\n\t * @property {number} ROUNDING.UP - Rounds away from zero\r\n\t * @property {number} ROUNDING.DOWN - Rounds towards zero\r\n\t * @property {number} ROUNDING.CEIL - Rounds towards Infinity\r\n\t * @property {number} ROUNDING.FLOOR - Rounds towards -Infinity\r\n\t * @property {number} ROUNDING.HALF_UP - Rounds towards nearest neighbour. If equidistant, rounds away from zero\r\n\t * @property {number} ROUNDING.HALF_DOWN - Rounds towards nearest neighbour. If equidistant, rounds towards zero\r\n\t * @property {number} ROUNDING.HALF_EVEN - Rounds towards nearest neighbour. If equidistant, rounds towards even neighbour\r\n\t * @property {number} ROUNDING.HALF_CEIL - Rounds towards nearest neighbour. If equidistant, rounds towards Infinity\r\n\t * @property {number} ROUNDING.HALF_FLOOR - Rounds towards nearest neighbour. If equidistant, rounds towards -Infinity\r\n\t *\r\n\t * @example\r\n\t * let\r\n\t *      price = new Money('7856', 'USD'), // $78.56\r\n\t *      discountedAndRoundedUp = price.multiply('0.70'), // $55.00\r\n\t *      discountedAndRoundedDown = price.multiply('0.70', Money.ROUNDING.DOWN); // $54.99\r\n\t */\r\n\tstatic ROUNDING = {\r\n\t\tUP: BigNumber.ROUND_UP,\r\n\t\tDOWN: BigNumber.ROUND_DOWN,\r\n\t\tCEIL: BigNumber.ROUND_CEIL,\r\n\t\tFLOOR: BigNumber.ROUND_FLOOR,\r\n\t\tHALF_UP: BigNumber.ROUND_HALF_UP,\r\n\t\tHALF_DOWN: BigNumber.ROUND_HALF_DOWN,\r\n\t\tHALF_EVEN: BigNumber.ROUND_HALF_EVEN,\r\n\t\tHALF_CEIL: BigNumber.ROUND_HALF_CEIL,\r\n\t\tHALF_FLOOR: BigNumber.ROUND_HALF_FLOOR\r\n\t};\r\n\r\n\t/**\r\n\t * @example <caption>Integer as value</caption>\r\n\t * let price = new Money(7856, 'USD'); // $78.56\r\n\t *\r\n\t * @example <caption>String integer as value</caption>\r\n\t * let price = new Money('7856', 'USD'); // $78.56\r\n\t *\r\n\t * @example <caption>String Float as value</caption>\r\n\t * let price = new Money('78.56', 'USD'); // $78.56\r\n\t *\r\n\t * @example <caption>Money instance as value</caption>\r\n\t * let price = new Money(new Money('78.56'), 'USD'); // $78.56 - same as using clone()\r\n\t *\r\n\t * @example <caption>Currency instance as currency</caption>\r\n\t * let price = new Money('7856', new Currency('USD')); // $78.56\r\n\t *\r\n\t * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`\r\n\t * @param {string|Currency} currency - currency code as string, instance of `Currency`\r\n\t */\r\n\tconstructor(value, currency) {\r\n\t\t/**\r\n\t\t * Internal currency\r\n\t\t * @type {Currency} - Internal Currency instance\r\n\t\t * @private\r\n\t\t */\r\n\t\tthis._currency = new Currency(currency);\r\n\t\t/**\r\n\t\t * Internal value as a big number\r\n\t\t * @type {BigNumber} - Internal BigNumber instance holding the value\r\n\t\t * @private\r\n\t\t */\r\n\t\tthis._value = this._preProcessInputValue(value);\r\n\t}\r\n\r\n\t/**\r\n\t * Performs addition\r\n\t * @param {number|string|Money} value - value to be added to the current value; type same as constructor\r\n\t * @returns {Money} - new Money instance after addition\r\n\t */\r\n\tadd(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\tlet newValue = this._value.plus(value.getAmountAsBigNumber());\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Performs subtraction\r\n\t * @param {number|string|Money} value - value to be subtracted from the current value; type same as constructor\r\n\t * @returns {Money} - new Money instance after subtraction\r\n\t */\r\n\tsubtract(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\tlet newValue = this._value.minus(value.getAmountAsBigNumber());\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Performs multiplication\r\n\t * @param {number|string} value - value to multiply the current value\r\n\t * @param {number} [rounding=ROUNDING.HALF_UP] - rounding mode used in this operation; has to be one of the rounding modes in `Money.ROUNDING`\r\n\t * @returns {Money} - new Money instance after multiplication\r\n\t */\r\n\tmultiply(value, rounding = this.constructor.ROUNDING.HALF_UP) {\r\n\t\tlet newValue = this._value.times(value).round(this._currency.getDecimalDigits(), rounding);\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Performs division\r\n\t * @param {number|string} value - value to divide the current value by\r\n\t * @param {number} [rounding=ROUNDING.HALF_UP] - rounding mode used in this operation; has to be one of the rounding modes in `Money.ROUNDING`\r\n\t * @returns {Money} - new Money instance after division\r\n\t */\r\n\tdivide(value, rounding = this.constructor.ROUNDING.HALF_UP) {\r\n\t\tlet newValue = this._value.dividedBy(value).round(this._currency.getDecimalDigits(), rounding);\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Performs an equality check\r\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\r\n\t * @returns {boolean} - true if value is considered equal to the current value\r\n\t */\r\n\tequals(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\treturn this._value.equals(value.getAmountAsBigNumber());\r\n\t}\r\n\r\n\t/**\r\n\t * Performs a check if the current value is greater than the parameter\r\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\r\n\t * @returns {boolean} - true if the current value is greater than the parameter\r\n\t */\r\n\tgreaterThan(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\treturn this._value.greaterThan(value.getAmountAsBigNumber());\r\n\t}\r\n\r\n\t/**\r\n\t * Performs a check if the current value is greater than or equal to the parameter\r\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\r\n\t * @returns {boolean} - true if the current value is greater than or equal to the parameter\r\n\t */\r\n\tgreaterThanOrEqualTo(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\treturn this._value.greaterThanOrEqualTo(value.getAmountAsBigNumber());\r\n\t}\r\n\r\n\t/**\r\n\t * Performs a check if the current value is less than the parameter\r\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\r\n\t * @returns {boolean} - true if the current value is less than the parameter\r\n\t */\r\n\tlessThan(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\treturn this._value.lessThan(value.getAmountAsBigNumber());\r\n\t}\r\n\r\n\t/**\r\n\t * Performs a check if the current value is less than or equal to the parameter\r\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\r\n\t * @returns {boolean} - true if the current value is less than or equal to the parameter\r\n\t */\r\n\tlessThanOrEqualTo(value) {\r\n\t\tvalue = new this.constructor(value, this._currency);\r\n\t\treturn this._value.lessThanOrEqualTo(value.getAmountAsBigNumber());\r\n\t}\r\n\r\n\t/**\r\n\t * Return the absolute monetary value of the current value, i.e., remove the minus sign if the value is below zero\r\n\t * @returns {Money} - new Money instance with the absolute value\r\n\t */\r\n\tabsolute() {\r\n\t\tlet newValue = this._value.absoluteValue();\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Return the largest integer less than or equal to the current value\r\n\t * @returns {Money} - new Money instance with the floor value\r\n\t */\r\n\tfloor() {\r\n\t\tlet newValue = this._value.floor();\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Return the smallest integer greater than or equal to the current value\r\n\t * @returns {Money} - new Money instance with the ceiling value\r\n\t */\r\n\tceil() {\r\n\t\tlet newValue = this._value.ceil();\r\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Split the current value by an array of ratios\r\n\t * @param {number[]|string[]} ratios - an array of numbers by which to divide up the current value\r\n\t * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value\r\n\t */\r\n\tallocate(ratios) {\r\n\t\tlet\r\n\t\t\tallocations = [],\r\n\t\t\ttotalValue = this.clone(),\r\n\t\t\tremainder = this.clone(),\r\n\t\t\ttotal = ratios.reduce((total, ratio) => total.plus(ratio), new BigNumber('0'));\r\n\r\n\t\tfor(let ratio of ratios) {\r\n\t\t\tlet share = totalValue\r\n\t\t\t\t.multiply(ratio, this.constructor.ROUNDING.FLOOR)\r\n\t\t\t\t.divide(total, this.constructor.ROUNDING.FLOOR);\r\n\r\n\t\t\tallocations.push(share);\r\n\t\t\tremainder = remainder.subtract(share);\r\n\t\t}\r\n\r\n\t\treturn this._addRemainderToAllocations(allocations, remainder);\r\n\t}\r\n\r\n\t/**\r\n\t * Split the current value by the count\r\n\t * @param {number|string} count - count by which to allocate the current value (must be a 1+ integer)\r\n\t * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value\r\n\t */\r\n\tallocateTo(count) {\r\n\t\tlet\r\n\t\t\tallocations = [],\r\n\t\t\ttotalValue = this.clone(),\r\n\t\t\tbaseShare = totalValue.divide(count, this.constructor.ROUNDING.FLOOR),\r\n\t\t\tremainder = totalValue.subtract(baseShare.multiply(count, this.constructor.ROUNDING.FLOOR));\r\n\r\n\t\tfor(let i = 0; i < count; i++) {\r\n\t\t\tallocations.push(baseShare.clone());\r\n\t\t}\r\n\r\n\t\treturn this._addRemainderToAllocations(allocations, remainder);\r\n\t}\r\n\r\n\t/**\r\n\t * Create a new money instance, holding an identical value and currency to the current one\r\n\t * @returns {Money} - the cloned money instance\r\n\t */\r\n\tclone() {\r\n\t\treturn new this.constructor(this.getAmount(), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Format the current value based on the currency\r\n\t * @returns {string} - formatted money\r\n\t */\r\n\tformat() {\r\n\t\treturn this._currency.format(this._value.toString());\r\n\t}\r\n\r\n\t/**\r\n\t * Get the current value as an instance of BigNumber\r\n\t * @returns {BigNumber} - Internal BigNumber representation of the current value\r\n\t */\r\n\tgetAmountAsBigNumber() {\r\n\t\treturn this._value;\r\n\t}\r\n\r\n\t/**\r\n\t * Get the current value as a string integer (same as `getAmount`)\r\n\t * @returns {string} - String integer representation of the current value\r\n\t */\r\n\tgetAmountAsStringInteger() {\r\n\t\treturn this.getAmount();\r\n\t}\r\n\r\n\t/**\r\n\t * Get the current value as a string float\r\n\t * @returns {string} - String float representation of the current value\r\n\t */\r\n\tgetAmountAsStringFloat() {\r\n\t\treturn this._value.toString();\r\n\t}\r\n\r\n\t/**\r\n\t * Get the current value as a string integer (same as `getAmountAsStringInteger`)\r\n\t * @returns {string} - String integer representation of the current value\r\n\t */\r\n\tgetAmount() {\r\n\t\treturn this._convertBigNumberToStringInteger(this._value);\r\n\t}\r\n\r\n\t/**\r\n\t * Get the current value as a string integer (same as `getAmount`)\r\n\t * @returns {string} - String integer representation of the current value\r\n\t */\r\n\ttoString() {\r\n\t\treturn this.getAmount();\r\n\t}\r\n\r\n\t/**\r\n\t * Get the internal Currency instance\r\n\t * @returns {Currency} - Internal Currency instance\r\n\t */\r\n\tgetCurrency() {\r\n\t\treturn this._currency;\r\n\t}\r\n\r\n\t/**\r\n\t * Get the smallest unit of the current monetary value, i.e., 0.01 (aka penny) in a USD money\r\n\t * @returns {Money} - new Money instance holding the smallest unit of the current monetary value\r\n\t */\r\n\tgetSmallestUnit() {\r\n\t\treturn new this.constructor(this._getSmallestUnitAsBigNumber().toString(), this._currency);\r\n\t}\r\n\r\n\t/**\r\n\t * Get a simple object representing the current monetary value\r\n\t * @returns {{amount: string, currency: Currency}} - object with a string integer value and currency code\r\n\t */\r\n\ttoJSON() {\r\n\t\treturn {\r\n\t\t\tamount: this.getAmount(),\r\n\t\t\tcurrency: this._currency.toString()\r\n\t\t};\r\n\t}\r\n\r\n\t/**\r\n\t * Used by allocation methods to add the remainder to the array of allocations\r\n\t * @param {Money[]} allocations - an array of Money instances already allocated\r\n\t * @param {Money} remainder - a Money instance with the remainder yet to be added to the array of allocations\r\n\t * @returns {Money[]} - the final allocations array of Money instances\r\n\t * @private\r\n\t */\r\n\t_addRemainderToAllocations(allocations, remainder) {\r\n\t\tlet\r\n\t\t\ti = 0,\r\n\t\t\tnoMoney = new this.constructor('0', this._currency),\r\n\t\t\tsmallestUnit = this.getSmallestUnit();\r\n\r\n\t\twhile(!remainder.equals(noMoney)) {\r\n\t\t\tallocations[i] = allocations[i].add(smallestUnit);\r\n\t\t\tremainder = remainder.subtract(smallestUnit);\r\n\r\n\t\t\ti++;\r\n\r\n\t\t\tif(i === allocations.length) {\r\n\t\t\t\ti = 0;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\treturn allocations;\r\n\t}\r\n\r\n\t/**\r\n\t * Convert the constructor input value to an internal BigNumber instance\r\n\t * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`\r\n\t * @returns {BigNumber} - Internal BigNumber instance\r\n\t * @private\r\n\t */\r\n\t_preProcessInputValue(value) {\r\n\t\tif(value instanceof Money) {\r\n\t\t\treturn value.getAmountAsBigNumber();\r\n\t\t}\r\n\r\n\t\tlet divisor = this._getSmallestUnitDivisor();\r\n\r\n\t\tconst BN = this._getBigNumberConstructor();\r\n\r\n\t\tif(divisor.greaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {\r\n\t\t\tvalue = new BN(value);\r\n\r\n\t\t\treturn value\r\n\t\t\t\t.dividedBy(divisor)\r\n\t\t\t\t.round(this._currency.getDecimalDigits());\r\n\t\t}\r\n\r\n\t\tif(typeof value === 'string' && isFloat(value)) {\r\n\t\t\treturn new BN(value);\r\n\t\t}\r\n\r\n\t\tthrow new Error('The input value must be either an integer, an integer-like string, a float-like string or a \"Money\" instance.');\r\n\t}\r\n\r\n\t/**\r\n\t * Get the smallest unit divisor for the current value's currency, i.e., 10 to the power of the currency's decimal digits.\r\n\t * It is used for converting an integer value to a float value (or vice versa).\r\n\t * @returns {BigNumber} - Smallest unit divisor\r\n\t * @private\r\n\t */\r\n\t_getSmallestUnitDivisor() {\r\n\t\tlet\tdecimalDigits = this._currency.getDecimalDigits();\r\n\t\treturn (new BigNumber('10')).toPower(decimalDigits);\r\n\t}\r\n\r\n\t/**\r\n\t * Get the smallest unit of the currency as a big number\r\n\t * @returns {BigNumber} - Smallest unit of the currency\r\n\t * @private\r\n\t */\r\n\t_getSmallestUnitAsBigNumber() {\r\n\t\treturn (new BigNumber('1')).dividedBy(this._getSmallestUnitDivisor());\r\n\t}\r\n\r\n\t/**\r\n\t * Convert a BigNumber to a string integer\r\n\t * @param {BigNumber} value - value to be converted\r\n\t * @returns {string} - String integer value of the BigNumber value\r\n\t * @private\r\n\t */\r\n\t_convertBigNumberToStringInteger(value) {\r\n\t\treturn value.times(this._getSmallestUnitDivisor()).toString();\r\n\t}\r\n\r\n\t/**\r\n\t * The values below are the default but we need a new constructor in case the default is changed by external code.\r\n\t * @returns {object} - BigInteger constructor with 20 decimal places and default rounding half up\r\n\t * @private\r\n\t */\r\n\t_getBigNumberConstructor() {\r\n\t\treturn BigNumber.another({\r\n\t\t\tDECIMAL_PLACES: 20,\r\n\t\t\tROUNDING_MODE: this.constructor.ROUNDING.HALF_UP\r\n\t\t});\r\n\t}\r\n\r\n\t/**\r\n\t * Parse a formatted money string into an instance of Money\r\n\t * @param {string} value - the formatted money string\r\n\t * @param {string|Currency} currency - the currency of the formatted string\r\n\t * @returns {Money} - a Money instance holding the parsed value and currency\r\n\t */\r\n\tstatic parse(value, currency) {\r\n\t\tcurrency = new Currency(currency);\r\n\t\tvalue = currency.unformat(value);\r\n\t\treturn new this(value, currency);\r\n\t}\r\n}",
+    "content": "import BigNumber from 'bignumber.js';\nimport isInt from 'validator/lib/isInt';\nimport isFloat from 'validator/lib/isFloat';\nimport Currency from './Currency';\nimport CurrencyMismatchError from './CurrencyMismatchError';\nimport WrongInputError from './WrongInputError';\n\n/**\n * @example\n * let price = new Money('7856', 'USD'); // $78.56\n */\nexport default class Money {\n\n\t/**\n\t * Rounding modes you can use in your operations.\n\t * These map directly to [`BigNumber`'s rounding modes](http://mikemcl.github.io/bignumber.js/#constructor-properties).\n\t * @type {object} ROUNDING - rounding modes\n\t * @property {number} ROUNDING.UP - Rounds away from zero\n\t * @property {number} ROUNDING.DOWN - Rounds towards zero\n\t * @property {number} ROUNDING.CEIL - Rounds towards Infinity\n\t * @property {number} ROUNDING.FLOOR - Rounds towards -Infinity\n\t * @property {number} ROUNDING.HALF_UP - Rounds towards nearest neighbour. If equidistant, rounds away from zero\n\t * @property {number} ROUNDING.HALF_DOWN - Rounds towards nearest neighbour. If equidistant, rounds towards zero\n\t * @property {number} ROUNDING.HALF_EVEN - Rounds towards nearest neighbour. If equidistant, rounds towards even neighbour\n\t * @property {number} ROUNDING.HALF_CEIL - Rounds towards nearest neighbour. If equidistant, rounds towards Infinity\n\t * @property {number} ROUNDING.HALF_FLOOR - Rounds towards nearest neighbour. If equidistant, rounds towards -Infinity\n\t *\n\t * @example\n\t * let\n\t *      price = new Money('7856', 'USD'), // $78.56\n\t *      discountedAndRoundedUp = price.multiply('0.70'), // $55.00\n\t *      discountedAndRoundedDown = price.multiply('0.70', Money.ROUNDING.DOWN); // $54.99\n\t */\n\tstatic ROUNDING = {\n\t\tUP: BigNumber.ROUND_UP,\n\t\tDOWN: BigNumber.ROUND_DOWN,\n\t\tCEIL: BigNumber.ROUND_CEIL,\n\t\tFLOOR: BigNumber.ROUND_FLOOR,\n\t\tHALF_UP: BigNumber.ROUND_HALF_UP,\n\t\tHALF_DOWN: BigNumber.ROUND_HALF_DOWN,\n\t\tHALF_EVEN: BigNumber.ROUND_HALF_EVEN,\n\t\tHALF_CEIL: BigNumber.ROUND_HALF_CEIL,\n\t\tHALF_FLOOR: BigNumber.ROUND_HALF_FLOOR\n\t};\n\n\t/**\n\t * @example <caption>Integer as value</caption>\n\t * let price = new Money(7856, 'USD'); // $78.56\n\t *\n\t * @example <caption>String integer as value</caption>\n\t * let price = new Money('7856', 'USD'); // $78.56\n\t *\n\t * @example <caption>String Float as value</caption>\n\t * let price = new Money('78.56', 'USD'); // $78.56\n\t *\n\t * @example <caption>Money instance as value</caption>\n\t * let price = new Money(new Money('78.56'), 'USD'); // $78.56 - same as using clone()\n\t *\n\t * @example <caption>Currency instance as currency</caption>\n\t * let price = new Money('7856', new Currency('USD')); // $78.56\n\t *\n\t * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`\n\t * @param {string|Currency} currency - currency code as string, instance of `Currency`\n\t */\n\tconstructor(value, currency) {\n\t\t/**\n\t\t * Internal currency\n\t\t * @type {Currency} - Internal Currency instance\n\t\t * @private\n\t\t */\n\t\tthis._currency = new Currency(currency);\n\t\t/**\n\t\t * Internal value as a big number\n\t\t * @type {BigNumber} - Internal BigNumber instance holding the value\n\t\t * @private\n\t\t */\n\t\tthis._value = this._preProcessInputValue(value);\n\t}\n\n\t/**\n\t * Performs addition\n\t * @param {number|string|Money} value - value to be added to the current value; type same as constructor\n\t * @returns {Money} - new Money instance after addition\n\t */\n\tadd(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\tlet newValue = this._value.plus(value.getAmountAsBigNumber());\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs subtraction\n\t * @param {number|string|Money} value - value to be subtracted from the current value; type same as constructor\n\t * @returns {Money} - new Money instance after subtraction\n\t */\n\tsubtract(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\tlet newValue = this._value.minus(value.getAmountAsBigNumber());\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs multiplication\n\t * @param {number|string} value - value to multiply the current value\n\t * @param {number} [rounding=ROUNDING.HALF_UP] - rounding mode used in this operation; has to be one of the rounding modes in `Money.ROUNDING`\n\t * @returns {Money} - new Money instance after multiplication\n\t */\n\tmultiply(value, rounding = this.constructor.ROUNDING.HALF_UP) {\n\t\tlet newValue = this._value.times(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs division\n\t * @param {number|string} value - value to divide the current value by\n\t * @param {number} [rounding=ROUNDING.HALF_UP] - rounding mode used in this operation; has to be one of the rounding modes in `Money.ROUNDING`\n\t * @returns {Money} - new Money instance after division\n\t */\n\tdivide(value, rounding = this.constructor.ROUNDING.HALF_UP) {\n\t\tlet newValue = this._value.dividedBy(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs an equality check\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if value is considered equal to the current value\n\t */\n\tequals(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isEqualTo(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is greater than the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is greater than the parameter\n\t */\n\tgreaterThan(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isGreaterThan(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is greater than or equal to the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is greater than or equal to the parameter\n\t */\n\tgreaterThanOrEqualTo(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isGreaterThanOrEqualTo(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is less than the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is less than the parameter\n\t */\n\tlessThan(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isLessThan(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is less than or equal to the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is less than or equal to the parameter\n\t */\n\tlessThanOrEqualTo(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isLessThanOrEqualTo(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Return the absolute monetary value of the current value, i.e., remove the minus sign if the value is below zero\n\t * @returns {Money} - new Money instance with the absolute value\n\t */\n\tabsolute() {\n\t\tlet newValue = this._value.absoluteValue();\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Return the largest integer less than or equal to the current value\n\t * @returns {Money} - new Money instance with the floor value\n\t */\n\tfloor() {\n\t\tlet newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.FLOOR);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Return the smallest integer greater than or equal to the current value\n\t * @returns {Money} - new Money instance with the ceiling value\n\t */\n\tceil() {\n\t\tlet newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.CEIL);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Checks if the current currency is the same as that of the parameter\n\t * @param {Money} value - value to check currency against the current value; type same as constructor\n\t * @returns {boolean} - true if the current value has the same currency as the parameter\n\t */\n\thasSameCurrency(value) {\n\t\tif(!(value instanceof Money)) {\n\t\t\tthrow new WrongInputError('The input value must be a \"Money\" instance.');\n\t\t}\n\t\treturn this._currency.is(value.getCurrency());\n\t}\n\n\t/**\n\t * Split the current value by an array of ratios\n\t * @param {number[]|string[]} ratios - an array of numbers by which to divide up the current value\n\t * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value\n\t */\n\tallocate(ratios) {\n\t\tlet\n\t\t\tallocations = [],\n\t\t\ttotalValue = this.clone(),\n\t\t\tremainder = this.clone(),\n\t\t\ttotal = ratios.reduce((total, ratio) => total.plus(ratio), new BigNumber('0'));\n\n\t\tfor(let ratio of ratios) {\n\t\t\tlet share = totalValue\n\t\t\t\t.multiply(ratio, this.constructor.ROUNDING.FLOOR)\n\t\t\t\t.divide(total, this.constructor.ROUNDING.FLOOR);\n\n\t\t\tallocations.push(share);\n\t\t\tremainder = remainder.subtract(share);\n\t\t}\n\n\t\treturn this._addRemainderToAllocations(allocations, remainder);\n\t}\n\n\t/**\n\t * Split the current value by the count\n\t * @param {number|string} count - count by which to allocate the current value (must be a 1+ integer)\n\t * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value\n\t */\n\tallocateTo(count) {\n\t\tlet\n\t\t\tallocations = [],\n\t\t\ttotalValue = this.clone(),\n\t\t\tbaseShare = totalValue.divide(count, this.constructor.ROUNDING.FLOOR),\n\t\t\tremainder = totalValue.subtract(baseShare.multiply(count, this.constructor.ROUNDING.FLOOR));\n\n\t\tfor(let i = 0; i < count; i++) {\n\t\t\tallocations.push(baseShare.clone());\n\t\t}\n\n\t\treturn this._addRemainderToAllocations(allocations, remainder);\n\t}\n\n\t/**\n\t * Create a new money instance, holding an identical value and currency to the current one\n\t * @returns {Money} - the cloned money instance\n\t */\n\tclone() {\n\t\treturn new this.constructor(this.getAmount(), this._currency);\n\t}\n\n\t/**\n\t * Format the current value based on the currency\n\t * @returns {string} - formatted money\n\t */\n\tformat() {\n\t\treturn this._currency.format(this._value.toString());\n\t}\n\n\t/**\n\t * Get the current value as an instance of BigNumber\n\t * @returns {BigNumber} - Internal BigNumber representation of the current value\n\t */\n\tgetAmountAsBigNumber() {\n\t\treturn this._value;\n\t}\n\n\t/**\n\t * Get the current value as a string integer (same as `getAmount`)\n\t * @returns {string} - String integer representation of the current value\n\t */\n\tgetAmountAsStringInteger() {\n\t\treturn this.getAmount();\n\t}\n\n\t/**\n\t * Get the current value as a string float\n\t * @returns {string} - String float representation of the current value\n\t */\n\tgetAmountAsStringFloat() {\n\t\treturn this._value.toString();\n\t}\n\n\t/**\n\t * Get the current value as a string integer (same as `getAmountAsStringInteger`)\n\t * @returns {string} - String integer representation of the current value\n\t */\n\tgetAmount() {\n\t\treturn this._convertBigNumberToStringInteger(this._value);\n\t}\n\n\t/**\n\t * Get the current value as a string integer (same as `getAmount`)\n\t * @returns {string} - String integer representation of the current value\n\t */\n\ttoString() {\n\t\treturn this.getAmount();\n\t}\n\n\t/**\n\t * Get the internal Currency instance\n\t * @returns {Currency} - Internal Currency instance\n\t */\n\tgetCurrency() {\n\t\treturn this._currency;\n\t}\n\n\t/**\n\t * Get the smallest unit of the current monetary value, i.e., 0.01 (aka penny) in a USD money\n\t * @returns {Money} - new Money instance holding the smallest unit of the current monetary value\n\t */\n\tgetSmallestUnit() {\n\t\treturn new this.constructor(this._getSmallestUnitAsBigNumber().toString(), this._currency);\n\t}\n\n\t/**\n\t * Get a simple object representing the current monetary value\n\t * @returns {{amount: string, currency: Currency}} - object with a string integer value and currency code\n\t */\n\ttoJSON() {\n\t\treturn {\n\t\t\tamount: this.getAmount(),\n\t\t\tcurrency: this._currency.toString()\n\t\t};\n\t}\n\n\t/**\n\t * Check that the currency of the passed value matches the current currency. If not, throw an error.\n\t * @param {Money} value - The money object which is used for currency check\n\t * @private\n\t */\n\t_checkValueCurrency(value) {\n\t\tif(!this.hasSameCurrency(value)) {\n\t\t\tthrow new CurrencyMismatchError();\n\t\t}\n\t}\n\n\t/**\n\t * Used by allocation methods to add the remainder to the array of allocations\n\t * @param {Money[]} allocations - an array of Money instances already allocated\n\t * @param {Money} remainder - a Money instance with the remainder yet to be added to the array of allocations\n\t * @returns {Money[]} - the final allocations array of Money instances\n\t * @private\n\t */\n\t_addRemainderToAllocations(allocations, remainder) {\n\t\tlet\n\t\t\ti = 0,\n\t\t\tnoMoney = new this.constructor('0', this._currency),\n\t\t\tsmallestUnit = this.getSmallestUnit();\n\n\t\twhile(!remainder.equals(noMoney)) {\n\t\t\tallocations[i] = allocations[i].add(smallestUnit);\n\t\t\tremainder = remainder.subtract(smallestUnit);\n\n\t\t\ti++;\n\n\t\t\tif(i === allocations.length) {\n\t\t\t\ti = 0;\n\t\t\t}\n\t\t}\n\n\t\treturn allocations;\n\t}\n\n\t/**\n\t * Convert the constructor input value to an internal BigNumber instance\n\t * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`\n\t * @returns {BigNumber} - Internal BigNumber instance\n\t * @private\n\t */\n\t_preProcessInputValue(value) {\n\t\tif(value instanceof Money) {\n\t\t\tthis._checkValueCurrency(value);\n\t\t\treturn value.getAmountAsBigNumber();\n\t\t}\n\n\t\tlet divisor = this._getSmallestUnitDivisor();\n\n\t\tconst BN = this._getBigNumberConstructor();\n\n\t\tif(divisor.isGreaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {\n\t\t\tvalue = new BN(value);\n\n\t\t\treturn value\n\t\t\t\t.dividedBy(divisor)\n\t\t\t\t.decimalPlaces(this._currency.getDecimalDigits());\n\t\t}\n\n\t\tif(typeof value === 'string' && isFloat(value)) {\n\t\t\treturn new BN(value);\n\t\t}\n\n\t\tthrow new WrongInputError('The input value must be either an integer, an integer-like string, a float-like string or a \"Money\" instance.');\n\t}\n\n\t/**\n\t * Get the smallest unit divisor for the current value's currency, i.e., 10 to the power of the currency's decimal digits.\n\t * It is used for converting an integer value to a float value (or vice versa).\n\t * @returns {BigNumber} - Smallest unit divisor\n\t * @private\n\t */\n\t_getSmallestUnitDivisor() {\n\t\tlet\tdecimalDigits = this._currency.getDecimalDigits();\n\t\treturn (new BigNumber('10')).exponentiatedBy(decimalDigits);\n\t}\n\n\t/**\n\t * Get the smallest unit of the currency as a big number\n\t * @returns {BigNumber} - Smallest unit of the currency\n\t * @private\n\t */\n\t_getSmallestUnitAsBigNumber() {\n\t\treturn (new BigNumber('1')).dividedBy(this._getSmallestUnitDivisor());\n\t}\n\n\t/**\n\t * Convert a BigNumber to a string integer\n\t * @param {BigNumber} value - value to be converted\n\t * @returns {string} - String integer value of the BigNumber value\n\t * @private\n\t */\n\t_convertBigNumberToStringInteger(value) {\n\t\treturn value.times(this._getSmallestUnitDivisor()).toString();\n\t}\n\n\t/**\n\t * The values below are the default but we need a new constructor in case the default is changed by external code.\n\t * @returns {object} - BigInteger constructor with 20 decimal places and default rounding half up\n\t * @private\n\t */\n\t_getBigNumberConstructor() {\n\t\treturn BigNumber.clone({\n\t\t\tDECIMAL_PLACES: 20,\n\t\t\tROUNDING_MODE: this.constructor.ROUNDING.HALF_UP\n\t\t});\n\t}\n\n\t/**\n\t * Parse a formatted money string into an instance of Money\n\t * @param {string} value - the formatted money string\n\t * @param {string|Currency} currency - the currency of the formatted string\n\t * @returns {Money} - a Money instance holding the parsed value and currency\n\t */\n\tstatic parse(value, currency) {\n\t\tcurrency = new Currency(currency);\n\t\tvalue = currency.unformat(value);\n\t\treturn new this(value, currency);\n\t}\n}\n",
     "static": true,
     "longname": "C:/Users/amirm/projects/personal/code/wealth/src/Money.js",
     "access": "public",
@@ -1181,7 +1278,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 71,
+    "__docId__": 75,
     "kind": "class",
     "name": "Money",
     "memberof": "src/Money.js",
@@ -1195,11 +1292,11 @@
     "examples": [
       "let price = new Money('7856', 'USD'); // $78.56"
     ],
-    "lineNumber": 10,
+    "lineNumber": 12,
     "interface": false
   },
   {
-    "__docId__": 72,
+    "__docId__": 76,
     "kind": "member",
     "name": "ROUNDING",
     "memberof": "src/Money.js~Money",
@@ -1210,7 +1307,7 @@
     "examples": [
       "let\n     price = new Money('7856', 'USD'), // $78.56\n     discountedAndRoundedUp = price.multiply('0.70'), // $55.00\n     discountedAndRoundedDown = price.multiply('0.70', Money.ROUNDING.DOWN); // $54.99"
     ],
-    "lineNumber": 32,
+    "lineNumber": 34,
     "properties": [
       {
         "nullable": null,
@@ -1313,7 +1410,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 77,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Money.js~Money",
@@ -1330,7 +1427,7 @@
       "<caption>Money instance as value</caption>\nlet price = new Money(new Money('78.56'), 'USD'); // $78.56 - same as using clone()",
       "<caption>Currency instance as currency</caption>\nlet price = new Money('7856', new Currency('USD')); // $78.56"
     ],
-    "lineNumber": 63,
+    "lineNumber": 65,
     "params": [
       {
         "nullable": null,
@@ -1358,7 +1455,7 @@
     ]
   },
   {
-    "__docId__": 74,
+    "__docId__": 78,
     "kind": "member",
     "name": "_currency",
     "memberof": "src/Money.js~Money",
@@ -1366,7 +1463,7 @@
     "longname": "src/Money.js~Money#_currency",
     "access": "private",
     "description": "Internal currency",
-    "lineNumber": 69,
+    "lineNumber": 71,
     "type": {
       "nullable": null,
       "types": [
@@ -1377,7 +1474,7 @@
     }
   },
   {
-    "__docId__": 75,
+    "__docId__": 79,
     "kind": "member",
     "name": "_value",
     "memberof": "src/Money.js~Money",
@@ -1385,7 +1482,7 @@
     "longname": "src/Money.js~Money#_value",
     "access": "private",
     "description": "Internal value as a big number",
-    "lineNumber": 75,
+    "lineNumber": 77,
     "type": {
       "nullable": null,
       "types": [
@@ -1396,7 +1493,7 @@
     }
   },
   {
-    "__docId__": 76,
+    "__docId__": 80,
     "kind": "method",
     "name": "add",
     "memberof": "src/Money.js~Money",
@@ -1406,7 +1503,7 @@
     "longname": "src/Money.js~Money#add",
     "access": "public",
     "description": "Performs addition",
-    "lineNumber": 83,
+    "lineNumber": 85,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1437,7 +1534,7 @@
     }
   },
   {
-    "__docId__": 77,
+    "__docId__": 81,
     "kind": "method",
     "name": "subtract",
     "memberof": "src/Money.js~Money",
@@ -1447,7 +1544,7 @@
     "longname": "src/Money.js~Money#subtract",
     "access": "public",
     "description": "Performs subtraction",
-    "lineNumber": 94,
+    "lineNumber": 96,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1478,7 +1575,7 @@
     }
   },
   {
-    "__docId__": 78,
+    "__docId__": 82,
     "kind": "method",
     "name": "multiply",
     "memberof": "src/Money.js~Money",
@@ -1488,7 +1585,7 @@
     "longname": "src/Money.js~Money#multiply",
     "access": "public",
     "description": "Performs multiplication",
-    "lineNumber": 106,
+    "lineNumber": 108,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1530,7 +1627,7 @@
     }
   },
   {
-    "__docId__": 79,
+    "__docId__": 83,
     "kind": "method",
     "name": "divide",
     "memberof": "src/Money.js~Money",
@@ -1540,7 +1637,7 @@
     "longname": "src/Money.js~Money#divide",
     "access": "public",
     "description": "Performs division",
-    "lineNumber": 117,
+    "lineNumber": 119,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1582,7 +1679,7 @@
     }
   },
   {
-    "__docId__": 80,
+    "__docId__": 84,
     "kind": "method",
     "name": "equals",
     "memberof": "src/Money.js~Money",
@@ -1592,7 +1689,7 @@
     "longname": "src/Money.js~Money#equals",
     "access": "public",
     "description": "Performs an equality check",
-    "lineNumber": 127,
+    "lineNumber": 129,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1623,7 +1720,7 @@
     }
   },
   {
-    "__docId__": 81,
+    "__docId__": 85,
     "kind": "method",
     "name": "greaterThan",
     "memberof": "src/Money.js~Money",
@@ -1633,7 +1730,7 @@
     "longname": "src/Money.js~Money#greaterThan",
     "access": "public",
     "description": "Performs a check if the current value is greater than the parameter",
-    "lineNumber": 137,
+    "lineNumber": 139,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1664,7 +1761,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 86,
     "kind": "method",
     "name": "greaterThanOrEqualTo",
     "memberof": "src/Money.js~Money",
@@ -1674,7 +1771,7 @@
     "longname": "src/Money.js~Money#greaterThanOrEqualTo",
     "access": "public",
     "description": "Performs a check if the current value is greater than or equal to the parameter",
-    "lineNumber": 147,
+    "lineNumber": 149,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1705,7 +1802,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 87,
     "kind": "method",
     "name": "lessThan",
     "memberof": "src/Money.js~Money",
@@ -1715,7 +1812,7 @@
     "longname": "src/Money.js~Money#lessThan",
     "access": "public",
     "description": "Performs a check if the current value is less than the parameter",
-    "lineNumber": 157,
+    "lineNumber": 159,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1746,7 +1843,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 88,
     "kind": "method",
     "name": "lessThanOrEqualTo",
     "memberof": "src/Money.js~Money",
@@ -1756,7 +1853,7 @@
     "longname": "src/Money.js~Money#lessThanOrEqualTo",
     "access": "public",
     "description": "Performs a check if the current value is less than or equal to the parameter",
-    "lineNumber": 167,
+    "lineNumber": 169,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1787,7 +1884,7 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 89,
     "kind": "method",
     "name": "absolute",
     "memberof": "src/Money.js~Money",
@@ -1797,7 +1894,7 @@
     "longname": "src/Money.js~Money#absolute",
     "access": "public",
     "description": "Return the absolute monetary value of the current value, i.e., remove the minus sign if the value is below zero",
-    "lineNumber": 176,
+    "lineNumber": 178,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1815,7 +1912,7 @@
     "params": []
   },
   {
-    "__docId__": 86,
+    "__docId__": 90,
     "kind": "method",
     "name": "floor",
     "memberof": "src/Money.js~Money",
@@ -1825,7 +1922,7 @@
     "longname": "src/Money.js~Money#floor",
     "access": "public",
     "description": "Return the largest integer less than or equal to the current value",
-    "lineNumber": 185,
+    "lineNumber": 187,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1843,7 +1940,7 @@
     "params": []
   },
   {
-    "__docId__": 87,
+    "__docId__": 91,
     "kind": "method",
     "name": "ceil",
     "memberof": "src/Money.js~Money",
@@ -1853,7 +1950,7 @@
     "longname": "src/Money.js~Money#ceil",
     "access": "public",
     "description": "Return the smallest integer greater than or equal to the current value",
-    "lineNumber": 194,
+    "lineNumber": 196,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1871,7 +1968,46 @@
     "params": []
   },
   {
-    "__docId__": 88,
+    "__docId__": 92,
+    "kind": "method",
+    "name": "hasSameCurrency",
+    "memberof": "src/Money.js~Money",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Money.js~Money#hasSameCurrency",
+    "access": "public",
+    "description": "Checks if the current currency is the same as that of the parameter",
+    "lineNumber": 206,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{boolean} - true if the current value has the same currency as the parameter"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Money"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "value to check currency against the current value; type same as constructor"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": "true if the current value has the same currency as the parameter"
+    }
+  },
+  {
+    "__docId__": 93,
     "kind": "method",
     "name": "allocate",
     "memberof": "src/Money.js~Money",
@@ -1881,7 +2017,7 @@
     "longname": "src/Money.js~Money#allocate",
     "access": "public",
     "description": "Split the current value by an array of ratios",
-    "lineNumber": 204,
+    "lineNumber": 218,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1911,7 +2047,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 94,
     "kind": "method",
     "name": "allocateTo",
     "memberof": "src/Money.js~Money",
@@ -1921,7 +2057,7 @@
     "longname": "src/Money.js~Money#allocateTo",
     "access": "public",
     "description": "Split the current value by the count",
-    "lineNumber": 228,
+    "lineNumber": 242,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1951,7 +2087,7 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 95,
     "kind": "method",
     "name": "clone",
     "memberof": "src/Money.js~Money",
@@ -1961,7 +2097,7 @@
     "longname": "src/Money.js~Money#clone",
     "access": "public",
     "description": "Create a new money instance, holding an identical value and currency to the current one",
-    "lineNumber": 246,
+    "lineNumber": 260,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1979,7 +2115,7 @@
     "params": []
   },
   {
-    "__docId__": 91,
+    "__docId__": 96,
     "kind": "method",
     "name": "format",
     "memberof": "src/Money.js~Money",
@@ -1989,7 +2125,7 @@
     "longname": "src/Money.js~Money#format",
     "access": "public",
     "description": "Format the current value based on the currency",
-    "lineNumber": 254,
+    "lineNumber": 268,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2007,7 +2143,7 @@
     "params": []
   },
   {
-    "__docId__": 92,
+    "__docId__": 97,
     "kind": "method",
     "name": "getAmountAsBigNumber",
     "memberof": "src/Money.js~Money",
@@ -2017,7 +2153,7 @@
     "longname": "src/Money.js~Money#getAmountAsBigNumber",
     "access": "public",
     "description": "Get the current value as an instance of BigNumber",
-    "lineNumber": 262,
+    "lineNumber": 276,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2035,7 +2171,7 @@
     "params": []
   },
   {
-    "__docId__": 93,
+    "__docId__": 98,
     "kind": "method",
     "name": "getAmountAsStringInteger",
     "memberof": "src/Money.js~Money",
@@ -2045,7 +2181,7 @@
     "longname": "src/Money.js~Money#getAmountAsStringInteger",
     "access": "public",
     "description": "Get the current value as a string integer (same as `getAmount`)",
-    "lineNumber": 270,
+    "lineNumber": 284,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2063,7 +2199,7 @@
     "params": []
   },
   {
-    "__docId__": 94,
+    "__docId__": 99,
     "kind": "method",
     "name": "getAmountAsStringFloat",
     "memberof": "src/Money.js~Money",
@@ -2073,7 +2209,7 @@
     "longname": "src/Money.js~Money#getAmountAsStringFloat",
     "access": "public",
     "description": "Get the current value as a string float",
-    "lineNumber": 278,
+    "lineNumber": 292,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2091,7 +2227,7 @@
     "params": []
   },
   {
-    "__docId__": 95,
+    "__docId__": 100,
     "kind": "method",
     "name": "getAmount",
     "memberof": "src/Money.js~Money",
@@ -2101,7 +2237,7 @@
     "longname": "src/Money.js~Money#getAmount",
     "access": "public",
     "description": "Get the current value as a string integer (same as `getAmountAsStringInteger`)",
-    "lineNumber": 286,
+    "lineNumber": 300,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2119,7 +2255,7 @@
     "params": []
   },
   {
-    "__docId__": 96,
+    "__docId__": 101,
     "kind": "method",
     "name": "toString",
     "memberof": "src/Money.js~Money",
@@ -2129,7 +2265,7 @@
     "longname": "src/Money.js~Money#toString",
     "access": "public",
     "description": "Get the current value as a string integer (same as `getAmount`)",
-    "lineNumber": 294,
+    "lineNumber": 308,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2147,7 +2283,7 @@
     "params": []
   },
   {
-    "__docId__": 97,
+    "__docId__": 102,
     "kind": "method",
     "name": "getCurrency",
     "memberof": "src/Money.js~Money",
@@ -2157,7 +2293,7 @@
     "longname": "src/Money.js~Money#getCurrency",
     "access": "public",
     "description": "Get the internal Currency instance",
-    "lineNumber": 302,
+    "lineNumber": 316,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2175,7 +2311,7 @@
     "params": []
   },
   {
-    "__docId__": 98,
+    "__docId__": 103,
     "kind": "method",
     "name": "getSmallestUnit",
     "memberof": "src/Money.js~Money",
@@ -2185,7 +2321,7 @@
     "longname": "src/Money.js~Money#getSmallestUnit",
     "access": "public",
     "description": "Get the smallest unit of the current monetary value, i.e., 0.01 (aka penny) in a USD money",
-    "lineNumber": 310,
+    "lineNumber": 324,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2203,7 +2339,7 @@
     "params": []
   },
   {
-    "__docId__": 99,
+    "__docId__": 104,
     "kind": "method",
     "name": "toJSON",
     "memberof": "src/Money.js~Money",
@@ -2213,7 +2349,7 @@
     "longname": "src/Money.js~Money#toJSON",
     "access": "public",
     "description": "Get a simple object representing the current monetary value",
-    "lineNumber": 318,
+    "lineNumber": 332,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2231,7 +2367,33 @@
     "params": []
   },
   {
-    "__docId__": 100,
+    "__docId__": 105,
+    "kind": "method",
+    "name": "_checkValueCurrency",
+    "memberof": "src/Money.js~Money",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Money.js~Money#_checkValueCurrency",
+    "access": "private",
+    "description": "Check that the currency of the passed value matches the current currency. If not, throw an error.",
+    "lineNumber": 344,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Money"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The money object which is used for currency check"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 106,
     "kind": "method",
     "name": "_addRemainderToAllocations",
     "memberof": "src/Money.js~Money",
@@ -2241,7 +2403,7 @@
     "longname": "src/Money.js~Money#_addRemainderToAllocations",
     "access": "private",
     "description": "Used by allocation methods to add the remainder to the array of allocations",
-    "lineNumber": 332,
+    "lineNumber": 357,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2280,7 +2442,7 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 107,
     "kind": "method",
     "name": "_preProcessInputValue",
     "memberof": "src/Money.js~Money",
@@ -2290,7 +2452,7 @@
     "longname": "src/Money.js~Money#_preProcessInputValue",
     "access": "private",
     "description": "Convert the constructor input value to an internal BigNumber instance",
-    "lineNumber": 358,
+    "lineNumber": 383,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2321,7 +2483,7 @@
     }
   },
   {
-    "__docId__": 102,
+    "__docId__": 108,
     "kind": "method",
     "name": "_getSmallestUnitDivisor",
     "memberof": "src/Money.js~Money",
@@ -2331,7 +2493,7 @@
     "longname": "src/Money.js~Money#_getSmallestUnitDivisor",
     "access": "private",
     "description": "Get the smallest unit divisor for the current value's currency, i.e., 10 to the power of the currency's decimal digits.\nIt is used for converting an integer value to a float value (or vice versa).",
-    "lineNumber": 388,
+    "lineNumber": 414,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2349,7 +2511,7 @@
     "params": []
   },
   {
-    "__docId__": 103,
+    "__docId__": 109,
     "kind": "method",
     "name": "_getSmallestUnitAsBigNumber",
     "memberof": "src/Money.js~Money",
@@ -2359,7 +2521,7 @@
     "longname": "src/Money.js~Money#_getSmallestUnitAsBigNumber",
     "access": "private",
     "description": "Get the smallest unit of the currency as a big number",
-    "lineNumber": 398,
+    "lineNumber": 424,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2377,7 +2539,7 @@
     "params": []
   },
   {
-    "__docId__": 104,
+    "__docId__": 110,
     "kind": "method",
     "name": "_convertBigNumberToStringInteger",
     "memberof": "src/Money.js~Money",
@@ -2387,7 +2549,7 @@
     "longname": "src/Money.js~Money#_convertBigNumberToStringInteger",
     "access": "private",
     "description": "Convert a BigNumber to a string integer",
-    "lineNumber": 408,
+    "lineNumber": 434,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2416,7 +2578,7 @@
     }
   },
   {
-    "__docId__": 105,
+    "__docId__": 111,
     "kind": "method",
     "name": "_getBigNumberConstructor",
     "memberof": "src/Money.js~Money",
@@ -2426,7 +2588,7 @@
     "longname": "src/Money.js~Money#_getBigNumberConstructor",
     "access": "private",
     "description": "The values below are the default but we need a new constructor in case the default is changed by external code.",
-    "lineNumber": 417,
+    "lineNumber": 443,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2444,7 +2606,7 @@
     "params": []
   },
   {
-    "__docId__": 106,
+    "__docId__": 112,
     "kind": "method",
     "name": "parse",
     "memberof": "src/Money.js~Money",
@@ -2454,7 +2616,7 @@
     "longname": "src/Money.js~Money.parse",
     "access": "public",
     "description": "Parse a formatted money string into an instance of Money",
-    "lineNumber": 430,
+    "lineNumber": 456,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2494,8 +2656,122 @@
     }
   },
   {
+    "__docId__": 113,
+    "kind": "file",
+    "name": "src/WealthError.js",
+    "content": "import ExtendableError from 'es6-error';\n\n/**\n * The base error for all custom errors thrown by the \"Wealth\" library.\n * It's useful when trying to catch all types of \"Wealth\" errors.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WealthError) {\n *      // handle error\n *  }\n * }\n */\nexport default class WealthError extends ExtendableError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Wealth error') {\n\t\tsuper(message);\n\t}\n}\n",
+    "static": true,
+    "longname": "C:/Users/amirm/projects/personal/code/wealth/src/WealthError.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 114,
+    "kind": "class",
+    "name": "WealthError",
+    "memberof": "src/WealthError.js",
+    "static": true,
+    "longname": "src/WealthError.js~WealthError",
+    "access": "public",
+    "export": true,
+    "importPath": "wealth",
+    "importStyle": "{WealthError}",
+    "description": "The base error for all custom errors thrown by the \"Wealth\" library.\nIt's useful when trying to catch all types of \"Wealth\" errors.",
+    "examples": [
+      "try {\n // operation\n}\ncatch(e) {\n if(e instanceof WealthError) {\n     // handle error\n }\n}"
+    ],
+    "lineNumber": 16,
+    "interface": false,
+    "extends": [
+      "es6-error~ExtendableError"
+    ]
+  },
+  {
+    "__docId__": 115,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/WealthError.js~WealthError",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/WealthError.js~WealthError#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 21,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "message",
+        "description": "Error message"
+      }
+    ]
+  },
+  {
+    "__docId__": 116,
+    "kind": "file",
+    "name": "src/WrongInputError.js",
+    "content": "import WealthError from './WealthError';\n\n/**\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n */\nexport default class WrongInputError extends WealthError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Wrong input argument') {\n\t\tsuper(message);\n\t}\n}\n",
+    "static": true,
+    "longname": "C:/Users/amirm/projects/personal/code/wealth/src/WrongInputError.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 117,
+    "kind": "class",
+    "name": "WrongInputError",
+    "memberof": "src/WrongInputError.js",
+    "static": true,
+    "longname": "src/WrongInputError.js~WrongInputError",
+    "access": "public",
+    "export": true,
+    "importPath": "wealth",
+    "importStyle": "{WrongInputError}",
+    "description": "Error thrown when the input argument is wrong",
+    "examples": [
+      "try {\n // operation\n}\ncatch(e) {\n if(e instanceof WrongInputError) {\n     // handle error\n }\n}"
+    ],
+    "lineNumber": 15,
+    "interface": false,
+    "extends": [
+      "src/WealthError.js~WealthError"
+    ]
+  },
+  {
+    "__docId__": 118,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/WrongInputError.js~WrongInputError",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/WrongInputError.js~WrongInputError#constructor",
+    "access": "public",
+    "description": "",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "message",
+        "description": "Error message"
+      }
+    ]
+  },
+  {
     "kind": "index",
-    "content": "# Wealth\n\nWealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.\n\nThere are many libraries out there that handle money or currency, but there's not one that offers a complete feature set.\nThis library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid\nreinventing the wheel.\n\nUnder the hood, it uses [bignumber.js](https://github.com/MikeMcl/bignumber.js/) for calculations\nand [Currency Formatter](https://github.com/smirzaei/currency-formatter) for formatting.\n\n# Installation\n`npm install wealth`\n\nor\n\n`yarn add wealth`\n\n# Basic Example\n```js\nimport {Money, Currency} from 'wealth';\n\nlet\n\tprice = new Money('8078', 'USD'), // $80.78\n\tdiscountedPercentage = 0.82, // 82% ($18 discount)\n\tdiscountedPrice = price.multiply(discountedPercentage), // $66.24\n\tdollarCurrency = price.getCurrency(), // instanceof Currency\n\tdollarSign = dollarCurrency.getSymbol(); // $\n```\n\n# Documentation\nSee the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.\n",
+    "content": "# Wealth\r\n\r\nWealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.\r\n\r\nThere are many libraries out there that handle money or currency, but there's not one that offers a complete feature set.\r\nThis library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid\r\nreinventing the wheel.\r\n\r\nUnder the hood, it uses [bignumber.js](https://github.com/MikeMcl/bignumber.js/) for calculations\r\nand [Currency Formatter](https://github.com/smirzaei/currency-formatter) for formatting.\r\n\r\n# Installation\r\n`npm install wealth`\r\n\r\nor\r\n\r\n`yarn add wealth`\r\n\r\n# Basic Example\r\n```js\r\nimport {Money, Currency} from 'wealth';\r\n\r\nlet\r\n\tprice = new Money('8078', 'USD'), // $80.78\r\n\tdiscountedPercentage = 0.82, // 82% ($18 discount)\r\n\tdiscountedPrice = price.multiply(discountedPercentage), // $66.24\r\n\tdollarCurrency = price.getCurrency(), // instanceof Currency\r\n\tdollarSign = dollarCurrency.getSymbol(); // $\r\n```\r\n\r\n# Documentation\r\nSee the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.\r\n",
     "longname": "C:\\Users\\amirm\\projects\\personal\\code\\wealth\\README.md",
     "name": "./README.md",
     "static": true,
@@ -2503,7 +2779,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"wealth\",\n  \"version\": \"0.0.1\",\n  \"repository\": \"https://github.com/amirmohsen/wealth\",\n  \"description\": \"A full-featured money library\",\n  \"scripts\": {\n    \"build\": \"rollup -c -m\",\n    \"dev\": \"rollup -c -m -w\",\n    \"pretest\": \"npm run build\",\n    \"prepublishOnly\": \"npm run build\",\n    \"test\": \"jest\",\n    \"docs\": \"esdoc\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"main\": \"lib/wealth.cjs.js\",\n  \"module\": \"lib/wealth.esm.js\",\n  \"browser\": \"lib/wealth.umd.js\",\n  \"keywords\": [\n    \"flexverse\",\n    \"money\",\n    \"currency\",\n    \"calculation\",\n    \"formatting\",\n    \"allocation\",\n    \"serializable\"\n  ],\n  \"author\": {\n    \"name\": \"Amir Abdolrazaghi\",\n    \"email\": \"amir@flexverse.tech\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/amirmohsen/wealth/issues\"\n  },\n  \"homepage\": \"https://github.com/amirmohsen/wealth#readme\",\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\"\n      ]\n    ],\n    \"plugins\": [\n      \"syntax-decorators\",\n      \"transform-decorators-legacy\",\n      \"transform-class-properties\",\n      \"transform-object-rest-spread\"\n    ]\n  },\n  \"dependencies\": {\n    \"bignumber.js\": \"^4.1.0\",\n    \"currency-formatter\": \"^1.3.1\",\n    \"validator\": \"^9.1.1\"\n  },\n  \"devDependencies\": {\n    \"babel-jest\": \"^21.2.0\",\n    \"babel-plugin-external-helpers\": \"^6.22.0\",\n    \"babel-plugin-syntax-decorators\": \"^6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"babel-plugin-transform-object-rest-spread\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.3.3\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.1\",\n    \"esdoc-named-import-plugin\": \"0.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"jest\": \"^21.2.1\",\n    \"rollup\": \"^0.50.0\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-commonjs\": \"^8.0.2\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"wealth\",\n  \"version\": \"0.0.1\",\n  \"repository\": \"https://github.com/amirmohsen/wealth\",\n  \"description\": \"A full-featured money library\",\n  \"scripts\": {\n    \"build\": \"rollup -c -m\",\n    \"dev\": \"rollup -c -m -w\",\n    \"pretest\": \"npm run build\",\n    \"prepublishOnly\": \"npm run build\",\n    \"test\": \"jest\",\n    \"docs\": \"esdoc\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"main\": \"lib/wealth.cjs.js\",\n  \"module\": \"lib/wealth.esm.js\",\n  \"browser\": \"lib/wealth.umd.js\",\n  \"keywords\": [\n    \"flexverse\",\n    \"money\",\n    \"currency\",\n    \"calculation\",\n    \"formatting\",\n    \"allocation\",\n    \"serializable\"\n  ],\n  \"author\": {\n    \"name\": \"Amir Abdolrazaghi\",\n    \"email\": \"amir@flexverse.tech\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/amirmohsen/wealth/issues\"\n  },\n  \"homepage\": \"https://github.com/amirmohsen/wealth#readme\",\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\"\n      ]\n    ],\n    \"plugins\": [\n      \"syntax-decorators\",\n      \"transform-decorators-legacy\",\n      \"transform-class-properties\",\n      \"transform-object-rest-spread\"\n    ]\n  },\n  \"dependencies\": {\n    \"bignumber.js\": \"6\",\n    \"currency-formatter\": \"^1.3.1\",\n    \"es6-error\": \"^4.1.1\",\n    \"validator\": \"^9.1.1\"\n  },\n  \"devDependencies\": {\n    \"babel-jest\": \"^22\",\n    \"babel-plugin-external-helpers\": \"^6.22.0\",\n    \"babel-plugin-syntax-decorators\": \"^6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"babel-plugin-transform-object-rest-spread\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.3.3\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-named-import-plugin\": \"0.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"jest\": \"^22\",\n    \"rollup\": \"^0.55\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-commonjs\": \"^8.0.2\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\"\n  }\n}\n",
     "longname": "C:\\Users\\amirm\\projects\\personal\\code\\wealth\\package.json",
     "name": "package.json",
     "static": true,
