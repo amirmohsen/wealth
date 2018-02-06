@@ -4,6 +4,7 @@ import isFloat from 'validator/lib/isFloat';
 import Currency from './Currency';
 import CurrencyMismatchError from './errors/CurrencyMismatchError';
 import WrongInputError from './errors/WrongInputError';
+import Formatter from './Formatter';
 
 /**
  * @example
@@ -273,8 +274,11 @@ export default class Money {
 	 * Format the current value based on the currency
 	 * @returns {string} - formatted money
 	 */
-	format() {
-		return this._currency.format(this._value.toString());
+	format(settings = null) {
+		if(settings) {
+			return Formatter.format(this._value, settings);
+		}
+		return this._currency.format(this._value);
 	}
 
 	/**
@@ -473,12 +477,10 @@ export default class Money {
 	/**
 	 * Parse a formatted money string into an instance of Money
 	 * @param {string} value - the formatted money string
-	 * @param {string|Currency} currency - the currency of the formatted string
+	 * @param {string|object|Currency} settings - the formatting settings
 	 * @returns {Money} - a Money instance holding the parsed value and currency
 	 */
-	static parse(value, currency) {
-		currency = new Currency(currency);
-		value = currency.unformat(value);
-		return new this(value, currency);
+	static parse(value, settings) {
+		return Formatter.parse(value, settings);
 	}
 }

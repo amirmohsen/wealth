@@ -5,7 +5,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"AFN": {
 		"code": "AFN",
@@ -13,7 +13,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"ALL": {
 		"code": "ALL",
@@ -21,7 +21,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"AMD": {
 		"code": "AMD",
@@ -29,7 +29,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"ANG": {
 		"code": "ANG",
@@ -37,7 +37,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"AOA": {
 		"code": "AOA",
@@ -45,7 +45,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"ARS": {
 		"code": "ARS",
@@ -53,7 +53,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"AUD": {
 		"code": "AUD",
@@ -61,7 +61,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"AWG": {
 		"code": "AWG",
@@ -69,7 +69,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"AZN": {
 		"code": "AZN",
@@ -77,7 +77,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"BAM": {
 		"code": "BAM",
@@ -85,7 +85,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"BBD": {
 		"code": "BBD",
@@ -93,7 +93,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"BDT": {
 		"code": "BDT",
@@ -101,7 +101,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"BGN": {
 		"code": "BGN",
@@ -109,7 +109,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"BHD": {
 		"code": "BHD",
@@ -117,7 +117,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 3,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"BIF": {
 		"code": "BIF",
@@ -125,7 +125,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"BMD": {
 		"code": "BMD",
@@ -133,7 +133,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"BND": {
 		"code": "BND",
@@ -141,7 +141,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"BOB": {
 		"code": "BOB",
@@ -149,7 +149,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"BRL": {
 		"code": "BRL",
@@ -157,7 +157,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"BSD": {
 		"code": "BSD",
@@ -165,7 +165,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"BTC": {
 		"code": "BTC",
@@ -173,7 +173,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"BTN": {
 		"code": "BTN",
@@ -181,7 +181,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 1,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"BWP": {
 		"code": "BWP",
@@ -189,7 +189,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"BYR": {
 		"code": "BYR",
@@ -197,7 +197,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"BZD": {
 		"code": "BZD",
@@ -205,7 +205,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"CAD": {
 		"code": "CAD",
@@ -213,7 +213,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"CDF": {
 		"code": "CDF",
@@ -221,7 +221,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"CHF": {
 		"code": "CHF",
@@ -229,7 +229,7 @@
 		"thousandsSeparator": "'",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"CLP": {
 		"code": "CLP",
@@ -237,7 +237,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"CNY": {
 		"code": "CNY",
@@ -245,7 +245,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"COP": {
 		"code": "COP",
@@ -253,7 +253,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"CRC": {
 		"code": "CRC",
@@ -261,7 +261,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"CUC": {
 		"code": "CUC",
@@ -269,7 +269,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"CUP": {
 		"code": "CUP",
@@ -277,7 +277,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"CVE": {
 		"code": "CVE",
@@ -285,7 +285,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"CZK": {
 		"code": "CZK",
@@ -293,7 +293,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"DJF": {
 		"code": "DJF",
@@ -301,7 +301,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"DKK": {
 		"code": "DKK",
@@ -309,7 +309,7 @@
 		"thousandsSeparator": "",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"DOP": {
 		"code": "DOP",
@@ -317,7 +317,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"DZD": {
 		"code": "DZD",
@@ -325,7 +325,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"EGP": {
 		"code": "EGP",
@@ -333,7 +333,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"ERN": {
 		"code": "ERN",
@@ -341,7 +341,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"ETB": {
 		"code": "ETB",
@@ -349,7 +349,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"EUR": {
 		"code": "EUR",
@@ -357,7 +357,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"FJD": {
 		"code": "FJD",
@@ -365,7 +365,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"FKP": {
 		"code": "FKP",
@@ -373,7 +373,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"GBP": {
 		"code": "GBP",
@@ -381,7 +381,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"GEL": {
 		"code": "GEL",
@@ -389,7 +389,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"GHS": {
 		"code": "GHS",
@@ -397,7 +397,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"GIP": {
 		"code": "GIP",
@@ -405,7 +405,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"GMD": {
 		"code": "GMD",
@@ -413,7 +413,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"GNF": {
 		"code": "GNF",
@@ -421,7 +421,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"GTQ": {
 		"code": "GTQ",
@@ -429,7 +429,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"GYD": {
 		"code": "GYD",
@@ -437,7 +437,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"HKD": {
 		"code": "HKD",
@@ -445,7 +445,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"HNL": {
 		"code": "HNL",
@@ -453,7 +453,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"HRK": {
 		"code": "HRK",
@@ -461,7 +461,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"HTG": {
 		"code": "HTG",
@@ -469,7 +469,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"HUF": {
 		"code": "HUF",
@@ -477,7 +477,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"IDR": {
 		"code": "IDR",
@@ -485,7 +485,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"ILS": {
 		"code": "ILS",
@@ -493,7 +493,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"INR": {
 		"code": "INR",
@@ -501,7 +501,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"IQD": {
 		"code": "IQD",
@@ -509,7 +509,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"IRR": {
 		"code": "IRR",
@@ -517,7 +517,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": "/",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"ISK": {
 		"code": "ISK",
@@ -525,7 +525,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 0,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"JMD": {
 		"code": "JMD",
@@ -533,7 +533,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"JOD": {
 		"code": "JOD",
@@ -541,7 +541,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 3,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"JPY": {
 		"code": "JPY",
@@ -549,7 +549,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"KES": {
 		"code": "KES",
@@ -557,7 +557,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"KGS": {
 		"code": "KGS",
@@ -565,7 +565,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": "-",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"KHR": {
 		"code": "KHR",
@@ -573,7 +573,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"KMF": {
 		"code": "KMF",
@@ -581,7 +581,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"KPW": {
 		"code": "KPW",
@@ -589,7 +589,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"KRW": {
 		"code": "KRW",
@@ -597,7 +597,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"KWD": {
 		"code": "KWD",
@@ -605,7 +605,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 3,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"KYD": {
 		"code": "KYD",
@@ -613,7 +613,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"KZT": {
 		"code": "KZT",
@@ -621,7 +621,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": "-",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"LAK": {
 		"code": "LAK",
@@ -629,7 +629,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"LBP": {
 		"code": "LBP",
@@ -637,7 +637,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"LKR": {
 		"code": "LKR",
@@ -645,7 +645,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"LRD": {
 		"code": "LRD",
@@ -653,7 +653,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"LSL": {
 		"code": "LSL",
@@ -661,7 +661,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"LYD": {
 		"code": "LYD",
@@ -669,7 +669,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 3,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MAD": {
 		"code": "MAD",
@@ -677,7 +677,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"MDL": {
 		"code": "MDL",
@@ -685,7 +685,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"MGA": {
 		"code": "MGA",
@@ -693,7 +693,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MKD": {
 		"code": "MKD",
@@ -701,7 +701,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"MMK": {
 		"code": "MMK",
@@ -709,7 +709,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MNT": {
 		"code": "MNT",
@@ -717,7 +717,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MOP": {
 		"code": "MOP",
@@ -725,7 +725,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MRO": {
 		"code": "MRO",
@@ -733,7 +733,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"MTL": {
 		"code": "MTL",
@@ -741,7 +741,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MUR": {
 		"code": "MUR",
@@ -749,7 +749,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MVR": {
 		"code": "MVR",
@@ -757,7 +757,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 1,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"MWK": {
 		"code": "MWK",
@@ -765,7 +765,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MXN": {
 		"code": "MXN",
@@ -773,7 +773,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MYR": {
 		"code": "MYR",
@@ -781,7 +781,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"MZN": {
 		"code": "MZN",
@@ -789,7 +789,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"NAD": {
 		"code": "NAD",
@@ -797,7 +797,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"NGN": {
 		"code": "NGN",
@@ -805,7 +805,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"NIO": {
 		"code": "NIO",
@@ -813,7 +813,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"NOK": {
 		"code": "NOK",
@@ -821,7 +821,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"NPR": {
 		"code": "NPR",
@@ -829,7 +829,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"NZD": {
 		"code": "NZD",
@@ -837,7 +837,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"OMR": {
 		"code": "OMR",
@@ -845,7 +845,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 3,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"PAB": {
 		"code": "PAB",
@@ -853,7 +853,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"PEN": {
 		"code": "PEN",
@@ -861,7 +861,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"PGK": {
 		"code": "PGK",
@@ -869,7 +869,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"PHP": {
 		"code": "PHP",
@@ -877,7 +877,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"PKR": {
 		"code": "PKR",
@@ -885,7 +885,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"PLN": {
 		"code": "PLN",
@@ -893,7 +893,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"PYG": {
 		"code": "PYG",
@@ -901,7 +901,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"QAR": {
 		"code": "QAR",
@@ -909,7 +909,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"RON": {
 		"code": "RON",
@@ -917,7 +917,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"RSD": {
 		"code": "RSD",
@@ -925,7 +925,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"RUB": {
 		"code": "RUB",
@@ -933,7 +933,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"RWF": {
 		"code": "RWF",
@@ -941,7 +941,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"SAR": {
 		"code": "SAR",
@@ -949,7 +949,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"SBD": {
 		"code": "SBD",
@@ -957,7 +957,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SCR": {
 		"code": "SCR",
@@ -965,7 +965,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SDD": {
 		"code": "SDD",
@@ -973,7 +973,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"SDG": {
 		"code": "SDG",
@@ -981,7 +981,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SEK": {
 		"code": "SEK",
@@ -989,7 +989,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"SGD": {
 		"code": "SGD",
@@ -997,7 +997,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SHP": {
 		"code": "SHP",
@@ -1005,7 +1005,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SLL": {
 		"code": "SLL",
@@ -1013,7 +1013,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SOS": {
 		"code": "SOS",
@@ -1021,7 +1021,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SRD": {
 		"code": "SRD",
@@ -1029,7 +1029,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"STD": {
 		"code": "STD",
@@ -1037,7 +1037,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SVC": {
 		"code": "SVC",
@@ -1045,7 +1045,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"SYP": {
 		"code": "SYP",
@@ -1053,7 +1053,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"SZL": {
 		"code": "SZL",
@@ -1061,7 +1061,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"THB": {
 		"code": "THB",
@@ -1069,7 +1069,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"TJS": {
 		"code": "TJS",
@@ -1077,7 +1077,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ";",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"TMT": {
 		"code": "TMT",
@@ -1085,7 +1085,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"TND": {
 		"code": "TND",
@@ -1093,7 +1093,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 3,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"TOP": {
 		"code": "TOP",
@@ -1101,7 +1101,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"TRY": {
 		"code": "TRY",
@@ -1109,7 +1109,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"TTD": {
 		"code": "TTD",
@@ -1117,7 +1117,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"TVD": {
 		"code": "TVD",
@@ -1125,7 +1125,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"TWD": {
 		"code": "TWD",
@@ -1133,7 +1133,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"TZS": {
 		"code": "TZS",
@@ -1141,7 +1141,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"UAH": {
 		"code": "UAH",
@@ -1149,7 +1149,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"UGX": {
 		"code": "UGX",
@@ -1157,7 +1157,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"USD": {
 		"code": "USD",
@@ -1165,7 +1165,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"UYU": {
 		"code": "UYU",
@@ -1173,7 +1173,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"UZS": {
 		"code": "UZS",
@@ -1181,7 +1181,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"VEB": {
 		"code": "VEB",
@@ -1189,7 +1189,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"VEF": {
 		"code": "VEF",
@@ -1197,7 +1197,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"VND": {
 		"code": "VND",
@@ -1205,7 +1205,7 @@
 		"thousandsSeparator": ".",
 		"decimalSeparator": ",",
 		"decimalDigits": 1,
-		"format": "%v %s"
+		"pattern": "%v %s"
 	},
 	"VUV": {
 		"code": "VUV",
@@ -1213,7 +1213,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 0,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"WST": {
 		"code": "WST",
@@ -1221,7 +1221,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"XAF": {
 		"code": "XAF",
@@ -1229,7 +1229,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"XCD": {
 		"code": "XCD",
@@ -1237,7 +1237,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"XOF": {
 		"code": "XOF",
@@ -1245,7 +1245,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"XPF": {
 		"code": "XPF",
@@ -1253,7 +1253,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%v%s"
+		"pattern": "%v%s"
 	},
 	"YER": {
 		"code": "YER",
@@ -1261,7 +1261,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s %v"
+		"pattern": "%s %v"
 	},
 	"ZAR": {
 		"code": "ZAR",
@@ -1269,7 +1269,7 @@
 		"thousandsSeparator": " ",
 		"decimalSeparator": ",",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"ZMW": {
 		"code": "ZMW",
@@ -1277,7 +1277,7 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	},
 	"WON": {
 		"code": "WON",
@@ -1285,6 +1285,6 @@
 		"thousandsSeparator": ",",
 		"decimalSeparator": ".",
 		"decimalDigits": 2,
-		"format": "%s%v"
+		"pattern": "%s%v"
 	}
 }

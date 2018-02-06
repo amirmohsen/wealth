@@ -34,6 +34,13 @@ class CurrencyStore {
 	del(code) {
 		delete this._data[code];
 	}
+
+	getAll() {
+		return Object
+			.values(this._data)
+			.reduce((settings, all) => all.concat([settings]), [])
+			.sort((a, b) => a.code.localeCompare(b.code));
+	}
 }
 
 export default new CurrencyStore();

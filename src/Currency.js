@@ -1,4 +1,5 @@
-import CurrencyFormatter from 'currency-formatter';
+import CurrencyStore from './CurrencyStore';
+import Formatter from './Formatter';
 
 /**
  * @example
@@ -14,7 +15,7 @@ export default class Currency {
 		 * @type {object} - an object holding currency details such as decimal digits, etc.
 		 * @private
 		 */
-		this._currencySettings = CurrencyFormatter.findCurrency(this._preProcess(currency));
+		this._currencySettings = CurrencyStore.get(this._preProcess(currency));
 	}
 
 	/**
@@ -92,19 +93,11 @@ export default class Currency {
 	}
 
 	/**
-	 * Does the currency symbol go to the left of the value?
-	 * @returns {boolean} - True if currency symbol goes to the left of the value.
+	 * Get currency formatting pattern
+	 * @returns {string} - Currency format pattern
 	 */
-	hasSymbolOnLeft() {
-		return this._currencySettings.symbolOnLeft;
-	}
-
-	/**
-	 * Is there a space between amount and symbol of the currency?
-	 * @returns {boolean} - True if there's a symbol between amount and symbol of the currency.
-	 */
-	hasSpaceBetweenAmountAndSymbol() {
-		return this._currencySettings.spaceBetweenAmountAndSymbol;
+	getPattern() {
+		return this._currencySettings.pattern;
 	}
 
 	/**
@@ -117,13 +110,11 @@ export default class Currency {
 
 	/**
 	 * Format a monetary value
-	 * @param {string|number} value - Monetary value to be formatted
+	 * @param {Money} value - Monetary value to be formatted
 	 * @returns {string} - Formatted string of the value
 	 */
 	format(value) {
-		return CurrencyFormatter.format(value, {
-			code: this._currencySettings.code
-		});
+		return Formatter.format(value, this);
 	}
 
 	/**
@@ -141,9 +132,7 @@ export default class Currency {
 	 * @returns {string} - Parsed monetary value
 	 */
 	parse(value) {
-		return CurrencyFormatter.unformat(value, {
-			code: this._currencySettings.code
-		}).toString();
+		return Formatter.parse(value, this);
 	}
 
 	/**
@@ -164,7 +153,7 @@ export default class Currency {
 	 * @return {object} - Currency settings
 	 */
 	static getCurrencySettings(code) {
-		return CurrencyFormatter.findCurrency(code);
+		return CurrencyStore.get(code);
 	}
 
 	/**
@@ -172,6 +161,6 @@ export default class Currency {
 	 * @return {object[]} - Settings for all currencies
 	 */
 	static getAllCurrenciesSettings() {
-		return CurrencyFormatter.currencies;
+		return CurrencyStore.getAll();
 	}
 }
