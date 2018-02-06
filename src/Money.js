@@ -2,8 +2,8 @@ import BigNumber from 'bignumber.js';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
 import Currency from './Currency';
-import CurrencyMismatchError from './CurrencyMismatchError';
-import WrongInputError from './WrongInputError';
+import CurrencyMismatchError from './errors/CurrencyMismatchError';
+import WrongInputError from './errors/WrongInputError';
 
 /**
  * @example
@@ -69,12 +69,20 @@ export default class Money {
 		 * @private
 		 */
 		this._currency = new Currency(currency);
+
+		/**
+		 * BigNumber constructor used by this "Money" instance
+		 * @type {class}
+		 * @private
+		 */
+		this._bigNumberConstructor = this._getBigNumberConstructor();
+
 		/**
 		 * Internal value as a big number
 		 * @type {BigNumber} - Internal BigNumber instance holding the value
 		 * @private
 		 */
-		this._value = this._preProcessInputValue(value);
+		this._value = this._preProcessInputValue(value, this._bigNumberConstructor);
 	}
 
 	/**
@@ -326,6 +334,14 @@ export default class Money {
 	}
 
 	/**
+	 * Get BigNumber constructor used by this "Money" instance
+	 * @returns {class}
+	 */
+	getBigNumberConstructor() {
+		return this._bigNumberConstructor;
+	}
+
+	/**
 	 * Get a simple object representing the current monetary value
 	 * @returns {{amount: string, currency: Currency}} - object with a string integer value and currency code
 	 */
@@ -377,18 +393,17 @@ export default class Money {
 	/**
 	 * Convert the constructor input value to an internal BigNumber instance
 	 * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`
+	 * @param {class} BN - BigNumber constructor used by this "Money" instance
 	 * @returns {BigNumber} - Internal BigNumber instance
 	 * @private
 	 */
-	_preProcessInputValue(value) {
+	_preProcessInputValue(value, BN) {
 		if(value instanceof Money) {
 			this._checkValueCurrency(value);
 			return value.getAmountAsBigNumber();
 		}
 
 		let divisor = this._getSmallestUnitDivisor();
-
-		const BN = this._getBigNumberConstructor();
 
 		if(divisor.isGreaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {
 			value = new BN(value);
@@ -443,7 +458,15 @@ export default class Money {
 	_getBigNumberConstructor() {
 		return BigNumber.clone({
 			DECIMAL_PLACES: 20,
-			ROUNDING_MODE: this.constructor.ROUNDING.HALF_UP
+			ROUNDING_MODE: this.constructor.ROUNDING.HALF_UP,
+			FORMAT: {
+				decimalSeparator: this._currency.getDecimalSeparator(),
+				groupSeparator: this._currency.getThousandsSeparator(),
+				groupSize: 3,
+				secondaryGroupSize: 0,
+				fractionGroupSeparator: ' ',
+				fractionGroupSize: 0
+			}
 		});
 	}
 

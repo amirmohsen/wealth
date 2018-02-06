@@ -1,0 +1,1290 @@
+{
+	"AED": {
+		"code": "AED",
+		"symbol": "د.إ.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"AFN": {
+		"code": "AFN",
+		"symbol": "؋",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"ALL": {
+		"code": "ALL",
+		"symbol": "Lek",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"AMD": {
+		"code": "AMD",
+		"symbol": "֏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"ANG": {
+		"code": "ANG",
+		"symbol": "ƒ",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"AOA": {
+		"code": "AOA",
+		"symbol": "Kz",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"ARS": {
+		"code": "ARS",
+		"symbol": "$",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"AUD": {
+		"code": "AUD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"AWG": {
+		"code": "AWG",
+		"symbol": "ƒ",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"AZN": {
+		"code": "AZN",
+		"symbol": "₼",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"BAM": {
+		"code": "BAM",
+		"symbol": "КМ",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"BBD": {
+		"code": "BBD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"BDT": {
+		"code": "BDT",
+		"symbol": "৳",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s %v"
+	},
+	"BGN": {
+		"code": "BGN",
+		"symbol": "лв.",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"BHD": {
+		"code": "BHD",
+		"symbol": "د.ب.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 3,
+		"format": "%s %v"
+	},
+	"BIF": {
+		"code": "BIF",
+		"symbol": "FBu",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"BMD": {
+		"code": "BMD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"BND": {
+		"code": "BND",
+		"symbol": "$",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"BOB": {
+		"code": "BOB",
+		"symbol": "Bs",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"BRL": {
+		"code": "BRL",
+		"symbol": "R$",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"BSD": {
+		"code": "BSD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"BTC": {
+		"code": "BTC",
+		"symbol": "Ƀ",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"BTN": {
+		"code": "BTN",
+		"symbol": "Nu.",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 1,
+		"format": "%s %v"
+	},
+	"BWP": {
+		"code": "BWP",
+		"symbol": "P",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"BYR": {
+		"code": "BYR",
+		"symbol": "р.",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"BZD": {
+		"code": "BZD",
+		"symbol": "BZ$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"CAD": {
+		"code": "CAD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"CDF": {
+		"code": "CDF",
+		"symbol": "FC",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"CHF": {
+		"code": "CHF",
+		"symbol": "CHF",
+		"thousandsSeparator": "'",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"CLP": {
+		"code": "CLP",
+		"symbol": "$",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"CNY": {
+		"code": "CNY",
+		"symbol": "¥",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"COP": {
+		"code": "COP",
+		"symbol": "$",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"CRC": {
+		"code": "CRC",
+		"symbol": "₡",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"CUC": {
+		"code": "CUC",
+		"symbol": "CUC",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"CUP": {
+		"code": "CUP",
+		"symbol": "$MN",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"CVE": {
+		"code": "CVE",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"CZK": {
+		"code": "CZK",
+		"symbol": "Kč",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"DJF": {
+		"code": "DJF",
+		"symbol": "Fdj",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"DKK": {
+		"code": "DKK",
+		"symbol": "kr.",
+		"thousandsSeparator": "",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"DOP": {
+		"code": "DOP",
+		"symbol": "RD$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"DZD": {
+		"code": "DZD",
+		"symbol": "د.ج.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"EGP": {
+		"code": "EGP",
+		"symbol": "ج.م.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"ERN": {
+		"code": "ERN",
+		"symbol": "Nfk",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"ETB": {
+		"code": "ETB",
+		"symbol": "ETB",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"EUR": {
+		"code": "EUR",
+		"symbol": "€",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"FJD": {
+		"code": "FJD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"FKP": {
+		"code": "FKP",
+		"symbol": "£",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"GBP": {
+		"code": "GBP",
+		"symbol": "£",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"GEL": {
+		"code": "GEL",
+		"symbol": "Lari",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"GHS": {
+		"code": "GHS",
+		"symbol": "₵",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"GIP": {
+		"code": "GIP",
+		"symbol": "£",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"GMD": {
+		"code": "GMD",
+		"symbol": "D",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"GNF": {
+		"code": "GNF",
+		"symbol": "FG",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"GTQ": {
+		"code": "GTQ",
+		"symbol": "Q",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"GYD": {
+		"code": "GYD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"HKD": {
+		"code": "HKD",
+		"symbol": "HK$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"HNL": {
+		"code": "HNL",
+		"symbol": "L.",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"HRK": {
+		"code": "HRK",
+		"symbol": "kn",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"HTG": {
+		"code": "HTG",
+		"symbol": "G",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"HUF": {
+		"code": "HUF",
+		"symbol": "Ft",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"IDR": {
+		"code": "IDR",
+		"symbol": "Rp",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"ILS": {
+		"code": "ILS",
+		"symbol": "₪",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"INR": {
+		"code": "INR",
+		"symbol": "₹",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"IQD": {
+		"code": "IQD",
+		"symbol": "د.ع.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"IRR": {
+		"code": "IRR",
+		"symbol": "﷼",
+		"thousandsSeparator": ",",
+		"decimalSeparator": "/",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"ISK": {
+		"code": "ISK",
+		"symbol": "kr.",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 0,
+		"format": "%v %s"
+	},
+	"JMD": {
+		"code": "JMD",
+		"symbol": "J$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"JOD": {
+		"code": "JOD",
+		"symbol": "د.ا.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 3,
+		"format": "%s %v"
+	},
+	"JPY": {
+		"code": "JPY",
+		"symbol": "¥",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"KES": {
+		"code": "KES",
+		"symbol": "KSh",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"KGS": {
+		"code": "KGS",
+		"symbol": "сом",
+		"thousandsSeparator": " ",
+		"decimalSeparator": "-",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"KHR": {
+		"code": "KHR",
+		"symbol": "៛",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"KMF": {
+		"code": "KMF",
+		"symbol": "CF",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"KPW": {
+		"code": "KPW",
+		"symbol": "₩",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"KRW": {
+		"code": "KRW",
+		"symbol": "₩",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"KWD": {
+		"code": "KWD",
+		"symbol": "د.ك.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 3,
+		"format": "%s %v"
+	},
+	"KYD": {
+		"code": "KYD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"KZT": {
+		"code": "KZT",
+		"symbol": "₸",
+		"thousandsSeparator": " ",
+		"decimalSeparator": "-",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"LAK": {
+		"code": "LAK",
+		"symbol": "₭",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"LBP": {
+		"code": "LBP",
+		"symbol": "ل.ل.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"LKR": {
+		"code": "LKR",
+		"symbol": "₨",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s %v"
+	},
+	"LRD": {
+		"code": "LRD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"LSL": {
+		"code": "LSL",
+		"symbol": "M",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"LYD": {
+		"code": "LYD",
+		"symbol": "د.ل.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 3,
+		"format": "%s%v"
+	},
+	"MAD": {
+		"code": "MAD",
+		"symbol": "د.م.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"MDL": {
+		"code": "MDL",
+		"symbol": "lei",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"MGA": {
+		"code": "MGA",
+		"symbol": "Ar",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"MKD": {
+		"code": "MKD",
+		"symbol": "ден.",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"MMK": {
+		"code": "MMK",
+		"symbol": "K",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MNT": {
+		"code": "MNT",
+		"symbol": "₮",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MOP": {
+		"code": "MOP",
+		"symbol": "MOP$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MRO": {
+		"code": "MRO",
+		"symbol": "UM",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"MTL": {
+		"code": "MTL",
+		"symbol": "₤",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MUR": {
+		"code": "MUR",
+		"symbol": "₨",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MVR": {
+		"code": "MVR",
+		"symbol": "MVR",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 1,
+		"format": "%v %s"
+	},
+	"MWK": {
+		"code": "MWK",
+		"symbol": "MK",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MXN": {
+		"code": "MXN",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MYR": {
+		"code": "MYR",
+		"symbol": "RM",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"MZN": {
+		"code": "MZN",
+		"symbol": "MT",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%s%v"
+	},
+	"NAD": {
+		"code": "NAD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"NGN": {
+		"code": "NGN",
+		"symbol": "₦",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"NIO": {
+		"code": "NIO",
+		"symbol": "C$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"NOK": {
+		"code": "NOK",
+		"symbol": "kr",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"NPR": {
+		"code": "NPR",
+		"symbol": "₨",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"NZD": {
+		"code": "NZD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"OMR": {
+		"code": "OMR",
+		"symbol": "﷼",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 3,
+		"format": "%s %v"
+	},
+	"PAB": {
+		"code": "PAB",
+		"symbol": "B/.",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"PEN": {
+		"code": "PEN",
+		"symbol": "S/.",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"PGK": {
+		"code": "PGK",
+		"symbol": "K",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"PHP": {
+		"code": "PHP",
+		"symbol": "₱",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"PKR": {
+		"code": "PKR",
+		"symbol": "₨",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"PLN": {
+		"code": "PLN",
+		"symbol": "zł",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"PYG": {
+		"code": "PYG",
+		"symbol": "₲",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"QAR": {
+		"code": "QAR",
+		"symbol": "﷼",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"RON": {
+		"code": "RON",
+		"symbol": "lei",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"RSD": {
+		"code": "RSD",
+		"symbol": "Дин.",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"RUB": {
+		"code": "RUB",
+		"symbol": "₽",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"RWF": {
+		"code": "RWF",
+		"symbol": "RWF",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"SAR": {
+		"code": "SAR",
+		"symbol": "﷼",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"SBD": {
+		"code": "SBD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SCR": {
+		"code": "SCR",
+		"symbol": "₨",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SDD": {
+		"code": "SDD",
+		"symbol": "LSd",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"SDG": {
+		"code": "SDG",
+		"symbol": "£‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SEK": {
+		"code": "SEK",
+		"symbol": "kr",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"SGD": {
+		"code": "SGD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SHP": {
+		"code": "SHP",
+		"symbol": "£",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SLL": {
+		"code": "SLL",
+		"symbol": "Le",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SOS": {
+		"code": "SOS",
+		"symbol": "S",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SRD": {
+		"code": "SRD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"STD": {
+		"code": "STD",
+		"symbol": "Db",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SVC": {
+		"code": "SVC",
+		"symbol": "₡",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"SYP": {
+		"code": "SYP",
+		"symbol": "£",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"SZL": {
+		"code": "SZL",
+		"symbol": "E",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"THB": {
+		"code": "THB",
+		"symbol": "฿",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"TJS": {
+		"code": "TJS",
+		"symbol": "TJS",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ";",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"TMT": {
+		"code": "TMT",
+		"symbol": "m",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"TND": {
+		"code": "TND",
+		"symbol": "د.ت.‏",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 3,
+		"format": "%s %v"
+	},
+	"TOP": {
+		"code": "TOP",
+		"symbol": "T$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"TRY": {
+		"code": "TRY",
+		"symbol": "TL",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"TTD": {
+		"code": "TTD",
+		"symbol": "TT$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"TVD": {
+		"code": "TVD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"TWD": {
+		"code": "TWD",
+		"symbol": "NT$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"TZS": {
+		"code": "TZS",
+		"symbol": "TSh",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"UAH": {
+		"code": "UAH",
+		"symbol": "₴",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"UGX": {
+		"code": "UGX",
+		"symbol": "USh",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"USD": {
+		"code": "USD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"UYU": {
+		"code": "UYU",
+		"symbol": "$U",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"UZS": {
+		"code": "UZS",
+		"symbol": "сўм",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v %s"
+	},
+	"VEB": {
+		"code": "VEB",
+		"symbol": "Bs.",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"VEF": {
+		"code": "VEF",
+		"symbol": "Bs. F.",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"VND": {
+		"code": "VND",
+		"symbol": "₫",
+		"thousandsSeparator": ".",
+		"decimalSeparator": ",",
+		"decimalDigits": 1,
+		"format": "%v %s"
+	},
+	"VUV": {
+		"code": "VUV",
+		"symbol": "VT",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 0,
+		"format": "%v%s"
+	},
+	"WST": {
+		"code": "WST",
+		"symbol": "WS$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"XAF": {
+		"code": "XAF",
+		"symbol": "F",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"XCD": {
+		"code": "XCD",
+		"symbol": "$",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"XOF": {
+		"code": "XOF",
+		"symbol": "F",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"XPF": {
+		"code": "XPF",
+		"symbol": "F",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%v%s"
+	},
+	"YER": {
+		"code": "YER",
+		"symbol": "﷼",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s %v"
+	},
+	"ZAR": {
+		"code": "ZAR",
+		"symbol": "R",
+		"thousandsSeparator": " ",
+		"decimalSeparator": ",",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"ZMW": {
+		"code": "ZMW",
+		"symbol": "ZK",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	},
+	"WON": {
+		"code": "WON",
+		"symbol": "₩",
+		"thousandsSeparator": ",",
+		"decimalSeparator": ".",
+		"decimalDigits": 2,
+		"format": "%s%v"
+	}
+}
