@@ -1,4 +1,4 @@
-{
+export default {
 	"AED": {
 		"code": "AED",
 		"symbol": "د.إ.‏",
@@ -1287,4 +1287,4 @@
 		"decimalDigits": 2,
 		"pattern": "%s%v"
 	}
-}
+};
