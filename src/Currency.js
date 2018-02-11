@@ -3,8 +3,17 @@ import Formatter from './Formatter';
 import WrongInputError from './errors/WrongInputError';
 
 /**
- * @example
+ * @example <caption>Using code</caption>
  * let currency = new Currency('USD');
+ *
+ * @example <caption>Using existing currency object</caption>
+ * let currency = new Currency(new Currency('USD'));
+ *
+ * @example <caption>Using custom settings to create a one-off currency without registering it</caption>
+ * let currency = new Currency({
+ *  code: 'ETH',
+ *  symbol: 'Ξ'
+ * });
  */
 export default class Currency {
 
@@ -20,7 +29,7 @@ export default class Currency {
 	}
 
 	/**
-	 * Check if the paremeter currency the same as the current currency
+	 * Check if the parameter currency the same as the current currency
 	 * @param {string|Currency} currency - Currency string code or instance of Currency
 	 * @returns {boolean} - returns true if the parameter currency is the same as the current currency
 	 */

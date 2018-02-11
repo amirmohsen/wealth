@@ -9,7 +9,7 @@ import InvalidCurrencyError from './errors/InvalidCurrencyError';
  *  thousandsSeparator: ',', // Currency thousands separator (Default: ',')
  *  decimalSeparator: '.', // Currency decimal separator (Default: '.')
  *  decimalDigits: 2, // Currency decimal digits (Default: 2)
- *  pattern: '%ns%s%v', // Currency pattern (Default: '%ns%v')
+ *  pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v')
  *  formatter: null, // Currency formatter (Default: null). Custom formatting function.
  *  parser: null // Currency parser (Default: null). Custom parsing function.
  * });
