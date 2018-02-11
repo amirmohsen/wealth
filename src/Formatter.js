@@ -19,7 +19,7 @@ import Currency from './Currency';
  *  pattern: '%s%v'
  * });
  */
-class Formatter {
+export default class Formatter {
 
 	/**
 	 * Format money based on settings
@@ -27,7 +27,7 @@ class Formatter {
 	 * @param {object|string|Currency} [settings] - Formatting settings, currency code or currency
 	 * @returns {string} - Formatted money string
 	 */
-	format(value, settings) {
+	static format(value, settings) {
 		const
 			details = this._getFormattingDetails(value, settings),
 			{
@@ -67,7 +67,7 @@ class Formatter {
 	 * @param {object|string|Currency} settings - Parsing settings, currency code or currency
 	 * @returns {Money} - Parsed "Money" value
 	 */
-	parse(value, settings) {
+	static parse(value, settings) {
 		let
 			options = this._getOptions(settings),
 			{
@@ -99,7 +99,7 @@ class Formatter {
 	 * @returns {string} - final string result
 	 * @private
 	 */
-	_replaceAll(source, search, replacement) {
+	static _replaceAll(source, search, replacement) {
 		let
 			esc = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'),
 			reg = new RegExp(esc, 'ig');
@@ -113,7 +113,7 @@ class Formatter {
 	 * @returns {{symbol: string, code: string, value: BigNumber, decimalDigits: number, pattern: string}} - Formatting details
 	 * @private
 	 */
-	_getFormattingDetails(value, settings) {
+	static _getFormattingDetails(value, settings) {
 		let {
 			symbol,
 			code,
@@ -159,7 +159,7 @@ class Formatter {
 	 * @returns {{symbol: string, code: string, thousandsSeparator: string, decimalSeparator: string, decimalDigits: number, pattern: string}} - Formatting/parsing details
 	 * @private
 	 */
-	_getOptions(settings, value = null) {
+	static _getOptions(settings, value = null) {
 		if(settings === undefined && value instanceof Money) {
 			return value.getCurrency().getSettings();
 		}
@@ -205,5 +205,3 @@ class Formatter {
 		};
 	}
 }
-
-export default new Formatter();

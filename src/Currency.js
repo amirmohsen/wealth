@@ -191,7 +191,7 @@ export default class Currency {
 	 * @param {string} code - Currency code
 	 * @return {object} - Currency settings
 	 */
-	static getCurrencySettings(code) {
+	static getSettings(code) {
 		return CurrencyStore.get(code);
 	}
 
@@ -199,7 +199,7 @@ export default class Currency {
 	 * Get an array of currency settings for all currencies
 	 * @return {object[]} - Settings for all currencies
 	 */
-	static getAllCurrenciesSettings() {
+	static getAllSettings() {
 		return CurrencyStore.getAll();
 	}
 }

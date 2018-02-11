@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/CurrencyStore.js | wealth</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="A full-featured money library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="wealth"><meta property="twitter:description" content="A full-featured money library"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/amirmohsen/wealth"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyStore.js~CurrencyStore.html">CurrencyStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Formatter.js~Formatter.html">Formatter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/InvalidCurrencyError.js~InvalidCurrencyError.html">InvalidCurrencyError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WealthError.js~WealthError.html">WealthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/CurrencyStore.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import ISOCurrencies from &apos;./data/iso-currencies&apos;;
+import InvalidCurrencyError from &apos;./errors/InvalidCurrencyError&apos;;
+
+/**
+ * Currency store
+ * @example &lt;caption&gt;Set (register or replace) a currency&lt;/caption&gt;
+ * CurrencyStore.set(&apos;XBT&apos;, { // Settings is optional
+ *  symbol: &apos;&#x243;&apos;, // Currency symbol (Default: same as code)
+ *  thousandsSeparator: &apos;,&apos;, // Currency thousands separator (Default: &apos;,&apos;)
+ *  decimalSeparator: &apos;.&apos;, // Currency decimal separator (Default: &apos;.&apos;)
+ *  decimalDigits: 2, // Currency decimal digits (Default: 2)
+ *  pattern: &apos;%ns%s%v&apos;, // Currency pattern (Default: &apos;%ns%s%v&apos;)
+ *  formatter: null, // Currency formatter (Default: null). Custom formatting function.
+ *  parser: null // Currency parser (Default: null). Custom parsing function.
+ * });
+ *
+ * @example &lt;caption&gt;Get currency settings&lt;/caption&gt;
+ * CurrencyStore.get(&apos;XBT&apos;);
+ */
+export default class CurrencyStore {
+
+	/**
+	 * @type {object} - Internal data store
+	 * @private
+	 */
+	static _data = {
+		...ISOCurrencies
+	};
+
+	/**
+	 * Set (register or replace) a currency
+	 * @param {string} code - Currency code
+	 * @param {object} settings - Currency settings
+	 */
+	static set(code, settings) {
+		if(typeof code !== &apos;string&apos; || !code) {
+			throw new InvalidCurrencyError(&apos;Invalid currency settings; code is required.&apos;);
+		}
+
+		settings = {
+			...settings,
+			thousandsSeparator: &apos;,&apos;,
+			decimalSeparator: &apos;.&apos;,
+			decimalDigits: 2,
+			pattern: &apos;%ns%s%v&apos;,
+			symbol: settings.symbol || code,
+			formatter: null,
+			parser: null,
+			code
+		};
+
+		this._data[code] = settings;
+	}
+
+	/**
+	 * Get currency settings
+	 * @param code - Currency code
+	 * @returns {object} - Currency settings
+	 */
+	static get(code) {
+		return this._data[code];
+	}
+
+	/**
+	 * Check if currency has been registered
+	 * @param code - Currency code
+	 * @returns {boolean} - True if currency has been registered
+	 */
+	static has(code) {
+		return !!this.get(code);
+	}
+
+	/**
+	 * Delete a registered currency
+	 * @param code - Currency code
+	 */
+	static del(code) {
+		delete this._data[code];
+	}
+
+	/**
+	 * Get all registered currencies
+	 * @returns {array} - List of currencies, sorted by code alphabetically
+	 */
+	static getAll() {
+		return Object
+			.values(this._data)
+			.reduce((settings, all) =&gt; all.concat([settings]), [])
+			.sort((a, b) =&gt; a.code.localeCompare(b.code));
+	}
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

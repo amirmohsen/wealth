@@ -17,13 +17,13 @@ import InvalidCurrencyError from './errors/InvalidCurrencyError';
  * @example <caption>Get currency settings</caption>
  * CurrencyStore.get('XBT');
  */
-class CurrencyStore {
+export default class CurrencyStore {
 
 	/**
 	 * @type {object} - Internal data store
 	 * @private
 	 */
-	_data = {
+	static _data = {
 		...ISOCurrencies
 	};
 
@@ -32,7 +32,7 @@ class CurrencyStore {
 	 * @param {string} code - Currency code
 	 * @param {object} settings - Currency settings
 	 */
-	set(code, settings) {
+	static set(code, settings) {
 		if(typeof code !== 'string' || !code) {
 			throw new InvalidCurrencyError('Invalid currency settings; code is required.');
 		}
@@ -57,7 +57,7 @@ class CurrencyStore {
 	 * @param code - Currency code
 	 * @returns {object} - Currency settings
 	 */
-	get(code) {
+	static get(code) {
 		return this._data[code];
 	}
 
@@ -66,7 +66,7 @@ class CurrencyStore {
 	 * @param code - Currency code
 	 * @returns {boolean} - True if currency has been registered
 	 */
-	has(code) {
+	static has(code) {
 		return !!this.get(code);
 	}
 
@@ -74,7 +74,7 @@ class CurrencyStore {
 	 * Delete a registered currency
 	 * @param code - Currency code
 	 */
-	del(code) {
+	static del(code) {
 		delete this._data[code];
 	}
 
@@ -82,12 +82,10 @@ class CurrencyStore {
 	 * Get all registered currencies
 	 * @returns {array} - List of currencies, sorted by code alphabetically
 	 */
-	getAll() {
+	static getAll() {
 		return Object
 			.values(this._data)
 			.reduce((settings, all) => all.concat([settings]), [])
 			.sort((a, b) => a.code.localeCompare(b.code));
 	}
 }
-
-export default new CurrencyStore();

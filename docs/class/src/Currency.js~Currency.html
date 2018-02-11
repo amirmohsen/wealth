@@ -30,22 +30,25 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyStore.js~CurrencyStore.html">CurrencyStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Formatter.js~Formatter.html">Formatter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WealthError.js~WealthError.html">WealthError</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/InvalidCurrencyError.js~InvalidCurrencyError.html">InvalidCurrencyError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WealthError.js~WealthError.html">WealthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Currency} from &apos;<span><a href="file/src/Currency.js.html#lineNumber7">wealth</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Currency} from &apos;<span><a href="file/src/Currency.js.html#lineNumber18">wealth</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/Currency.js.html#lineNumber7">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/Currency.js.html#lineNumber18">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -74,8 +77,19 @@
     <h4>Example:</h4>
     
   <div class="example-doc" data-ice="exampleDoc">
-      
+      <div class="example-caption" data-ice="exampleCaption">Using code</div>
       <pre class="prettyprint source-code"><code data-ice="exampleCode">let currency = new Currency(&apos;USD&apos;);</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using existing currency object</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">let currency = new Currency(new Currency(&apos;USD&apos;));</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using custom settings to create a one-off currency without registering it</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">let currency = new Currency({
+ code: &apos;ETH&apos;,
+ symbol: &apos;&#x39E;&apos;
+});</code></pre>
     </div>
 </div>
 
@@ -147,6 +161,35 @@
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#static-method-register">register</a></span></span><span class="code" data-ice="signature">(code: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Register (or replace) a currency</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -168,7 +211,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>)</span>
         </p>
       </div>
       <div>
@@ -267,7 +310,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-format">format</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-format">format</a></span></span><span class="code" data-ice="signature">(value: <span><a href="class/src/Money.js~Money.html">Money</a></span>, overrideSettings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -383,6 +426,35 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getPattern">getPattern</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get currency formatting pattern</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-getSettings">getSettings</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
@@ -470,71 +542,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-hasSpaceBetweenAmountAndSymbol">hasSpaceBetweenAmountAndSymbol</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Is there a space between amount and symbol of the currency?</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-hasSymbolOnLeft">hasSymbolOnLeft</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Does the currency symbol go to the left of the value?</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
           <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-is">is</a></span></span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Check if the paremeter currency the same as the current currency</p>
+        <div data-ice="description"><p>Check if the parameter currency the same as the current currency</p>
 </div>
       </div>
     </td>
@@ -557,7 +571,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-parse">parse</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-parse">parse</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, overrideSettings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="class/src/Money.js~Money.html">Money</a></span></span>
         </p>
       </div>
       <div>
@@ -630,35 +644,6 @@
       
     </td>
   </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-unformat">unformat</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Unformat a monetary value from a formatted value (same as <code>parse</code>)</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
 </tbody>
 </table>
 <table class="summary" data-ice="summary">
@@ -679,7 +664,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-_preProcess">_preProcess</a></span></span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Currency.js~Currency.html#instance-method-_preProcess">_preProcess</a></span></span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
@@ -715,7 +700,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber174">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber202">source</a></span></span>
     </span>
   </h3>
 
@@ -772,7 +757,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber166">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber194">source</a></span></span>
     </span>
   </h3>
 
@@ -834,6 +819,86 @@
   
   
 </div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-register">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">register</span><span class="code" data-ice="signature">(code: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber185">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Register (or replace) a currency</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">code</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Currency code</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">settings</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Currency settings</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
 </div>
 <div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
 
@@ -845,11 +910,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber12">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber23">source</a></span></span>
     </span>
   </h3>
 
@@ -870,9 +935,9 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">currency</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Currency string code or instance of Currency</p>
+      <td data-ice="description"><p>Currency string code, custom settings or instance of Currency</p>
 </td>
     </tr>
 </tbody>
@@ -912,7 +977,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -958,7 +1023,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber69">source</a></span></span>
     </span>
   </h3>
 
@@ -1011,11 +1076,11 @@
     
     
     
-    <span class="code" data-ice="name">format</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="code" data-ice="name">format</span><span class="code" data-ice="signature">(value: <span><a href="class/src/Money.js~Money.html">Money</a></span>, overrideSettings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber127">source</a></span></span>
     </span>
   </h3>
 
@@ -1037,9 +1102,16 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="type" class="code"><span><a href="class/src/Money.js~Money.html">Money</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Monetary value to be formatted</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">overrideSettings</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>settings to override Currency&apos;s default formatting settings</p>
 </td>
     </tr>
 </tbody>
@@ -1089,7 +1161,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber77">source</a></span></span>
     </span>
   </h3>
 
@@ -1146,7 +1218,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber114">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber117">source</a></span></span>
     </span>
   </h3>
 
@@ -1203,7 +1275,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber101">source</a></span></span>
     </span>
   </h3>
 
@@ -1249,6 +1321,63 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getPattern">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getPattern</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber109">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get currency formatting pattern</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Currency format pattern</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getSettings">
     <span class="access" data-ice="access">public</span>
     
@@ -1260,7 +1389,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber45">source</a></span></span>
     </span>
   </h3>
 
@@ -1317,7 +1446,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber74">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber85">source</a></span></span>
     </span>
   </h3>
 
@@ -1374,7 +1503,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber82">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber93">source</a></span></span>
     </span>
   </h3>
 
@@ -1420,120 +1549,6 @@
   
 </div>
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-hasSpaceBetweenAmountAndSymbol">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">hasSpaceBetweenAmountAndSymbol</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber106">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Is there a space between amount and symbol of the currency?</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>True if there&apos;s a symbol between amount and symbol of the currency.</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-hasSymbolOnLeft">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">hasSymbolOnLeft</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber98">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Does the currency symbol go to the left of the value?</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>True if currency symbol goes to the left of the value.</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-is">
     <span class="access" data-ice="access">public</span>
     
@@ -1545,14 +1560,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Check if the paremeter currency the same as the current currency</p>
+  <div data-ice="description"><p>Check if the parameter currency the same as the current currency</p>
 </div>
 
   
@@ -1615,11 +1630,11 @@
     
     
     
-    <span class="code" data-ice="name">parse</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="code" data-ice="name">parse</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, overrideSettings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="class/src/Money.js~Money.html">Money</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber143">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber140">source</a></span></span>
     </span>
   </h3>
 
@@ -1646,6 +1661,13 @@
       <td data-ice="description"><p>Formatted value to be parsed into a monetary value</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">overrideSettings</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>settings to override Currency&apos;s default formatting settings</p>
+</td>
+    </tr>
 </tbody>
   </table>
 </div>
@@ -1656,8 +1678,8 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Parsed monetary value</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="class/src/Money.js~Money.html">Money</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Parsed &quot;Money&quot; value</p>
 </td>
         </tr>
       </tbody>
@@ -1693,7 +1715,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -1750,7 +1772,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber53">source</a></span></span>
     </span>
   </h3>
 
@@ -1795,80 +1817,6 @@
   
   
 </div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-unformat">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">unformat</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber134">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Unformat a monetary value from a formatted value (same as <code>parse</code>)</p>
-</div>
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Formatted value to be parsed into a monetary value</p>
-</td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Parsed monetary value</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
 <h2 data-ice="title">Private Methods</h2>
 
 <div class="detail" data-ice="detail">
@@ -1879,11 +1827,11 @@
     
     
     
-    <span class="code" data-ice="name">_preProcess</span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="code" data-ice="name">_preProcess</span><span class="code" data-ice="signature">(currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber154">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Currency.js.html#lineNumber152">source</a></span></span>
     </span>
   </h3>
 
@@ -1905,9 +1853,9 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">currency</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>Currency code or instance of Currency</p>
+      <td data-ice="description"><p>Currency code, settings or instance of Currency</p>
 </td>
     </tr>
 </tbody>
@@ -1920,8 +1868,8 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Currency code</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Currency settings</p>
 </td>
         </tr>
       </tbody>

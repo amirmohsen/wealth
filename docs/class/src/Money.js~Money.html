@@ -30,22 +30,25 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyStore.js~CurrencyStore.html">CurrencyStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Formatter.js~Formatter.html">Formatter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WealthError.js~WealthError.html">WealthError</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/InvalidCurrencyError.js~InvalidCurrencyError.html">InvalidCurrencyError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WealthError.js~WealthError.html">WealthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Money} from &apos;<span><a href="file/src/Money.js.html#lineNumber12">wealth</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Money} from &apos;<span><a href="file/src/Money.js.html#lineNumber13">wealth</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/Money.js.html#lineNumber12">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/Money.js.html#lineNumber13">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -138,7 +141,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#static-method-parse">parse</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="class/src/Money.js~Money.html">Money</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#static-method-parse">parse</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="class/src/Money.js~Money.html">Money</a></span></span>
         </p>
       </div>
       <div>
@@ -196,6 +199,35 @@
   <tbody>
   
   <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">private</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#instance-member-_bigNumberConstructor">_bigNumberConstructor</a></span></span><span class="code" data-ice="signature">: <span>class</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>BigNumber constructor used by this &quot;Money&quot; instance</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
     <td>
       <span class="access" data-ice="access">private</span>
       
@@ -535,7 +567,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#instance-method-format">format</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#instance-method-format">format</a></span></span><span class="code" data-ice="signature">(settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -658,6 +690,35 @@
         
         
         <div data-ice="description"><p>Get the current value as a string integer (same as <code>getAmount</code>)</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#instance-method-getBigNumberConstructor">getBigNumberConstructor</a></span></span><span class="code" data-ice="signature">(): <span>class</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get BigNumber constructor used by this &quot;Money&quot; instance</p>
 </div>
       </div>
     </td>
@@ -1179,7 +1240,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#instance-method-_preProcessInputValue">_preProcessInputValue</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Money.js~Money.html">Money</a></span>): <span>BigNumber</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/Money.js~Money.html#instance-method-_preProcessInputValue">_preProcessInputValue</a></span></span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Money.js~Money.html">Money</a></span>, BN: <span>class</span>): <span>BigNumber</span></span>
         </p>
       </div>
       <div>
@@ -1214,7 +1275,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber35">source</a></span></span>
     </span>
   </h3>
 
@@ -1341,11 +1402,11 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     
     
     
-    <span class="code" data-ice="name">parse</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, currency: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="class/src/Money.js~Money.html">Money</a></span></span>
+    <span class="code" data-ice="name">parse</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span>): <span><a href="class/src/Money.js~Money.html">Money</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber456">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber481">source</a></span></span>
     </span>
   </h3>
 
@@ -1373,10 +1434,10 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">currency</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
+      <td data-ice="name" class="code" data-depth="0">settings</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span> | <span><a href="class/src/Currency.js~Currency.html">Currency</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>the currency of the formatted string</p>
+      <td data-ice="description"><p>the formatting settings</p>
 </td>
     </tr>
 </tbody>
@@ -1429,7 +1490,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -1511,6 +1572,50 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
 <div data-ice="memberDetails"><h2 data-ice="title">Private Members</h2>
 
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-_bigNumberConstructor">
+    <span class="access" data-ice="access">private</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">_bigNumberConstructor</span><span class="code" data-ice="signature">: <span>class</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber79">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>BigNumber constructor used by this &quot;Money&quot; instance</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-_currency">
     <span class="access" data-ice="access">private</span>
     
@@ -1522,7 +1627,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber72">source</a></span></span>
     </span>
   </h3>
 
@@ -1566,7 +1671,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber77">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber86">source</a></span></span>
     </span>
   </h3>
 
@@ -1613,7 +1718,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber178">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber187">source</a></span></span>
     </span>
   </h3>
 
@@ -1670,7 +1775,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber85">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber94">source</a></span></span>
     </span>
   </h3>
 
@@ -1744,7 +1849,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber218">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber227">source</a></span></span>
     </span>
   </h3>
 
@@ -1818,7 +1923,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber242">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber251">source</a></span></span>
     </span>
   </h3>
 
@@ -1892,7 +1997,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber196">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber205">source</a></span></span>
     </span>
   </h3>
 
@@ -1949,7 +2054,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber260">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber269">source</a></span></span>
     </span>
   </h3>
 
@@ -2006,7 +2111,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber119">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 
@@ -2088,7 +2193,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber129">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -2162,7 +2267,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber187">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber196">source</a></span></span>
     </span>
   </h3>
 
@@ -2215,11 +2320,11 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     
     
     
-    <span class="code" data-ice="name">format</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="code" data-ice="name">format</span><span class="code" data-ice="signature">(settings: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber268">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber278">source</a></span></span>
     </span>
   </h3>
 
@@ -2231,7 +2336,24 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">settings</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>formatting settings</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   <div class="return-params" data-ice="returnParams">
@@ -2276,7 +2398,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber300">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber310">source</a></span></span>
     </span>
   </h3>
 
@@ -2333,7 +2455,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber276">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber286">source</a></span></span>
     </span>
   </h3>
 
@@ -2390,7 +2512,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber292">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber302">source</a></span></span>
     </span>
   </h3>
 
@@ -2447,7 +2569,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber284">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber294">source</a></span></span>
     </span>
   </h3>
 
@@ -2493,6 +2615,62 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getBigNumberConstructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getBigNumberConstructor</span><span class="code" data-ice="signature">(): <span>class</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber342">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get BigNumber constructor used by this &quot;Money&quot; instance</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>class</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getCurrency">
     <span class="access" data-ice="access">public</span>
     
@@ -2504,7 +2682,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber316">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber326">source</a></span></span>
     </span>
   </h3>
 
@@ -2561,7 +2739,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber324">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber334">source</a></span></span>
     </span>
   </h3>
 
@@ -2618,7 +2796,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber139">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber148">source</a></span></span>
     </span>
   </h3>
 
@@ -2692,7 +2870,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber149">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber158">source</a></span></span>
     </span>
   </h3>
 
@@ -2766,7 +2944,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber206">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber215">source</a></span></span>
     </span>
   </h3>
 
@@ -2840,7 +3018,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber159">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber168">source</a></span></span>
     </span>
   </h3>
 
@@ -2914,7 +3092,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber169">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber178">source</a></span></span>
     </span>
   </h3>
 
@@ -2988,7 +3166,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber108">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber117">source</a></span></span>
     </span>
   </h3>
 
@@ -3070,7 +3248,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber96">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber105">source</a></span></span>
     </span>
   </h3>
 
@@ -3144,7 +3322,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber332">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber350">source</a></span></span>
     </span>
   </h3>
 
@@ -3201,7 +3379,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber308">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber318">source</a></span></span>
     </span>
   </h3>
 
@@ -3260,7 +3438,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber357">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber375">source</a></span></span>
     </span>
   </h3>
 
@@ -3341,7 +3519,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber344">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber362">source</a></span></span>
     </span>
   </h3>
 
@@ -3402,7 +3580,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber434">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber451">source</a></span></span>
     </span>
   </h3>
 
@@ -3476,7 +3654,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber443">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber460">source</a></span></span>
     </span>
   </h3>
 
@@ -3533,7 +3711,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber424">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber441">source</a></span></span>
     </span>
   </h3>
 
@@ -3590,7 +3768,7 @@ These map directly to <a href="http://mikemcl.github.io/bignumber.js/#constructo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber414">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber431">source</a></span></span>
     </span>
   </h3>
 
@@ -3644,11 +3822,11 @@ It is used for converting an integer value to a float value (or vice versa).</p>
     
     
     
-    <span class="code" data-ice="name">_preProcessInputValue</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Money.js~Money.html">Money</a></span>): <span>BigNumber</span></span>
+    <span class="code" data-ice="name">_preProcessInputValue</span><span class="code" data-ice="signature">(value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Money.js~Money.html">Money</a></span>, BN: <span>class</span>): <span>BigNumber</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber383">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/Money.js.html#lineNumber402">source</a></span></span>
     </span>
   </h3>
 
@@ -3673,6 +3851,13 @@ It is used for converting an integer value to a float value (or vice versa).</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="class/src/Money.js~Money.html">Money</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>integer, integer string, float string, instance of <code>Money</code></p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">BN</td>
+      <td data-ice="type" class="code"><span>class</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>BigNumber constructor used by this &quot;Money&quot; instance</p>
 </td>
     </tr>
 </tbody>

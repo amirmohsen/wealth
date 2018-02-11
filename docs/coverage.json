@@ -1,31 +1,46 @@
 {
   "coverage": "100%",
-  "expectCount": 65,
-  "actualCount": 65,
+  "expectCount": 81,
+  "actualCount": 81,
   "files": {
     "src/Currency.js": {
-      "expectCount": 21,
-      "actualCount": 21,
+      "expectCount": 20,
+      "actualCount": 20,
       "undocumentLines": []
     },
-    "src/CurrencyMismatchError.js": {
+    "src/CurrencyStore.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/errors/CurrencyMismatchError.js": {
       "expectCount": 2,
       "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/InvalidCurrencyError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/WealthError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/WrongInputError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/Formatter.js": {
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/Money.js": {
-      "expectCount": 38,
-      "actualCount": 38,
-      "undocumentLines": []
-    },
-    "src/WealthError.js": {
-      "expectCount": 2,
-      "actualCount": 2,
-      "undocumentLines": []
-    },
-    "src/WrongInputError.js": {
-      "expectCount": 2,
-      "actualCount": 2,
+      "expectCount": 40,
+      "actualCount": 40,
       "undocumentLines": []
     }
   }

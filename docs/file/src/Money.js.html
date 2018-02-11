@@ -30,10 +30,13 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyStore.js~CurrencyStore.html">CurrencyStore</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Formatter.js~Formatter.html">Formatter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WealthError.js~WealthError.html">WealthError</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/InvalidCurrencyError.js~InvalidCurrencyError.html">InvalidCurrencyError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WealthError.js~WealthError.html">WealthError</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -43,8 +46,9 @@
 import isInt from &apos;validator/lib/isInt&apos;;
 import isFloat from &apos;validator/lib/isFloat&apos;;
 import Currency from &apos;./Currency&apos;;
-import CurrencyMismatchError from &apos;./CurrencyMismatchError&apos;;
-import WrongInputError from &apos;./WrongInputError&apos;;
+import CurrencyMismatchError from &apos;./errors/CurrencyMismatchError&apos;;
+import WrongInputError from &apos;./errors/WrongInputError&apos;;
+import Formatter from &apos;./Formatter&apos;;
 
 /**
  * @example
@@ -110,12 +114,20 @@ export default class Money {
 		 * @private
 		 */
 		this._currency = new Currency(currency);
+
+		/**
+		 * BigNumber constructor used by this &quot;Money&quot; instance
+		 * @type {class}
+		 * @private
+		 */
+		this._bigNumberConstructor = this._getBigNumberConstructor();
+
 		/**
 		 * Internal value as a big number
 		 * @type {BigNumber} - Internal BigNumber instance holding the value
 		 * @private
 		 */
-		this._value = this._preProcessInputValue(value);
+		this._value = this._preProcessInputValue(value, this._bigNumberConstructor);
 	}
 
 	/**
@@ -304,10 +316,11 @@ export default class Money {
 
 	/**
 	 * Format the current value based on the currency
+	 * @param {object} [settings] - formatting settings
 	 * @returns {string} - formatted money
 	 */
-	format() {
-		return this._currency.format(this._value.toString());
+	format(settings = {}) {
+		return this._currency.format(this, settings);
 	}
 
 	/**
@@ -367,6 +380,14 @@ export default class Money {
 	}
 
 	/**
+	 * Get BigNumber constructor used by this &quot;Money&quot; instance
+	 * @returns {class}
+	 */
+	getBigNumberConstructor() {
+		return this._bigNumberConstructor;
+	}
+
+	/**
 	 * Get a simple object representing the current monetary value
 	 * @returns {{amount: string, currency: Currency}} - object with a string integer value and currency code
 	 */
@@ -418,18 +439,17 @@ export default class Money {
 	/**
 	 * Convert the constructor input value to an internal BigNumber instance
 	 * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`
+	 * @param {class} BN - BigNumber constructor used by this &quot;Money&quot; instance
 	 * @returns {BigNumber} - Internal BigNumber instance
 	 * @private
 	 */
-	_preProcessInputValue(value) {
+	_preProcessInputValue(value, BN) {
 		if(value instanceof Money) {
 			this._checkValueCurrency(value);
 			return value.getAmountAsBigNumber();
 		}
 
 		let divisor = this._getSmallestUnitDivisor();
-
-		const BN = this._getBigNumberConstructor();
 
 		if(divisor.isGreaterThan(1) &amp;&amp; (Number.isInteger(value) || (typeof value === &apos;string&apos; &amp;&amp; isInt(value)))) {
 			value = new BN(value);
@@ -484,20 +504,26 @@ export default class Money {
 	_getBigNumberConstructor() {
 		return BigNumber.clone({
 			DECIMAL_PLACES: 20,
-			ROUNDING_MODE: this.constructor.ROUNDING.HALF_UP
+			ROUNDING_MODE: this.constructor.ROUNDING.HALF_UP,
+			FORMAT: {
+				decimalSeparator: this._currency.getDecimalSeparator(),
+				groupSeparator: this._currency.getThousandsSeparator(),
+				groupSize: 3,
+				secondaryGroupSize: 0,
+				fractionGroupSeparator: &apos; &apos;,
+				fractionGroupSize: 0
+			}
 		});
 	}
 
 	/**
 	 * Parse a formatted money string into an instance of Money
 	 * @param {string} value - the formatted money string
-	 * @param {string|Currency} currency - the currency of the formatted string
+	 * @param {string|object|Currency} settings - the formatting settings
 	 * @returns {Money} - a Money instance holding the parsed value and currency
 	 */
-	static parse(value, currency) {
-		currency = new Currency(currency);
-		value = currency.unformat(value);
-		return new this(value, currency);
+	static parse(value, settings) {
+		return Formatter.parse(value, settings);
 	}
 }
 </code></pre>
