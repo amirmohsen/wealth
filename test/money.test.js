@@ -245,12 +245,12 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.format()).toBe('£454.97');
 	});
 
-	test('new Money(45497, "USD").format() == "454,97 €"', () => {
+	test('new Money(45497, "EUR").format() == "454,97 €"', () => {
 		let	moneyA = new Money('45497', 'EUR');
 		expect(moneyA.format()).toBe('454,97 €');
 	});
 
-	test('new Money(120014515442, "USD").format() == "1 200 145 154,42 €"', () => {
+	test('new Money(120014515442, "EUR").format() == "1 200 145 154,42 €"', () => {
 		let	moneyA = new Money('120014515442', 'EUR');
 		expect(moneyA.format()).toBe('1 200 145 154,42 €');
 	});

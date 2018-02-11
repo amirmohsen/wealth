@@ -1,5 +1,6 @@
 import CurrencyStore from './CurrencyStore';
 import Formatter from './Formatter';
+import WrongInputError from './errors/WrongInputError';
 
 /**
  * @example
@@ -8,14 +9,14 @@ import Formatter from './Formatter';
 export default class Currency {
 
 	/**
-	 * @param {string|Currency} currency - Currency string code or instance of Currency
+	 * @param {string|object|Currency} currency - Currency string code, custom settings or instance of Currency
 	 */
 	constructor(currency) {
 		/**
 		 * @type {object} - an object holding currency details such as decimal digits, etc.
 		 * @private
 		 */
-		this._currencySettings = CurrencyStore.get(this._preProcess(currency));
+		this._currencySettings = this._preProcess(currency);
 	}
 
 	/**
@@ -111,40 +112,69 @@ export default class Currency {
 	/**
 	 * Format a monetary value
 	 * @param {Money} value - Monetary value to be formatted
+	 * @param {object} [overrideSettings] - settings to override Currency's default formatting settings
 	 * @returns {string} - Formatted string of the value
 	 */
-	format(value) {
-		return Formatter.format(value, this);
-	}
-
-	/**
-	 * Unformat a monetary value from a formatted value (same as `parse`)
-	 * @param {string} value - Formatted value to be parsed into a monetary value
-	 * @returns {string} - Parsed monetary value
-	 */
-	unformat(value) {
-		return this.parse(value);
+	format(value, overrideSettings = {}) {
+		return Formatter.format(value, new Currency({
+			...this._currencySettings,
+			...overrideSettings
+		}));
 	}
 
 	/**
 	 * Parse a monetary value from a formatted value (same as `unformat`)
 	 * @param {string} value - Formatted value to be parsed into a monetary value
-	 * @returns {string} - Parsed monetary value
+	 * @param {object} [overrideSettings] - settings to override Currency's default formatting settings
+	 * @returns {Money} - Parsed "Money" value
 	 */
-	parse(value) {
-		return Formatter.parse(value, this);
+	parse(value, overrideSettings = {}) {
+		return Formatter.parse(value, new Currency({
+			...this._currencySettings,
+			...overrideSettings
+		}));
 	}
 
 	/**
 	 * Used by the constructor to pre-process the input
-	 * @param {string|Currency} currency - Currency code or instance of Currency
-	 * @returns {string} - Currency code
+	 * @param {string|object|Currency} currency - Currency code, settings or instance of Currency
+	 * @returns {object} - Currency settings
 	 */
 	_preProcess(currency) {
+		let settings = {};
+
 		if(currency instanceof Currency) {
-			return currency.getCode();
+			settings = CurrencyStore.get(currency.getCode());
 		}
-		return currency;
+		else if(typeof currency === 'string') {
+			settings = CurrencyStore.get(currency);
+		}
+		else if(typeof currency === 'object') {
+			let defaultSettings = {};
+
+			if(currency.code) {
+				defaultSettings = CurrencyStore.get(currency.code);
+			}
+
+			settings = {
+				...defaultSettings,
+				...settings
+			};
+		}
+		else {
+			throw new WrongInputError('Invalid currency provided.');
+		}
+
+		return settings;
+	}
+
+	/**
+	 * Register (or replace) a currency
+	 * @param {string} code - Currency code
+	 * @param {object} settings - Currency settings
+	 */
+	static register(code, settings) {
+		return CurrencyStore.set(code, settings);
 	}
 
 	/**

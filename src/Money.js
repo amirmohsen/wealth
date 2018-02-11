@@ -272,13 +272,11 @@ export default class Money {
 
 	/**
 	 * Format the current value based on the currency
+	 * @param {object} [settings] - formatting settings
 	 * @returns {string} - formatted money
 	 */
-	format(settings = null) {
-		if(settings) {
-			return Formatter.format(this._value, settings);
-		}
-		return this._currency.format(this._value);
+	format(settings = {}) {
+		return this._currency.format(this, settings);
 	}
 
 	/**

@@ -17,7 +17,7 @@ import Currency from './Currency';
  * Formatter.format(value, {
  *  code: 'EUR',
  *  pattern: '%s%v'
- * );
+ * });
  */
 class Formatter {
 
@@ -34,17 +34,28 @@ class Formatter {
 				symbol,
 				code,
 				decimalDigits,
-				pattern
+				pattern,
+				formatter
 			} = details;
 
-		let formatted = pattern.replace('%v', details.value.toFormat(decimalDigits));
+		if(typeof formatter === 'function') {
+			return formatter(value, details);
+		}
+
+		let formatted = pattern.replace('%v', details.value.absoluteValue().toFormat(decimalDigits));
+
+		formatted = formatted.replace('%ns', details.value.isNegative() ? '-' : '');
+
+		if(details.value.isInteger()) {
+			formatted = formatted.replace('%i', details.value.toFormat(0));
+		}
 
 		if(symbol) {
-			formatted = pattern.replace('%s', symbol);
+			formatted = formatted.replace('%s', symbol);
 		}
 
 		if(code) {
-			formatted = pattern.replace('%c', code);
+			formatted = formatted.replace('%c', code);
 		}
 
 		return formatted;
@@ -57,21 +68,42 @@ class Formatter {
 	 * @returns {Money} - Parsed "Money" value
 	 */
 	parse(value, settings) {
-		let {
-			symbol,
-			code,
-			thousandsSeparator,
-			decimalSeparator
-		} = this._getOptions(settings);
+		let
+			options = this._getOptions(settings),
+			{
+				symbol,
+				code,
+				thousandsSeparator,
+				decimalSeparator,
+				parser
+			} = options;
 
-		value = value
-			.replace(new RegExp(thousandsSeparator), '')
-			.replace(symbol, '')
-			.replace(code, '')
-			.replace(decimalSeparator, '.')
-			.trim();
+		if(typeof parser === 'function') {
+			return parser(value, options);
+		}
+
+		value = this._replaceAll(value, thousandsSeparator, '');
+		value = this._replaceAll(value, symbol, '');
+		value = this._replaceAll(value, code, '');
+		value = this._replaceAll(value, decimalSeparator, '');
+		value =	value.replace(/\s/g, '');
 
 		return new Money(value, code);
+	}
+
+	/**
+	 * Replace all case-insensitive instances of a string in another string
+	 * @param {string} source - source string
+	 * @param {string} search - search string
+	 * @param {string} replacement - replacement string
+	 * @returns {string} - final string result
+	 * @private
+	 */
+	_replaceAll(source, search, replacement) {
+		let
+			esc = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'),
+			reg = new RegExp(esc, 'ig');
+		return source.replace(reg, replacement);
 	}
 
 	/**
@@ -88,7 +120,8 @@ class Formatter {
 			thousandsSeparator,
 			decimalSeparator,
 			decimalDigits,
-			pattern
+			pattern,
+			formatter
 		} = this._getOptions(settings, value);
 
 		if(settings === undefined || (settings instanceof Currency && value.getCurrency().is(settings))) {
@@ -114,7 +147,8 @@ class Formatter {
 			code,
 			value,
 			decimalDigits,
-			pattern
+			pattern,
+			formatter
 		};
 	}
 
@@ -148,7 +182,11 @@ class Formatter {
 			throw new InvalidCurrencyError('Invalid currency options provided.');
 		}
 
-		if(settings.code) {
+		if(typeof settings.code !== 'string' || !settings.code) {
+			throw new InvalidCurrencyError('Invalid currency settings; code is required.');
+		}
+
+		if(CurrencyStore.has(settings.code)) {
 			settings = {
 				...CurrencyStore.get(settings.code),
 				...settings
@@ -159,7 +197,10 @@ class Formatter {
 			thousandsSeparator: ',',
 			decimalSeparator: '.',
 			decimalDigits: 2,
-			pattern: '%v',
+			pattern: '%s%ns%v',
+			formatter: null,
+			parser: null,
+			symbol: settings.code,
 			...settings,
 		};
 	}
