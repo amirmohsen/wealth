@@ -27,9 +27,9 @@ export default [
 		input: 'src/index.js',
 		output: {
 			file: pkg.browser,
-			format: 'umd'
+			format: 'umd',
+			name: 'Wealth'
 		},
-		name: 'Wealth',
 		plugins: [
 			json({
 				preferConst: true

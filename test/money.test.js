@@ -1,4 +1,4 @@
-import {Money} from '../lib/wealth.esm';
+import {Money, CurrencyMismatchError, WrongMoneyInputError} from '../lib/wealth.esm';
 
 describe('The "Money" class: ', () => {
 	test('$10.38 + $8404.97 = $8415.35', () => {
@@ -83,6 +83,14 @@ describe('The "Money" class: ', () => {
 		let moneyA = new Money('1096', 'JPY');
 
 		expect(moneyA.divide('80').toString()).toBe('14');
+	});
+
+	test('new Money(1.15, "GBP") must throw a WrongMoneyInputError.', () => {
+		expect(() => new Money(1.15, 'GBP')).toThrow(WrongMoneyInputError);
+	});
+
+	test('new Money("invalid", "USD") must throw a WrongMoneyInputError.', () => {
+		expect(() => new Money('invalid', 'USD')).toThrow(WrongMoneyInputError);
 	});
 
 	test('(new Money("10000", "USD")).equals(new Money(10000, "USD"))', () => {
@@ -181,6 +189,22 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.ceil().equals(moneyB)).toBe(true);
 	});
 
+	test('"£1.00 == $1.00" must throw a "CurrencyMismatchError"', () => {
+		let
+			moneyA = new Money('100', 'GBP'),
+			moneyB = new Money('100', 'USD');
+
+		expect(() => moneyA.equals(moneyB)).toThrow(CurrencyMismatchError);
+	});
+
+	test('$10.38 + £8404.97 must throw a "CurrencyMismatchError"', () => {
+		let
+			moneyA = new Money('1038', 'USD'),
+			moneyB = new Money('840497', 'GBP');
+
+		expect(() => moneyA.add(moneyB)).toThrow(CurrencyMismatchError);
+	});
+
 	test('"$89.67".allocate([70, 24, 6]) === ["$62.77", "$21.52", "$5.38"]', () => {
 		let money = new Money('8967', 'USD');
 
@@ -191,6 +215,14 @@ describe('The "Money" class: ', () => {
 		let money = new Money('48341', 'USD');
 
 		expect(money.allocateTo(3).map(allocation => allocation.toString())).toEqual(['16114', '16114', '16113']);
+	});
+
+	test('(new Money(1038)).hasSameCurrency(new Money(840497)) === true', () => {
+		let
+			moneyA = new Money('1038', 'USD'),
+			moneyB = new Money('840497', 'USD');
+
+		expect(moneyA.hasSameCurrency(moneyB)).toBe(true);
 	});
 
 	test('new Money(5442, "USD").format() == "$54.42"', () => {
@@ -213,12 +245,12 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.format()).toBe('£454.97');
 	});
 
-	test('new Money(45497, "USD").format() == "454,97 €"', () => {
+	test('new Money(45497, "EUR").format() == "454,97 €"', () => {
 		let	moneyA = new Money('45497', 'EUR');
 		expect(moneyA.format()).toBe('454,97 €');
 	});
 
-	test('new Money(120014515442, "USD").format() == "1 200 145 154,42 €"', () => {
+	test('new Money(120014515442, "EUR").format() == "1 200 145 154,42 €"', () => {
 		let	moneyA = new Money('120014515442', 'EUR');
 		expect(moneyA.format()).toBe('1 200 145 154,42 €');
 	});

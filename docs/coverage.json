@@ -1,16 +1,46 @@
 {
   "coverage": "100%",
-  "expectCount": 56,
-  "actualCount": 56,
+  "expectCount": 83,
+  "actualCount": 83,
   "files": {
     "src/Currency.js": {
-      "expectCount": 20,
-      "actualCount": 20,
+      "expectCount": 22,
+      "actualCount": 22,
+      "undocumentLines": []
+    },
+    "src/CurrencyStore.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "src/errors/CurrencyMismatchError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/InvalidCurrencyError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/WealthError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/errors/WrongInputError.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "src/Formatter.js": {
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/Money.js": {
-      "expectCount": 36,
-      "actualCount": 36,
+      "expectCount": 40,
+      "actualCount": 40,
       "undocumentLines": []
     }
   }

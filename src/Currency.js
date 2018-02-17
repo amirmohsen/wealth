@@ -1,20 +1,41 @@
-import CurrencyFormatter from 'currency-formatter';
+import CurrencyStore from './CurrencyStore';
+import Formatter from './Formatter';
+import WrongInputError from './errors/WrongInputError';
 
 /**
- * @example
+ * @example <caption>Using code</caption>
  * let currency = new Currency('USD');
+ *
+ * @example <caption>Using existing currency object</caption>
+ * let currency = new Currency(new Currency('USD'));
+ *
+ * @example <caption>Using custom settings to create a one-off currency without registering it</caption>
+ * let currency = new Currency({
+ *  code: 'ETH',
+ *  symbol: 'Ξ'
+ * });
  */
 export default class Currency {
 
 	/**
-	 * @param {string|Currency} currency - Currency string code or instance of Currency
+	 * @param {string|object|Currency} currency - Currency string code, custom settings or instance of Currency
 	 */
 	constructor(currency) {
 		/**
 		 * @type {object} - an object holding currency details such as decimal digits, etc.
 		 * @private
 		 */
-		this._currencySettings = CurrencyFormatter.findCurrency(this._preProcess(currency));
+		this._currencySettings = this._preProcess(currency);
+	}
+
+	/**
+	 * Check if the parameter currency the same as the current currency
+	 * @param {string|Currency} currency - Currency string code or instance of Currency
+	 * @returns {boolean} - returns true if the parameter currency is the same as the current currency
+	 */
+	is(currency) {
+		currency = new Currency(currency);
+		return this.getCode() === currency.getCode();
 	}
 
 	/**
@@ -82,19 +103,11 @@ export default class Currency {
 	}
 
 	/**
-	 * Does the currency symbol go to the left of the value?
-	 * @returns {boolean} - True if currency symbol goes to the left of the value.
+	 * Get currency formatting pattern
+	 * @returns {string} - Currency format pattern
 	 */
-	getSymbolOnLeft() {
-		return this._currencySettings.symbolOnLeft;
-	}
-
-	/**
-	 * Is there a space between amount and symbol of the currency?
-	 * @returns {boolean} - True if there's a symbol between amount and symbol of the currency.
-	 */
-	getSpaceBetweenAmountAndSymbol() {
-		return this._currencySettings.spaceBetweenAmountAndSymbol;
+	getPattern() {
+		return this._currencySettings.pattern;
 	}
 
 	/**
@@ -106,46 +119,94 @@ export default class Currency {
 	}
 
 	/**
-	 * Format a monetary value
-	 * @param {string|number} value - Monetary value to be formatted
-	 * @returns {string} - Formatted string of the value
+	 * Get the formatter for this currency
+	 * @returns {function|null|undefined} - Currency formatter
 	 */
-	format(value) {
-		return CurrencyFormatter.format(value, {
-			code: this._currencySettings.code
-		});
+	getFormatter() {
+		return this._currencySettings.formatter;
 	}
 
 	/**
-	 * Unformat a monetary value from a formatted value (same as `parse`)
-	 * @param {string} value - Formatted value to be parsed into a monetary value
-	 * @returns {string} - Parsed monetary value
+	 * Get the parser for this currency
+	 * @returns {function|null|undefined} - Currency parser
 	 */
-	unformat(value) {
-		return this.parse(value);
+	getParser() {
+		return this._currencySettings.parser;
+	}
+
+	/**
+	 * Format a monetary value
+	 * @param {Money} value - Monetary value to be formatted
+	 * @param {object} [overrideSettings] - settings to override Currency's default formatting settings
+	 * @returns {string} - Formatted string of the value
+	 */
+	format(value, overrideSettings = {}) {
+		return Formatter.format(value, new Currency({
+			...this._currencySettings,
+			...overrideSettings
+		}));
 	}
 
 	/**
 	 * Parse a monetary value from a formatted value (same as `unformat`)
 	 * @param {string} value - Formatted value to be parsed into a monetary value
-	 * @returns {string} - Parsed monetary value
+	 * @param {object} [overrideSettings] - settings to override Currency's default formatting settings
+	 * @returns {Money} - Parsed "Money" value
 	 */
-	parse(value) {
-		return CurrencyFormatter.unformat(value, {
-			code: this._currencySettings.code
-		}).toString();
+	parse(value, overrideSettings = {}) {
+		return Formatter.parse(value, new Currency({
+			...this._currencySettings,
+			...overrideSettings
+		}));
 	}
 
 	/**
 	 * Used by the constructor to pre-process the input
-	 * @param {string|Currency} currency - Currency code or instance of Currency
-	 * @returns {string} - Currency code
+	 * @param {string|object|Currency} currency - Currency code, settings or instance of Currency
+	 * @returns {object} - Currency settings
 	 */
 	_preProcess(currency) {
+		let settings = {};
+
 		if(currency instanceof Currency) {
-			return currency.getCode();
+			settings = CurrencyStore.get(currency.getCode());
 		}
-		return currency;
+		else if(typeof currency === 'string') {
+			settings = CurrencyStore.get(currency);
+		}
+		else if(typeof currency === 'object') {
+			let defaultSettings = {};
+
+			if(currency.code) {
+				defaultSettings = CurrencyStore.get(currency.code);
+			}
+
+			settings = {
+				...defaultSettings,
+				...settings
+			};
+		}
+		else {
+			throw new WrongInputError('Invalid currency provided.');
+		}
+
+		return settings;
+	}
+
+	/**
+	 * Register (or replace) a currency
+	 * @param {string} code - Currency code
+	 * @param {object} [settings] - Currency settings
+	 * @param {string} [settings.symbol=code] - Currency symbol (by default same as code)
+	 * @param {string} [settings.thousandsSeparator=','] - Currency thousands separator
+	 * @param {string} [settings.decimalSeparator='.'] -Currency decimal separator
+	 * @param {number} [settings.decimalDigits=2] - Currency decimal digits
+	 * @param {string} [settings.pattern='%ns%s%v'] - Currency formatting pattern. %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.
+	 * @param {?function(value: Money): string} [settings.formatter] - Currency formatter, optional (used instead of the pattern)
+	 * @param {?function(value: string): Money} [settings.parser] - Currency parser, optional
+	 */
+	static register(code, settings) {
+		return CurrencyStore.set(code, settings);
 	}
 
 	/**
@@ -153,15 +214,15 @@ export default class Currency {
 	 * @param {string} code - Currency code
 	 * @return {object} - Currency settings
 	 */
-	static getCurrencySettings(code) {
-		return CurrencyFormatter.findCurrency(code);
+	static getSettings(code) {
+		return CurrencyStore.get(code);
 	}
 
 	/**
 	 * Get an array of currency settings for all currencies
 	 * @return {object[]} - Settings for all currencies
 	 */
-	static getAllCurrenciesSettings() {
-		return CurrencyFormatter.currencies;
+	static getAllSettings() {
+		return CurrencyStore.getAll();
 	}
 }
