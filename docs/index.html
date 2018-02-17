@@ -48,19 +48,19 @@ This library provides a uniform interface for various money-related operations.<
 <h2 id="installation">Installation</h2><p><code>npm install wealth</code></p>
 <p>or</p>
 <p><code>yarn add wealth</code></p>
-<h2 id="documentation">Documentation</h2><p>See the <a href="http://amirmohsen.github.io/wealth">documentation</a> for a complete API reference with examples.</p>
+<h2 id="api-reference">API Reference</h2><p>See the <a href="http://amirmohsen.github.io/wealth">API Reference</a> for a better understanding of the available features.</p>
 <h2 id="immutability">Immutability</h2><p>All <code>Money</code> and <code>Currency</code> instances are immutable and each of the operations return a new instance.
 This makes <code>Wealth</code> perfect for react/redux applications.</p>
 <h2 id="examples">Examples</h2><ul>
-<li><a href="#money-calculation-&amp;-manipulation">Money Calculation &amp; Manipulation</a></li>
+<li><a href="#money-calculation-and-manipulation">Money Calculation and Manipulation</a></li>
 <li><a href="#money-comparison">Money Comparison</a></li>
 <li><a href="#money-allocation">Money Allocation</a></li>
 <li><a href="#currency">Currency</a></li>
-<li><a href="#formatting-&amp;-parsing">Formatting &amp; Parsing</a></li>
+<li><a href="#formatting-and-parsing">Formatting and Parsing</a></li>
 <li><a href="#serialization">Serialization</a></li>
 <li><a href="#error-handling">Error Handling</a></li>
 </ul>
-<h3 id="money-calculation--amp--manipulation">Money Calculation &amp; Manipulation</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+<h3 id="money-calculation-and-manipulation">Money Calculation and Manipulation</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
 
 let
     price = new Money(&apos;8078&apos;, &apos;USD&apos;), // $80.78
@@ -118,7 +118,7 @@ CurrencyStore.set(&apos;ETH&apos;, {
 // Getting all registered currencies
 let allCurrencies = CurrencyStore.getAll(); // alias: Currency.getAllSettings()</code>
 </code></pre>
-<h3 id="formatting--amp--parsing">Formatting &amp; Parsing</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Formatter} from &apos;wealth&apos;;
+<h3 id="formatting-and-parsing">Formatting and Parsing</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Formatter} from &apos;wealth&apos;;
 
 let money = new Money(&apos;500000&apos;, &apos;EUR&apos;);
 money.format(); // 5 000,00 &#x20AC;
@@ -156,8 +156,8 @@ money = Money.parse(&apos;&#x20AC;5,000.00&apos;, {
 <h3 id="serialization">Serialization</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
 
 let money = new Money(&apos;100&apos;, &apos;USD&apos;);
-money.toJSON(); // {value: &apos;100&apos;, currency: &apos;USD&apos;}
-JSON.stringify(money); // {value: &apos;100&apos;, currency: &apos;USD&apos;}</code>
+money.toJSON(); // {amount: &apos;100&apos;, currency: &apos;USD&apos;}
+JSON.stringify(money); // {amount: &apos;100&apos;, currency: &apos;USD&apos;}</code>
 </code></pre>
 <h3 id="error-handling">Error Handling</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {
     WealthError,

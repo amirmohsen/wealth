@@ -14,8 +14,8 @@ or
 
 `yarn add wealth`
 
-## Documentation
-See the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.
+## API Reference
+See the [API Reference](http://amirmohsen.github.io/wealth) for a better understanding of the available features.
 
 ## Immutability
 All `Money` and `Currency` instances are immutable and each of the operations return a new instance.
@@ -23,15 +23,15 @@ This makes `Wealth` perfect for react/redux applications.
 
 ## Examples
 
-- [Money Calculation & Manipulation](#money-calculation-&-manipulation)
+- [Money Calculation and Manipulation](#money-calculation-and-manipulation)
 - [Money Comparison](#money-comparison)
 - [Money Allocation](#money-allocation)
 - [Currency](#currency)
-- [Formatting & Parsing](#formatting-&-parsing)
+- [Formatting and Parsing](#formatting-and-parsing)
 - [Serialization](#serialization)
 - [Error Handling](#error-handling)
 
-### Money Calculation & Manipulation
+### Money Calculation and Manipulation
 ```js
 import {Money} from 'wealth';
 
@@ -101,7 +101,7 @@ CurrencyStore.set('ETH', {
 let allCurrencies = CurrencyStore.getAll(); // alias: Currency.getAllSettings()
 ``` 
 
-### Formatting & Parsing
+### Formatting and Parsing
 ```js
 import {Money, Formatter} from 'wealth';
 

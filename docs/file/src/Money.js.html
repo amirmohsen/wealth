@@ -389,12 +389,12 @@ export default class Money {
 
 	/**
 	 * Get a simple object representing the current monetary value
-	 * @returns {{amount: string, currency: Currency}} - object with a string integer value and currency code
+	 * @returns {{amount: string, currency: string}} - object with a string integer value and currency code
 	 */
 	toJSON() {
 		return {
 			amount: this.getAmount(),
-			currency: this._currency.toString()
+			currency: this._currency.toJSON()
 		};
 	}
 

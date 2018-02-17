@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 416,
+  "end": 439,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 416,
+    "end": 439,
     "loc": {
       "start": {
         "line": 1,
@@ -99,9 +99,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n ",
-            "start": 42,
-            "end": 229,
+            "value": "*\r\n * Error thrown when the input argument is wrong\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof WrongInputError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+            "start": 44,
+            "end": 242,
             "loc": {
               "start": {
                 "line": 3,
@@ -117,8 +117,8 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 230,
-        "end": 415,
+        "start": 244,
+        "end": 437,
         "loc": {
           "start": {
             "line": 15,
@@ -131,8 +131,8 @@
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 245,
-          "end": 415,
+          "start": 259,
+          "end": 437,
           "loc": {
             "start": {
               "line": 15,
@@ -145,8 +145,8 @@
           },
           "id": {
             "type": "Identifier",
-            "start": 251,
-            "end": 266,
+            "start": 265,
+            "end": 280,
             "loc": {
               "start": {
                 "line": 15,
@@ -163,8 +163,8 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 275,
-            "end": 286,
+            "start": 289,
+            "end": 300,
             "loc": {
               "start": {
                 "line": 15,
@@ -180,8 +180,8 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 287,
-            "end": 415,
+            "start": 301,
+            "end": 437,
             "loc": {
               "start": {
                 "line": 15,
@@ -195,8 +195,8 @@
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 345,
-                "end": 413,
+                "start": 364,
+                "end": 434,
                 "loc": {
                   "start": {
                     "line": 20,
@@ -211,8 +211,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 345,
-                  "end": 356,
+                  "start": 364,
+                  "end": 375,
                   "loc": {
                     "start": {
                       "line": 20,
@@ -235,8 +235,8 @@
                 "params": [
                   {
                     "type": "AssignmentPattern",
-                    "start": 357,
-                    "end": 389,
+                    "start": 376,
+                    "end": 408,
                     "loc": {
                       "start": {
                         "line": 20,
@@ -249,8 +249,8 @@
                     },
                     "left": {
                       "type": "Identifier",
-                      "start": 357,
-                      "end": 364,
+                      "start": 376,
+                      "end": 383,
                       "loc": {
                         "start": {
                           "line": 20,
@@ -266,8 +266,8 @@
                     },
                     "right": {
                       "type": "StringLiteral",
-                      "start": 367,
-                      "end": 389,
+                      "start": 386,
+                      "end": 408,
                       "loc": {
                         "start": {
                           "line": 20,
@@ -288,8 +288,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 391,
-                  "end": 413,
+                  "start": 410,
+                  "end": 434,
                   "loc": {
                     "start": {
                       "line": 20,
@@ -303,8 +303,8 @@
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 395,
-                      "end": 410,
+                      "start": 415,
+                      "end": 430,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -317,8 +317,8 @@
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 395,
-                        "end": 409,
+                        "start": 415,
+                        "end": 429,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -331,8 +331,8 @@
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 395,
-                          "end": 400,
+                          "start": 415,
+                          "end": 420,
                           "loc": {
                             "start": {
                               "line": 21,
@@ -347,8 +347,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 401,
-                            "end": 408,
+                            "start": 421,
+                            "end": 428,
                             "loc": {
                               "start": {
                                 "line": 21,
@@ -371,9 +371,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n\t * @param {string} message - Error message\n\t ",
-                    "start": 291,
-                    "end": 343,
+                    "value": "*\r\n\t * @param {string} message - Error message\r\n\t ",
+                    "start": 307,
+                    "end": 361,
                     "loc": {
                       "start": {
                         "line": 17,
@@ -392,9 +392,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n ",
-              "start": 42,
-              "end": 229,
+              "value": "*\r\n * Error thrown when the input argument is wrong\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof WrongInputError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+              "start": 44,
+              "end": 242,
               "loc": {
                 "start": {
                   "line": 3,
@@ -412,9 +412,9 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n ",
-            "start": 42,
-            "end": 229,
+            "value": "*\r\n * Error thrown when the input argument is wrong\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof WrongInputError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+            "start": 44,
+            "end": 242,
             "loc": {
               "start": {
                 "line": 3,
@@ -434,9 +434,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n ",
-      "start": 42,
-      "end": 229,
+      "value": "*\r\n * Error thrown when the input argument is wrong\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof WrongInputError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+      "start": 44,
+      "end": 242,
       "loc": {
         "start": {
           "line": 3,
@@ -450,9 +450,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n\t * @param {string} message - Error message\n\t ",
-      "start": 291,
-      "end": 343,
+      "value": "*\r\n\t * @param {string} message - Error message\r\n\t ",
+      "start": 307,
+      "end": 361,
       "loc": {
         "start": {
           "line": 17,
@@ -601,9 +601,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n ",
-      "start": 42,
-      "end": 229,
+      "value": "*\r\n * Error thrown when the input argument is wrong\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof WrongInputError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+      "start": 44,
+      "end": 242,
       "loc": {
         "start": {
           "line": 3,
@@ -630,8 +630,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 230,
-      "end": 236,
+      "start": 244,
+      "end": 250,
       "loc": {
         "start": {
           "line": 15,
@@ -658,8 +658,8 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 237,
-      "end": 244,
+      "start": 251,
+      "end": 258,
       "loc": {
         "start": {
           "line": 15,
@@ -686,8 +686,8 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 245,
-      "end": 250,
+      "start": 259,
+      "end": 264,
       "loc": {
         "start": {
           "line": 15,
@@ -712,8 +712,8 @@
         "binop": null
       },
       "value": "WrongInputError",
-      "start": 251,
-      "end": 266,
+      "start": 265,
+      "end": 280,
       "loc": {
         "start": {
           "line": 15,
@@ -740,8 +740,8 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 267,
-      "end": 274,
+      "start": 281,
+      "end": 288,
       "loc": {
         "start": {
           "line": 15,
@@ -766,8 +766,8 @@
         "binop": null
       },
       "value": "WealthError",
-      "start": 275,
-      "end": 286,
+      "start": 289,
+      "end": 300,
       "loc": {
         "start": {
           "line": 15,
@@ -791,8 +791,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 287,
-      "end": 288,
+      "start": 301,
+      "end": 302,
       "loc": {
         "start": {
           "line": 15,
@@ -806,9 +806,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n\t * @param {string} message - Error message\n\t ",
-      "start": 291,
-      "end": 343,
+      "value": "*\r\n\t * @param {string} message - Error message\r\n\t ",
+      "start": 307,
+      "end": 361,
       "loc": {
         "start": {
           "line": 17,
@@ -833,8 +833,8 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 345,
-      "end": 356,
+      "start": 364,
+      "end": 375,
       "loc": {
         "start": {
           "line": 20,
@@ -858,8 +858,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 356,
-      "end": 357,
+      "start": 375,
+      "end": 376,
       "loc": {
         "start": {
           "line": 20,
@@ -884,8 +884,8 @@
         "binop": null
       },
       "value": "message",
-      "start": 357,
-      "end": 364,
+      "start": 376,
+      "end": 383,
       "loc": {
         "start": {
           "line": 20,
@@ -911,8 +911,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 365,
-      "end": 366,
+      "start": 384,
+      "end": 385,
       "loc": {
         "start": {
           "line": 20,
@@ -938,8 +938,8 @@
         "updateContext": null
       },
       "value": "Wrong input argument",
-      "start": 367,
-      "end": 389,
+      "start": 386,
+      "end": 408,
       "loc": {
         "start": {
           "line": 20,
@@ -963,8 +963,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 389,
-      "end": 390,
+      "start": 408,
+      "end": 409,
       "loc": {
         "start": {
           "line": 20,
@@ -988,8 +988,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 391,
-      "end": 392,
+      "start": 410,
+      "end": 411,
       "loc": {
         "start": {
           "line": 20,
@@ -1016,8 +1016,8 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 395,
-      "end": 400,
+      "start": 415,
+      "end": 420,
       "loc": {
         "start": {
           "line": 21,
@@ -1041,8 +1041,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 400,
-      "end": 401,
+      "start": 420,
+      "end": 421,
       "loc": {
         "start": {
           "line": 21,
@@ -1067,8 +1067,8 @@
         "binop": null
       },
       "value": "message",
-      "start": 401,
-      "end": 408,
+      "start": 421,
+      "end": 428,
       "loc": {
         "start": {
           "line": 21,
@@ -1092,8 +1092,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 408,
-      "end": 409,
+      "start": 428,
+      "end": 429,
       "loc": {
         "start": {
           "line": 21,
@@ -1118,8 +1118,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 409,
-      "end": 410,
+      "start": 429,
+      "end": 430,
       "loc": {
         "start": {
           "line": 21,
@@ -1143,8 +1143,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 412,
-      "end": 413,
+      "start": 433,
+      "end": 434,
       "loc": {
         "start": {
           "line": 22,
@@ -1168,8 +1168,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 414,
-      "end": 415,
+      "start": 436,
+      "end": 437,
       "loc": {
         "start": {
           "line": 23,
@@ -1194,8 +1194,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 416,
-      "end": 416,
+      "start": 439,
+      "end": 439,
       "loc": {
         "start": {
           "line": 24,

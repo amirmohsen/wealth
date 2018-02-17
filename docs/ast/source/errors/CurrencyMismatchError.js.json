@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 498,
+  "end": 521,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 498,
+    "end": 521,
     "loc": {
       "start": {
         "line": 1,
@@ -99,9 +99,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n ",
-            "start": 42,
-            "end": 293,
+            "value": "*\r\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof CurrencyMismatchError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+            "start": 44,
+            "end": 306,
             "loc": {
               "start": {
                 "line": 3,
@@ -117,8 +117,8 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 294,
-        "end": 497,
+        "start": 308,
+        "end": 519,
         "loc": {
           "start": {
             "line": 15,
@@ -131,8 +131,8 @@
         },
         "declaration": {
           "type": "ClassDeclaration",
-          "start": 309,
-          "end": 497,
+          "start": 323,
+          "end": 519,
           "loc": {
             "start": {
               "line": 15,
@@ -145,8 +145,8 @@
           },
           "id": {
             "type": "Identifier",
-            "start": 315,
-            "end": 336,
+            "start": 329,
+            "end": 350,
             "loc": {
               "start": {
                 "line": 15,
@@ -163,8 +163,8 @@
           },
           "superClass": {
             "type": "Identifier",
-            "start": 345,
-            "end": 356,
+            "start": 359,
+            "end": 370,
             "loc": {
               "start": {
                 "line": 15,
@@ -180,8 +180,8 @@
           },
           "body": {
             "type": "ClassBody",
-            "start": 357,
-            "end": 497,
+            "start": 371,
+            "end": 519,
             "loc": {
               "start": {
                 "line": 15,
@@ -195,8 +195,8 @@
             "body": [
               {
                 "type": "ClassMethod",
-                "start": 415,
-                "end": 495,
+                "start": 434,
+                "end": 516,
                 "loc": {
                   "start": {
                     "line": 20,
@@ -211,8 +211,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 415,
-                  "end": 426,
+                  "start": 434,
+                  "end": 445,
                   "loc": {
                     "start": {
                       "line": 20,
@@ -235,8 +235,8 @@
                 "params": [
                   {
                     "type": "AssignmentPattern",
-                    "start": 427,
-                    "end": 471,
+                    "start": 446,
+                    "end": 490,
                     "loc": {
                       "start": {
                         "line": 20,
@@ -249,8 +249,8 @@
                     },
                     "left": {
                       "type": "Identifier",
-                      "start": 427,
-                      "end": 434,
+                      "start": 446,
+                      "end": 453,
                       "loc": {
                         "start": {
                           "line": 20,
@@ -266,8 +266,8 @@
                     },
                     "right": {
                       "type": "StringLiteral",
-                      "start": 437,
-                      "end": 471,
+                      "start": 456,
+                      "end": 490,
                       "loc": {
                         "start": {
                           "line": 20,
@@ -288,8 +288,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 473,
-                  "end": 495,
+                  "start": 492,
+                  "end": 516,
                   "loc": {
                     "start": {
                       "line": 20,
@@ -303,8 +303,8 @@
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 477,
-                      "end": 492,
+                      "start": 497,
+                      "end": 512,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -317,8 +317,8 @@
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 477,
-                        "end": 491,
+                        "start": 497,
+                        "end": 511,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -331,8 +331,8 @@
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 477,
-                          "end": 482,
+                          "start": 497,
+                          "end": 502,
                           "loc": {
                             "start": {
                               "line": 21,
@@ -347,8 +347,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 483,
-                            "end": 490,
+                            "start": 503,
+                            "end": 510,
                             "loc": {
                               "start": {
                                 "line": 21,
@@ -371,9 +371,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n\t * @param {string} message - Error message\n\t ",
-                    "start": 361,
-                    "end": 413,
+                    "value": "*\r\n\t * @param {string} message - Error message\r\n\t ",
+                    "start": 377,
+                    "end": 431,
                     "loc": {
                       "start": {
                         "line": 17,
@@ -392,9 +392,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n ",
-              "start": 42,
-              "end": 293,
+              "value": "*\r\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof CurrencyMismatchError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+              "start": 44,
+              "end": 306,
               "loc": {
                 "start": {
                   "line": 3,
@@ -412,9 +412,9 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n ",
-            "start": 42,
-            "end": 293,
+            "value": "*\r\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof CurrencyMismatchError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+            "start": 44,
+            "end": 306,
             "loc": {
               "start": {
                 "line": 3,
@@ -434,9 +434,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n ",
-      "start": 42,
-      "end": 293,
+      "value": "*\r\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof CurrencyMismatchError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+      "start": 44,
+      "end": 306,
       "loc": {
         "start": {
           "line": 3,
@@ -450,9 +450,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n\t * @param {string} message - Error message\n\t ",
-      "start": 361,
-      "end": 413,
+      "value": "*\r\n\t * @param {string} message - Error message\r\n\t ",
+      "start": 377,
+      "end": 431,
       "loc": {
         "start": {
           "line": 17,
@@ -601,9 +601,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n ",
-      "start": 42,
-      "end": 293,
+      "value": "*\r\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\r\n * @example\r\n * try {\r\n *  // operation\r\n * }\r\n * catch(e) {\r\n *  if(e instanceof CurrencyMismatchError) {\r\n *      // handle error\r\n *  }\r\n * }\r\n ",
+      "start": 44,
+      "end": 306,
       "loc": {
         "start": {
           "line": 3,
@@ -630,8 +630,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 294,
-      "end": 300,
+      "start": 308,
+      "end": 314,
       "loc": {
         "start": {
           "line": 15,
@@ -658,8 +658,8 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 301,
-      "end": 308,
+      "start": 315,
+      "end": 322,
       "loc": {
         "start": {
           "line": 15,
@@ -686,8 +686,8 @@
         "updateContext": null
       },
       "value": "class",
-      "start": 309,
-      "end": 314,
+      "start": 323,
+      "end": 328,
       "loc": {
         "start": {
           "line": 15,
@@ -712,8 +712,8 @@
         "binop": null
       },
       "value": "CurrencyMismatchError",
-      "start": 315,
-      "end": 336,
+      "start": 329,
+      "end": 350,
       "loc": {
         "start": {
           "line": 15,
@@ -740,8 +740,8 @@
         "updateContext": null
       },
       "value": "extends",
-      "start": 337,
-      "end": 344,
+      "start": 351,
+      "end": 358,
       "loc": {
         "start": {
           "line": 15,
@@ -766,8 +766,8 @@
         "binop": null
       },
       "value": "WealthError",
-      "start": 345,
-      "end": 356,
+      "start": 359,
+      "end": 370,
       "loc": {
         "start": {
           "line": 15,
@@ -791,8 +791,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 357,
-      "end": 358,
+      "start": 371,
+      "end": 372,
       "loc": {
         "start": {
           "line": 15,
@@ -806,9 +806,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n\t * @param {string} message - Error message\n\t ",
-      "start": 361,
-      "end": 413,
+      "value": "*\r\n\t * @param {string} message - Error message\r\n\t ",
+      "start": 377,
+      "end": 431,
       "loc": {
         "start": {
           "line": 17,
@@ -833,8 +833,8 @@
         "binop": null
       },
       "value": "constructor",
-      "start": 415,
-      "end": 426,
+      "start": 434,
+      "end": 445,
       "loc": {
         "start": {
           "line": 20,
@@ -858,8 +858,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 426,
-      "end": 427,
+      "start": 445,
+      "end": 446,
       "loc": {
         "start": {
           "line": 20,
@@ -884,8 +884,8 @@
         "binop": null
       },
       "value": "message",
-      "start": 427,
-      "end": 434,
+      "start": 446,
+      "end": 453,
       "loc": {
         "start": {
           "line": 20,
@@ -911,8 +911,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 435,
-      "end": 436,
+      "start": 454,
+      "end": 455,
       "loc": {
         "start": {
           "line": 20,
@@ -938,8 +938,8 @@
         "updateContext": null
       },
       "value": "Currency mismatch between values",
-      "start": 437,
-      "end": 471,
+      "start": 456,
+      "end": 490,
       "loc": {
         "start": {
           "line": 20,
@@ -963,8 +963,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 471,
-      "end": 472,
+      "start": 490,
+      "end": 491,
       "loc": {
         "start": {
           "line": 20,
@@ -988,8 +988,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 473,
-      "end": 474,
+      "start": 492,
+      "end": 493,
       "loc": {
         "start": {
           "line": 20,
@@ -1016,8 +1016,8 @@
         "updateContext": null
       },
       "value": "super",
-      "start": 477,
-      "end": 482,
+      "start": 497,
+      "end": 502,
       "loc": {
         "start": {
           "line": 21,
@@ -1041,8 +1041,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 482,
-      "end": 483,
+      "start": 502,
+      "end": 503,
       "loc": {
         "start": {
           "line": 21,
@@ -1067,8 +1067,8 @@
         "binop": null
       },
       "value": "message",
-      "start": 483,
-      "end": 490,
+      "start": 503,
+      "end": 510,
       "loc": {
         "start": {
           "line": 21,
@@ -1092,8 +1092,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 490,
-      "end": 491,
+      "start": 510,
+      "end": 511,
       "loc": {
         "start": {
           "line": 21,
@@ -1118,8 +1118,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 491,
-      "end": 492,
+      "start": 511,
+      "end": 512,
       "loc": {
         "start": {
           "line": 21,
@@ -1143,8 +1143,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 494,
-      "end": 495,
+      "start": 515,
+      "end": 516,
       "loc": {
         "start": {
           "line": 22,
@@ -1168,8 +1168,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 496,
-      "end": 497,
+      "start": 518,
+      "end": 519,
       "loc": {
         "start": {
           "line": 23,
@@ -1194,8 +1194,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 498,
-      "end": 498,
+      "start": 521,
+      "end": 521,
       "loc": {
         "start": {
           "line": 24,
