@@ -384,6 +384,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/currency.js~currency#getformatter",
+    "class/src/Currency.js~Currency.html#instance-method-getFormatter",
+    "src/Currency.js~Currency#getFormatter",
+    "method"
+  ],
+  [
+    "src/currency.js~currency#getparser",
+    "class/src/Currency.js~Currency.html#instance-method-getParser",
+    "src/Currency.js~Currency#getParser",
+    "method"
+  ],
+  [
     "src/currency.js~currency#getpattern",
     "class/src/Currency.js~Currency.html#instance-method-getPattern",
     "src/Currency.js~Currency#getPattern",
@@ -432,15 +444,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/currency.js~currency.getallcurrenciessettings",
-    "class/src/Currency.js~Currency.html#static-method-getAllCurrenciesSettings",
-    "src/Currency.js~Currency.getAllCurrenciesSettings",
+    "src/currency.js~currency.getallsettings",
+    "class/src/Currency.js~Currency.html#static-method-getAllSettings",
+    "src/Currency.js~Currency.getAllSettings",
     "method"
   ],
   [
-    "src/currency.js~currency.getcurrencysettings",
-    "class/src/Currency.js~Currency.html#static-method-getCurrencySettings",
-    "src/Currency.js~Currency.getCurrencySettings",
+    "src/currency.js~currency.getsettings",
+    "class/src/Currency.js~Currency.html#static-method-getSettings",
+    "src/Currency.js~Currency.getSettings",
     "method"
   ],
   [

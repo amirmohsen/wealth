@@ -119,6 +119,22 @@ export default class Currency {
 	}
 
 	/**
+	 * Get the formatter for this currency
+	 * @returns {function|null|undefined} - Currency formatter
+	 */
+	getFormatter() {
+		return this._currencySettings.formatter;
+	}
+
+	/**
+	 * Get the parser for this currency
+	 * @returns {function|null|undefined} - Currency parser
+	 */
+	getParser() {
+		return this._currencySettings.parser;
+	}
+
+	/**
 	 * Format a monetary value
 	 * @param {Money} value - Monetary value to be formatted
 	 * @param {object} [overrideSettings] - settings to override Currency's default formatting settings
@@ -180,7 +196,14 @@ export default class Currency {
 	/**
 	 * Register (or replace) a currency
 	 * @param {string} code - Currency code
-	 * @param {object} settings - Currency settings
+	 * @param {object} [settings] - Currency settings
+	 * @param {string} [settings.symbol=code] - Currency symbol (by default same as code)
+	 * @param {string} [settings.thousandsSeparator=','] - Currency thousands separator
+	 * @param {string} [settings.decimalSeparator='.'] -Currency decimal separator
+	 * @param {number} [settings.decimalDigits=2] - Currency decimal digits
+	 * @param {string} [settings.pattern='%ns%s%v'] - Currency formatting pattern. %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.
+	 * @param {?function(value: Money): string} [settings.formatter] - Currency formatter, optional (used instead of the pattern)
+	 * @param {?function(value: string): Money} [settings.parser] - Currency parser, optional
 	 */
 	static register(code, settings) {
 		return CurrencyStore.set(code, settings);

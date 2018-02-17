@@ -1,11 +1,11 @@
 {
   "coverage": "100%",
-  "expectCount": 81,
-  "actualCount": 81,
+  "expectCount": 83,
+  "actualCount": 83,
   "files": {
     "src/Currency.js": {
-      "expectCount": 20,
-      "actualCount": 20,
+      "expectCount": 22,
+      "actualCount": 22,
       "undocumentLines": []
     },
     "src/CurrencyStore.js": {

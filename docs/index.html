@@ -43,23 +43,151 @@
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wealth">Wealth</h1><p>Wealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.</p>
 <p>There are many libraries out there that handle money or currency, but there&apos;s not one that offers a complete feature set.
-This library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid
-reinventing the wheel.</p>
-<p>Under the hood, it uses <a href="https://github.com/MikeMcl/bignumber.js/">bignumber.js</a> for calculations
-and <a href="https://github.com/smirzaei/currency-formatter">Currency Formatter</a> for formatting.</p>
-<h1 id="installation">Installation</h1><p><code>npm install wealth</code></p>
+This library provides a uniform interface for various money-related operations.</p>
+<p>Under the hood, it uses <a href="https://github.com/MikeMcl/bignumber.js/">bignumber.js</a> for calculations.</p>
+<h2 id="installation">Installation</h2><p><code>npm install wealth</code></p>
 <p>or</p>
 <p><code>yarn add wealth</code></p>
-<h1 id="basic-example">Basic Example</h1><pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Currency} from &apos;wealth&apos;;
+<h2 id="documentation">Documentation</h2><p>See the <a href="http://amirmohsen.github.io/wealth">documentation</a> for a complete API reference with examples.</p>
+<h2 id="immutability">Immutability</h2><p>All <code>Money</code> and <code>Currency</code> instances are immutable and each of the operations return a new instance.
+This makes <code>Wealth</code> perfect for react/redux applications.</p>
+<h2 id="examples">Examples</h2><ul>
+<li><a href="#money-calculation-&amp;-manipulation">Money Calculation &amp; Manipulation</a></li>
+<li><a href="#money-comparison">Money Comparison</a></li>
+<li><a href="#money-allocation">Money Allocation</a></li>
+<li><a href="#currency">Currency</a></li>
+<li><a href="#formatting-&amp;-parsing">Formatting &amp; Parsing</a></li>
+<li><a href="#serialization">Serialization</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+</ul>
+<h3 id="money-calculation--amp--manipulation">Money Calculation &amp; Manipulation</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
 
 let
     price = new Money(&apos;8078&apos;, &apos;USD&apos;), // $80.78
-    discountedPercentage = 0.82, // 82% ($18 discount)
-    discountedPrice = price.multiply(discountedPercentage), // $66.24
-    dollarCurrency = price.getCurrency(), // instanceof Currency
-    dollarSign = dollarCurrency.getSymbol(); // $</code>
+    discountedPercentage = 10, // 10% discount
+    discountedPrice = price.subtract(price.multiply(10).divide(100)), // $72.70
+    shipping = new Money(&apos;1550&apos;, &apos;USD&apos;), // $15.50
+    total = price.add(shipping); // $88.20</code>
 </code></pre>
-<h1 id="documentation">Documentation</h1><p>See the <a href="http://amirmohsen.github.io/wealth">documentation</a> for a complete API reference with examples.</p>
+<h3 id="money-comparison">Money Comparison</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+
+let
+    overdraft = new Money(&apos;100000&apos;, &apos;GBP&apos;), // $1000.00
+    debt = new Money(&apos;900&apos;, &apos;GBP&apos;), // $9.00
+    canBorrowMore = debt.lessThan(overdraft); // true</code>
+</code></pre>
+<h3 id="money-allocation">Money Allocation</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+
+let
+    inheritance = new Money(&apos;5000000&apos;, &apos;EUR&apos;),
+    ratios = [63, 22, 15], // ratios
+    inheritedShares = inheritance.allocate(ratios);
+
+let
+    expenses = new Money(&apos;79595&apos;, &apos;EUR&apos;),
+    expenseShares = expenses.allocateTo(10); // Equal (or nearly equal) shares of expenses</code>
+</code></pre>
+<h3 id="currency">Currency</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {CurrencyStore, Currency} from &apos;wealth&apos;;
+
+/**
+* All ISO currencies are already registered in the `CurrencyStore`.
+* You can find a currency by its code:
+**/
+let gbp = new Currency(&apos;GBP&apos;); // Create a new currency instance
+let gbpSettings = gbp.getSettings();
+// or you can get the settings directly from the `CurrencyStore`
+gbpSettings = CurrencyStore.get(&apos;GBP&apos;); // alias: Currency.getSettings()
+
+/**
+* You may wish to create a currency without registering it in the store for one-off use.
+*/
+
+let bitcoin = new Currency({
+    code: &apos;XBT&apos;,
+    symbol: &apos;&#x243;&apos;
+});
+
+/**
+* Or you can register a new currency for re-use
+**/
+
+CurrencyStore.set(&apos;ETH&apos;, {
+    symbol: &apos;&#x39E;&apos;
+});
+
+// Getting all registered currencies
+let allCurrencies = CurrencyStore.getAll(); // alias: Currency.getAllSettings()</code>
+</code></pre>
+<h3 id="formatting--amp--parsing">Formatting &amp; Parsing</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Formatter} from &apos;wealth&apos;;
+
+let money = new Money(&apos;500000&apos;, &apos;EUR&apos;);
+money.format(); // 5 000,00 &#x20AC;
+money.format({
+    pattern: &apos;%ns%s%v&apos;,
+    thousandsSeparator: &apos;,&apos;,
+    decimalSeparator: &apos;.&apos;
+}); // &#x20AC;5,000.00
+
+money.format({
+    formatter: () =&gt; {} // custom formatter
+});
+
+// Using money.format() is the same as
+Formatter.format(money);
+
+// Using money.format(settings) is the same as
+Formatter.format(money, settings);</code>
+</code></pre>
+<pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Formatter} from &apos;wealth&apos;;
+
+let money = Money.parse(&apos;5 000,00 &#x20AC;&apos;, &apos;EUR&apos;); // alias for Formatter.parse
+
+money = Money.parse(&apos;&#x20AC;5,000.00&apos;, {
+    code: &apos;EUR&apos;,
+    thousandsSeparator: &apos;,&apos;,
+    decimalSeparator: &apos;.&apos;
+});
+
+
+money = Money.parse(&apos;&#x20AC;5,000.00&apos;, {
+    parser: () =&gt; {} // custom parser
+});</code>
+</code></pre>
+<h3 id="serialization">Serialization</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+
+let money = new Money(&apos;100&apos;, &apos;USD&apos;);
+money.toJSON(); // {value: &apos;100&apos;, currency: &apos;USD&apos;}
+JSON.stringify(money); // {value: &apos;100&apos;, currency: &apos;USD&apos;}</code>
+</code></pre>
+<h3 id="error-handling">Error Handling</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {
+    WealthError,
+    CurrencyMismatchError,
+    InvalidCurrencyError,
+    WrongInputError
+} from &apos;wealth&apos;;
+
+try {
+    // operations
+}
+catch(e) {
+    if(e instanceof CurrencyMismatchError) {
+        // Thrown when the two sides of the operation use different currencies
+    }
+    else if(e instanceof InvalidCurrencyError) {
+        // Thrown when invalid or missing currency code provided
+    }
+    else if(e instanceof WrongInputError) {
+        // Thrown when bad input is provided to various methods
+    }
+
+    if(e instanceof WealthError) {
+        // All custom errors produced by Wealth inherit `WealthError`
+    }
+    else {
+        // All other errors
+    }
+}</code>
+</code></pre>
 </div>
 </div>
 

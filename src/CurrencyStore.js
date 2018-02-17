@@ -9,7 +9,7 @@ import InvalidCurrencyError from './errors/InvalidCurrencyError';
  *  thousandsSeparator: ',', // Currency thousands separator (Default: ',')
  *  decimalSeparator: '.', // Currency decimal separator (Default: '.')
  *  decimalDigits: 2, // Currency decimal digits (Default: 2)
- *  pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v')
+ *  pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v') - %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.
  *  formatter: null, // Currency formatter (Default: null). Custom formatting function.
  *  parser: null // Currency parser (Default: null). Custom parsing function.
  * });
@@ -49,7 +49,7 @@ export default class CurrencyStore {
 			code
 		};
 
-		this._data[code] = settings;
+		this._data[code.toUpperCase()] = settings;
 	}
 
 	/**
@@ -58,7 +58,7 @@ export default class CurrencyStore {
 	 * @returns {object} - Currency settings
 	 */
 	static get(code) {
-		return this._data[code];
+		return this._data[code.toUpperCase()];
 	}
 
 	/**
@@ -75,7 +75,7 @@ export default class CurrencyStore {
 	 * @param code - Currency code
 	 */
 	static del(code) {
-		delete this._data[code];
+		delete this._data[code.toUpperCase()];
 	}
 
 	/**

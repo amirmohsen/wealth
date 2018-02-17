@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/Currency.js",
-    "content": "import CurrencyStore from './CurrencyStore';\nimport Formatter from './Formatter';\nimport WrongInputError from './errors/WrongInputError';\n\n/**\n * @example <caption>Using code</caption>\n * let currency = new Currency('USD');\n *\n * @example <caption>Using existing currency object</caption>\n * let currency = new Currency(new Currency('USD'));\n *\n * @example <caption>Using custom settings to create a one-off currency without registering it</caption>\n * let currency = new Currency({\n *  code: 'ETH',\n *  symbol: 'Ξ'\n * });\n */\nexport default class Currency {\n\n\t/**\n\t * @param {string|object|Currency} currency - Currency string code, custom settings or instance of Currency\n\t */\n\tconstructor(currency) {\n\t\t/**\n\t\t * @type {object} - an object holding currency details such as decimal digits, etc.\n\t\t * @private\n\t\t */\n\t\tthis._currencySettings = this._preProcess(currency);\n\t}\n\n\t/**\n\t * Check if the parameter currency the same as the current currency\n\t * @param {string|Currency} currency - Currency string code or instance of Currency\n\t * @returns {boolean} - returns true if the parameter currency is the same as the current currency\n\t */\n\tis(currency) {\n\t\tcurrency = new Currency(currency);\n\t\treturn this.getCode() === currency.getCode();\n\t}\n\n\t/**\n\t * Get currency settings\n\t * @returns {Object} - Currency settings\n\t */\n\tgetSettings() {\n\t\treturn this._currencySettings;\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\ttoString() {\n\t\treturn this.getCode();\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\ttoJSON() {\n\t\treturn this.getCode();\n\t}\n\n\t/**\n\t * Clone the currency instance\n\t * @returns {Currency} - new Currency instance\n\t */\n\tclone() {\n\t\treturn new this.constructor(this.getCode());\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\tgetCode() {\n\t\treturn this._currencySettings.code;\n\t}\n\n\t/**\n\t * Get currency symbol\n\t * @returns {string} - Currency symbol\n\t */\n\tgetSymbol() {\n\t\treturn this._currencySettings.symbol;\n\t}\n\n\t/**\n\t * Get currency thousands separator\n\t * @returns {string} - Currency thousands separator\n\t */\n\tgetThousandsSeparator() {\n\t\treturn this._currencySettings.thousandsSeparator;\n\t}\n\n\t/**\n\t * Get currency decimal separator\n\t * @returns {string} - Currency decimal separator\n\t */\n\tgetDecimalSeparator() {\n\t\treturn this._currencySettings.decimalSeparator;\n\t}\n\n\t/**\n\t * Get currency formatting pattern\n\t * @returns {string} - Currency format pattern\n\t */\n\tgetPattern() {\n\t\treturn this._currencySettings.pattern;\n\t}\n\n\t/**\n\t * Get the number of decimal digits for this currency\n\t * @returns {number} - Number of decimal digits\n\t */\n\tgetDecimalDigits() {\n\t\treturn this._currencySettings.decimalDigits;\n\t}\n\n\t/**\n\t * Format a monetary value\n\t * @param {Money} value - Monetary value to be formatted\n\t * @param {object} [overrideSettings] - settings to override Currency's default formatting settings\n\t * @returns {string} - Formatted string of the value\n\t */\n\tformat(value, overrideSettings = {}) {\n\t\treturn Formatter.format(value, new Currency({\n\t\t\t...this._currencySettings,\n\t\t\t...overrideSettings\n\t\t}));\n\t}\n\n\t/**\n\t * Parse a monetary value from a formatted value (same as `unformat`)\n\t * @param {string} value - Formatted value to be parsed into a monetary value\n\t * @param {object} [overrideSettings] - settings to override Currency's default formatting settings\n\t * @returns {Money} - Parsed \"Money\" value\n\t */\n\tparse(value, overrideSettings = {}) {\n\t\treturn Formatter.parse(value, new Currency({\n\t\t\t...this._currencySettings,\n\t\t\t...overrideSettings\n\t\t}));\n\t}\n\n\t/**\n\t * Used by the constructor to pre-process the input\n\t * @param {string|object|Currency} currency - Currency code, settings or instance of Currency\n\t * @returns {object} - Currency settings\n\t */\n\t_preProcess(currency) {\n\t\tlet settings = {};\n\n\t\tif(currency instanceof Currency) {\n\t\t\tsettings = CurrencyStore.get(currency.getCode());\n\t\t}\n\t\telse if(typeof currency === 'string') {\n\t\t\tsettings = CurrencyStore.get(currency);\n\t\t}\n\t\telse if(typeof currency === 'object') {\n\t\t\tlet defaultSettings = {};\n\n\t\t\tif(currency.code) {\n\t\t\t\tdefaultSettings = CurrencyStore.get(currency.code);\n\t\t\t}\n\n\t\t\tsettings = {\n\t\t\t\t...defaultSettings,\n\t\t\t\t...settings\n\t\t\t};\n\t\t}\n\t\telse {\n\t\t\tthrow new WrongInputError('Invalid currency provided.');\n\t\t}\n\n\t\treturn settings;\n\t}\n\n\t/**\n\t * Register (or replace) a currency\n\t * @param {string} code - Currency code\n\t * @param {object} settings - Currency settings\n\t */\n\tstatic register(code, settings) {\n\t\treturn CurrencyStore.set(code, settings);\n\t}\n\n\t/**\n\t * Get currency settings for the specified currency\n\t * @param {string} code - Currency code\n\t * @return {object} - Currency settings\n\t */\n\tstatic getCurrencySettings(code) {\n\t\treturn CurrencyStore.get(code);\n\t}\n\n\t/**\n\t * Get an array of currency settings for all currencies\n\t * @return {object[]} - Settings for all currencies\n\t */\n\tstatic getAllCurrenciesSettings() {\n\t\treturn CurrencyStore.getAll();\n\t}\n}\n",
+    "content": "import CurrencyStore from './CurrencyStore';\nimport Formatter from './Formatter';\nimport WrongInputError from './errors/WrongInputError';\n\n/**\n * @example <caption>Using code</caption>\n * let currency = new Currency('USD');\n *\n * @example <caption>Using existing currency object</caption>\n * let currency = new Currency(new Currency('USD'));\n *\n * @example <caption>Using custom settings to create a one-off currency without registering it</caption>\n * let currency = new Currency({\n *  code: 'ETH',\n *  symbol: 'Ξ'\n * });\n */\nexport default class Currency {\n\n\t/**\n\t * @param {string|object|Currency} currency - Currency string code, custom settings or instance of Currency\n\t */\n\tconstructor(currency) {\n\t\t/**\n\t\t * @type {object} - an object holding currency details such as decimal digits, etc.\n\t\t * @private\n\t\t */\n\t\tthis._currencySettings = this._preProcess(currency);\n\t}\n\n\t/**\n\t * Check if the parameter currency the same as the current currency\n\t * @param {string|Currency} currency - Currency string code or instance of Currency\n\t * @returns {boolean} - returns true if the parameter currency is the same as the current currency\n\t */\n\tis(currency) {\n\t\tcurrency = new Currency(currency);\n\t\treturn this.getCode() === currency.getCode();\n\t}\n\n\t/**\n\t * Get currency settings\n\t * @returns {Object} - Currency settings\n\t */\n\tgetSettings() {\n\t\treturn this._currencySettings;\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\ttoString() {\n\t\treturn this.getCode();\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\ttoJSON() {\n\t\treturn this.getCode();\n\t}\n\n\t/**\n\t * Clone the currency instance\n\t * @returns {Currency} - new Currency instance\n\t */\n\tclone() {\n\t\treturn new this.constructor(this.getCode());\n\t}\n\n\t/**\n\t * Get currency code\n\t * @returns {string} - Currency code\n\t */\n\tgetCode() {\n\t\treturn this._currencySettings.code;\n\t}\n\n\t/**\n\t * Get currency symbol\n\t * @returns {string} - Currency symbol\n\t */\n\tgetSymbol() {\n\t\treturn this._currencySettings.symbol;\n\t}\n\n\t/**\n\t * Get currency thousands separator\n\t * @returns {string} - Currency thousands separator\n\t */\n\tgetThousandsSeparator() {\n\t\treturn this._currencySettings.thousandsSeparator;\n\t}\n\n\t/**\n\t * Get currency decimal separator\n\t * @returns {string} - Currency decimal separator\n\t */\n\tgetDecimalSeparator() {\n\t\treturn this._currencySettings.decimalSeparator;\n\t}\n\n\t/**\n\t * Get currency formatting pattern\n\t * @returns {string} - Currency format pattern\n\t */\n\tgetPattern() {\n\t\treturn this._currencySettings.pattern;\n\t}\n\n\t/**\n\t * Get the number of decimal digits for this currency\n\t * @returns {number} - Number of decimal digits\n\t */\n\tgetDecimalDigits() {\n\t\treturn this._currencySettings.decimalDigits;\n\t}\n\n\t/**\n\t * Get the formatter for this currency\n\t * @returns {function|null|undefined} - Currency formatter\n\t */\n\tgetFormatter() {\n\t\treturn this._currencySettings.formatter;\n\t}\n\n\t/**\n\t * Get the parser for this currency\n\t * @returns {function|null|undefined} - Currency parser\n\t */\n\tgetParser() {\n\t\treturn this._currencySettings.parser;\n\t}\n\n\t/**\n\t * Format a monetary value\n\t * @param {Money} value - Monetary value to be formatted\n\t * @param {object} [overrideSettings] - settings to override Currency's default formatting settings\n\t * @returns {string} - Formatted string of the value\n\t */\n\tformat(value, overrideSettings = {}) {\n\t\treturn Formatter.format(value, new Currency({\n\t\t\t...this._currencySettings,\n\t\t\t...overrideSettings\n\t\t}));\n\t}\n\n\t/**\n\t * Parse a monetary value from a formatted value (same as `unformat`)\n\t * @param {string} value - Formatted value to be parsed into a monetary value\n\t * @param {object} [overrideSettings] - settings to override Currency's default formatting settings\n\t * @returns {Money} - Parsed \"Money\" value\n\t */\n\tparse(value, overrideSettings = {}) {\n\t\treturn Formatter.parse(value, new Currency({\n\t\t\t...this._currencySettings,\n\t\t\t...overrideSettings\n\t\t}));\n\t}\n\n\t/**\n\t * Used by the constructor to pre-process the input\n\t * @param {string|object|Currency} currency - Currency code, settings or instance of Currency\n\t * @returns {object} - Currency settings\n\t */\n\t_preProcess(currency) {\n\t\tlet settings = {};\n\n\t\tif(currency instanceof Currency) {\n\t\t\tsettings = CurrencyStore.get(currency.getCode());\n\t\t}\n\t\telse if(typeof currency === 'string') {\n\t\t\tsettings = CurrencyStore.get(currency);\n\t\t}\n\t\telse if(typeof currency === 'object') {\n\t\t\tlet defaultSettings = {};\n\n\t\t\tif(currency.code) {\n\t\t\t\tdefaultSettings = CurrencyStore.get(currency.code);\n\t\t\t}\n\n\t\t\tsettings = {\n\t\t\t\t...defaultSettings,\n\t\t\t\t...settings\n\t\t\t};\n\t\t}\n\t\telse {\n\t\t\tthrow new WrongInputError('Invalid currency provided.');\n\t\t}\n\n\t\treturn settings;\n\t}\n\n\t/**\n\t * Register (or replace) a currency\n\t * @param {string} code - Currency code\n\t * @param {object} [settings] - Currency settings\n\t * @param {string} [settings.symbol=code] - Currency symbol (by default same as code)\n\t * @param {string} [settings.thousandsSeparator=','] - Currency thousands separator\n\t * @param {string} [settings.decimalSeparator='.'] -Currency decimal separator\n\t * @param {number} [settings.decimalDigits=2] - Currency decimal digits\n\t * @param {string} [settings.pattern='%ns%s%v'] - Currency formatting pattern. %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.\n\t * @param {?function(value: Money): string} [settings.formatter] - Currency formatter, optional (used instead of the pattern)\n\t * @param {?function(value: string): Money} [settings.parser] - Currency parser, optional\n\t */\n\tstatic register(code, settings) {\n\t\treturn CurrencyStore.set(code, settings);\n\t}\n\n\t/**\n\t * Get currency settings for the specified currency\n\t * @param {string} code - Currency code\n\t * @return {object} - Currency settings\n\t */\n\tstatic getSettings(code) {\n\t\treturn CurrencyStore.get(code);\n\t}\n\n\t/**\n\t * Get an array of currency settings for all currencies\n\t * @return {object[]} - Settings for all currencies\n\t */\n\tstatic getAllSettings() {\n\t\treturn CurrencyStore.getAll();\n\t}\n}\n",
     "static": true,
     "longname": "C:/Users/amirm/projects/personal/code/wealth/src/Currency.js",
     "access": "public",
@@ -963,6 +963,66 @@
   {
     "__docId__": 63,
     "kind": "method",
+    "name": "getFormatter",
+    "memberof": "src/Currency.js~Currency",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Currency.js~Currency#getFormatter",
+    "access": "public",
+    "description": "Get the formatter for this currency",
+    "lineNumber": 125,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{function|null|undefined} - Currency formatter"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "function",
+        "null",
+        "undefined"
+      ],
+      "spread": false,
+      "description": "Currency formatter"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 64,
+    "kind": "method",
+    "name": "getParser",
+    "memberof": "src/Currency.js~Currency",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/Currency.js~Currency#getParser",
+    "access": "public",
+    "description": "Get the parser for this currency",
+    "lineNumber": 133,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{function|null|undefined} - Currency parser"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "function",
+        "null",
+        "undefined"
+      ],
+      "spread": false,
+      "description": "Currency parser"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
     "name": "format",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
@@ -971,7 +1031,7 @@
     "longname": "src/Currency.js~Currency#format",
     "access": "public",
     "description": "Format a monetary value",
-    "lineNumber": 127,
+    "lineNumber": 143,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1010,7 +1070,7 @@
     }
   },
   {
-    "__docId__": 64,
+    "__docId__": 66,
     "kind": "method",
     "name": "parse",
     "memberof": "src/Currency.js~Currency",
@@ -1020,7 +1080,7 @@
     "longname": "src/Currency.js~Currency#parse",
     "access": "public",
     "description": "Parse a monetary value from a formatted value (same as `unformat`)",
-    "lineNumber": 140,
+    "lineNumber": 156,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1059,7 +1119,7 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 67,
     "kind": "method",
     "name": "_preProcess",
     "memberof": "src/Currency.js~Currency",
@@ -1069,7 +1129,7 @@
     "longname": "src/Currency.js~Currency#_preProcess",
     "access": "private",
     "description": "Used by the constructor to pre-process the input",
-    "lineNumber": 152,
+    "lineNumber": 168,
     "unknown": [
       {
         "tagName": "@returns",
@@ -1100,7 +1160,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 68,
     "kind": "method",
     "name": "register",
     "memberof": "src/Currency.js~Currency",
@@ -1110,7 +1170,7 @@
     "longname": "src/Currency.js~Currency.register",
     "access": "public",
     "description": "Register (or replace) a currency",
-    "lineNumber": 185,
+    "lineNumber": 208,
     "params": [
       {
         "nullable": null,
@@ -1128,9 +1188,89 @@
           "object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
         "name": "settings",
         "description": "Currency settings"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "code",
+        "defaultRaw": "code",
+        "name": "settings.symbol",
+        "description": "Currency symbol (by default same as code)"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "','",
+        "defaultRaw": "','",
+        "name": "settings.thousandsSeparator",
+        "description": "Currency thousands separator"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "'.'",
+        "defaultRaw": "'.'",
+        "name": "settings.decimalSeparator",
+        "description": "Currency decimal separator"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "2",
+        "defaultRaw": 2,
+        "name": "settings.decimalDigits",
+        "description": "Currency decimal digits"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "'%ns%s%v'",
+        "defaultRaw": "'%ns%s%v'",
+        "name": "settings.pattern",
+        "description": "Currency formatting pattern. %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder."
+      },
+      {
+        "nullable": true,
+        "types": [
+          "function(value: Money): string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "settings.formatter",
+        "description": "Currency formatter, optional (used instead of the pattern)"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "function(value: string): Money"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "settings.parser",
+        "description": "Currency parser, optional"
       }
     ],
     "return": {
@@ -1140,17 +1280,17 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 69,
     "kind": "method",
-    "name": "getCurrencySettings",
+    "name": "getSettings",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/Currency.js~Currency.getCurrencySettings",
+    "longname": "src/Currency.js~Currency.getSettings",
     "access": "public",
     "description": "Get currency settings for the specified currency",
-    "lineNumber": 194,
+    "lineNumber": 217,
     "params": [
       {
         "nullable": null,
@@ -1173,17 +1313,17 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "method",
-    "name": "getAllCurrenciesSettings",
+    "name": "getAllSettings",
     "memberof": "src/Currency.js~Currency",
     "generator": false,
     "async": false,
     "static": true,
-    "longname": "src/Currency.js~Currency.getAllCurrenciesSettings",
+    "longname": "src/Currency.js~Currency.getAllSettings",
     "access": "public",
     "description": "Get an array of currency settings for all currencies",
-    "lineNumber": 202,
+    "lineNumber": 225,
     "return": {
       "nullable": null,
       "types": [
@@ -1195,10 +1335,10 @@
     "params": []
   },
   {
-    "__docId__": 69,
+    "__docId__": 71,
     "kind": "file",
     "name": "src/CurrencyStore.js",
-    "content": "import ISOCurrencies from './data/iso-currencies';\nimport InvalidCurrencyError from './errors/InvalidCurrencyError';\n\n/**\n * Currency store\n * @example <caption>Set (register or replace) a currency</caption>\n * CurrencyStore.set('XBT', { // Settings is optional\n *  symbol: 'Ƀ', // Currency symbol (Default: same as code)\n *  thousandsSeparator: ',', // Currency thousands separator (Default: ',')\n *  decimalSeparator: '.', // Currency decimal separator (Default: '.')\n *  decimalDigits: 2, // Currency decimal digits (Default: 2)\n *  pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v')\n *  formatter: null, // Currency formatter (Default: null). Custom formatting function.\n *  parser: null // Currency parser (Default: null). Custom parsing function.\n * });\n *\n * @example <caption>Get currency settings</caption>\n * CurrencyStore.get('XBT');\n */\nexport default class CurrencyStore {\n\n\t/**\n\t * @type {object} - Internal data store\n\t * @private\n\t */\n\tstatic _data = {\n\t\t...ISOCurrencies\n\t};\n\n\t/**\n\t * Set (register or replace) a currency\n\t * @param {string} code - Currency code\n\t * @param {object} settings - Currency settings\n\t */\n\tstatic set(code, settings) {\n\t\tif(typeof code !== 'string' || !code) {\n\t\t\tthrow new InvalidCurrencyError('Invalid currency settings; code is required.');\n\t\t}\n\n\t\tsettings = {\n\t\t\t...settings,\n\t\t\tthousandsSeparator: ',',\n\t\t\tdecimalSeparator: '.',\n\t\t\tdecimalDigits: 2,\n\t\t\tpattern: '%ns%s%v',\n\t\t\tsymbol: settings.symbol || code,\n\t\t\tformatter: null,\n\t\t\tparser: null,\n\t\t\tcode\n\t\t};\n\n\t\tthis._data[code] = settings;\n\t}\n\n\t/**\n\t * Get currency settings\n\t * @param code - Currency code\n\t * @returns {object} - Currency settings\n\t */\n\tstatic get(code) {\n\t\treturn this._data[code];\n\t}\n\n\t/**\n\t * Check if currency has been registered\n\t * @param code - Currency code\n\t * @returns {boolean} - True if currency has been registered\n\t */\n\tstatic has(code) {\n\t\treturn !!this.get(code);\n\t}\n\n\t/**\n\t * Delete a registered currency\n\t * @param code - Currency code\n\t */\n\tstatic del(code) {\n\t\tdelete this._data[code];\n\t}\n\n\t/**\n\t * Get all registered currencies\n\t * @returns {array} - List of currencies, sorted by code alphabetically\n\t */\n\tstatic getAll() {\n\t\treturn Object\n\t\t\t.values(this._data)\n\t\t\t.reduce((settings, all) => all.concat([settings]), [])\n\t\t\t.sort((a, b) => a.code.localeCompare(b.code));\n\t}\n}\n",
+    "content": "import ISOCurrencies from './data/iso-currencies';\nimport InvalidCurrencyError from './errors/InvalidCurrencyError';\n\n/**\n * Currency store\n * @example <caption>Set (register or replace) a currency</caption>\n * CurrencyStore.set('XBT', { // Settings is optional\n *  symbol: 'Ƀ', // Currency symbol (Default: same as code)\n *  thousandsSeparator: ',', // Currency thousands separator (Default: ',')\n *  decimalSeparator: '.', // Currency decimal separator (Default: '.')\n *  decimalDigits: 2, // Currency decimal digits (Default: 2)\n *  pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v') - %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.\n *  formatter: null, // Currency formatter (Default: null). Custom formatting function.\n *  parser: null // Currency parser (Default: null). Custom parsing function.\n * });\n *\n * @example <caption>Get currency settings</caption>\n * CurrencyStore.get('XBT');\n */\nexport default class CurrencyStore {\n\n\t/**\n\t * @type {object} - Internal data store\n\t * @private\n\t */\n\tstatic _data = {\n\t\t...ISOCurrencies\n\t};\n\n\t/**\n\t * Set (register or replace) a currency\n\t * @param {string} code - Currency code\n\t * @param {object} settings - Currency settings\n\t */\n\tstatic set(code, settings) {\n\t\tif(typeof code !== 'string' || !code) {\n\t\t\tthrow new InvalidCurrencyError('Invalid currency settings; code is required.');\n\t\t}\n\n\t\tsettings = {\n\t\t\t...settings,\n\t\t\tthousandsSeparator: ',',\n\t\t\tdecimalSeparator: '.',\n\t\t\tdecimalDigits: 2,\n\t\t\tpattern: '%ns%s%v',\n\t\t\tsymbol: settings.symbol || code,\n\t\t\tformatter: null,\n\t\t\tparser: null,\n\t\t\tcode\n\t\t};\n\n\t\tthis._data[code.toUpperCase()] = settings;\n\t}\n\n\t/**\n\t * Get currency settings\n\t * @param code - Currency code\n\t * @returns {object} - Currency settings\n\t */\n\tstatic get(code) {\n\t\treturn this._data[code.toUpperCase()];\n\t}\n\n\t/**\n\t * Check if currency has been registered\n\t * @param code - Currency code\n\t * @returns {boolean} - True if currency has been registered\n\t */\n\tstatic has(code) {\n\t\treturn !!this.get(code);\n\t}\n\n\t/**\n\t * Delete a registered currency\n\t * @param code - Currency code\n\t */\n\tstatic del(code) {\n\t\tdelete this._data[code.toUpperCase()];\n\t}\n\n\t/**\n\t * Get all registered currencies\n\t * @returns {array} - List of currencies, sorted by code alphabetically\n\t */\n\tstatic getAll() {\n\t\treturn Object\n\t\t\t.values(this._data)\n\t\t\t.reduce((settings, all) => all.concat([settings]), [])\n\t\t\t.sort((a, b) => a.code.localeCompare(b.code));\n\t}\n}\n",
     "static": true,
     "longname": "C:/Users/amirm/projects/personal/code/wealth/src/CurrencyStore.js",
     "access": "public",
@@ -1206,7 +1346,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 70,
+    "__docId__": 72,
     "kind": "class",
     "name": "CurrencyStore",
     "memberof": "src/CurrencyStore.js",
@@ -1218,14 +1358,14 @@
     "importStyle": "{CurrencyStore}",
     "description": "Currency store",
     "examples": [
-      "<caption>Set (register or replace) a currency</caption>\nCurrencyStore.set('XBT', { // Settings is optional\n symbol: 'Ƀ', // Currency symbol (Default: same as code)\n thousandsSeparator: ',', // Currency thousands separator (Default: ',')\n decimalSeparator: '.', // Currency decimal separator (Default: '.')\n decimalDigits: 2, // Currency decimal digits (Default: 2)\n pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v')\n formatter: null, // Currency formatter (Default: null). Custom formatting function.\n parser: null // Currency parser (Default: null). Custom parsing function.\n});",
+      "<caption>Set (register or replace) a currency</caption>\nCurrencyStore.set('XBT', { // Settings is optional\n symbol: 'Ƀ', // Currency symbol (Default: same as code)\n thousandsSeparator: ',', // Currency thousands separator (Default: ',')\n decimalSeparator: '.', // Currency decimal separator (Default: '.')\n decimalDigits: 2, // Currency decimal digits (Default: 2)\n pattern: '%ns%s%v', // Currency pattern (Default: '%ns%s%v') - %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.\n formatter: null, // Currency formatter (Default: null). Custom formatting function.\n parser: null // Currency parser (Default: null). Custom parsing function.\n});",
       "<caption>Get currency settings</caption>\nCurrencyStore.get('XBT');"
     ],
     "lineNumber": 20,
     "interface": false
   },
   {
-    "__docId__": 71,
+    "__docId__": 73,
     "kind": "member",
     "name": "_data",
     "memberof": "src/CurrencyStore.js~CurrencyStore",
@@ -1244,7 +1384,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 74,
     "kind": "method",
     "name": "set",
     "memberof": "src/CurrencyStore.js~CurrencyStore",
@@ -1280,7 +1420,7 @@
     "return": null
   },
   {
-    "__docId__": 73,
+    "__docId__": 75,
     "kind": "method",
     "name": "get",
     "memberof": "src/CurrencyStore.js~CurrencyStore",
@@ -1319,7 +1459,7 @@
     }
   },
   {
-    "__docId__": 74,
+    "__docId__": 76,
     "kind": "method",
     "name": "has",
     "memberof": "src/CurrencyStore.js~CurrencyStore",
@@ -1358,7 +1498,7 @@
     }
   },
   {
-    "__docId__": 75,
+    "__docId__": 77,
     "kind": "method",
     "name": "del",
     "memberof": "src/CurrencyStore.js~CurrencyStore",
@@ -1384,7 +1524,7 @@
     "return": null
   },
   {
-    "__docId__": 76,
+    "__docId__": 78,
     "kind": "method",
     "name": "getAll",
     "memberof": "src/CurrencyStore.js~CurrencyStore",
@@ -1412,7 +1552,7 @@
     "params": []
   },
   {
-    "__docId__": 77,
+    "__docId__": 79,
     "kind": "file",
     "name": "src/data/iso-currencies.js",
     "content": "export default {\n\t\"AED\": {\n\t\t\"code\": \"AED\",\n\t\t\"symbol\": \"د.إ.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"AFN\": {\n\t\t\"code\": \"AFN\",\n\t\t\"symbol\": \"؋\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"ALL\": {\n\t\t\"code\": \"ALL\",\n\t\t\"symbol\": \"Lek\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"AMD\": {\n\t\t\"code\": \"AMD\",\n\t\t\"symbol\": \"֏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"ANG\": {\n\t\t\"code\": \"ANG\",\n\t\t\"symbol\": \"ƒ\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"AOA\": {\n\t\t\"code\": \"AOA\",\n\t\t\"symbol\": \"Kz\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"ARS\": {\n\t\t\"code\": \"ARS\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"AUD\": {\n\t\t\"code\": \"AUD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"AWG\": {\n\t\t\"code\": \"AWG\",\n\t\t\"symbol\": \"ƒ\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"AZN\": {\n\t\t\"code\": \"AZN\",\n\t\t\"symbol\": \"₼\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"BAM\": {\n\t\t\"code\": \"BAM\",\n\t\t\"symbol\": \"КМ\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"BBD\": {\n\t\t\"code\": \"BBD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"BDT\": {\n\t\t\"code\": \"BDT\",\n\t\t\"symbol\": \"৳\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"BGN\": {\n\t\t\"code\": \"BGN\",\n\t\t\"symbol\": \"лв.\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"BHD\": {\n\t\t\"code\": \"BHD\",\n\t\t\"symbol\": \"د.ب.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 3,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"BIF\": {\n\t\t\"code\": \"BIF\",\n\t\t\"symbol\": \"FBu\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"BMD\": {\n\t\t\"code\": \"BMD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"BND\": {\n\t\t\"code\": \"BND\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"BOB\": {\n\t\t\"code\": \"BOB\",\n\t\t\"symbol\": \"Bs\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"BRL\": {\n\t\t\"code\": \"BRL\",\n\t\t\"symbol\": \"R$\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"BSD\": {\n\t\t\"code\": \"BSD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"BTC\": {\n\t\t\"code\": \"BTC\",\n\t\t\"symbol\": \"Ƀ\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"BTN\": {\n\t\t\"code\": \"BTN\",\n\t\t\"symbol\": \"Nu.\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 1,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"BWP\": {\n\t\t\"code\": \"BWP\",\n\t\t\"symbol\": \"P\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"BYR\": {\n\t\t\"code\": \"BYR\",\n\t\t\"symbol\": \"р.\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"BZD\": {\n\t\t\"code\": \"BZD\",\n\t\t\"symbol\": \"BZ$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"CAD\": {\n\t\t\"code\": \"CAD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"CDF\": {\n\t\t\"code\": \"CDF\",\n\t\t\"symbol\": \"FC\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"CHF\": {\n\t\t\"code\": \"CHF\",\n\t\t\"symbol\": \"CHF\",\n\t\t\"thousandsSeparator\": \"'\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"CLP\": {\n\t\t\"code\": \"CLP\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"CNY\": {\n\t\t\"code\": \"CNY\",\n\t\t\"symbol\": \"¥\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"COP\": {\n\t\t\"code\": \"COP\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"CRC\": {\n\t\t\"code\": \"CRC\",\n\t\t\"symbol\": \"₡\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"CUC\": {\n\t\t\"code\": \"CUC\",\n\t\t\"symbol\": \"CUC\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"CUP\": {\n\t\t\"code\": \"CUP\",\n\t\t\"symbol\": \"$MN\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"CVE\": {\n\t\t\"code\": \"CVE\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"CZK\": {\n\t\t\"code\": \"CZK\",\n\t\t\"symbol\": \"Kč\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"DJF\": {\n\t\t\"code\": \"DJF\",\n\t\t\"symbol\": \"Fdj\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"DKK\": {\n\t\t\"code\": \"DKK\",\n\t\t\"symbol\": \"kr.\",\n\t\t\"thousandsSeparator\": \"\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"DOP\": {\n\t\t\"code\": \"DOP\",\n\t\t\"symbol\": \"RD$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"DZD\": {\n\t\t\"code\": \"DZD\",\n\t\t\"symbol\": \"د.ج.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"EGP\": {\n\t\t\"code\": \"EGP\",\n\t\t\"symbol\": \"ج.م.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"ERN\": {\n\t\t\"code\": \"ERN\",\n\t\t\"symbol\": \"Nfk\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"ETB\": {\n\t\t\"code\": \"ETB\",\n\t\t\"symbol\": \"ETB\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"EUR\": {\n\t\t\"code\": \"EUR\",\n\t\t\"symbol\": \"€\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"FJD\": {\n\t\t\"code\": \"FJD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"FKP\": {\n\t\t\"code\": \"FKP\",\n\t\t\"symbol\": \"£\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"GBP\": {\n\t\t\"code\": \"GBP\",\n\t\t\"symbol\": \"£\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"GEL\": {\n\t\t\"code\": \"GEL\",\n\t\t\"symbol\": \"Lari\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"GHS\": {\n\t\t\"code\": \"GHS\",\n\t\t\"symbol\": \"₵\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"GIP\": {\n\t\t\"code\": \"GIP\",\n\t\t\"symbol\": \"£\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"GMD\": {\n\t\t\"code\": \"GMD\",\n\t\t\"symbol\": \"D\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"GNF\": {\n\t\t\"code\": \"GNF\",\n\t\t\"symbol\": \"FG\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"GTQ\": {\n\t\t\"code\": \"GTQ\",\n\t\t\"symbol\": \"Q\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"GYD\": {\n\t\t\"code\": \"GYD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"HKD\": {\n\t\t\"code\": \"HKD\",\n\t\t\"symbol\": \"HK$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"HNL\": {\n\t\t\"code\": \"HNL\",\n\t\t\"symbol\": \"L.\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"HRK\": {\n\t\t\"code\": \"HRK\",\n\t\t\"symbol\": \"kn\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"HTG\": {\n\t\t\"code\": \"HTG\",\n\t\t\"symbol\": \"G\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"HUF\": {\n\t\t\"code\": \"HUF\",\n\t\t\"symbol\": \"Ft\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"IDR\": {\n\t\t\"code\": \"IDR\",\n\t\t\"symbol\": \"Rp\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"ILS\": {\n\t\t\"code\": \"ILS\",\n\t\t\"symbol\": \"₪\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"INR\": {\n\t\t\"code\": \"INR\",\n\t\t\"symbol\": \"₹\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"IQD\": {\n\t\t\"code\": \"IQD\",\n\t\t\"symbol\": \"د.ع.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"IRR\": {\n\t\t\"code\": \"IRR\",\n\t\t\"symbol\": \"﷼\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \"/\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"ISK\": {\n\t\t\"code\": \"ISK\",\n\t\t\"symbol\": \"kr.\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"JMD\": {\n\t\t\"code\": \"JMD\",\n\t\t\"symbol\": \"J$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"JOD\": {\n\t\t\"code\": \"JOD\",\n\t\t\"symbol\": \"د.ا.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 3,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"JPY\": {\n\t\t\"code\": \"JPY\",\n\t\t\"symbol\": \"¥\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"KES\": {\n\t\t\"code\": \"KES\",\n\t\t\"symbol\": \"KSh\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"KGS\": {\n\t\t\"code\": \"KGS\",\n\t\t\"symbol\": \"сом\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \"-\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"KHR\": {\n\t\t\"code\": \"KHR\",\n\t\t\"symbol\": \"៛\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"KMF\": {\n\t\t\"code\": \"KMF\",\n\t\t\"symbol\": \"CF\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"KPW\": {\n\t\t\"code\": \"KPW\",\n\t\t\"symbol\": \"₩\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"KRW\": {\n\t\t\"code\": \"KRW\",\n\t\t\"symbol\": \"₩\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"KWD\": {\n\t\t\"code\": \"KWD\",\n\t\t\"symbol\": \"د.ك.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 3,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"KYD\": {\n\t\t\"code\": \"KYD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"KZT\": {\n\t\t\"code\": \"KZT\",\n\t\t\"symbol\": \"₸\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \"-\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"LAK\": {\n\t\t\"code\": \"LAK\",\n\t\t\"symbol\": \"₭\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"LBP\": {\n\t\t\"code\": \"LBP\",\n\t\t\"symbol\": \"ل.ل.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"LKR\": {\n\t\t\"code\": \"LKR\",\n\t\t\"symbol\": \"₨\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"LRD\": {\n\t\t\"code\": \"LRD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"LSL\": {\n\t\t\"code\": \"LSL\",\n\t\t\"symbol\": \"M\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"LYD\": {\n\t\t\"code\": \"LYD\",\n\t\t\"symbol\": \"د.ل.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 3,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MAD\": {\n\t\t\"code\": \"MAD\",\n\t\t\"symbol\": \"د.م.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"MDL\": {\n\t\t\"code\": \"MDL\",\n\t\t\"symbol\": \"lei\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"MGA\": {\n\t\t\"code\": \"MGA\",\n\t\t\"symbol\": \"Ar\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MKD\": {\n\t\t\"code\": \"MKD\",\n\t\t\"symbol\": \"ден.\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"MMK\": {\n\t\t\"code\": \"MMK\",\n\t\t\"symbol\": \"K\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MNT\": {\n\t\t\"code\": \"MNT\",\n\t\t\"symbol\": \"₮\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MOP\": {\n\t\t\"code\": \"MOP\",\n\t\t\"symbol\": \"MOP$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MRO\": {\n\t\t\"code\": \"MRO\",\n\t\t\"symbol\": \"UM\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"MTL\": {\n\t\t\"code\": \"MTL\",\n\t\t\"symbol\": \"₤\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MUR\": {\n\t\t\"code\": \"MUR\",\n\t\t\"symbol\": \"₨\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MVR\": {\n\t\t\"code\": \"MVR\",\n\t\t\"symbol\": \"MVR\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 1,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"MWK\": {\n\t\t\"code\": \"MWK\",\n\t\t\"symbol\": \"MK\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MXN\": {\n\t\t\"code\": \"MXN\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MYR\": {\n\t\t\"code\": \"MYR\",\n\t\t\"symbol\": \"RM\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"MZN\": {\n\t\t\"code\": \"MZN\",\n\t\t\"symbol\": \"MT\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"NAD\": {\n\t\t\"code\": \"NAD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"NGN\": {\n\t\t\"code\": \"NGN\",\n\t\t\"symbol\": \"₦\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"NIO\": {\n\t\t\"code\": \"NIO\",\n\t\t\"symbol\": \"C$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"NOK\": {\n\t\t\"code\": \"NOK\",\n\t\t\"symbol\": \"kr\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"NPR\": {\n\t\t\"code\": \"NPR\",\n\t\t\"symbol\": \"₨\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"NZD\": {\n\t\t\"code\": \"NZD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"OMR\": {\n\t\t\"code\": \"OMR\",\n\t\t\"symbol\": \"﷼\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 3,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"PAB\": {\n\t\t\"code\": \"PAB\",\n\t\t\"symbol\": \"B/.\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"PEN\": {\n\t\t\"code\": \"PEN\",\n\t\t\"symbol\": \"S/.\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"PGK\": {\n\t\t\"code\": \"PGK\",\n\t\t\"symbol\": \"K\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"PHP\": {\n\t\t\"code\": \"PHP\",\n\t\t\"symbol\": \"₱\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"PKR\": {\n\t\t\"code\": \"PKR\",\n\t\t\"symbol\": \"₨\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"PLN\": {\n\t\t\"code\": \"PLN\",\n\t\t\"symbol\": \"zł\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"PYG\": {\n\t\t\"code\": \"PYG\",\n\t\t\"symbol\": \"₲\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"QAR\": {\n\t\t\"code\": \"QAR\",\n\t\t\"symbol\": \"﷼\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"RON\": {\n\t\t\"code\": \"RON\",\n\t\t\"symbol\": \"lei\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"RSD\": {\n\t\t\"code\": \"RSD\",\n\t\t\"symbol\": \"Дин.\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"RUB\": {\n\t\t\"code\": \"RUB\",\n\t\t\"symbol\": \"₽\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"RWF\": {\n\t\t\"code\": \"RWF\",\n\t\t\"symbol\": \"RWF\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"SAR\": {\n\t\t\"code\": \"SAR\",\n\t\t\"symbol\": \"﷼\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"SBD\": {\n\t\t\"code\": \"SBD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SCR\": {\n\t\t\"code\": \"SCR\",\n\t\t\"symbol\": \"₨\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SDD\": {\n\t\t\"code\": \"SDD\",\n\t\t\"symbol\": \"LSd\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"SDG\": {\n\t\t\"code\": \"SDG\",\n\t\t\"symbol\": \"£‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SEK\": {\n\t\t\"code\": \"SEK\",\n\t\t\"symbol\": \"kr\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"SGD\": {\n\t\t\"code\": \"SGD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SHP\": {\n\t\t\"code\": \"SHP\",\n\t\t\"symbol\": \"£\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SLL\": {\n\t\t\"code\": \"SLL\",\n\t\t\"symbol\": \"Le\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SOS\": {\n\t\t\"code\": \"SOS\",\n\t\t\"symbol\": \"S\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SRD\": {\n\t\t\"code\": \"SRD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"STD\": {\n\t\t\"code\": \"STD\",\n\t\t\"symbol\": \"Db\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SVC\": {\n\t\t\"code\": \"SVC\",\n\t\t\"symbol\": \"₡\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"SYP\": {\n\t\t\"code\": \"SYP\",\n\t\t\"symbol\": \"£\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"SZL\": {\n\t\t\"code\": \"SZL\",\n\t\t\"symbol\": \"E\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"THB\": {\n\t\t\"code\": \"THB\",\n\t\t\"symbol\": \"฿\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"TJS\": {\n\t\t\"code\": \"TJS\",\n\t\t\"symbol\": \"TJS\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \";\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"TMT\": {\n\t\t\"code\": \"TMT\",\n\t\t\"symbol\": \"m\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"TND\": {\n\t\t\"code\": \"TND\",\n\t\t\"symbol\": \"د.ت.‏\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 3,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"TOP\": {\n\t\t\"code\": \"TOP\",\n\t\t\"symbol\": \"T$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"TRY\": {\n\t\t\"code\": \"TRY\",\n\t\t\"symbol\": \"TL\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"TTD\": {\n\t\t\"code\": \"TTD\",\n\t\t\"symbol\": \"TT$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"TVD\": {\n\t\t\"code\": \"TVD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"TWD\": {\n\t\t\"code\": \"TWD\",\n\t\t\"symbol\": \"NT$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"TZS\": {\n\t\t\"code\": \"TZS\",\n\t\t\"symbol\": \"TSh\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"UAH\": {\n\t\t\"code\": \"UAH\",\n\t\t\"symbol\": \"₴\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"UGX\": {\n\t\t\"code\": \"UGX\",\n\t\t\"symbol\": \"USh\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"USD\": {\n\t\t\"code\": \"USD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"UYU\": {\n\t\t\"code\": \"UYU\",\n\t\t\"symbol\": \"$U\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"UZS\": {\n\t\t\"code\": \"UZS\",\n\t\t\"symbol\": \"сўм\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"VEB\": {\n\t\t\"code\": \"VEB\",\n\t\t\"symbol\": \"Bs.\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"VEF\": {\n\t\t\"code\": \"VEF\",\n\t\t\"symbol\": \"Bs. F.\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"VND\": {\n\t\t\"code\": \"VND\",\n\t\t\"symbol\": \"₫\",\n\t\t\"thousandsSeparator\": \".\",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 1,\n\t\t\"pattern\": \"%ns%v %s\"\n\t},\n\t\"VUV\": {\n\t\t\"code\": \"VUV\",\n\t\t\"symbol\": \"VT\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 0,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"WST\": {\n\t\t\"code\": \"WST\",\n\t\t\"symbol\": \"WS$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"XAF\": {\n\t\t\"code\": \"XAF\",\n\t\t\"symbol\": \"F\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"XCD\": {\n\t\t\"code\": \"XCD\",\n\t\t\"symbol\": \"$\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"XOF\": {\n\t\t\"code\": \"XOF\",\n\t\t\"symbol\": \"F\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"XPF\": {\n\t\t\"code\": \"XPF\",\n\t\t\"symbol\": \"F\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%v%s\"\n\t},\n\t\"YER\": {\n\t\t\"code\": \"YER\",\n\t\t\"symbol\": \"﷼\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%s %ns%v\"\n\t},\n\t\"ZAR\": {\n\t\t\"code\": \"ZAR\",\n\t\t\"symbol\": \"R\",\n\t\t\"thousandsSeparator\": \" \",\n\t\t\"decimalSeparator\": \",\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"ZMW\": {\n\t\t\"code\": \"ZMW\",\n\t\t\"symbol\": \"ZK\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t},\n\t\"WON\": {\n\t\t\"code\": \"WON\",\n\t\t\"symbol\": \"₩\",\n\t\t\"thousandsSeparator\": \",\",\n\t\t\"decimalSeparator\": \".\",\n\t\t\"decimalDigits\": 2,\n\t\t\"pattern\": \"%ns%s%v\"\n\t}\n};\n",
@@ -1423,7 +1563,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 78,
+    "__docId__": 80,
     "kind": "file",
     "name": "src/errors/CurrencyMismatchError.js",
     "content": "import WealthError from './WealthError';\n\n/**\n * Error thrown when the currency of a parameter doesn't match the currency of the current \"Money\" object.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof CurrencyMismatchError) {\n *      // handle error\n *  }\n * }\n */\nexport default class CurrencyMismatchError extends WealthError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Currency mismatch between values') {\n\t\tsuper(message);\n\t}\n}\n",
@@ -1434,7 +1574,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 79,
+    "__docId__": 81,
     "kind": "class",
     "name": "CurrencyMismatchError",
     "memberof": "src/errors/CurrencyMismatchError.js",
@@ -1455,7 +1595,7 @@
     ]
   },
   {
-    "__docId__": 80,
+    "__docId__": 82,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/CurrencyMismatchError.js~CurrencyMismatchError",
@@ -1480,7 +1620,7 @@
     ]
   },
   {
-    "__docId__": 81,
+    "__docId__": 83,
     "kind": "file",
     "name": "src/errors/InvalidCurrencyError.js",
     "content": "import WealthError from './WealthError';\n\n/**\n * Error thrown when invalid currency is provided\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof InvalidCurrencyError) {\n *      // handle error\n *  }\n * }\n */\nexport default class InvalidCurrencyError extends WealthError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Invalid currency') {\n\t\tsuper(message);\n\t}\n}\n",
@@ -1491,7 +1631,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 82,
+    "__docId__": 84,
     "kind": "class",
     "name": "InvalidCurrencyError",
     "memberof": "src/errors/InvalidCurrencyError.js",
@@ -1512,7 +1652,7 @@
     ]
   },
   {
-    "__docId__": 83,
+    "__docId__": 85,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/InvalidCurrencyError.js~InvalidCurrencyError",
@@ -1537,7 +1677,7 @@
     ]
   },
   {
-    "__docId__": 84,
+    "__docId__": 86,
     "kind": "file",
     "name": "src/errors/WealthError.js",
     "content": "import ExtendableError from 'es6-error';\n\n/**\n * The base error for all custom errors thrown by the \"Wealth\" library.\n * It's useful when trying to catch all types of \"Wealth\" errors.\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WealthError) {\n *      // handle error\n *  }\n * }\n */\nexport default class WealthError extends ExtendableError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Wealth error') {\n\t\tsuper(message);\n\t}\n}\n",
@@ -1548,7 +1688,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 85,
+    "__docId__": 87,
     "kind": "class",
     "name": "WealthError",
     "memberof": "src/errors/WealthError.js",
@@ -1569,7 +1709,7 @@
     ]
   },
   {
-    "__docId__": 86,
+    "__docId__": 88,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/WealthError.js~WealthError",
@@ -1594,7 +1734,7 @@
     ]
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
     "kind": "file",
     "name": "src/errors/WrongInputError.js",
     "content": "import WealthError from './WealthError';\n\n/**\n * Error thrown when the input argument is wrong\n * @example\n * try {\n *  // operation\n * }\n * catch(e) {\n *  if(e instanceof WrongInputError) {\n *      // handle error\n *  }\n * }\n */\nexport default class WrongInputError extends WealthError {\n\n\t/**\n\t * @param {string} message - Error message\n\t */\n\tconstructor(message = 'Wrong input argument') {\n\t\tsuper(message);\n\t}\n}\n",
@@ -1605,7 +1745,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 88,
+    "__docId__": 90,
     "kind": "class",
     "name": "WrongInputError",
     "memberof": "src/errors/WrongInputError.js",
@@ -1626,7 +1766,7 @@
     ]
   },
   {
-    "__docId__": 89,
+    "__docId__": 91,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/errors/WrongInputError.js~WrongInputError",
@@ -1651,7 +1791,7 @@
     ]
   },
   {
-    "__docId__": 90,
+    "__docId__": 92,
     "kind": "file",
     "name": "src/Formatter.js",
     "content": "import InvalidCurrencyError from './errors/InvalidCurrencyError';\nimport CurrencyStore from './CurrencyStore';\nimport Money from './Money';\nimport Currency from './Currency';\n\n/**\n * @example <caption>Format value based on internal currency</caption>\n * Formatter.format(value);\n *\n * @example <caption>Format value based on currency parameter</caption>\n * Formatter.format(value, new Currency('USD'));\n *\n * @example <caption>Format value based on currency code</caption>\n * Formatter.format(value, 'USD');\n *\n * @example <caption>Format value based on custom settings</caption>\n * Formatter.format(value, {\n *  code: 'EUR',\n *  pattern: '%s%v'\n * });\n */\nexport default class Formatter {\n\n\t/**\n\t * Format money based on settings\n\t * @param {Money} value - Monetary value to be formatted\n\t * @param {object|string|Currency} [settings] - Formatting settings, currency code or currency\n\t * @returns {string} - Formatted money string\n\t */\n\tstatic format(value, settings) {\n\t\tconst\n\t\t\tdetails = this._getFormattingDetails(value, settings),\n\t\t\t{\n\t\t\t\tsymbol,\n\t\t\t\tcode,\n\t\t\t\tdecimalDigits,\n\t\t\t\tpattern,\n\t\t\t\tformatter\n\t\t\t} = details;\n\n\t\tif(typeof formatter === 'function') {\n\t\t\treturn formatter(value, details);\n\t\t}\n\n\t\tlet formatted = pattern.replace('%v', details.value.absoluteValue().toFormat(decimalDigits));\n\n\t\tformatted = formatted.replace('%ns', details.value.isNegative() ? '-' : '');\n\n\t\tif(details.value.isInteger()) {\n\t\t\tformatted = formatted.replace('%i', details.value.toFormat(0));\n\t\t}\n\n\t\tif(symbol) {\n\t\t\tformatted = formatted.replace('%s', symbol);\n\t\t}\n\n\t\tif(code) {\n\t\t\tformatted = formatted.replace('%c', code);\n\t\t}\n\n\t\treturn formatted;\n\t}\n\n\t/**\n\t * Parse money based on settings\n\t * @param {string} value - Monetary value to be parsed\n\t * @param {object|string|Currency} settings - Parsing settings, currency code or currency\n\t * @returns {Money} - Parsed \"Money\" value\n\t */\n\tstatic parse(value, settings) {\n\t\tlet\n\t\t\toptions = this._getOptions(settings),\n\t\t\t{\n\t\t\t\tsymbol,\n\t\t\t\tcode,\n\t\t\t\tthousandsSeparator,\n\t\t\t\tdecimalSeparator,\n\t\t\t\tparser\n\t\t\t} = options;\n\n\t\tif(typeof parser === 'function') {\n\t\t\treturn parser(value, options);\n\t\t}\n\n\t\tvalue = this._replaceAll(value, thousandsSeparator, '');\n\t\tvalue = this._replaceAll(value, symbol, '');\n\t\tvalue = this._replaceAll(value, code, '');\n\t\tvalue = this._replaceAll(value, decimalSeparator, '');\n\t\tvalue =\tvalue.replace(/\\s/g, '');\n\n\t\treturn new Money(value, code);\n\t}\n\n\t/**\n\t * Replace all case-insensitive instances of a string in another string\n\t * @param {string} source - source string\n\t * @param {string} search - search string\n\t * @param {string} replacement - replacement string\n\t * @returns {string} - final string result\n\t * @private\n\t */\n\tstatic _replaceAll(source, search, replacement) {\n\t\tlet\n\t\t\tesc = search.replace(/[-\\/\\\\^$*+?.()|[\\]{}]/g, '\\\\$&'),\n\t\t\treg = new RegExp(esc, 'ig');\n\t\treturn source.replace(reg, replacement);\n\t}\n\n\t/**\n\t * Get formatting details\n\t * @param {Money} value - Monetary value to be formatted\n\t * @param {object|string|Currency} [settings] - Formatting settings, currency code or currency\n\t * @returns {{symbol: string, code: string, value: BigNumber, decimalDigits: number, pattern: string}} - Formatting details\n\t * @private\n\t */\n\tstatic _getFormattingDetails(value, settings) {\n\t\tlet {\n\t\t\tsymbol,\n\t\t\tcode,\n\t\t\tthousandsSeparator,\n\t\t\tdecimalSeparator,\n\t\t\tdecimalDigits,\n\t\t\tpattern,\n\t\t\tformatter\n\t\t} = this._getOptions(settings, value);\n\n\t\tif(settings === undefined || (settings instanceof Currency && value.getCurrency().is(settings))) {\n\t\t\tvalue = value.getAmountAsBigNumber();\n\t\t}\n\t\telse {\n\t\t\tconst BN = value.getBigNumberConstructor().clone({\n\t\t\t\tFORMAT: {\n\t\t\t\t\tdecimalSeparator,\n\t\t\t\t\tgroupSeparator: thousandsSeparator,\n\t\t\t\t\tgroupSize: 3,\n\t\t\t\t\tsecondaryGroupSize: 0,\n\t\t\t\t\tfractionGroupSeparator: ' ',\n\t\t\t\t\tfractionGroupSize: 0\n\t\t\t\t}\n\t\t\t});\n\n\t\t\tvalue = new BN(value);\n\t\t}\n\n\t\treturn {\n\t\t\tsymbol,\n\t\t\tcode,\n\t\t\tvalue,\n\t\t\tdecimalDigits,\n\t\t\tpattern,\n\t\t\tformatter\n\t\t};\n\t}\n\n\t/**\n\t * Get formatting/parsing options\n\t * @param {object|string|Currency} [settings] - Formatting settings, currency code or currency\n\t * @param {Money} [value] - Monetary value to be formatted\n\t * @returns {{symbol: string, code: string, thousandsSeparator: string, decimalSeparator: string, decimalDigits: number, pattern: string}} - Formatting/parsing details\n\t * @private\n\t */\n\tstatic _getOptions(settings, value = null) {\n\t\tif(settings === undefined && value instanceof Money) {\n\t\t\treturn value.getCurrency().getSettings();\n\t\t}\n\n\t\tif(typeof settings === 'string') {\n\t\t\tsettings = settings.toUpperCase();\n\n\t\t\tif(!CurrencyStore.has(settings)) {\n\t\t\t\tthrow new InvalidCurrencyError(`No currency with code \"${settings}\" is registered.`);\n\t\t\t}\n\n\t\t\treturn CurrencyStore.get(settings);\n\t\t}\n\n\t\tif(settings instanceof Currency) {\n\t\t\treturn settings.getSettings();\n\t\t}\n\n\t\tif(typeof settings !== 'object') {\n\t\t\tthrow new InvalidCurrencyError('Invalid currency options provided.');\n\t\t}\n\n\t\tif(typeof settings.code !== 'string' || !settings.code) {\n\t\t\tthrow new InvalidCurrencyError('Invalid currency settings; code is required.');\n\t\t}\n\n\t\tif(CurrencyStore.has(settings.code)) {\n\t\t\tsettings = {\n\t\t\t\t...CurrencyStore.get(settings.code),\n\t\t\t\t...settings\n\t\t\t};\n\t\t}\n\n\t\treturn {\n\t\t\tthousandsSeparator: ',',\n\t\t\tdecimalSeparator: '.',\n\t\t\tdecimalDigits: 2,\n\t\t\tpattern: '%s%ns%v',\n\t\t\tformatter: null,\n\t\t\tparser: null,\n\t\t\tsymbol: settings.code,\n\t\t\t...settings,\n\t\t};\n\t}\n}\n",
@@ -1662,7 +1802,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 91,
+    "__docId__": 93,
     "kind": "class",
     "name": "Formatter",
     "memberof": "src/Formatter.js",
@@ -1683,7 +1823,7 @@
     "interface": false
   },
   {
-    "__docId__": 92,
+    "__docId__": 94,
     "kind": "method",
     "name": "format",
     "memberof": "src/Formatter.js~Formatter",
@@ -1734,7 +1874,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 95,
     "kind": "method",
     "name": "parse",
     "memberof": "src/Formatter.js~Formatter",
@@ -1785,7 +1925,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 96,
     "kind": "method",
     "name": "_replaceAll",
     "memberof": "src/Formatter.js~Formatter",
@@ -1844,7 +1984,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 97,
     "kind": "method",
     "name": "_getFormattingDetails",
     "memberof": "src/Formatter.js~Formatter",
@@ -1895,7 +2035,7 @@
     }
   },
   {
-    "__docId__": 96,
+    "__docId__": 98,
     "kind": "method",
     "name": "_getOptions",
     "memberof": "src/Formatter.js~Formatter",
@@ -1946,10 +2086,10 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 99,
     "kind": "file",
     "name": "src/index.js",
-    "content": "export {default as Money} from './Money';\nexport {default as Currency} from './Currency';\nexport {default as CurrencyStore} from './CurrencyStore';\nexport {default as WealthError} from './errors/WealthError';\nexport {default as CurrencyMismatchError} from './errors/CurrencyMismatchError';\nexport {default as WrongInputError} from './errors/WrongInputError';\n",
+    "content": "export {default as Money} from './Money';\nexport {default as Currency} from './Currency';\nexport {default as CurrencyStore} from './CurrencyStore';\nexport {default as WealthError} from './errors/WealthError';\nexport {default as CurrencyMismatchError} from './errors/CurrencyMismatchError';\nexport {default as InvalidCurrencyError} from './errors/InvalidCurrencyError';\nexport {default as WrongInputError} from './errors/WrongInputError';\n",
     "static": true,
     "longname": "C:/Users/amirm/projects/personal/code/wealth/src/index.js",
     "access": "public",
@@ -1957,7 +2097,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 98,
+    "__docId__": 100,
     "kind": "file",
     "name": "src/Money.js",
     "content": "import BigNumber from 'bignumber.js';\nimport isInt from 'validator/lib/isInt';\nimport isFloat from 'validator/lib/isFloat';\nimport Currency from './Currency';\nimport CurrencyMismatchError from './errors/CurrencyMismatchError';\nimport WrongInputError from './errors/WrongInputError';\nimport Formatter from './Formatter';\n\n/**\n * @example\n * let price = new Money('7856', 'USD'); // $78.56\n */\nexport default class Money {\n\n\t/**\n\t * Rounding modes you can use in your operations.\n\t * These map directly to [`BigNumber`'s rounding modes](http://mikemcl.github.io/bignumber.js/#constructor-properties).\n\t * @type {object} ROUNDING - rounding modes\n\t * @property {number} ROUNDING.UP - Rounds away from zero\n\t * @property {number} ROUNDING.DOWN - Rounds towards zero\n\t * @property {number} ROUNDING.CEIL - Rounds towards Infinity\n\t * @property {number} ROUNDING.FLOOR - Rounds towards -Infinity\n\t * @property {number} ROUNDING.HALF_UP - Rounds towards nearest neighbour. If equidistant, rounds away from zero\n\t * @property {number} ROUNDING.HALF_DOWN - Rounds towards nearest neighbour. If equidistant, rounds towards zero\n\t * @property {number} ROUNDING.HALF_EVEN - Rounds towards nearest neighbour. If equidistant, rounds towards even neighbour\n\t * @property {number} ROUNDING.HALF_CEIL - Rounds towards nearest neighbour. If equidistant, rounds towards Infinity\n\t * @property {number} ROUNDING.HALF_FLOOR - Rounds towards nearest neighbour. If equidistant, rounds towards -Infinity\n\t *\n\t * @example\n\t * let\n\t *      price = new Money('7856', 'USD'), // $78.56\n\t *      discountedAndRoundedUp = price.multiply('0.70'), // $55.00\n\t *      discountedAndRoundedDown = price.multiply('0.70', Money.ROUNDING.DOWN); // $54.99\n\t */\n\tstatic ROUNDING = {\n\t\tUP: BigNumber.ROUND_UP,\n\t\tDOWN: BigNumber.ROUND_DOWN,\n\t\tCEIL: BigNumber.ROUND_CEIL,\n\t\tFLOOR: BigNumber.ROUND_FLOOR,\n\t\tHALF_UP: BigNumber.ROUND_HALF_UP,\n\t\tHALF_DOWN: BigNumber.ROUND_HALF_DOWN,\n\t\tHALF_EVEN: BigNumber.ROUND_HALF_EVEN,\n\t\tHALF_CEIL: BigNumber.ROUND_HALF_CEIL,\n\t\tHALF_FLOOR: BigNumber.ROUND_HALF_FLOOR\n\t};\n\n\t/**\n\t * @example <caption>Integer as value</caption>\n\t * let price = new Money(7856, 'USD'); // $78.56\n\t *\n\t * @example <caption>String integer as value</caption>\n\t * let price = new Money('7856', 'USD'); // $78.56\n\t *\n\t * @example <caption>String Float as value</caption>\n\t * let price = new Money('78.56', 'USD'); // $78.56\n\t *\n\t * @example <caption>Money instance as value</caption>\n\t * let price = new Money(new Money('78.56'), 'USD'); // $78.56 - same as using clone()\n\t *\n\t * @example <caption>Currency instance as currency</caption>\n\t * let price = new Money('7856', new Currency('USD')); // $78.56\n\t *\n\t * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`\n\t * @param {string|Currency} currency - currency code as string, instance of `Currency`\n\t */\n\tconstructor(value, currency) {\n\t\t/**\n\t\t * Internal currency\n\t\t * @type {Currency} - Internal Currency instance\n\t\t * @private\n\t\t */\n\t\tthis._currency = new Currency(currency);\n\n\t\t/**\n\t\t * BigNumber constructor used by this \"Money\" instance\n\t\t * @type {class}\n\t\t * @private\n\t\t */\n\t\tthis._bigNumberConstructor = this._getBigNumberConstructor();\n\n\t\t/**\n\t\t * Internal value as a big number\n\t\t * @type {BigNumber} - Internal BigNumber instance holding the value\n\t\t * @private\n\t\t */\n\t\tthis._value = this._preProcessInputValue(value, this._bigNumberConstructor);\n\t}\n\n\t/**\n\t * Performs addition\n\t * @param {number|string|Money} value - value to be added to the current value; type same as constructor\n\t * @returns {Money} - new Money instance after addition\n\t */\n\tadd(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\tlet newValue = this._value.plus(value.getAmountAsBigNumber());\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs subtraction\n\t * @param {number|string|Money} value - value to be subtracted from the current value; type same as constructor\n\t * @returns {Money} - new Money instance after subtraction\n\t */\n\tsubtract(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\tlet newValue = this._value.minus(value.getAmountAsBigNumber());\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs multiplication\n\t * @param {number|string} value - value to multiply the current value\n\t * @param {number} [rounding=ROUNDING.HALF_UP] - rounding mode used in this operation; has to be one of the rounding modes in `Money.ROUNDING`\n\t * @returns {Money} - new Money instance after multiplication\n\t */\n\tmultiply(value, rounding = this.constructor.ROUNDING.HALF_UP) {\n\t\tlet newValue = this._value.times(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs division\n\t * @param {number|string} value - value to divide the current value by\n\t * @param {number} [rounding=ROUNDING.HALF_UP] - rounding mode used in this operation; has to be one of the rounding modes in `Money.ROUNDING`\n\t * @returns {Money} - new Money instance after division\n\t */\n\tdivide(value, rounding = this.constructor.ROUNDING.HALF_UP) {\n\t\tlet newValue = this._value.dividedBy(value).decimalPlaces(this._currency.getDecimalDigits(), rounding);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Performs an equality check\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if value is considered equal to the current value\n\t */\n\tequals(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isEqualTo(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is greater than the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is greater than the parameter\n\t */\n\tgreaterThan(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isGreaterThan(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is greater than or equal to the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is greater than or equal to the parameter\n\t */\n\tgreaterThanOrEqualTo(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isGreaterThanOrEqualTo(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is less than the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is less than the parameter\n\t */\n\tlessThan(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isLessThan(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Performs a check if the current value is less than or equal to the parameter\n\t * @param {number|string|Money} value - value to compare to the current value; type same as constructor\n\t * @returns {boolean} - true if the current value is less than or equal to the parameter\n\t */\n\tlessThanOrEqualTo(value) {\n\t\tvalue = new this.constructor(value, this._currency);\n\t\treturn this._value.isLessThanOrEqualTo(value.getAmountAsBigNumber());\n\t}\n\n\t/**\n\t * Return the absolute monetary value of the current value, i.e., remove the minus sign if the value is below zero\n\t * @returns {Money} - new Money instance with the absolute value\n\t */\n\tabsolute() {\n\t\tlet newValue = this._value.absoluteValue();\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Return the largest integer less than or equal to the current value\n\t * @returns {Money} - new Money instance with the floor value\n\t */\n\tfloor() {\n\t\tlet newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.FLOOR);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Return the smallest integer greater than or equal to the current value\n\t * @returns {Money} - new Money instance with the ceiling value\n\t */\n\tceil() {\n\t\tlet newValue = this._value.decimalPlaces(0, this.constructor.ROUNDING.CEIL);\n\t\treturn new this.constructor(this._convertBigNumberToStringInteger(newValue), this._currency);\n\t}\n\n\t/**\n\t * Checks if the current currency is the same as that of the parameter\n\t * @param {Money} value - value to check currency against the current value; type same as constructor\n\t * @returns {boolean} - true if the current value has the same currency as the parameter\n\t */\n\thasSameCurrency(value) {\n\t\tif(!(value instanceof Money)) {\n\t\t\tthrow new WrongInputError('The input value must be a \"Money\" instance.');\n\t\t}\n\t\treturn this._currency.is(value.getCurrency());\n\t}\n\n\t/**\n\t * Split the current value by an array of ratios\n\t * @param {number[]|string[]} ratios - an array of numbers by which to divide up the current value\n\t * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value\n\t */\n\tallocate(ratios) {\n\t\tlet\n\t\t\tallocations = [],\n\t\t\ttotalValue = this.clone(),\n\t\t\tremainder = this.clone(),\n\t\t\ttotal = ratios.reduce((total, ratio) => total.plus(ratio), new BigNumber('0'));\n\n\t\tfor(let ratio of ratios) {\n\t\t\tlet share = totalValue\n\t\t\t\t.multiply(ratio, this.constructor.ROUNDING.FLOOR)\n\t\t\t\t.divide(total, this.constructor.ROUNDING.FLOOR);\n\n\t\t\tallocations.push(share);\n\t\t\tremainder = remainder.subtract(share);\n\t\t}\n\n\t\treturn this._addRemainderToAllocations(allocations, remainder);\n\t}\n\n\t/**\n\t * Split the current value by the count\n\t * @param {number|string} count - count by which to allocate the current value (must be a 1+ integer)\n\t * @returns {Money[]} - an array of new Money instances, resulting from splitting the current value\n\t */\n\tallocateTo(count) {\n\t\tlet\n\t\t\tallocations = [],\n\t\t\ttotalValue = this.clone(),\n\t\t\tbaseShare = totalValue.divide(count, this.constructor.ROUNDING.FLOOR),\n\t\t\tremainder = totalValue.subtract(baseShare.multiply(count, this.constructor.ROUNDING.FLOOR));\n\n\t\tfor(let i = 0; i < count; i++) {\n\t\t\tallocations.push(baseShare.clone());\n\t\t}\n\n\t\treturn this._addRemainderToAllocations(allocations, remainder);\n\t}\n\n\t/**\n\t * Create a new money instance, holding an identical value and currency to the current one\n\t * @returns {Money} - the cloned money instance\n\t */\n\tclone() {\n\t\treturn new this.constructor(this.getAmount(), this._currency);\n\t}\n\n\t/**\n\t * Format the current value based on the currency\n\t * @param {object} [settings] - formatting settings\n\t * @returns {string} - formatted money\n\t */\n\tformat(settings = {}) {\n\t\treturn this._currency.format(this, settings);\n\t}\n\n\t/**\n\t * Get the current value as an instance of BigNumber\n\t * @returns {BigNumber} - Internal BigNumber representation of the current value\n\t */\n\tgetAmountAsBigNumber() {\n\t\treturn this._value;\n\t}\n\n\t/**\n\t * Get the current value as a string integer (same as `getAmount`)\n\t * @returns {string} - String integer representation of the current value\n\t */\n\tgetAmountAsStringInteger() {\n\t\treturn this.getAmount();\n\t}\n\n\t/**\n\t * Get the current value as a string float\n\t * @returns {string} - String float representation of the current value\n\t */\n\tgetAmountAsStringFloat() {\n\t\treturn this._value.toString();\n\t}\n\n\t/**\n\t * Get the current value as a string integer (same as `getAmountAsStringInteger`)\n\t * @returns {string} - String integer representation of the current value\n\t */\n\tgetAmount() {\n\t\treturn this._convertBigNumberToStringInteger(this._value);\n\t}\n\n\t/**\n\t * Get the current value as a string integer (same as `getAmount`)\n\t * @returns {string} - String integer representation of the current value\n\t */\n\ttoString() {\n\t\treturn this.getAmount();\n\t}\n\n\t/**\n\t * Get the internal Currency instance\n\t * @returns {Currency} - Internal Currency instance\n\t */\n\tgetCurrency() {\n\t\treturn this._currency;\n\t}\n\n\t/**\n\t * Get the smallest unit of the current monetary value, i.e., 0.01 (aka penny) in a USD money\n\t * @returns {Money} - new Money instance holding the smallest unit of the current monetary value\n\t */\n\tgetSmallestUnit() {\n\t\treturn new this.constructor(this._getSmallestUnitAsBigNumber().toString(), this._currency);\n\t}\n\n\t/**\n\t * Get BigNumber constructor used by this \"Money\" instance\n\t * @returns {class}\n\t */\n\tgetBigNumberConstructor() {\n\t\treturn this._bigNumberConstructor;\n\t}\n\n\t/**\n\t * Get a simple object representing the current monetary value\n\t * @returns {{amount: string, currency: Currency}} - object with a string integer value and currency code\n\t */\n\ttoJSON() {\n\t\treturn {\n\t\t\tamount: this.getAmount(),\n\t\t\tcurrency: this._currency.toString()\n\t\t};\n\t}\n\n\t/**\n\t * Check that the currency of the passed value matches the current currency. If not, throw an error.\n\t * @param {Money} value - The money object which is used for currency check\n\t * @private\n\t */\n\t_checkValueCurrency(value) {\n\t\tif(!this.hasSameCurrency(value)) {\n\t\t\tthrow new CurrencyMismatchError();\n\t\t}\n\t}\n\n\t/**\n\t * Used by allocation methods to add the remainder to the array of allocations\n\t * @param {Money[]} allocations - an array of Money instances already allocated\n\t * @param {Money} remainder - a Money instance with the remainder yet to be added to the array of allocations\n\t * @returns {Money[]} - the final allocations array of Money instances\n\t * @private\n\t */\n\t_addRemainderToAllocations(allocations, remainder) {\n\t\tlet\n\t\t\ti = 0,\n\t\t\tnoMoney = new this.constructor('0', this._currency),\n\t\t\tsmallestUnit = this.getSmallestUnit();\n\n\t\twhile(!remainder.equals(noMoney)) {\n\t\t\tallocations[i] = allocations[i].add(smallestUnit);\n\t\t\tremainder = remainder.subtract(smallestUnit);\n\n\t\t\ti++;\n\n\t\t\tif(i === allocations.length) {\n\t\t\t\ti = 0;\n\t\t\t}\n\t\t}\n\n\t\treturn allocations;\n\t}\n\n\t/**\n\t * Convert the constructor input value to an internal BigNumber instance\n\t * @param {number|string|Money} value - integer, integer string, float string, instance of `Money`\n\t * @param {class} BN - BigNumber constructor used by this \"Money\" instance\n\t * @returns {BigNumber} - Internal BigNumber instance\n\t * @private\n\t */\n\t_preProcessInputValue(value, BN) {\n\t\tif(value instanceof Money) {\n\t\t\tthis._checkValueCurrency(value);\n\t\t\treturn value.getAmountAsBigNumber();\n\t\t}\n\n\t\tlet divisor = this._getSmallestUnitDivisor();\n\n\t\tif(divisor.isGreaterThan(1) && (Number.isInteger(value) || (typeof value === 'string' && isInt(value)))) {\n\t\t\tvalue = new BN(value);\n\n\t\t\treturn value\n\t\t\t\t.dividedBy(divisor)\n\t\t\t\t.decimalPlaces(this._currency.getDecimalDigits());\n\t\t}\n\n\t\tif(typeof value === 'string' && isFloat(value)) {\n\t\t\treturn new BN(value);\n\t\t}\n\n\t\tthrow new WrongInputError('The input value must be either an integer, an integer-like string, a float-like string or a \"Money\" instance.');\n\t}\n\n\t/**\n\t * Get the smallest unit divisor for the current value's currency, i.e., 10 to the power of the currency's decimal digits.\n\t * It is used for converting an integer value to a float value (or vice versa).\n\t * @returns {BigNumber} - Smallest unit divisor\n\t * @private\n\t */\n\t_getSmallestUnitDivisor() {\n\t\tlet\tdecimalDigits = this._currency.getDecimalDigits();\n\t\treturn (new BigNumber('10')).exponentiatedBy(decimalDigits);\n\t}\n\n\t/**\n\t * Get the smallest unit of the currency as a big number\n\t * @returns {BigNumber} - Smallest unit of the currency\n\t * @private\n\t */\n\t_getSmallestUnitAsBigNumber() {\n\t\treturn (new BigNumber('1')).dividedBy(this._getSmallestUnitDivisor());\n\t}\n\n\t/**\n\t * Convert a BigNumber to a string integer\n\t * @param {BigNumber} value - value to be converted\n\t * @returns {string} - String integer value of the BigNumber value\n\t * @private\n\t */\n\t_convertBigNumberToStringInteger(value) {\n\t\treturn value.times(this._getSmallestUnitDivisor()).toString();\n\t}\n\n\t/**\n\t * The values below are the default but we need a new constructor in case the default is changed by external code.\n\t * @returns {object} - BigInteger constructor with 20 decimal places and default rounding half up\n\t * @private\n\t */\n\t_getBigNumberConstructor() {\n\t\treturn BigNumber.clone({\n\t\t\tDECIMAL_PLACES: 20,\n\t\t\tROUNDING_MODE: this.constructor.ROUNDING.HALF_UP,\n\t\t\tFORMAT: {\n\t\t\t\tdecimalSeparator: this._currency.getDecimalSeparator(),\n\t\t\t\tgroupSeparator: this._currency.getThousandsSeparator(),\n\t\t\t\tgroupSize: 3,\n\t\t\t\tsecondaryGroupSize: 0,\n\t\t\t\tfractionGroupSeparator: ' ',\n\t\t\t\tfractionGroupSize: 0\n\t\t\t}\n\t\t});\n\t}\n\n\t/**\n\t * Parse a formatted money string into an instance of Money\n\t * @param {string} value - the formatted money string\n\t * @param {string|object|Currency} settings - the formatting settings\n\t * @returns {Money} - a Money instance holding the parsed value and currency\n\t */\n\tstatic parse(value, settings) {\n\t\treturn Formatter.parse(value, settings);\n\t}\n}\n",
@@ -1968,7 +2108,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 99,
+    "__docId__": 101,
     "kind": "class",
     "name": "Money",
     "memberof": "src/Money.js",
@@ -1986,7 +2126,7 @@
     "interface": false
   },
   {
-    "__docId__": 100,
+    "__docId__": 102,
     "kind": "member",
     "name": "ROUNDING",
     "memberof": "src/Money.js~Money",
@@ -2100,7 +2240,7 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 103,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/Money.js~Money",
@@ -2145,7 +2285,7 @@
     ]
   },
   {
-    "__docId__": 102,
+    "__docId__": 104,
     "kind": "member",
     "name": "_currency",
     "memberof": "src/Money.js~Money",
@@ -2164,7 +2304,7 @@
     }
   },
   {
-    "__docId__": 103,
+    "__docId__": 105,
     "kind": "member",
     "name": "_bigNumberConstructor",
     "memberof": "src/Money.js~Money",
@@ -2183,7 +2323,7 @@
     }
   },
   {
-    "__docId__": 104,
+    "__docId__": 106,
     "kind": "member",
     "name": "_value",
     "memberof": "src/Money.js~Money",
@@ -2202,7 +2342,7 @@
     }
   },
   {
-    "__docId__": 105,
+    "__docId__": 107,
     "kind": "method",
     "name": "add",
     "memberof": "src/Money.js~Money",
@@ -2243,7 +2383,7 @@
     }
   },
   {
-    "__docId__": 106,
+    "__docId__": 108,
     "kind": "method",
     "name": "subtract",
     "memberof": "src/Money.js~Money",
@@ -2284,7 +2424,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 109,
     "kind": "method",
     "name": "multiply",
     "memberof": "src/Money.js~Money",
@@ -2336,7 +2476,7 @@
     }
   },
   {
-    "__docId__": 108,
+    "__docId__": 110,
     "kind": "method",
     "name": "divide",
     "memberof": "src/Money.js~Money",
@@ -2388,7 +2528,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 111,
     "kind": "method",
     "name": "equals",
     "memberof": "src/Money.js~Money",
@@ -2429,7 +2569,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 112,
     "kind": "method",
     "name": "greaterThan",
     "memberof": "src/Money.js~Money",
@@ -2470,7 +2610,7 @@
     }
   },
   {
-    "__docId__": 111,
+    "__docId__": 113,
     "kind": "method",
     "name": "greaterThanOrEqualTo",
     "memberof": "src/Money.js~Money",
@@ -2511,7 +2651,7 @@
     }
   },
   {
-    "__docId__": 112,
+    "__docId__": 114,
     "kind": "method",
     "name": "lessThan",
     "memberof": "src/Money.js~Money",
@@ -2552,7 +2692,7 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 115,
     "kind": "method",
     "name": "lessThanOrEqualTo",
     "memberof": "src/Money.js~Money",
@@ -2593,7 +2733,7 @@
     }
   },
   {
-    "__docId__": 114,
+    "__docId__": 116,
     "kind": "method",
     "name": "absolute",
     "memberof": "src/Money.js~Money",
@@ -2621,7 +2761,7 @@
     "params": []
   },
   {
-    "__docId__": 115,
+    "__docId__": 117,
     "kind": "method",
     "name": "floor",
     "memberof": "src/Money.js~Money",
@@ -2649,7 +2789,7 @@
     "params": []
   },
   {
-    "__docId__": 116,
+    "__docId__": 118,
     "kind": "method",
     "name": "ceil",
     "memberof": "src/Money.js~Money",
@@ -2677,7 +2817,7 @@
     "params": []
   },
   {
-    "__docId__": 117,
+    "__docId__": 119,
     "kind": "method",
     "name": "hasSameCurrency",
     "memberof": "src/Money.js~Money",
@@ -2716,7 +2856,7 @@
     }
   },
   {
-    "__docId__": 118,
+    "__docId__": 120,
     "kind": "method",
     "name": "allocate",
     "memberof": "src/Money.js~Money",
@@ -2756,7 +2896,7 @@
     }
   },
   {
-    "__docId__": 119,
+    "__docId__": 121,
     "kind": "method",
     "name": "allocateTo",
     "memberof": "src/Money.js~Money",
@@ -2796,7 +2936,7 @@
     }
   },
   {
-    "__docId__": 120,
+    "__docId__": 122,
     "kind": "method",
     "name": "clone",
     "memberof": "src/Money.js~Money",
@@ -2824,7 +2964,7 @@
     "params": []
   },
   {
-    "__docId__": 121,
+    "__docId__": 123,
     "kind": "method",
     "name": "format",
     "memberof": "src/Money.js~Money",
@@ -2863,7 +3003,7 @@
     }
   },
   {
-    "__docId__": 122,
+    "__docId__": 124,
     "kind": "method",
     "name": "getAmountAsBigNumber",
     "memberof": "src/Money.js~Money",
@@ -2891,7 +3031,7 @@
     "params": []
   },
   {
-    "__docId__": 123,
+    "__docId__": 125,
     "kind": "method",
     "name": "getAmountAsStringInteger",
     "memberof": "src/Money.js~Money",
@@ -2919,7 +3059,7 @@
     "params": []
   },
   {
-    "__docId__": 124,
+    "__docId__": 126,
     "kind": "method",
     "name": "getAmountAsStringFloat",
     "memberof": "src/Money.js~Money",
@@ -2947,7 +3087,7 @@
     "params": []
   },
   {
-    "__docId__": 125,
+    "__docId__": 127,
     "kind": "method",
     "name": "getAmount",
     "memberof": "src/Money.js~Money",
@@ -2975,7 +3115,7 @@
     "params": []
   },
   {
-    "__docId__": 126,
+    "__docId__": 128,
     "kind": "method",
     "name": "toString",
     "memberof": "src/Money.js~Money",
@@ -3003,7 +3143,7 @@
     "params": []
   },
   {
-    "__docId__": 127,
+    "__docId__": 129,
     "kind": "method",
     "name": "getCurrency",
     "memberof": "src/Money.js~Money",
@@ -3031,7 +3171,7 @@
     "params": []
   },
   {
-    "__docId__": 128,
+    "__docId__": 130,
     "kind": "method",
     "name": "getSmallestUnit",
     "memberof": "src/Money.js~Money",
@@ -3059,7 +3199,7 @@
     "params": []
   },
   {
-    "__docId__": 129,
+    "__docId__": 131,
     "kind": "method",
     "name": "getBigNumberConstructor",
     "memberof": "src/Money.js~Money",
@@ -3087,7 +3227,7 @@
     "params": []
   },
   {
-    "__docId__": 130,
+    "__docId__": 132,
     "kind": "method",
     "name": "toJSON",
     "memberof": "src/Money.js~Money",
@@ -3115,7 +3255,7 @@
     "params": []
   },
   {
-    "__docId__": 131,
+    "__docId__": 133,
     "kind": "method",
     "name": "_checkValueCurrency",
     "memberof": "src/Money.js~Money",
@@ -3141,7 +3281,7 @@
     "return": null
   },
   {
-    "__docId__": 132,
+    "__docId__": 134,
     "kind": "method",
     "name": "_addRemainderToAllocations",
     "memberof": "src/Money.js~Money",
@@ -3190,7 +3330,7 @@
     }
   },
   {
-    "__docId__": 133,
+    "__docId__": 135,
     "kind": "method",
     "name": "_preProcessInputValue",
     "memberof": "src/Money.js~Money",
@@ -3241,7 +3381,7 @@
     }
   },
   {
-    "__docId__": 134,
+    "__docId__": 136,
     "kind": "method",
     "name": "_getSmallestUnitDivisor",
     "memberof": "src/Money.js~Money",
@@ -3269,7 +3409,7 @@
     "params": []
   },
   {
-    "__docId__": 135,
+    "__docId__": 137,
     "kind": "method",
     "name": "_getSmallestUnitAsBigNumber",
     "memberof": "src/Money.js~Money",
@@ -3297,7 +3437,7 @@
     "params": []
   },
   {
-    "__docId__": 136,
+    "__docId__": 138,
     "kind": "method",
     "name": "_convertBigNumberToStringInteger",
     "memberof": "src/Money.js~Money",
@@ -3336,7 +3476,7 @@
     }
   },
   {
-    "__docId__": 137,
+    "__docId__": 139,
     "kind": "method",
     "name": "_getBigNumberConstructor",
     "memberof": "src/Money.js~Money",
@@ -3364,7 +3504,7 @@
     "params": []
   },
   {
-    "__docId__": 138,
+    "__docId__": 140,
     "kind": "method",
     "name": "parse",
     "memberof": "src/Money.js~Money",
@@ -3416,7 +3556,7 @@
   },
   {
     "kind": "index",
-    "content": "# Wealth\r\n\r\nWealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.\r\n\r\nThere are many libraries out there that handle money or currency, but there's not one that offers a complete feature set.\r\nThis library provides a uniform interface for various money-related operations. It utilizes existing libraries to avoid\r\nreinventing the wheel.\r\n\r\nUnder the hood, it uses [bignumber.js](https://github.com/MikeMcl/bignumber.js/) for calculations\r\nand [Currency Formatter](https://github.com/smirzaei/currency-formatter) for formatting.\r\n\r\n# Installation\r\n`npm install wealth`\r\n\r\nor\r\n\r\n`yarn add wealth`\r\n\r\n# Basic Example\r\n```js\r\nimport {Money, Currency} from 'wealth';\r\n\r\nlet\r\n\tprice = new Money('8078', 'USD'), // $80.78\r\n\tdiscountedPercentage = 0.82, // 82% ($18 discount)\r\n\tdiscountedPrice = price.multiply(discountedPercentage), // $66.24\r\n\tdollarCurrency = price.getCurrency(), // instanceof Currency\r\n\tdollarSign = dollarCurrency.getSymbol(); // $\r\n```\r\n\r\n# Documentation\r\nSee the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.\r\n",
+    "content": "# Wealth\n\nWealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.\n\nThere are many libraries out there that handle money or currency, but there's not one that offers a complete feature set.\nThis library provides a uniform interface for various money-related operations.\n\nUnder the hood, it uses [bignumber.js](https://github.com/MikeMcl/bignumber.js/) for calculations.\n\n## Installation\n`npm install wealth`\n\nor\n\n`yarn add wealth`\n\n## Documentation\nSee the [documentation](http://amirmohsen.github.io/wealth) for a complete API reference with examples.\n\n## Immutability\nAll `Money` and `Currency` instances are immutable and each of the operations return a new instance.\nThis makes `Wealth` perfect for react/redux applications.\n\n## Examples\n\n- [Money Calculation & Manipulation](#money-calculation-&-manipulation)\n- [Money Comparison](#money-comparison)\n- [Money Allocation](#money-allocation)\n- [Currency](#currency)\n- [Formatting & Parsing](#formatting-&-parsing)\n- [Serialization](#serialization)\n- [Error Handling](#error-handling)\n\n### Money Calculation & Manipulation\n```js\nimport {Money} from 'wealth';\n\nlet\n\tprice = new Money('8078', 'USD'), // $80.78\n\tdiscountedPercentage = 10, // 10% discount\n\tdiscountedPrice = price.subtract(price.multiply(10).divide(100)), // $72.70\n\tshipping = new Money('1550', 'USD'), // $15.50\n\ttotal = price.add(shipping); // $88.20\n```\n\n### Money Comparison\n```js\nimport {Money} from 'wealth';\n\nlet\n\toverdraft = new Money('100000', 'GBP'), // $1000.00\n\tdebt = new Money('900', 'GBP'), // $9.00\n\tcanBorrowMore = debt.lessThan(overdraft); // true\n```\n\n### Money Allocation\n```js\nimport {Money} from 'wealth';\n\nlet\n\tinheritance = new Money('5000000', 'EUR'),\n\tratios = [63, 22, 15], // ratios\n\tinheritedShares = inheritance.allocate(ratios);\n\nlet\n\texpenses = new Money('79595', 'EUR'),\n\texpenseShares = expenses.allocateTo(10); // Equal (or nearly equal) shares of expenses\n```\n\n### Currency\n```js\nimport {CurrencyStore, Currency} from 'wealth';\n\n/**\n* All ISO currencies are already registered in the `CurrencyStore`.\n* You can find a currency by its code:\n**/\nlet gbp = new Currency('GBP'); // Create a new currency instance\nlet gbpSettings = gbp.getSettings();\n// or you can get the settings directly from the `CurrencyStore`\ngbpSettings = CurrencyStore.get('GBP'); // alias: Currency.getSettings()\n\n/**\n* You may wish to create a currency without registering it in the store for one-off use.\n*/\n\nlet bitcoin = new Currency({\n\tcode: 'XBT',\n\tsymbol: 'Ƀ'\n});\n\n/**\n* Or you can register a new currency for re-use\n**/\n\nCurrencyStore.set('ETH', {\n\tsymbol: 'Ξ'\n});\n\n// Getting all registered currencies\nlet allCurrencies = CurrencyStore.getAll(); // alias: Currency.getAllSettings()\n``` \n\n### Formatting & Parsing\n```js\nimport {Money, Formatter} from 'wealth';\n\nlet money = new Money('500000', 'EUR');\nmoney.format(); // 5 000,00 €\nmoney.format({\n\tpattern: '%ns%s%v',\n\tthousandsSeparator: ',',\n\tdecimalSeparator: '.'\n}); // €5,000.00\n\nmoney.format({\n\tformatter: () => {} // custom formatter\n});\n\n// Using money.format() is the same as\nFormatter.format(money);\n\n// Using money.format(settings) is the same as\nFormatter.format(money, settings);\n```\n\n```js\nimport {Money, Formatter} from 'wealth';\n\nlet money = Money.parse('5 000,00 €', 'EUR'); // alias for Formatter.parse\n\nmoney = Money.parse('€5,000.00', {\n\tcode: 'EUR',\n\tthousandsSeparator: ',',\n\tdecimalSeparator: '.'\n});\n\n\nmoney = Money.parse('€5,000.00', {\n\tparser: () => {} // custom parser\n});\n```\n\n### Serialization\n\n```js\nimport {Money} from 'wealth';\n\nlet money = new Money('100', 'USD');\nmoney.toJSON(); // {value: '100', currency: 'USD'}\nJSON.stringify(money); // {value: '100', currency: 'USD'}\n```\n\n### Error Handling\n```js\nimport {\n\tWealthError,\n\tCurrencyMismatchError,\n\tInvalidCurrencyError,\n\tWrongInputError\n} from 'wealth';\n\ntry {\n\t// operations\n}\ncatch(e) {\n\tif(e instanceof CurrencyMismatchError) {\n\t\t// Thrown when the two sides of the operation use different currencies\n\t}\n\telse if(e instanceof InvalidCurrencyError) {\n\t\t// Thrown when invalid or missing currency code provided\n\t}\n\telse if(e instanceof WrongInputError) {\n\t\t// Thrown when bad input is provided to various methods\n\t}\n\t\n\tif(e instanceof WealthError) {\n\t\t// All custom errors produced by Wealth inherit `WealthError`\n\t}\n\telse {\n\t\t// All other errors\n\t}\n}\n```\n\n",
     "longname": "C:\\Users\\amirm\\projects\\personal\\code\\wealth\\README.md",
     "name": "./README.md",
     "static": true,
@@ -3424,7 +3564,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"wealth\",\n  \"version\": \"0.1.0\",\n  \"repository\": \"https://github.com/amirmohsen/wealth\",\n  \"description\": \"A full-featured money library\",\n  \"scripts\": {\n    \"build\": \"rollup -c -m\",\n    \"dev\": \"rollup -c -m -w\",\n    \"pretest\": \"npm run build\",\n    \"prepublishOnly\": \"npm run build\",\n    \"test\": \"jest\",\n    \"docs\": \"esdoc\",\n    \"docs2\": \"documentation build src/** -f json -o docs.json\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"main\": \"lib/wealth.cjs.js\",\n  \"module\": \"lib/wealth.esm.js\",\n  \"browser\": \"lib/wealth.umd.js\",\n  \"keywords\": [\n    \"flexverse\",\n    \"money\",\n    \"currency\",\n    \"calculation\",\n    \"formatting\",\n    \"allocation\",\n    \"serializable\"\n  ],\n  \"author\": {\n    \"name\": \"Amir Abdolrazaghi\",\n    \"email\": \"amir@flexverse.tech\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/amirmohsen/wealth/issues\"\n  },\n  \"homepage\": \"https://github.com/amirmohsen/wealth#readme\",\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\"\n      ]\n    ],\n    \"plugins\": [\n      \"syntax-decorators\",\n      \"transform-decorators-legacy\",\n      \"transform-class-properties\",\n      \"transform-object-rest-spread\"\n    ]\n  },\n  \"dependencies\": {\n    \"bignumber.js\": \"6\",\n    \"es6-error\": \"^4.1.1\",\n    \"validator\": \"^9.1.1\"\n  },\n  \"devDependencies\": {\n    \"babel-jest\": \"^22\",\n    \"babel-plugin-external-helpers\": \"^6.22.0\",\n    \"babel-plugin-syntax-decorators\": \"^6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"babel-plugin-transform-object-rest-spread\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.3.3\",\n    \"documentation\": \"^5.4.0\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-named-import-plugin\": \"0.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"jest\": \"^22\",\n    \"rollup\": \"^0.55\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-commonjs\": \"^8.0.2\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"wealth\",\n  \"version\": \"0.1.0\",\n  \"repository\": \"https://github.com/amirmohsen/wealth\",\n  \"description\": \"A full-featured money library\",\n  \"scripts\": {\n    \"build\": \"rollup -c -m\",\n    \"dev\": \"rollup -c -m -w\",\n    \"pretest\": \"npm run build\",\n    \"prepublishOnly\": \"npm run build\",\n    \"test\": \"jest\",\n    \"docs\": \"esdoc\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"main\": \"lib/wealth.cjs.js\",\n  \"module\": \"lib/wealth.esm.js\",\n  \"browser\": \"lib/wealth.umd.js\",\n  \"keywords\": [\n    \"flexverse\",\n    \"money\",\n    \"currency\",\n    \"calculation\",\n    \"formatting\",\n    \"allocation\",\n    \"serializable\"\n  ],\n  \"author\": {\n    \"name\": \"Amir Abdolrazaghi\",\n    \"email\": \"amir@flexverse.tech\"\n  },\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/amirmohsen/wealth/issues\"\n  },\n  \"homepage\": \"https://github.com/amirmohsen/wealth#readme\",\n  \"babel\": {\n    \"presets\": [\n      [\n        \"env\"\n      ]\n    ],\n    \"plugins\": [\n      \"syntax-decorators\",\n      \"transform-decorators-legacy\",\n      \"transform-class-properties\",\n      \"transform-object-rest-spread\"\n    ]\n  },\n  \"dependencies\": {\n    \"bignumber.js\": \"6\",\n    \"es6-error\": \"^4.1.1\",\n    \"validator\": \"^9.1.1\"\n  },\n  \"devDependencies\": {\n    \"babel-jest\": \"^22\",\n    \"babel-plugin-external-helpers\": \"^6.22.0\",\n    \"babel-plugin-syntax-decorators\": \"^6.13.0\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"babel-plugin-transform-object-rest-spread\": \"^6.23.0\",\n    \"babel-preset-env\": \"^1.3.3\",\n    \"esdoc\": \"^1.0.4\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-named-import-plugin\": \"0.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"jest\": \"^22\",\n    \"rollup\": \"^0.55\",\n    \"rollup-plugin-babel\": \"^3.0.2\",\n    \"rollup-plugin-commonjs\": \"^8.0.2\",\n    \"rollup-plugin-json\": \"^2.3.0\",\n    \"rollup-plugin-node-resolve\": \"^3.0.0\"\n  }\n}\n",
     "longname": "C:\\Users\\amirm\\projects\\personal\\code\\wealth\\package.json",
     "name": "package.json",
     "static": true,

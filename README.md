@@ -19,6 +19,7 @@ See the [documentation](http://amirmohsen.github.io/wealth) for a complete API r
 
 ## Immutability
 All `Money` and `Currency` instances are immutable and each of the operations return a new instance.
+This makes `Wealth` perfect for react/redux applications.
 
 ## Examples
 
@@ -26,7 +27,8 @@ All `Money` and `Currency` instances are immutable and each of the operations re
 - [Money Comparison](#money-comparison)
 - [Money Allocation](#money-allocation)
 - [Currency](#currency)
-- [Formatting](#formatting)
+- [Formatting & Parsing](#formatting-&-parsing)
+- [Serialization](#serialization)
 - [Error Handling](#error-handling)
 
 ### Money Calculation & Manipulation
@@ -47,8 +49,8 @@ import {Money} from 'wealth';
 
 let
 	overdraft = new Money('100000', 'GBP'), // $1000.00
-	debt = new Money('900', 'GBP'),
-	canBorrowMore = debt.lessThan(overdraft);
+	debt = new Money('900', 'GBP'), // $9.00
+	canBorrowMore = debt.lessThan(overdraft); // true
 ```
 
 ### Money Allocation
@@ -99,21 +101,85 @@ CurrencyStore.set('ETH', {
 let allCurrencies = CurrencyStore.getAll(); // alias: Currency.getAllSettings()
 ``` 
 
-### Formatting
+### Formatting & Parsing
 ```js
-import {CurrencyStore, Currency, Formatter} from 'wealth';
+import {Money, Formatter} from 'wealth';
 
+let money = new Money('500000', 'EUR');
+money.format(); // 5 000,00 €
+money.format({
+	pattern: '%ns%s%v',
+	thousandsSeparator: ',',
+	decimalSeparator: '.'
+}); // €5,000.00
+
+money.format({
+	formatter: () => {} // custom formatter
+});
+
+// Using money.format() is the same as
+Formatter.format(money);
+
+// Using money.format(settings) is the same as
+Formatter.format(money, settings);
+```
+
+```js
+import {Money, Formatter} from 'wealth';
+
+let money = Money.parse('5 000,00 €', 'EUR'); // alias for Formatter.parse
+
+money = Money.parse('€5,000.00', {
+	code: 'EUR',
+	thousandsSeparator: ',',
+	decimalSeparator: '.'
+});
+
+
+money = Money.parse('€5,000.00', {
+	parser: () => {} // custom parser
+});
+```
+
+### Serialization
+
+```js
+import {Money} from 'wealth';
+
+let money = new Money('100', 'USD');
+money.toJSON(); // {amount: '100', currency: 'USD'}
+JSON.stringify(money); // {amount: '100', currency: 'USD'}
 ```
 
 ### Error Handling
 ```js
 import {
 	WealthError,
-    CurrencyMismatchError,
-    InvalidCurrencyError,
-    WrongInputError
+	CurrencyMismatchError,
+	InvalidCurrencyError,
+	WrongInputError
 } from 'wealth';
 
-
+try {
+	// operations
+}
+catch(e) {
+	if(e instanceof CurrencyMismatchError) {
+		// Thrown when the two sides of the operation use different currencies
+	}
+	else if(e instanceof InvalidCurrencyError) {
+		// Thrown when invalid or missing currency code provided
+	}
+	else if(e instanceof WrongInputError) {
+		// Thrown when bad input is provided to various methods
+	}
+	
+	if(e instanceof WealthError) {
+		// All custom errors produced by Wealth inherit `WealthError`
+	}
+	else {
+		// All other errors
+	}
+}
 ```
 
