@@ -42,13 +42,13 @@ export default class Formatter {
 			return formatter(value, details);
 		}
 
-		let formatted = pattern.replace('%v', details.value.absoluteValue().toFormat(decimalDigits));
+		let
+			formattedValue = details.value.absoluteValue().toFormat(decimalDigits),
+			formatted = pattern.replace('%v', formattedValue);
 
 		formatted = formatted.replace('%ns', details.value.isNegative() ? '-' : '');
 
-		if(details.value.isInteger()) {
-			formatted = formatted.replace('%i', details.value.toFormat(0));
-		}
+		formatted = formatted.replace('%i', details.value.isInteger() ? details.value.toFormat(0) : formattedValue);
 
 		if(symbol) {
 			formatted = formatted.replace('%s', symbol);

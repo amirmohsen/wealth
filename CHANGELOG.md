@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.1.1] - 2018-03-01
+### Fixed
+- Currency pattern formatting
+
 ## [0.1.0] - 2018-02-11
 ### Fixed
 - Currency mismatch bug
@@ -32,5 +36,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release
 
+[0.1.1]: https://github.com/amirmohsen/wealth/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/amirmohsen/wealth/compare/v0.0.1...v0.1.0
 [0.0.1]: https://github.com/amirmohsen/wealth/compare/v0.0.0...v0.0.1

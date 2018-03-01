@@ -183,7 +183,7 @@ export default class Currency {
 
 			settings = {
 				...defaultSettings,
-				...settings
+				...currency
 			};
 		}
 		else {
@@ -201,7 +201,7 @@ export default class Currency {
 	 * @param {string} [settings.thousandsSeparator=','] - Currency thousands separator
 	 * @param {string} [settings.decimalSeparator='.'] -Currency decimal separator
 	 * @param {number} [settings.decimalDigits=2] - Currency decimal digits
-	 * @param {string} [settings.pattern='%ns%s%v'] - Currency formatting pattern. %ns is number sign's placeholder, %s is symbol's placeholder and $v is monetary value's placeholder.
+	 * @param {string} [settings.pattern='%ns%s%v'] - Currency formatting pattern. %ns is number sign's placeholder, %s is symbol's placeholder, $v is monetary value's placeholder and $i is monetary value as an integer if decimal digits are zero.
 	 * @param {?function(value: Money): string} [settings.formatter] - Currency formatter, optional (used instead of the pattern)
 	 * @param {?function(value: string): Money} [settings.parser] - Currency parser, optional
 	 */

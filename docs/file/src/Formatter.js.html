@@ -86,13 +86,13 @@ export default class Formatter {
 			return formatter(value, details);
 		}
 
-		let formatted = pattern.replace(&apos;%v&apos;, details.value.absoluteValue().toFormat(decimalDigits));
+		let
+			formattedValue = details.value.absoluteValue().toFormat(decimalDigits),
+			formatted = pattern.replace(&apos;%v&apos;, formattedValue);
 
 		formatted = formatted.replace(&apos;%ns&apos;, details.value.isNegative() ? &apos;-&apos; : &apos;&apos;);
 
-		if(details.value.isInteger()) {
-			formatted = formatted.replace(&apos;%i&apos;, details.value.toFormat(0));
-		}
+		formatted = formatted.replace(&apos;%i&apos;, details.value.isInteger() ? details.value.toFormat(0) : formattedValue);
 
 		if(symbol) {
 			formatted = formatted.replace(&apos;%s&apos;, symbol);
