@@ -1,7 +1,7 @@
 import InvalidCurrencyError from './errors/InvalidCurrencyError';
-import CurrencyStore from './CurrencyStore';
-import Money from './Money';
-import Currency from './Currency';
+import CurrencyStore from './Currency/CurrencyStore';
+import Money from './Money/Money';
+import Currency from './Currency/Currency';
 
 /**
  * @example <caption>Format value based on internal currency</caption>

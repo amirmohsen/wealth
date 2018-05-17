@@ -1,5 +1,5 @@
 import ISOCurrencies from './data/iso-currencies';
-import InvalidCurrencyError from './errors/InvalidCurrencyError';
+import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 
 /**
  * Currency store

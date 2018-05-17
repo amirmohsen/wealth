@@ -1,6 +1,6 @@
 import CurrencyStore from './CurrencyStore';
-import Formatter from './Formatter';
-import WrongInputError from './errors/WrongInputError';
+import Formatter from '../Formatter';
+import WrongInputError from '../errors/WrongInputError';
 
 /**
  * @example <caption>Using code</caption>

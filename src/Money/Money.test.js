@@ -1,4 +1,7 @@
-import {Money, CurrencyMismatchError, WrongMoneyInputError} from '../lib/wealth.esm';
+// import {Money, CurrencyMismatchError, WrongInputError} from '../../lib/wealth.esm';
+import Money from './Money';
+import CurrencyMismatchError from '../errors/CurrencyMismatchError';
+import WrongInputError from '../errors/WrongInputError';
 
 describe('The "Money" class: ', () => {
 	test('$10.38 + $8404.97 = $8415.35', () => {
@@ -85,12 +88,21 @@ describe('The "Money" class: ', () => {
 		expect(moneyA.divide('80').toString()).toBe('14');
 	});
 
-	test('new Money(1.15, "GBP") must throw a WrongMoneyInputError.', () => {
-		expect(() => new Money(1.15, 'GBP')).toThrow(WrongMoneyInputError);
+	test('new Money(1.15, "GBP") must throw a WrongInputError.', () => {
+		expect(() => new Money(1.15, 'GBP')).toThrow(WrongInputError);
 	});
 
-	test('new Money("invalid", "USD") must throw a WrongMoneyInputError.', () => {
-		expect(() => new Money('invalid', 'USD')).toThrow(WrongMoneyInputError);
+	test('new Money("invalid", "USD") must throw a WrongInputError.', () => {
+		expect(() => new Money('invalid', 'USD')).toThrow(WrongInputError);
+	});
+
+	test('Money#hasSameCurrency must throw a WrongInputError when provided anything other than a Money instance.', () => {
+		let money = new Money('10.96', 'USD');
+		expect(() => money.hasSameCurrency('Invalid')).toThrow(WrongInputError);
+		expect(() => money.hasSameCurrency('10.96')).toThrow(WrongInputError);
+		expect(() => money.hasSameCurrency('$10.96')).toThrow(WrongInputError);
+		expect(() => money.hasSameCurrency('1096')).toThrow(WrongInputError);
+		expect(() => money.hasSameCurrency(1096)).toThrow(WrongInputError);
 	});
 
 	test('(new Money("10000", "USD")).equals(new Money(10000, "USD"))', () => {
@@ -287,5 +299,47 @@ describe('The "Money" class: ', () => {
 
 	test('Money.parse(1 200 145 154,42 €).getAmount() == "120014515442"', () => {
 		expect(Money.parse('1 200 145 154,42 €', 'EUR').getAmount()).toBe('120014515442');
+	});
+
+	test('Money#getAmountAsStringInteger is an alias for Money#getAmount', () => {
+		let money = new Money('56.00', 'GBP');
+		expect(money.getAmountAsStringInteger()).toBe(money.getAmount());
+	});
+
+	test('Money.parse($54.42).getAmountAsStringFloat() == "54.42"', () => {
+		expect(Money.parse('$54.42', 'USD').getAmountAsStringFloat()).toBe('54.42');
+	});
+
+	test('Money.parse(-$454.97).getAmountAsStringFloat() == "-454.97"', () => {
+		expect(Money.parse('-$454.97', 'USD').getAmountAsStringFloat()).toBe('-454.97');
+	});
+
+	test('Money.parse($1,200,145,154.42).getAmountAsStringFloat() == "1200145154.42"', () => {
+		expect(Money.parse('$1,200,145,154.42', 'USD').getAmountAsStringFloat()).toBe('1200145154.42');
+	});
+
+	test('Money.parse(£454.97).getAmountAsStringFloat() == "454.97"', () => {
+		expect(Money.parse('£454.97', 'GBP').getAmountAsStringFloat()).toBe('454.97');
+	});
+
+	test('Money.parse(454,97 €).getAmountAsStringFloat() == "454.97"', () => {
+		expect(Money.parse('454,97 €', 'EUR').getAmountAsStringFloat()).toBe('454.97');
+	});
+
+	test('Money.parse(1 200 145 154,42 €).getAmountAsStringFloat() == "1200145154.42"', () => {
+		expect(Money.parse('1 200 145 154,42 €', 'EUR').getAmountAsStringFloat()).toBe('1200145154.42');
+	});
+
+	test('Money#getBigNumberConstructor returns the constructor of the internal BigNumber value', () => {
+		let money = new Money('13.30', 'USD');
+		expect(money.getAmountAsBigNumber() instanceof money.getBigNumberConstructor()).toBe(true);
+	});
+
+	test('Money#toJSON returns an object with the amount and currency', () => {
+		let money = new Money('13.30', 'USD');
+		expect(money.toJSON()).toEqual({
+			amount: '1330',
+			currency: 'USD'
+		});
 	});
 });

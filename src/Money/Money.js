@@ -1,10 +1,10 @@
 import BigNumber from 'bignumber.js';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
-import Currency from './Currency';
-import CurrencyMismatchError from './errors/CurrencyMismatchError';
-import WrongInputError from './errors/WrongInputError';
-import Formatter from './Formatter';
+import Currency from '../Currency/Currency';
+import CurrencyMismatchError from '../errors/CurrencyMismatchError';
+import WrongInputError from '../errors/WrongInputError';
+import Formatter from '../Formatter';
 
 /**
  * @example
@@ -383,10 +383,6 @@ export default class Money {
 			remainder = remainder.subtract(smallestUnit);
 
 			i++;
-
-			if(i === allocations.length) {
-				i = 0;
-			}
 		}
 
 		return allocations;

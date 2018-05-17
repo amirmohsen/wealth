@@ -1,4 +1,5 @@
-import {Currency} from '../lib/wealth.esm';
+// import {Currency} from '../../lib/wealth.esm';
+import Currency from './Currency';
 
 describe('The "Currency" class: ', () => {
 	test('(new Currency("USD")).toString() === "USD"', () => {
