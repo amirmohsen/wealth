@@ -1,5 +1,5 @@
 import CurrencyStore from './CurrencyStore';
-import Formatter from '../Formatter';
+import Formatter from '../Formatter/Formatter';
 import WrongInputError from '../errors/WrongInputError';
 
 /**
@@ -169,7 +169,7 @@ export default class Currency {
 		let settings = {};
 
 		if(currency instanceof Currency) {
-			settings = CurrencyStore.get(currency.getCode());
+			settings = currency.getSettings();
 		}
 		else if(typeof currency === 'string') {
 			settings = CurrencyStore.get(currency);

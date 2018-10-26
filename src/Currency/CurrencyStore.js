@@ -23,9 +23,12 @@ export default class CurrencyStore {
 	 * @type {object} - Internal data store
 	 * @private
 	 */
-	static _data = {
-		...ISOCurrencies
-	};
+	static _data = Object
+		.entries(ISOCurrencies)
+		.reduce((currencies, [code, currencySettings]) => ({
+			...currencies,
+			[code]: Object.freeze(currencySettings)
+		}), {});
 
 	/**
 	 * Set (register or replace) a currency
@@ -49,7 +52,7 @@ export default class CurrencyStore {
 			code
 		};
 
-		this._data[code.toUpperCase()] = settings;
+		this._data[code.toUpperCase()] = Object.freeze(settings);
 	}
 
 	/**
@@ -58,6 +61,9 @@ export default class CurrencyStore {
 	 * @returns {object} - Currency settings
 	 */
 	static get(code) {
+		if(!this.has(code)) {
+			throw new InvalidCurrencyError(`No currency with code "${code}" is registered.`);
+		}
 		return this._data[code.toUpperCase()];
 	}
 
@@ -67,7 +73,7 @@ export default class CurrencyStore {
 	 * @returns {boolean} - True if currency has been registered
 	 */
 	static has(code) {
-		return !!this.get(code);
+		return !!this._data[code.toUpperCase()];
 	}
 
 	/**
@@ -85,7 +91,7 @@ export default class CurrencyStore {
 	static getAll() {
 		return Object
 			.values(this._data)
-			.reduce((settings, all) => all.concat([settings]), [])
+			.reduce((all, settings) => [ ...all, settings ], [])
 			.sort((a, b) => a.code.localeCompare(b.code));
 	}
 }

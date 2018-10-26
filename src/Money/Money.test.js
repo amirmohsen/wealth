@@ -1,4 +1,3 @@
-// import {Money, CurrencyMismatchError, WrongInputError} from '../../lib/wealth.esm';
 import Money from './Money';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
 import WrongInputError from '../errors/WrongInputError';
@@ -328,6 +327,24 @@ describe('The "Money" class: ', () => {
 
 	test('Money.parse(1 200 145 154,42 €).getAmountAsStringFloat() == "1200145154.42"', () => {
 		expect(Money.parse('1 200 145 154,42 €', 'EUR').getAmountAsStringFloat()).toBe('1200145154.42');
+	});
+
+	test('Money#getBigNumberConstructor returns the constructor of the internal BigNumber value', () => {
+		let money = new Money('13.30', 'USD');
+		expect(money.getAmountAsBigNumber() instanceof money.getBigNumberConstructor()).toBe(true);
+	});
+
+	test('Money#toJSON returns an object with the amount and currency', () => {
+		let money = new Money('13.30', 'USD');
+		expect(money.toJSON()).toEqual({
+			amount: '1330',
+			currency: 'USD'
+		});
+	});
+
+	test('Money#getAmountAsStringInteger is an alias for Money#getAmount', () => {
+		let money = new Money('56.00', 'GBP');
+		expect(money.getAmountAsStringInteger()).toBe(money.getAmount());
 	});
 
 	test('Money#getBigNumberConstructor returns the constructor of the internal BigNumber value', () => {

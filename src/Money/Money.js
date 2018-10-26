@@ -4,7 +4,7 @@ import isFloat from 'validator/lib/isFloat';
 import Currency from '../Currency/Currency';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
 import WrongInputError from '../errors/WrongInputError';
-import Formatter from '../Formatter';
+import Formatter from '../Formatter/Formatter';
 
 /**
  * @example

@@ -6,7 +6,6 @@
   "scripts": {
     "build": "rollup -c -m",
     "dev": "rollup -c -m -w",
-    "pretest": "npm run build",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "docs": "esdoc"
@@ -49,6 +48,7 @@
     ]
   },
   "jest": {
+    "testEnvironment": "node",
     "collectCoverage": true,
     "collectCoverageFrom": [
       "src/**/*.js",
@@ -59,7 +59,7 @@
         "branches": 95,
         "functions": 95,
         "lines": 95,
-        "statements": -10
+        "statements": 95
       }
     },
     "coverageDirectory": "testOutput/coverage",
