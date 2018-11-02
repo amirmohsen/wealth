@@ -1,7 +1,7 @@
-import InvalidCurrencyError from './errors/InvalidCurrencyError';
-import CurrencyStore from './CurrencyStore';
-import Money from './Money';
-import Currency from './Currency';
+import InvalidCurrencyError from '../errors/InvalidCurrencyError';
+import CurrencyStore from '../Currency/CurrencyStore';
+import Money from '../Money/Money';
+import Currency from '../Currency/Currency';
 
 /**
  * @example <caption>Format value based on internal currency</caption>
@@ -28,37 +28,43 @@ export default class Formatter {
 	 * @returns {string} - Formatted money string
 	 */
 	static format(value, settings) {
-		const
-			details = this._getFormattingDetails(value, settings),
-			{
+		const {
+			symbol,
+			code,
+			decimalDigits,
+			thousandsSeparator,
+			decimalSeparator,
+			pattern,
+			formatter,
+			value: innerValue
+		} = this._getFormattingDetails(value, settings);
+
+		let
+			formattedValue = innerValue.absoluteValue().toFormat(decimalDigits),
+			defaultFormatted = pattern.replace('%v', formattedValue);
+
+		defaultFormatted = defaultFormatted.replace('%ns', innerValue.isNegative() ? '-' : '');
+
+		defaultFormatted = defaultFormatted.replace('%i', innerValue.isInteger() ? innerValue.toFormat(0) : formattedValue);
+
+		defaultFormatted = defaultFormatted.replace('%s', symbol);
+
+		defaultFormatted = defaultFormatted.replace('%c', code);
+
+		if(typeof formatter === 'function') {
+			return formatter({
+				value,
+				defaultFormatted,
 				symbol,
 				code,
 				decimalDigits,
-				pattern,
-				formatter
-			} = details;
-
-		if(typeof formatter === 'function') {
-			return formatter(value, details);
+				thousandsSeparator,
+				decimalSeparator,
+				pattern
+			});
 		}
 
-		let
-			formattedValue = details.value.absoluteValue().toFormat(decimalDigits),
-			formatted = pattern.replace('%v', formattedValue);
-
-		formatted = formatted.replace('%ns', details.value.isNegative() ? '-' : '');
-
-		formatted = formatted.replace('%i', details.value.isInteger() ? details.value.toFormat(0) : formattedValue);
-
-		if(symbol) {
-			formatted = formatted.replace('%s', symbol);
-		}
-
-		if(code) {
-			formatted = formatted.replace('%c', code);
-		}
-
-		return formatted;
+		return defaultFormatted;
 	}
 
 	/**
@@ -75,20 +81,32 @@ export default class Formatter {
 				code,
 				thousandsSeparator,
 				decimalSeparator,
+				decimalDigits,
+				pattern,
 				parser
 			} = options;
 
+		let defaultParsed = this._replaceAll(value, thousandsSeparator, '');
+		defaultParsed = this._replaceAll(defaultParsed, symbol, '');
+		defaultParsed = this._replaceAll(defaultParsed, code, '');
+		defaultParsed = this._replaceAll(defaultParsed, decimalSeparator, '');
+		defaultParsed =	defaultParsed.replace(/\s/g, '');
+		defaultParsed = new Money(defaultParsed, code);
+
 		if(typeof parser === 'function') {
-			return parser(value, options);
+			return parser({
+				symbol,
+				code,
+				thousandsSeparator,
+				decimalSeparator,
+				decimalDigits,
+				pattern,
+				value,
+				defaultParsed
+			});
 		}
 
-		value = this._replaceAll(value, thousandsSeparator, '');
-		value = this._replaceAll(value, symbol, '');
-		value = this._replaceAll(value, code, '');
-		value = this._replaceAll(value, decimalSeparator, '');
-		value =	value.replace(/\s/g, '');
-
-		return new Money(value, code);
+		return defaultParsed;
 	}
 
 	/**
@@ -139,7 +157,7 @@ export default class Formatter {
 				}
 			});
 
-			value = new BN(value);
+			value = new BN(value.getAmountAsBigNumber());
 		}
 
 		return {
@@ -147,6 +165,8 @@ export default class Formatter {
 			code,
 			value,
 			decimalDigits,
+			thousandsSeparator,
+			decimalSeparator,
 			pattern,
 			formatter
 		};
@@ -164,44 +184,6 @@ export default class Formatter {
 			return value.getCurrency().getSettings();
 		}
 
-		if(typeof settings === 'string') {
-			settings = settings.toUpperCase();
-
-			if(!CurrencyStore.has(settings)) {
-				throw new InvalidCurrencyError(`No currency with code "${settings}" is registered.`);
-			}
-
-			return CurrencyStore.get(settings);
-		}
-
-		if(settings instanceof Currency) {
-			return settings.getSettings();
-		}
-
-		if(typeof settings !== 'object') {
-			throw new InvalidCurrencyError('Invalid currency options provided.');
-		}
-
-		if(typeof settings.code !== 'string' || !settings.code) {
-			throw new InvalidCurrencyError('Invalid currency settings; code is required.');
-		}
-
-		if(CurrencyStore.has(settings.code)) {
-			settings = {
-				...CurrencyStore.get(settings.code),
-				...settings
-			};
-		}
-
-		return {
-			thousandsSeparator: ',',
-			decimalSeparator: '.',
-			decimalDigits: 2,
-			pattern: '%s%ns%v',
-			formatter: null,
-			parser: null,
-			symbol: settings.code,
-			...settings,
-		};
+		return new Currency(settings).getSettings();
 	}
 }
