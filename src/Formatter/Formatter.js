@@ -47,13 +47,9 @@ export default class Formatter {
 
 		defaultFormatted = defaultFormatted.replace('%i', innerValue.isInteger() ? innerValue.toFormat(0) : formattedValue);
 
-		if(symbol) {
-			defaultFormatted = defaultFormatted.replace('%s', symbol);
-		}
+		defaultFormatted = defaultFormatted.replace('%s', symbol);
 
-		if(code) {
-			defaultFormatted = defaultFormatted.replace('%c', code);
-		}
+		defaultFormatted = defaultFormatted.replace('%c', code);
 
 		if(typeof formatter === 'function') {
 			return formatter({
@@ -188,40 +184,6 @@ export default class Formatter {
 			return value.getCurrency().getSettings();
 		}
 
-		// TODO: merge this logic with that of the currency class initialization
-
-		if(typeof settings === 'string') {
-			settings = CurrencyStore.get(settings);
-		}
-
-		if(settings instanceof Currency) {
-			return settings.getSettings();
-		}
-
-		if(typeof settings !== 'object') {
-			throw new InvalidCurrencyError('Invalid currency options provided.');
-		}
-
-		if(typeof settings.code !== 'string' || !settings.code) {
-			throw new InvalidCurrencyError('Invalid currency settings; code is required.');
-		}
-
-		if(CurrencyStore.has(settings.code)) {
-			settings = {
-				...CurrencyStore.get(settings.code),
-				...settings
-			};
-		}
-
-		return {
-			thousandsSeparator: ',',
-			decimalSeparator: '.',
-			decimalDigits: 2,
-			pattern: '%s%ns%v',
-			formatter: null,
-			parser: null,
-			symbol: settings.code,
-			...settings,
-		};
+		return new Currency(settings).getSettings();
 	}
 }

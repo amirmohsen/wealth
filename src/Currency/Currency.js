@@ -1,6 +1,7 @@
 import CurrencyStore from './CurrencyStore';
 import Formatter from '../Formatter/Formatter';
 import WrongInputError from '../errors/WrongInputError';
+import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 
 /**
  * @example <caption>Using code</caption>
@@ -175,10 +176,25 @@ export default class Currency {
 			settings = CurrencyStore.get(currency);
 		}
 		else if(typeof currency === 'object') {
-			let defaultSettings = {};
+			if(typeof currency.code !== 'string' || !currency.code) {
+				throw new InvalidCurrencyError('Invalid currency settings; code is required.');
+			}
 
-			if(currency.code) {
-				defaultSettings = CurrencyStore.get(currency.code);
+			let defaultSettings = {
+				thousandsSeparator: ',',
+				decimalSeparator: '.',
+				decimalDigits: 2,
+				pattern: '%s%ns%v',
+				formatter: null,
+				parser: null,
+				symbol: currency.code
+			};
+
+			if(CurrencyStore.has(currency.code)) {
+				defaultSettings = {
+					...defaultSettings,
+					...CurrencyStore.get(currency.code)
+				};
 			}
 
 			settings = {

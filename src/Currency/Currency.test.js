@@ -1,5 +1,7 @@
 import Currency from './Currency';
 import Money from '../Money/Money';
+import WrongInputError from '../errors/WrongInputError';
+import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 
 describe('The "Currency" class: ', () => {
 	test('(new Currency("USD")).toString() === "USD"', () => {
@@ -42,6 +44,7 @@ describe('The "Currency" class: ', () => {
 		const formattedValue = customGBPMoney.format();
 		const {
 			formatter,
+			parser,
 			...currencySettings
 		} = customGBP.getSettings();
 
@@ -63,6 +66,7 @@ describe('The "Currency" class: ', () => {
 		const parsedValue = customGBP.parse('£10.00');
 		const {
 			parser,
+			formatter,
 			...currencySettings
 		} = customGBP.getSettings();
 
@@ -77,5 +81,19 @@ describe('The "Currency" class: ', () => {
 			value: '£10.00'
 		});
 		expect(call[0].defaultParsed.equals(new Money('10.00', 'GBP'))).toBe(true);
+	});
+
+	describe('when "code" is not provided', () => {
+		test('should throw an "InvalidCurrencyError"', () => {
+			expect(() => new Currency({
+				symbol: '£'
+			})).toThrow(new InvalidCurrencyError('Invalid currency settings; code is required.'));
+		});
+	});
+
+	describe('when invalid input is provided', () => {
+		test('should throw an "WrongInputError"', () => {
+			expect(() => new Currency()).toThrow(new WrongInputError('Invalid currency provided.'));
+		});
 	});
 });
