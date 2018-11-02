@@ -37,14 +37,14 @@
   "babel": {
     "presets": [
       [
-        "env"
+        "@babel/env"
       ]
     ],
     "plugins": [
-      "syntax-decorators",
-      "transform-decorators-legacy",
-      "transform-class-properties",
-      "transform-object-rest-spread"
+      "@babel/plugin-proposal-class-properties"
+    ],
+    "exclude": [
+      "node_modules/**"
     ]
   },
   "jest": {
@@ -77,23 +77,21 @@
     "validator": "^10"
   },
   "devDependencies": {
+    "@babel/core": "^7",
+    "@babel/plugin-proposal-class-properties": "^7",
+    "@babel/preset-env": "^7",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23",
-    "babel-plugin-external-helpers": "^6",
-    "babel-plugin-syntax-decorators": "^6",
-    "babel-plugin-transform-class-properties": "^6",
-    "babel-plugin-transform-decorators-legacy": "^1",
-    "babel-plugin-transform-object-rest-spread": "^6",
-    "babel-preset-env": "^1",
     "esdoc": "^1",
     "esdoc-ecmascript-proposal-plugin": "^1",
     "esdoc-named-import-plugin": "0.0.0",
     "esdoc-standard-plugin": "^1",
     "jest": "^23",
     "jest-html-reporter": "^2",
-    "rollup": "^0.55",
-    "rollup-plugin-babel": "^3",
-    "rollup-plugin-commonjs": "^8",
-    "rollup-plugin-json": "^2",
+    "rollup": "^0.66",
+    "rollup-plugin-babel": "^4",
+    "rollup-plugin-commonjs": "^9",
+    "rollup-plugin-json": "^3",
     "rollup-plugin-node-resolve": "^3"
   }
 }
