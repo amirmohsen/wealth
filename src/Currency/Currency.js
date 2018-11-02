@@ -1,3 +1,4 @@
+import isEqual from 'lodash.isequal';
 import CurrencyStore from './CurrencyStore';
 import Formatter from '../Formatter/Formatter';
 import WrongInputError from '../errors/WrongInputError';
@@ -30,13 +31,13 @@ export default class Currency {
 	}
 
 	/**
-	 * Check if the parameter currency the same as the current currency
+	 * Check if the parameter currency is the same as the current currency
 	 * @param {string|Currency} currency - Currency string code or instance of Currency
 	 * @returns {boolean} - returns true if the parameter currency is the same as the current currency
 	 */
 	is(currency) {
 		currency = new Currency(currency);
-		return this.getCode() === currency.getCode();
+		return isEqual(this.getSettings(), currency.getSettings());
 	}
 
 	/**
