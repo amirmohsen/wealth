@@ -4,23 +4,9 @@ import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import pkg from './package.json';
 
-let presets = pkg.babel.presets;
-
-presets[0].push({
+pkg.babel.presets[0].push({
 	modules: false
 });
-
-const babelConfig = {
-	presets,
-	plugins: [
-		'external-helpers',
-		...pkg.babel.plugins
-	],
-	exclude: [
-		'node_modules/**'
-	],
-	babelrc: false
-};
 
 export default [
 	{
@@ -35,7 +21,7 @@ export default [
 				preferConst: true
 			}),
 			resolve(),
-			babel(babelConfig),
+			babel(pkg.babel),
 			commonjs()
 		]
 	},
@@ -60,7 +46,7 @@ export default [
 			json({
 				preferConst: true
 			}),
-			babel(babelConfig)
+			babel(pkg.babel)
 		]
 	}
 ];

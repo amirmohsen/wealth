@@ -1,6 +1,8 @@
+import isEqual from 'lodash.isequal';
 import CurrencyStore from './CurrencyStore';
-import Formatter from './Formatter';
-import WrongInputError from './errors/WrongInputError';
+import Formatter from '../Formatter/Formatter';
+import WrongInputError from '../errors/WrongInputError';
+import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 
 /**
  * @example <caption>Using code</caption>
@@ -29,13 +31,13 @@ export default class Currency {
 	}
 
 	/**
-	 * Check if the parameter currency the same as the current currency
+	 * Check if the parameter currency is the same as the current currency
 	 * @param {string|Currency} currency - Currency string code or instance of Currency
 	 * @returns {boolean} - returns true if the parameter currency is the same as the current currency
 	 */
 	is(currency) {
 		currency = new Currency(currency);
-		return this.getCode() === currency.getCode();
+		return isEqual(this.getSettings(), currency.getSettings());
 	}
 
 	/**
@@ -169,16 +171,31 @@ export default class Currency {
 		let settings = {};
 
 		if(currency instanceof Currency) {
-			settings = CurrencyStore.get(currency.getCode());
+			settings = currency.getSettings();
 		}
 		else if(typeof currency === 'string') {
 			settings = CurrencyStore.get(currency);
 		}
 		else if(typeof currency === 'object') {
-			let defaultSettings = {};
+			if(typeof currency.code !== 'string' || !currency.code) {
+				throw new InvalidCurrencyError('Invalid currency settings; code is required.');
+			}
 
-			if(currency.code) {
-				defaultSettings = CurrencyStore.get(currency.code);
+			let defaultSettings = {
+				thousandsSeparator: ',',
+				decimalSeparator: '.',
+				decimalDigits: 2,
+				pattern: '%s%ns%v',
+				formatter: null,
+				parser: null,
+				symbol: currency.code
+			};
+
+			if(CurrencyStore.has(currency.code)) {
+				defaultSettings = {
+					...defaultSettings,
+					...CurrencyStore.get(currency.code)
+				};
 			}
 
 			settings = {
