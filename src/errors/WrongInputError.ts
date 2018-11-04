@@ -3,6 +3,8 @@ import WealthError from './WealthError';
 /**
  * Error thrown when the input argument is wrong
  * @example
+ * Basic usage
+ * ```js
  * try {
  *  // operation
  * }
@@ -11,6 +13,7 @@ import WealthError from './WealthError';
  *      // handle error
  *  }
  * }
+ * ```
  */
 export default class WrongInputError extends WealthError {
 

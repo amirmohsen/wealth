@@ -6,18 +6,27 @@ import WrongInputError from '../errors/WrongInputError';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 
 /**
- * @example <caption>Using code</caption>
+ * @example
+ * Using code
+ * ```js
  * let currency = new Currency('USD');
+ * ```
  *
- * @example <caption>Using existing currency object</caption>
+ * @example
+ * Using existing currency object
+ * ```js
  * let currency = new Currency(new Currency('USD'));
+ * ```
  *
- * @example <caption>Using custom settings to create
- * a one-off currency without registering it</caption>
+ * @example
+ * Using custom settings to create
+ * a one-off currency without registering it
+ * ```js
  * let currency = new Currency({
  *  code: 'ETH',
  *  symbol: 'Ξ'
  * });
+ * ```
  */
 export default class Currency {
 

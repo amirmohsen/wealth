@@ -3,20 +3,32 @@ import Money from '../Money/Money';
 import Currency from '../Currency/Currency';
 
 /**
- * @example <caption>Format value based on internal currency</caption>
+ * @example
+ * Format value based on internal currency
+ * ```js
  * Formatter.format(value);
+ * ```
  *
- * @example <caption>Format value based on currency parameter</caption>
+ * @example
+ * Format value based on currency parameter
+ * ```js
  * Formatter.format(value, new Currency('USD'));
+ * ```
  *
- * @example <caption>Format value based on currency code</caption>
+ * @example
+ * Format value based on currency code
+ * ```js
  * Formatter.format(value, 'USD');
+ * ```
  *
- * @example <caption>Format value based on custom settings</caption>
+ * @example
+ * Format value based on custom settings
+ * ```js
  * Formatter.format(value, {
  *  code: 'EUR',
  *  pattern: '%s%v'
  * });
+ * ```
  */
 export default class Formatter {
 

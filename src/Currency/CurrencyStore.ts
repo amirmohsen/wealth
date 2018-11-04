@@ -56,7 +56,9 @@ interface CurrencySettingsInternalStore {
 
 /**
  * Currency store
- * @example <caption>Set (register or replace) a currency</caption>
+ * @example
+ * Set (register or replace) a currency
+ * ```js
  * CurrencyStore.set('XBT', { // Settings is optional
  *  symbol: 'Ƀ', // Currency symbol (Default: same as code)
  *  thousandsSeparator: ',', // Currency thousands separator (Default: ',')
@@ -69,9 +71,13 @@ interface CurrencySettingsInternalStore {
  *  formatter: null, // Currency formatter (Default: null). Custom formatting function.
  *  parser: null // Currency parser (Default: null). Custom parsing function.
  * });
+ * ```
  *
- * @example <caption>Get currency settings</caption>
+ * @example
+ * Get currency settings
+ * ```js
  * CurrencyStore.get('XBT');
+ * ```
  */
 export default class CurrencyStore {
 

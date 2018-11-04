@@ -5,48 +5,73 @@ import Currency from '../Currency/Currency';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
 import WrongInputError from '../errors/WrongInputError';
 import Formatter from '../Formatter/Formatter';
+import { CurrencyInputSettings } from '../Currency/CurrencyStore';
 
 /**
  * Rounding modes you can use in your operations.
  * These map directly to
  * [`BigNumber`'s rounding modes](http://mikemcl.github.io/bignumber.js/#constructor-properties).
- * @type ROUNDING - rounding modes
- * @property ROUNDING.UP - Rounds away from zero
- * @property ROUNDING.DOWN - Rounds towards zero
- * @property ROUNDING.CEIL - Rounds towards Infinity
- * @property ROUNDING.FLOOR - Rounds towards -Infinity
- * @property ROUNDING.HALF_UP - Rounds towards nearest neighbour.
- * If equidistant, rounds away from zero
- * @property ROUNDING.HALF_DOWN - Rounds towards nearest neighbour.
- * If equidistant, rounds towards zero
- * @property ROUNDING.HALF_EVEN - Rounds towards nearest neighbour.
- * If equidistant, rounds towards even neighbour
- * @property ROUNDING.HALF_CEIL - Rounds towards nearest neighbour.
- * If equidistant, rounds towards Infinity
- * @property ROUNDING.HALF_FLOOR - Rounds towards nearest neighbour.
- * If equidistant, rounds towards -Infinity
  *
  * @example
- * let
+ * Rounding mode usage
+ * ```js
+ * const
  *      price = new Money('7856', 'USD'), // $78.56
  *      discountedAndRoundedUp = price.multiply('0.70'), // $55.00
  *      discountedAndRoundedDown = price.multiply('0.70', ROUNDING.DOWN); // $54.99
+ * ```
  */
 export enum ROUNDING {
+  /**
+   * Rounds away from zero
+   */
   UP = BigNumber.ROUND_UP,
+  /**
+   * Rounds towards zero
+   */
   DOWN = BigNumber.ROUND_DOWN,
+  /**
+   * Rounds towards Infinity
+   */
   CEIL = BigNumber.ROUND_CEIL,
+  /**
+   * Rounds towards Infinity
+   */
   FLOOR = BigNumber.ROUND_FLOOR,
+  /**
+   * Rounds towards nearest neighbour.
+   * If equidistant, rounds away from zero
+   */
   HALF_UP = BigNumber.ROUND_HALF_UP,
+  /**
+   * Rounds towards nearest neighbour.
+   * If equidistant, rounds towards zero
+   */
   HALF_DOWN = BigNumber.ROUND_HALF_DOWN,
+  /**
+   * Rounds towards nearest neighbour.
+   * If equidistant, rounds towards even neighbour
+   */
   HALF_EVEN = BigNumber.ROUND_HALF_EVEN,
+  /**
+   * Rounds towards nearest neighbour.
+   * If equidistant, rounds towards Infinity
+   */
   HALF_CEIL = BigNumber.ROUND_HALF_CEIL,
+  /**
+   * Rounds towards nearest neighbour.
+   * If equidistant, rounds towards Infinity
+   */
   HALF_FLOOR = BigNumber.ROUND_HALF_FLOOR,
 }
 
 /**
  * @example
+ * Basic usage
+ * ```js
+ * import { Money } from 'wealth'
  * let price = new Money('7856', 'USD'); // $78.56
+ * ```
  */
 export default class Money {
 
@@ -66,20 +91,35 @@ export default class Money {
   bigNumberConstructor: typeof BigNumber;
 
   /**
-   * @example <caption>Integer as value</caption>
+   * @example
+   * Integer as value
+   * ```js
    * let price = new Money(7856, 'USD'); // $78.56
+   * ```
    *
-   * @example <caption>String integer as value</caption>
+   * @example
+   * String integer as value
+   * ```js
    * let price = new Money('7856', 'USD'); // $78.56
+   * ```
    *
-   * @example <caption>String Float as value</caption>
+   * @example
+   * String Float as value
+   * ```js
    * let price = new Money('78.56', 'USD'); // $78.56
+   * ```
    *
-   * @example <caption>Money instance as value</caption>
-   * let price = new Money(new Money('78.56'), 'USD'); // $78.56 - same as using clone()
+   * @example
+   * Money instance as value
+   * ```js
+   * let price = new Money(new Money('78.56', 'USD'), 'USD'); // $78.56 - same as using clone()
+   * ```
    *
-   * @example <caption>Currency instance as currency</caption>
+   * @example
+   * Currency instance as currency
+   * ```js
    * let price = new Money('7856', new Currency('USD')); // $78.56
+   * ```
    *
    * @param value - integer, integer string, float string, instance of `Money`
    * @param currency - currency code as string, instance of `Currency`
@@ -290,7 +330,7 @@ export default class Money {
    * @param settings - formatting settings
    * @returns - formatted money
    */
-  format(settings = {}): string {
+  format(settings: CurrencyInputSettings): string {
     return this.currency.format(this, settings);
   }
 
@@ -494,7 +534,7 @@ export default class Money {
    * @param settings - the formatting settings
    * @returns - a Money instance holding the parsed value and currency
    */
-  static parse(value: string, settings: string|object|Currency): Money {
+  static parse(value: string, settings: CurrencyInputSettings|string|Currency): Money {
     return Formatter.parse(value, settings);
   }
 }
