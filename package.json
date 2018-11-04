@@ -1,14 +1,20 @@
 {
   "name": "wealth",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "repository": "https://github.com/amirmohsen/wealth",
   "description": "A full-featured money library",
   "scripts": {
-    "build": "rollup -c -m",
-    "dev": "rollup -c -m -w",
     "prepublishOnly": "npm run build",
+    "docs": "rm -rf ./docs && typedoc --name Wealth --out docs --mode file",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build": "rm -rf ./lib && npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "rollup -cm",
+    "watch": "rollup -cmw",
+    "lint": "tslint -c tslint.json -p tsconfig.json 'src/**/*.ts'",
     "test": "jest",
-    "docs": "esdoc"
+    "test:watch": "jest --watch"
   },
   "files": [
     "lib"
@@ -16,6 +22,7 @@
   "main": "lib/wealth.cjs.js",
   "module": "lib/wealth.esm.js",
   "browser": "lib/wealth.umd.js",
+  "types": "lib/index.d.ts",
   "keywords": [
     "flexverse",
     "money",
@@ -47,28 +54,9 @@
       "node_modules/**"
     ]
   },
-  "jest": {
-    "testEnvironment": "node",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!**/node_modules/**"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 95,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "coverageDirectory": "testOutput/coverage",
-    "testResultsProcessor": "./node_modules/jest-html-reporter"
-  },
-  "jest-html-reporter": {
-    "pageTitle": "Wealth test suite",
-    "outputPath": "testOutput/report.html",
-    "includeFailureMsg": true
+  "jest-stare": {
+    "resultDir": "testOutput/report",
+    "coverageLink": "../coverage/lcov-report/index.html"
   },
   "dependencies": {
     "bignumber.js": "^8",
@@ -77,21 +65,30 @@
     "validator": "^10"
   },
   "devDependencies": {
-    "@babel/core": "^7",
-    "@babel/plugin-proposal-class-properties": "^7",
-    "@babel/preset-env": "^7",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23",
+    "@types/jest": "^23",
+    "@types/lodash.isequal": "^4",
+    "@types/validator": "^9",
     "esdoc": "^1",
     "esdoc-ecmascript-proposal-plugin": "^1",
     "esdoc-named-import-plugin": "0.0.0",
     "esdoc-standard-plugin": "^1",
     "jest": "^23",
-    "jest-html-reporter": "^2",
+    "jest-runner-tslint": "^1.0.5",
+    "jest-stare": "^1.8.0",
+    "jest-watch-directories": "^1.1.0",
+    "jest-watch-select-projects": "^0.1.1",
+    "jest-watch-suspend": "^1.1.0",
+    "jest-watch-typeahead": "^0.2.0",
     "rollup": "^0.66",
     "rollup-plugin-babel": "^4",
     "rollup-plugin-commonjs": "^9",
     "rollup-plugin-json": "^3",
-    "rollup-plugin-node-resolve": "^3"
+    "rollup-plugin-node-resolve": "^3",
+    "rollup-plugin-typescript2": "^0.17",
+    "ts-jest": "^23",
+    "tslint": "^5",
+    "tslint-config-airbnb": "^5",
+    "typedoc": "^0.13.0",
+    "typescript": "^3"
   }
 }

@@ -1,206 +1,341 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="default no-js">
 <head>
-  <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | wealth</title>
-  <link type="text/css" rel="stylesheet" href="css/style.css">
-  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
-  <script src="script/prettify/prettify.js"></script>
-  <script src="script/manual.js"></script>
-<meta name="description" content="A full-featured money library"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="wealth"><meta property="twitter:description" content="A full-featured money library"></head>
-<body class="layout-container" data-ice="rootContainer">
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Wealth</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
 <header>
-  <a href="./">Home</a>
-  
-  <a href="identifiers.html">Reference</a>
-  <a href="source.html">Source</a>
-  
-  <div class="search-box">
-  <span>
-    <img src="./image/search.png">
-    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
-  </span>
-    <ul class="search-result"></ul>
-  </div>
-<a style="position:relative; top:3px;" href="https://github.com/amirmohsen/wealth"><img width="20px" src="./image/github.png"></a></header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">Wealth</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> Wealth</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="wealth">Wealth</h1>
+				<p>Wealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.</p>
+				<p>There are many libraries out there that handle money or currency, but there&#39;s not one that offers a complete feature set.
+				This library provides a uniform interface for various money-related operations.</p>
+				<p>Under the hood, it uses <a href="https://github.com/MikeMcl/bignumber.js/">bignumber.js</a> for calculations.</p>
+				<h2 id="installation">Installation</h2>
+				<p><code>npm install wealth</code></p>
+				<p>or</p>
+				<p><code>yarn add wealth</code></p>
+				<h2 id="api-reference">API Reference</h2>
+				<p>See the <a href="http://amirmohsen.github.io/wealth">API Reference</a> for a better understanding of the available features.</p>
+				<h2 id="immutability">Immutability</h2>
+				<p>All <code>Money</code> and <code>Currency</code> instances are immutable and each of the operations return a new instance.
+				This makes <code>Wealth</code> perfect for react/redux applications.</p>
+				<h2 id="examples">Examples</h2>
+				<ul>
+					<li><a href="#money-calculation-and-manipulation">Money Calculation and Manipulation</a></li>
+					<li><a href="#money-comparison">Money Comparison</a></li>
+					<li><a href="#money-allocation">Money Allocation</a></li>
+					<li><a href="#currency">Currency</a></li>
+					<li><a href="#formatting-and-parsing">Formatting and Parsing</a></li>
+					<li><a href="#serialization">Serialization</a></li>
+					<li><a href="#error-handling">Error Handling</a></li>
+				</ul>
+				<h3 id="money-calculation-and-manipulation">Money Calculation and Manipulation</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Money } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-<nav class="navigation" data-ice="nav"><div>
-  <ul>
-    
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Currency.js~Currency.html">Currency</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/CurrencyStore.js~CurrencyStore.html">CurrencyStore</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Formatter.js~Formatter.html">Formatter</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Money.js~Money.html">Money</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#errors">errors</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/CurrencyMismatchError.js~CurrencyMismatchError.html">CurrencyMismatchError</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/InvalidCurrencyError.js~InvalidCurrencyError.html">InvalidCurrencyError</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WealthError.js~WealthError.html">WealthError</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/errors/WrongInputError.js~WrongInputError.html">WrongInputError</a></span></span></li>
-</ul>
-</div>
-</nav>
+<span class="hljs-keyword">const</span>
+    price = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'8078'</span>, <span class="hljs-string">'USD'</span>), <span class="hljs-comment">// $80.78</span>
+    discountedPercentage = <span class="hljs-number">10</span>, <span class="hljs-comment">// 10% discount</span>
+    discountedPrice = price.subtract(price.multiply(<span class="hljs-number">10</span>).divide(<span class="hljs-number">100</span>)), <span class="hljs-comment">// $72.70</span>
+    shipping = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'1550'</span>, <span class="hljs-string">'USD'</span>), <span class="hljs-comment">// $15.50</span>
+    total = price.add(shipping); <span class="hljs-comment">// $88.20</span></code></pre>
+				<h3 id="money-comparison">Money Comparison</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Money } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="wealth">Wealth</h1><p>Wealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.</p>
-<p>There are many libraries out there that handle money or currency, but there&apos;s not one that offers a complete feature set.
-This library provides a uniform interface for various money-related operations.</p>
-<p>Under the hood, it uses <a href="https://github.com/MikeMcl/bignumber.js/">bignumber.js</a> for calculations.</p>
-<h2 id="installation">Installation</h2><p><code>npm install wealth</code></p>
-<p>or</p>
-<p><code>yarn add wealth</code></p>
-<h2 id="api-reference">API Reference</h2><p>See the <a href="http://amirmohsen.github.io/wealth">API Reference</a> for a better understanding of the available features.</p>
-<h2 id="immutability">Immutability</h2><p>All <code>Money</code> and <code>Currency</code> instances are immutable and each of the operations return a new instance.
-This makes <code>Wealth</code> perfect for react/redux applications.</p>
-<h2 id="examples">Examples</h2><ul>
-<li><a href="#money-calculation-and-manipulation">Money Calculation and Manipulation</a></li>
-<li><a href="#money-comparison">Money Comparison</a></li>
-<li><a href="#money-allocation">Money Allocation</a></li>
-<li><a href="#currency">Currency</a></li>
-<li><a href="#formatting-and-parsing">Formatting and Parsing</a></li>
-<li><a href="#serialization">Serialization</a></li>
-<li><a href="#error-handling">Error Handling</a></li>
-</ul>
-<h3 id="money-calculation-and-manipulation">Money Calculation and Manipulation</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+<span class="hljs-keyword">const</span>
+    overdraft = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'100000'</span>, <span class="hljs-string">'GBP'</span>), <span class="hljs-comment">// $1000.00</span>
+    debt = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'900'</span>, <span class="hljs-string">'GBP'</span>), <span class="hljs-comment">// $9.00</span>
+    canBorrowMore = debt.lessThan(overdraft); <span class="hljs-comment">// true</span></code></pre>
+				<h3 id="money-allocation">Money Allocation</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Money } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-let
-    price = new Money(&apos;8078&apos;, &apos;USD&apos;), // $80.78
-    discountedPercentage = 10, // 10% discount
-    discountedPrice = price.subtract(price.multiply(10).divide(100)), // $72.70
-    shipping = new Money(&apos;1550&apos;, &apos;USD&apos;), // $15.50
-    total = price.add(shipping); // $88.20</code>
-</code></pre>
-<h3 id="money-comparison">Money Comparison</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+<span class="hljs-keyword">const</span>
+    inheritance = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'5000000'</span>, <span class="hljs-string">'EUR'</span>),
+    ratios = [<span class="hljs-number">63</span>, <span class="hljs-number">22</span>, <span class="hljs-number">15</span>], <span class="hljs-comment">// ratios</span>
+    inheritedShares = inheritance.allocate(ratios),
+    expenses = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'79595'</span>, <span class="hljs-string">'EUR'</span>),
+    expenseShares = expenses.allocateTo(<span class="hljs-number">10</span>); <span class="hljs-comment">// Equal (or nearly equal) shares of expenses</span></code></pre>
+				<h3 id="currency">Currency</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { CurrencyStore, Currency } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-let
-    overdraft = new Money(&apos;100000&apos;, &apos;GBP&apos;), // $1000.00
-    debt = new Money(&apos;900&apos;, &apos;GBP&apos;), // $9.00
-    canBorrowMore = debt.lessThan(overdraft); // true</code>
-</code></pre>
-<h3 id="money-allocation">Money Allocation</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
-
-let
-    inheritance = new Money(&apos;5000000&apos;, &apos;EUR&apos;),
-    ratios = [63, 22, 15], // ratios
-    inheritedShares = inheritance.allocate(ratios);
-
-let
-    expenses = new Money(&apos;79595&apos;, &apos;EUR&apos;),
-    expenseShares = expenses.allocateTo(10); // Equal (or nearly equal) shares of expenses</code>
-</code></pre>
-<h3 id="currency">Currency</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {CurrencyStore, Currency} from &apos;wealth&apos;;
-
-/**
+<span class="hljs-comment">/**
 * All ISO currencies are already registered in the `CurrencyStore`.
 * You can find a currency by its code:
-**/
-let gbp = new Currency(&apos;GBP&apos;); // Create a new currency instance
-let gbpSettings = gbp.getSettings();
-// or you can get the settings directly from the `CurrencyStore`
-gbpSettings = CurrencyStore.get(&apos;GBP&apos;); // alias: Currency.getSettings()
+**/</span>
+<span class="hljs-keyword">const</span> gbp = <span class="hljs-keyword">new</span> Currency(<span class="hljs-string">'GBP'</span>); <span class="hljs-comment">// Create a new currency instance</span>
+<span class="hljs-keyword">let</span> gbpSettings = gbp.getSettings();
+<span class="hljs-comment">// or you can get the settings directly from the `CurrencyStore`</span>
+gbpSettings = CurrencyStore.get(<span class="hljs-string">'GBP'</span>); <span class="hljs-comment">// alias: Currency.getSettings()</span>
 
-/**
+<span class="hljs-comment">/**
 * You may wish to create a currency without registering it in the store for one-off use.
-*/
+*/</span>
 
-let bitcoin = new Currency({
-    code: &apos;XBT&apos;,
-    symbol: &apos;&#x243;&apos;
+<span class="hljs-keyword">const</span> bitcoin = <span class="hljs-keyword">new</span> Currency({
+    <span class="hljs-attr">code</span>: <span class="hljs-string">'XBT'</span>,
+    <span class="hljs-attr">symbol</span>: <span class="hljs-string">'Ƀ'</span>
 });
 
-/**
+<span class="hljs-comment">/**
 * Or you can register a new currency for re-use
-**/
+**/</span>
 
-CurrencyStore.set(&apos;ETH&apos;, {
-    symbol: &apos;&#x39E;&apos;
+CurrencyStore.set(<span class="hljs-string">'ETH'</span>, {
+    <span class="hljs-attr">symbol</span>: <span class="hljs-string">'Ξ'</span>
 });
 
-// Getting all registered currencies
-let allCurrencies = CurrencyStore.getAll(); // alias: Currency.getAllSettings()</code>
-</code></pre>
-<h3 id="formatting-and-parsing">Formatting and Parsing</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Formatter} from &apos;wealth&apos;;
+<span class="hljs-comment">// Getting all registered currencies</span>
+<span class="hljs-keyword">const</span> allCurrencies = CurrencyStore.getAll(); <span class="hljs-comment">// alias: Currency.getAllSettings()</span></code></pre>
+				<h3 id="formatting-and-parsing">Formatting and Parsing</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Money, Formatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-let money = new Money(&apos;500000&apos;, &apos;EUR&apos;);
-money.format(); // 5 000,00 &#x20AC;
+<span class="hljs-keyword">const</span> money = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'500000'</span>, <span class="hljs-string">'EUR'</span>);
+money.format(); <span class="hljs-comment">// 5 000,00 €</span>
 money.format({
-    pattern: &apos;%ns%s%v&apos;,
-    thousandsSeparator: &apos;,&apos;,
-    decimalSeparator: &apos;.&apos;
-}); // &#x20AC;5,000.00
+    <span class="hljs-attr">pattern</span>: <span class="hljs-string">'%ns%s%v'</span>,
+    <span class="hljs-attr">thousandsSeparator</span>: <span class="hljs-string">','</span>,
+    <span class="hljs-attr">decimalSeparator</span>: <span class="hljs-string">'.'</span>
+}); <span class="hljs-comment">// €5,000.00</span>
 
 money.format({
-    formatter: () =&gt; {} // custom formatter
+    <span class="hljs-attr">formatter</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {} <span class="hljs-comment">// custom formatter</span>
 });
 
-// Using money.format() is the same as
+<span class="hljs-comment">// Using money.format() is the same as</span>
 Formatter.format(money);
 
-// Using money.format(settings) is the same as
-Formatter.format(money, settings);</code>
-</code></pre>
-<pre><code class="lang-js"><code class="source-code prettyprint">import {Money, Formatter} from &apos;wealth&apos;;
+<span class="hljs-comment">// Using money.format(settings) is the same as</span>
+Formatter.format(money, settings);</code></pre>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Money, Formatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-let money = Money.parse(&apos;5 000,00 &#x20AC;&apos;, &apos;EUR&apos;); // alias for Formatter.parse
+<span class="hljs-keyword">const</span> money = Money.parse(<span class="hljs-string">'5 000,00 €'</span>, <span class="hljs-string">'EUR'</span>); <span class="hljs-comment">// alias for Formatter.parse</span>
 
-money = Money.parse(&apos;&#x20AC;5,000.00&apos;, {
-    code: &apos;EUR&apos;,
-    thousandsSeparator: &apos;,&apos;,
-    decimalSeparator: &apos;.&apos;
+money = Money.parse(<span class="hljs-string">'€5,000.00'</span>, {
+    <span class="hljs-attr">code</span>: <span class="hljs-string">'EUR'</span>,
+    <span class="hljs-attr">thousandsSeparator</span>: <span class="hljs-string">','</span>,
+    <span class="hljs-attr">decimalSeparator</span>: <span class="hljs-string">'.'</span>
 });
 
 
-money = Money.parse(&apos;&#x20AC;5,000.00&apos;, {
-    parser: () =&gt; {} // custom parser
-});</code>
-</code></pre>
-<h3 id="serialization">Serialization</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {Money} from &apos;wealth&apos;;
+money = Money.parse(<span class="hljs-string">'€5,000.00'</span>, {
+    <span class="hljs-attr">parser</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {} <span class="hljs-comment">// custom parser</span>
+});</code></pre>
+				<h3 id="serialization">Serialization</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Money } <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-let money = new Money(&apos;100&apos;, &apos;USD&apos;);
-money.toJSON(); // {amount: &apos;100&apos;, currency: &apos;USD&apos;}
-JSON.stringify(money); // {amount: &apos;100&apos;, currency: &apos;USD&apos;}</code>
-</code></pre>
-<h3 id="error-handling">Error Handling</h3><pre><code class="lang-js"><code class="source-code prettyprint">import {
+<span class="hljs-keyword">let</span> money = <span class="hljs-keyword">new</span> Money(<span class="hljs-string">'100'</span>, <span class="hljs-string">'USD'</span>);
+money.toJSON(); <span class="hljs-comment">// {amount: '100', currency: 'USD'}</span>
+<span class="hljs-built_in">JSON</span>.stringify(money); <span class="hljs-comment">// {amount: '100', currency: 'USD'}</span></code></pre>
+				<h3 id="error-handling">Error Handling</h3>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> {
     WealthError,
     CurrencyMismatchError,
     InvalidCurrencyError,
     WrongInputError
-} from &apos;wealth&apos;;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'wealth'</span>;
 
-try {
-    // operations
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// operations</span>
 }
-catch(e) {
-    if(e instanceof CurrencyMismatchError) {
-        // Thrown when the two sides of the operation use different currencies
+<span class="hljs-keyword">catch</span>(e) {
+    <span class="hljs-keyword">if</span>(e <span class="hljs-keyword">instanceof</span> CurrencyMismatchError) {
+        <span class="hljs-comment">// Thrown when the two sides of the operation use different currencies</span>
     }
-    else if(e instanceof InvalidCurrencyError) {
-        // Thrown when invalid or missing currency code provided
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(e <span class="hljs-keyword">instanceof</span> InvalidCurrencyError) {
+        <span class="hljs-comment">// Thrown when invalid or missing currency code provided</span>
     }
-    else if(e instanceof WrongInputError) {
-        // Thrown when bad input is provided to various methods
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(e <span class="hljs-keyword">instanceof</span> WrongInputError) {
+        <span class="hljs-comment">// Thrown when bad input is provided to various methods</span>
     }
 
-    if(e instanceof WealthError) {
-        // All custom errors produced by Wealth inherit `WealthError`
+    <span class="hljs-keyword">if</span>(e <span class="hljs-keyword">instanceof</span> WealthError) {
+        <span class="hljs-comment">// All custom errors produced by Wealth inherit `WealthError`</span>
     }
-    else {
-        // All other errors
+    <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// All other errors</span>
     }
-}</code>
-</code></pre>
+}</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/rounding.html" class="tsd-kind-icon">ROUNDING</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/currency.html" class="tsd-kind-icon">Currency</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/currencymismatcherror.html" class="tsd-kind-icon">Currency<wbr>Mismatch<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/currencystore.html" class="tsd-kind-icon">Currency<wbr>Store</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/formatter.html" class="tsd-kind-icon">Formatter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/invalidcurrencyerror.html" class="tsd-kind-icon">Invalid<wbr>Currency<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/money.html" class="tsd-kind-icon">Money</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/wealtherror.html" class="tsd-kind-icon">Wealth<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/wronginputerror.html" class="tsd-kind-icon">Wrong<wbr>Input<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/currencyformatter.html" class="tsd-kind-icon">Currency<wbr>Formatter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/currencyinputsettings.html" class="tsd-kind-icon">Currency<wbr>Input<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/currencyparser.html" class="tsd-kind-icon">Currency<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/currencysettings.html" class="tsd-kind-icon">Currency<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/currencysettingsinternalstore.html" class="tsd-kind-icon">Currency<wbr>Settings<wbr>Internal<wbr>Store</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
-</div>
-
-<footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
 </footer>
-
-<script src="script/search_index.js"></script>
-<script src="script/search.js"></script>
-<script src="script/pretty-print.js"></script>
-<script src="script/inherited-summary.js"></script>
-<script src="script/test-summary.js"></script>
-<script src="script/inner-link.js"></script>
-<script src="script/patch-for-local.js"></script>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

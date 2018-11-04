@@ -1,4 +1,6 @@
 .idea
+.vscode
+.rpt2_cache
 node_modules
 lib
 npm-debug.log
