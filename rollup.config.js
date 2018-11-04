@@ -1,8 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-// import typescript from 'rollup-plugin-typescript';
 import typescript from 'rollup-plugin-typescript2';
-// import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import pkg from './package.json';
 
@@ -23,7 +21,6 @@ export default [
 				typescript: require('typescript'),
 				rollupCommonJSResolveHack: true
 			}),
-			// babel(pkg.babel),
 			commonjs()
 		]
 	},
@@ -50,8 +47,7 @@ export default [
 			}),
 			typescript({
 				typescript: require('typescript')
-			}),
-			// babel(pkg.babel)
+			})
 		]
 	}
 ];
