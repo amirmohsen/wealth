@@ -14,10 +14,10 @@ import WealthError from './WealthError';
  */
 export default class WrongInputError extends WealthError {
 
-	/**
-	 * @param {string} message - Error message
-	 */
-	constructor(message = 'Wrong input argument') {
-		super(message);
-	}
+  /**
+   * @param message - Error message
+   */
+  constructor(message = 'Wrong input argument') {
+    super(message);
+  }
 }

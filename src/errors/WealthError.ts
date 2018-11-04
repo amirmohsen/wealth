@@ -15,10 +15,10 @@ import ExtendableError from 'es6-error';
  */
 export default class WealthError extends ExtendableError {
 
-	/**
-	 * @param {string} message - Error message
-	 */
-	constructor(message = 'Wealth error') {
-		super(message);
-	}
+  /**
+   * @param message - Error message
+   */
+  constructor(message = 'Wealth error') {
+    super(message);
+  }
 }

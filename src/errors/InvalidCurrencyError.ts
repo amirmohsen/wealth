@@ -14,10 +14,10 @@ import WealthError from './WealthError';
  */
 export default class InvalidCurrencyError extends WealthError {
 
-	/**
-	 * @param {string} message - Error message
-	 */
-	constructor(message = 'Invalid currency') {
-		super(message);
-	}
+  /**
+   * @param message - Error message
+   */
+  constructor(message = 'Invalid currency') {
+    super(message);
+  }
 }

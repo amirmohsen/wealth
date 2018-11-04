@@ -86,6 +86,7 @@
     "@babel/core": "^7",
     "@babel/plugin-proposal-class-properties": "^7",
     "@babel/preset-env": "^7",
+    "@types/lodash.isequal": "^4.5.3",
     "@types/validator": "^9.4.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23",
