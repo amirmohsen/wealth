@@ -327,10 +327,10 @@ export default class Money {
 
   /**
    * Format the current value based on the currency
-   * @param settings - formatting settings
+   * @param settings - formatting settings (optional)
    * @returns - formatted money
    */
-  format(settings: CurrencyInputSettings): string {
+  format(settings?: CurrencyInputSettings): string {
     return this.currency.format(this, settings);
   }
 
