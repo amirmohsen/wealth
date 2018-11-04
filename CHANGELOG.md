@@ -1,8 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+## [0.2.0] - 2018-11-04
+### Updated
+- Code base moved to typescript
+- **BREAKING:** `ROUNDING` is moved out of the `Money` class and should now be imported separately
+- Docs
+- All packages
+### Added
+- More tests
 
 ## [0.1.1] - 2018-03-01
 ### Fixed
@@ -36,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release
 
+[0.2.0]: https://github.com/amirmohsen/wealth/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/amirmohsen/wealth/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/amirmohsen/wealth/compare/v0.0.1...v0.1.0
 [0.0.1]: https://github.com/amirmohsen/wealth/compare/v0.0.0...v0.0.1
