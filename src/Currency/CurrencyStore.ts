@@ -1,3 +1,4 @@
+import deepFreeze, { DeepReadonly } from 'deep-freeze';
 import Money from '../Money/Money';
 import ISOCurrencies from './data/iso-currencies';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
@@ -51,7 +52,7 @@ export interface CurrencyInputSettings {
 }
 
 interface CurrencySettingsInternalStore {
-  [key: string]: CurrencySettings;
+  [key: string]: DeepReadonly<CurrencySettings>;
 }
 
 /**
@@ -89,7 +90,7 @@ export default class CurrencyStore {
     .reduce(
       (currencies, [code, currencySettings]) => ({
         ...currencies,
-        [code]: Object.freeze(currencySettings),
+        [code]: deepFreeze(currencySettings),
       }),
       {},
     );
@@ -114,7 +115,7 @@ export default class CurrencyStore {
       symbol: settings.symbol || code,
     };
 
-    this.data[code.toUpperCase()] = Object.freeze(finalSettings);
+    this.data[code.toUpperCase()] = deepFreeze(finalSettings);
   }
 
   /**
@@ -153,7 +154,13 @@ export default class CurrencyStore {
   public static getAll(): CurrencySettings[] {
     return Object
       .values(this.data)
-      .reduce((all: CurrencySettings[], settings: CurrencySettings) => [...all, settings], [])
+      .reduce(
+        (
+          all: CurrencySettings[],
+          settings: DeepReadonly<CurrencySettings>,
+        ) => [...all, settings as CurrencySettings],
+        [],
+        )
       .sort((a: CurrencySettings, b: CurrencySettings) => a.code.localeCompare(b.code));
   }
 }

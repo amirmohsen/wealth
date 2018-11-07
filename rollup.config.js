@@ -1,3 +1,4 @@
+import os from 'os';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
@@ -19,7 +20,8 @@ export default [
 			resolve(),
 			typescript({
 				typescript: require('typescript'),
-				rollupCommonJSResolveHack: true
+				rollupCommonJSResolveHack: true,
+				cacheRoot: `${os.tmpdir()}/.rpt2_cache`
 			}),
 			commonjs()
 		]
@@ -46,7 +48,8 @@ export default [
 				preferConst: true
 			}),
 			typescript({
-				typescript: require('typescript')
+				typescript: require('typescript'),
+				cacheRoot: `${os.tmpdir()}/.rpt2_cache`
 			})
 		]
 	}

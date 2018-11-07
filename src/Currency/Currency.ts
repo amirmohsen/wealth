@@ -1,4 +1,5 @@
 import isEqual from 'lodash.isequal';
+import deepFreeze from 'deep-freeze';
 import Money from '../Money/Money';
 import CurrencyStore, { CurrencySettings, CurrencyInputSettings } from './CurrencyStore';
 import Formatter from '../Formatter/Formatter';
@@ -40,6 +41,7 @@ export default class Currency {
      * an object holding currency details such as decimal digits, etc.
      */
     this.currencySettings = this.preProcess(currency);
+    deepFreeze(this);
   }
 
   /**
@@ -202,7 +204,7 @@ export default class Currency {
       if (CurrencyStore.has(currency.code)) {
         defaultSettings = {
           ...defaultSettings,
-          ...CurrencyStore.get(currency.code),
+          ...CurrencyStore.get(currency.code) as CurrencySettings,
         };
       }
 
@@ -243,7 +245,7 @@ export default class Currency {
    * @return - Currency settings
    */
   static getSettings(code: string): CurrencySettings {
-    return CurrencyStore.get(code);
+    return CurrencyStore.get(code) as CurrencySettings;
   }
 
   /**
