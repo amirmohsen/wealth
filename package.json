@@ -41,30 +41,19 @@
     "url": "https://github.com/amirmohsen/wealth/issues"
   },
   "homepage": "https://github.com/amirmohsen/wealth#readme",
-  "babel": {
-    "presets": [
-      [
-        "@babel/env"
-      ]
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ],
-    "exclude": [
-      "node_modules/**"
-    ]
-  },
   "jest-stare": {
     "resultDir": "testOutput/report",
     "coverageLink": "../coverage/lcov-report/index.html"
   },
   "dependencies": {
     "bignumber.js": "^8",
+    "deep-freeze": "^0.0.1",
     "es6-error": "^4",
     "lodash.isequal": "^4",
     "validator": "^10"
   },
   "devDependencies": {
+    "@types/deep-freeze": "^0.1.1",
     "@types/jest": "^23",
     "@types/lodash.isequal": "^4",
     "@types/validator": "^9",

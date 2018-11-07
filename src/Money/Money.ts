@@ -1,4 +1,5 @@
 import BigNumber from 'bignumber.js';
+import deepFreeze from 'deep-freeze';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
 import Currency from '../Currency/Currency';
@@ -128,7 +129,7 @@ export default class Money {
     this.currency = new Currency(currency);
     this.bigNumberConstructor = this.generateBigNumberConstructor();
     this.value = this.preProcessInputValue(value, this.bigNumberConstructor);
-    Object.freeze(this);
+    deepFreeze(this);
   }
 
   /**

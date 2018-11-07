@@ -35,7 +35,9 @@ describe('The "Currency" class: ', () => {
   });
 
   test('"formatter" option should do custom formatting', () => {
-    const customFormatter = jest.fn(() => 'custom format');
+    // wrapping the mock as the customFormmater gets frozen once passed in
+    const customFormatterInnerMock = jest.fn(() => 'custom format');
+    const customFormatter = (...args: any[]) => customFormatterInnerMock(...args);
     const customGBP = new Currency({
       ...Currency.getSettings('GBP'),
       formatter: customFormatter,
@@ -49,8 +51,8 @@ describe('The "Currency" class: ', () => {
     } = customGBP.getSettings();
 
     expect(formattedValue).toBe('custom format');
-    expect(customFormatter).toHaveBeenCalledTimes(1);
-    expect(customFormatter).toHaveBeenCalledWith({
+    expect(customFormatterInnerMock).toHaveBeenCalledTimes(1);
+    expect(customFormatterInnerMock).toHaveBeenCalledWith({
       ...currencySettings,
       value: customGBPMoney,
       defaultFormatted: '£10.00',
@@ -58,7 +60,9 @@ describe('The "Currency" class: ', () => {
   });
 
   test('"parser" option should do custom parsing', () => {
-    const customParser = jest.fn(() => 'custom parsed');
+    // wrapping the mock as the customParser gets frozen once passed in
+    const customParserInnerMock = jest.fn(() => 'custom parsed');
+    const customParser = (...args: any[]) => customParserInnerMock(...args);
     const customGBP = new Currency({
       ...Currency.getSettings('GBP'),
       parser: customParser,
@@ -71,9 +75,10 @@ describe('The "Currency" class: ', () => {
     } = customGBP.getSettings();
 
     expect(parsedValue).toBe('custom parsed');
-    expect(customParser).toHaveBeenCalledTimes(1);
+    expect(customParserInnerMock).toHaveBeenCalledTimes(1);
 
-    const call = customParser.mock.calls[0];
+    // "toHaveBeenCalledWith" cannot be used to the equality check on the "Money" instance
+    const call = customParserInnerMock.mock.calls[0];
 
     expect(call.length).toBe(1);
     expect(call[0]).toMatchObject({
