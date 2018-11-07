@@ -8,16 +8,16 @@ describe('The "Currency" class: ', () => {
     expect((new Currency('USD')).toString()).toBe('USD');
   });
 
-  test('(new Currency("GBP")).getDecimalDigits() === 2', () => {
-    expect((new Currency('GBP')).getDecimalDigits()).toBe(2);
+  test('(new Currency("GBP")).decimalDigits === 2', () => {
+    expect((new Currency('GBP')).decimalDigits).toBe(2);
   });
 
-  test('(new Currency("EUR")).getSymbol() === "€"', () => {
-    expect((new Currency('EUR')).getSymbol()).toBe('€');
+  test('(new Currency("EUR")).symbol === "€"', () => {
+    expect((new Currency('EUR')).symbol).toBe('€');
   });
 
-  test('(new Currency("EUR")).getSymbol() === "€"', () => {
-    expect((new Currency('CAD')).getPattern()).toBe('%ns%s%v');
+  test('(new Currency("EUR")).pattern === "%ns%s%v"', () => {
+    expect((new Currency('CAD')).pattern).toBe('%ns%s%v');
   });
 
   test('(new Currency("GBP")).is(new Currency("GBP")) === true', () => {
@@ -48,7 +48,7 @@ describe('The "Currency" class: ', () => {
       formatter,
       parser,
       ...currencySettings
-    } = customGBP.getSettings();
+    } = customGBP.settings;
 
     expect(formattedValue).toBe('custom format');
     expect(customFormatterInnerMock).toHaveBeenCalledTimes(1);
@@ -72,7 +72,7 @@ describe('The "Currency" class: ', () => {
       parser,
       formatter,
       ...currencySettings
-    } = customGBP.getSettings();
+    } = customGBP.settings;
 
     expect(parsedValue).toBe('custom parsed');
     expect(customParserInnerMock).toHaveBeenCalledTimes(1);

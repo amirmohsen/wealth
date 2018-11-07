@@ -140,7 +140,7 @@ export default class Money {
    */
   add(value: number|string|Money) {
     const moneyValue = new Money(value, this.currency);
-    const newValue = this.value.plus(moneyValue.getAmountAsBigNumber());
+    const newValue = this.value.plus(moneyValue.amountAsBigNumber);
     return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
   }
 
@@ -151,7 +151,7 @@ export default class Money {
    */
   subtract(value: number|string|Money) {
     const moneyValue = new Money(value, this.currency);
-    const newValue = this.value.minus(moneyValue.getAmountAsBigNumber());
+    const newValue = this.value.minus(moneyValue.amountAsBigNumber);
     return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
   }
 
@@ -164,7 +164,7 @@ export default class Money {
   multiply(value: number|string, rounding = ROUNDING.HALF_UP) {
     const newValue = this.value
       .times(value)
-      .decimalPlaces(this.currency.getDecimalDigits(), rounding as any);
+      .decimalPlaces(this.currency.decimalDigits, rounding as any);
     return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
   }
 
@@ -177,7 +177,7 @@ export default class Money {
   divide(value: number|string, rounding = ROUNDING.HALF_UP) {
     const newValue = this.value
       .dividedBy(value)
-      .decimalPlaces(this.currency.getDecimalDigits(), rounding as any);
+      .decimalPlaces(this.currency.decimalDigits, rounding as any);
     return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
   }
 
@@ -188,7 +188,7 @@ export default class Money {
    */
   equals(value: number|string|Money) {
     value = new Money(value, this.currency);
-    return this.value.isEqualTo(value.getAmountAsBigNumber());
+    return this.value.isEqualTo(value.amountAsBigNumber);
   }
 
   /**
@@ -198,7 +198,7 @@ export default class Money {
    */
   greaterThan(value: number|string|Money) {
     value = new Money(value, this.currency);
-    return this.value.isGreaterThan(value.getAmountAsBigNumber());
+    return this.value.isGreaterThan(value.amountAsBigNumber);
   }
 
   /**
@@ -208,7 +208,7 @@ export default class Money {
    */
   greaterThanOrEqualTo(value: number|string|Money) {
     value = new Money(value, this.currency);
-    return this.value.isGreaterThanOrEqualTo(value.getAmountAsBigNumber());
+    return this.value.isGreaterThanOrEqualTo(value.amountAsBigNumber);
   }
 
   /**
@@ -218,7 +218,7 @@ export default class Money {
    */
   lessThan(value: number|string|Money) {
     value = new Money(value, this.currency);
-    return this.value.isLessThan(value.getAmountAsBigNumber());
+    return this.value.isLessThan(value.amountAsBigNumber);
   }
 
   /**
@@ -228,7 +228,7 @@ export default class Money {
    */
   lessThanOrEqualTo(value: number|string|Money) {
     value = new Money(value, this.currency);
-    return this.value.isLessThanOrEqualTo(value.getAmountAsBigNumber());
+    return this.value.isLessThanOrEqualTo(value.amountAsBigNumber);
   }
 
   /**
@@ -268,7 +268,7 @@ export default class Money {
     if (!(value instanceof Money)) {
       throw new WrongInputError('The input value must be a "Money" instance.');
     }
-    return this.currency.is(value.getCurrency());
+    return this.currency.is(value.currency);
   }
 
   /**
@@ -323,7 +323,7 @@ export default class Money {
    * @returns - the cloned money instance
    */
   clone() {
-    return new Money(this.getAmount(), this.currency);
+    return new Money(this.amount, this.currency);
   }
 
   /**
@@ -339,64 +339,48 @@ export default class Money {
    * Get the current value as an instance of BigNumber
    * @returns - Internal BigNumber representation of the current value
    */
-  getAmountAsBigNumber() {
+  get amountAsBigNumber() {
     return this.value;
   }
 
   /**
-   * Get the current value as a string integer (same as `getAmount`)
+   * Get the current value as a string integer
    * @returns - String integer representation of the current value
    */
-  getAmountAsStringInteger(): string {
-    return this.getAmount();
+  get amountAsStringInteger(): string {
+    return this.convertBigNumberToStringInteger(this.value);
   }
 
   /**
    * Get the current value as a string float
    * @returns - String float representation of the current value
    */
-  getAmountAsStringFloat() {
-    return this.value.toString();
+  get amountAsStringFloat() {
+    return this.value.toFixed(this.currency.decimalDigits);
   }
 
   /**
-   * Get the current value as a string integer (same as `getAmountAsStringInteger`)
-   * @returns - String integer representation of the current value
+   * Get the current value as a string float  (same as `amountAsStringFloat`)
+   * @returns - String float representation of the current value
    */
-  getAmount(): string {
-    return this.convertBigNumberToStringInteger(this.value);
+  get amount(): string {
+    return this.amountAsStringFloat;
   }
 
   /**
-   * Get the current value as a string integer (same as `getAmount`)
-   * @returns - String integer representation of the current value
+   * Get the current value as a string float (same as `amount`)
+   * @returns - String float representation of the current value
    */
   toString() {
-    return this.getAmount();
-  }
-
-  /**
-   * Get the internal Currency instance
-   * @returns - Internal Currency instance
-   */
-  getCurrency() {
-    return this.currency;
+    return this.amount;
   }
 
   /**
    * Get the smallest unit of the current monetary value, i.e., 0.01 (aka penny) in a USD money
    * @returns - new Money instance holding the smallest unit of the current monetary value
    */
-  getSmallestUnit() {
+  get smallestUnit() {
     return new Money(this.getSmallestUnitAsBigNumber().toString(), this.currency);
-  }
-
-  /**
-   * Get BigNumber constructor used by this "Money" instance
-   * @returns
-   */
-  getBigNumberConstructor() {
-    return this.bigNumberConstructor;
   }
 
   /**
@@ -405,7 +389,7 @@ export default class Money {
    */
   toJSON() {
     return {
-      amount: this.getAmount(),
+      amount: this.amount,
       currency: this.currency.toJSON(),
     };
   }
@@ -429,15 +413,13 @@ export default class Money {
    * @returns - the final allocations array of Money instances
    */
   private addRemainderToAllocations(allocations: Money[], remainder: Money) {
-    const
-      noMoney = new Money('0', this.currency),
-      smallestUnit = this.getSmallestUnit();
+    const noMoney = new Money('0', this.currency);
 
     let i = 0;
 
     while (!remainder.equals(noMoney)) {
-      allocations[i] = allocations[i].add(smallestUnit);
-      remainder = remainder.subtract(smallestUnit);
+      allocations[i] = allocations[i].add(this.smallestUnit);
+      remainder = remainder.subtract(this.smallestUnit);
       i++;
     }
 
@@ -453,7 +435,7 @@ export default class Money {
   private preProcessInputValue(value: number|string|Money, BN: typeof BigNumber) {
     if (value instanceof Money) {
       this.checkValueCurrency(value);
-      return value.getAmountAsBigNumber();
+      return value.amountAsBigNumber;
     }
 
     const divisor = this.getSmallestUnitDivisor();
@@ -469,7 +451,7 @@ export default class Money {
 
       return bignumber
         .dividedBy(divisor)
-        .decimalPlaces(this.currency.getDecimalDigits());
+        .decimalPlaces(this.currency.decimalDigits);
     }
 
     if (typeof value === 'string' && isFloat(value)) {
@@ -489,7 +471,7 @@ export default class Money {
    * @returns - Smallest unit divisor
    */
   private getSmallestUnitDivisor() {
-    const	decimalDigits = this.currency.getDecimalDigits();
+    const	decimalDigits = this.currency.decimalDigits;
     return (new BigNumber('10')).exponentiatedBy(decimalDigits);
   }
 
@@ -519,8 +501,8 @@ export default class Money {
       DECIMAL_PLACES: 20,
       ROUNDING_MODE: ROUNDING.HALF_UP as any,
       FORMAT: {
-        decimalSeparator: this.currency.getDecimalSeparator(),
-        groupSeparator: this.currency.getThousandsSeparator(),
+        decimalSeparator: this.currency.decimalSeparator,
+        groupSeparator: this.currency.thousandsSeparator,
         groupSize: 3,
         secondaryGroupSize: 0,
         fractionGroupSeparator: ' ',
