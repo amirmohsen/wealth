@@ -31,7 +31,7 @@ import InvalidCurrencyError from '../errors/InvalidCurrencyError';
  */
 export default class Currency {
 
-  private currencySettings: CurrencySettings;
+  settings: CurrencySettings;
 
   /**
    * @param currency - Currency string code, custom settings or instance of Currency
@@ -40,7 +40,7 @@ export default class Currency {
     /**
      * an object holding currency details such as decimal digits, etc.
      */
-    this.currencySettings = this.preProcess(currency);
+    this.settings = this.preProcess(currency);
     deepFreeze(this);
   }
 
@@ -51,15 +51,7 @@ export default class Currency {
    */
   is(currency: string|Currency) {
     currency = new Currency(currency);
-    return isEqual(this.getSettings(), currency.getSettings());
-  }
-
-  /**
-   * Get currency settings
-   * @returns - Currency settings
-   */
-  getSettings() {
-    return this.currencySettings;
+    return isEqual(this.settings, currency.settings);
   }
 
   /**
@@ -67,7 +59,7 @@ export default class Currency {
    * @returns - Currency code
    */
   toString() {
-    return this.getCode();
+    return this.code;
   }
 
   /**
@@ -75,7 +67,7 @@ export default class Currency {
    * @returns - Currency code
    */
   toJSON() {
-    return this.getCode();
+    return this.code;
   }
 
   /**
@@ -83,71 +75,71 @@ export default class Currency {
    * @returns - new Currency instance
    */
   clone() {
-    return new Currency(this.getCode());
+    return new Currency(this.code);
   }
 
   /**
    * Get currency code
    * @returns - Currency code
    */
-  getCode() {
-    return this.currencySettings.code;
+  get code() {
+    return this.settings.code;
   }
 
   /**
    * Get currency symbol
    * @returns - Currency symbol
    */
-  getSymbol() {
-    return this.currencySettings.symbol;
+  get symbol() {
+    return this.settings.symbol;
   }
 
   /**
    * Get currency thousands separator
    * @returns - Currency thousands separator
    */
-  getThousandsSeparator() {
-    return this.currencySettings.thousandsSeparator;
+  get thousandsSeparator() {
+    return this.settings.thousandsSeparator;
   }
 
   /**
    * Get currency decimal separator
    * @returns - Currency decimal separator
    */
-  getDecimalSeparator() {
-    return this.currencySettings.decimalSeparator;
+  get decimalSeparator() {
+    return this.settings.decimalSeparator;
   }
 
   /**
    * Get currency formatting pattern
    * @returns - Currency format pattern
    */
-  getPattern() {
-    return this.currencySettings.pattern;
+  get pattern() {
+    return this.settings.pattern;
   }
 
   /**
    * Get the number of decimal digits for this currency
    * @returns - Number of decimal digits
    */
-  getDecimalDigits() {
-    return this.currencySettings.decimalDigits;
+  get decimalDigits() {
+    return this.settings.decimalDigits;
   }
 
   /**
    * Get the formatter for this currency
    * @returns - Currency formatter
    */
-  getFormatter() {
-    return this.currencySettings.formatter;
+  get formatter() {
+    return this.settings.formatter;
   }
 
   /**
    * Get the parser for this currency
    * @returns - Currency parser
    */
-  getParser() {
-    return this.currencySettings.parser;
+  get parser() {
+    return this.settings.parser;
   }
 
   /**
@@ -158,7 +150,7 @@ export default class Currency {
    */
   format(value: Money, overrideSettings: CurrencyInputSettings = {}) {
     return Formatter.format(value, new Currency({
-      ...this.currencySettings,
+      ...this.settings,
       ...overrideSettings,
     }));
   }
@@ -171,7 +163,7 @@ export default class Currency {
    */
   parse(value: string, overrideSettings: CurrencyInputSettings = {}) {
     return Formatter.parse(value, new Currency({
-      ...this.currencySettings,
+      ...this.settings,
       ...overrideSettings,
     }));
   }
@@ -185,7 +177,7 @@ export default class Currency {
     let settings = {};
 
     if (currency instanceof Currency) {
-      settings = currency.getSettings();
+      settings = currency.settings;
     } else if (typeof currency === 'string') {
       settings = CurrencyStore.get(currency);
     } else if (typeof currency === 'object') {

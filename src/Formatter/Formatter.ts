@@ -91,7 +91,7 @@ export default class Formatter {
         decimalDigits,
         pattern,
         parser,
-      } = currency.getSettings();
+      } = currency.settings;
 
     const numberValue = this
       .replaceMultipleStrings(value, {
@@ -168,17 +168,17 @@ export default class Formatter {
       decimalDigits,
       pattern,
       formatter,
-    } = this.getCurrency(settings, value).getSettings();
+    } = this.getCurrency(settings, value).settings;
 
     let bigNumberValue;
 
     if (
       settings === undefined
-      || (settings instanceof Currency && value.getCurrency().is(settings))
+      || (settings instanceof Currency && value.currency.is(settings))
     ) {
-      bigNumberValue = value.getAmountAsBigNumber();
+      bigNumberValue = value.amountAsBigNumber;
     } else {
-      const BN = value.getBigNumberConstructor().clone({
+      const BN = value.bigNumberConstructor.clone({
         FORMAT: {
           decimalSeparator,
           groupSeparator: thousandsSeparator,
@@ -189,7 +189,7 @@ export default class Formatter {
         },
       });
 
-      bigNumberValue = new BN(value.getAmountAsBigNumber());
+      bigNumberValue = new BN(value.amountAsBigNumber);
     }
 
     return {
@@ -213,7 +213,7 @@ export default class Formatter {
    */
   private static getCurrency(settings: CurrencyInputSettings|string|Currency = {}, value?: Money) {
     return Object.keys(settings).length === 0 && value instanceof Money
-      ? value.getCurrency()
+      ? value.currency
       : new Currency(settings);
   }
 }
