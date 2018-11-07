@@ -87,6 +87,14 @@ describe('The "Money" class: ', () => {
     expect(moneyA.divide('80').toString()).toBe('14');
   });
 
+  test('new Money("10.38", "USD") === Money.init("10.38", "USD")', () => {
+    const
+      moneyA = new Money('10.38', 'USD'),
+      moneyB = Money.init('10.38', 'USD');
+
+    expect(moneyA.equals(moneyB)).toBe(true);
+  });
+
   test('new Money(1.15, "GBP") must throw a WrongInputError.', () => {
     expect(() => new Money(1.15, 'GBP')).toThrow(WrongInputError);
   });

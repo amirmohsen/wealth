@@ -220,6 +220,14 @@ export default class Currency {
   }
 
   /**
+   * Creates a new instance of Currency
+   * @param currency - Currency string code, custom settings or instance of Currency
+   */
+  static init(currency: string|CurrencyInputSettings|Currency) {
+    return new Currency(currency);
+  }
+
+  /**
    * Register (or replace) a currency
    * @param code - Currency code
    * @param settings - Currency settings

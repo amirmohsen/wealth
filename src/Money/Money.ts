@@ -530,6 +530,15 @@ export default class Money {
   }
 
   /**
+   * Creates a new instance of Money
+   * @param value - integer, integer string, float string, instance of `Money`
+   * @param currency - currency code as string, instance of `Currency`
+   */
+  static init(value: number|string|Money, currency: string|Currency) {
+    return new Money(value, currency);
+  }
+
+  /**
    * Parse a formatted money string into an instance of Money
    * @param value - the formatted money string
    * @param settings - the formatting settings
