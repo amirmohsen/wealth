@@ -88,6 +88,13 @@ describe('The "Currency" class: ', () => {
     expect(call[0].defaultParsed.equals(new Money('10.00', customGBP))).toBe(true);
   });
 
+  test('new Currency("USD") === Currency.init("USD")', () => {
+    const
+      currencyA = new Currency('USD'),
+      currencyB = Currency.init('USD');
+    expect(currencyA.is(currencyB)).toBe(true);
+  });
+
   describe('when "code" is not provided', () => {
     test('should throw an "InvalidCurrencyError"', () => {
       expect(() => new Currency({
