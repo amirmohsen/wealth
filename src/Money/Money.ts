@@ -66,6 +66,7 @@ export enum ROUNDING {
   HALF_FLOOR = BigNumber.ROUND_HALF_FLOOR,
 }
 
+
 /**
  * @example
  * Basic usage
@@ -133,105 +134,6 @@ export default class Money {
   }
 
   /**
-   * Performs addition
-   * @param value - value to be added to the current value;
-   * type same as constructor
-   * @returns - new Money instance after addition
-   */
-  add(value: number|string|Money) {
-    const moneyValue = new Money(value, this.currency);
-    const newValue = this.value.plus(moneyValue.amountAsBigNumber);
-    return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
-  }
-
-  /**
-   * Performs subtraction
-   * @param value - value to be subtracted from the current value; type same as constructor
-   * @returns - new Money instance after subtraction
-   */
-  subtract(value: number|string|Money) {
-    const moneyValue = new Money(value, this.currency);
-    const newValue = this.value.minus(moneyValue.amountAsBigNumber);
-    return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
-  }
-
-  /**
-   * Performs multiplication
-   * @param value - value to multiply the current value
-   * @param rounding - rounding mode used in this operation
-   * @returns - new Money instance after multiplication
-   */
-  multiply(value: number|string, rounding = ROUNDING.HALF_UP) {
-    const newValue = this.value
-      .times(value)
-      .decimalPlaces(this.currency.decimalDigits, rounding as any);
-    return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
-  }
-
-  /**
-   * Performs division
-   * @param value - value to divide the current value by
-   * @param rounding - rounding mode used in this operation
-   * @returns - new Money instance after division
-   */
-  divide(value: number|string, rounding = ROUNDING.HALF_UP) {
-    const newValue = this.value
-      .dividedBy(value)
-      .decimalPlaces(this.currency.decimalDigits, rounding as any);
-    return new Money(this.convertBigNumberToStringInteger(newValue), this.currency);
-  }
-
-  /**
-   * Performs an equality check
-   * @param value - value to compare to the current value; type same as constructor
-   * @returns - true if value is considered equal to the current value
-   */
-  equals(value: number|string|Money) {
-    value = new Money(value, this.currency);
-    return this.value.isEqualTo(value.amountAsBigNumber);
-  }
-
-  /**
-   * Performs a check if the current value is greater than the parameter
-   * @param value - value to compare to the current value; type same as constructor
-   * @returns - true if the current value is greater than the parameter
-   */
-  greaterThan(value: number|string|Money) {
-    value = new Money(value, this.currency);
-    return this.value.isGreaterThan(value.amountAsBigNumber);
-  }
-
-  /**
-   * Performs a check if the current value is greater than or equal to the parameter
-   * @param value - value to compare to the current value; type same as constructor
-   * @returns - true if the current value is greater than or equal to the parameter
-   */
-  greaterThanOrEqualTo(value: number|string|Money) {
-    value = new Money(value, this.currency);
-    return this.value.isGreaterThanOrEqualTo(value.amountAsBigNumber);
-  }
-
-  /**
-   * Performs a check if the current value is less than the parameter
-   * @param value - value to compare to the current value; type same as constructor
-   * @returns - true if the current value is less than the parameter
-   */
-  lessThan(value: number|string|Money) {
-    value = new Money(value, this.currency);
-    return this.value.isLessThan(value.amountAsBigNumber);
-  }
-
-  /**
-   * Performs a check if the current value is less than or equal to the parameter
-   * @param value - value to compare to the current value; type same as constructor
-   * @returns - true if the current value is less than or equal to the parameter
-   */
-  lessThanOrEqualTo(value: number|string|Money) {
-    value = new Money(value, this.currency);
-    return this.value.isLessThanOrEqualTo(value.amountAsBigNumber);
-  }
-
-  /**
    * Return the absolute monetary value of the current value,
    * i.e., remove the minus sign if the value is below zero
    * @returns - new Money instance with the absolute value
@@ -269,53 +171,6 @@ export default class Money {
       throw new WrongInputError('The input value must be a "Money" instance.');
     }
     return this.currency.is(value.currency);
-  }
-
-  /**
-   * Split the current value by an array of ratios
-   * @param ratios - an array of numbers by which to divide up the current value
-   * @returns - an array of new Money instances, resulting from splitting the current value
-   */
-  allocate(ratios: (string|number)[]): Money[] {
-    const
-      allocations: Money[] = [],
-      totalValue = this.clone(),
-      total: BigNumber = ratios.reduce(
-        (total, ratio) => total.plus(ratio),
-        new BigNumber('0'),
-      );
-
-    let remainder = this.clone();
-
-    for (const ratio of ratios) {
-      const share = totalValue
-        .multiply(ratio, ROUNDING.FLOOR)
-        .divide(total.toString(), ROUNDING.FLOOR);
-
-      allocations.push(share);
-      remainder = remainder.subtract(share);
-    }
-
-    return this.addRemainderToAllocations(allocations, remainder);
-  }
-
-  /**
-   * Split the current value by the count
-   * @param count - count by which to allocate the current value (must be a 1+ integer)
-   * @returns - an array of new Money instances, resulting from splitting the current value
-   */
-  allocateTo(count: number|string): Money[] {
-    const
-      allocations: Money[] = [],
-      totalValue = this.clone(),
-      baseShare = totalValue.divide(count, ROUNDING.FLOOR),
-      remainder = totalValue.subtract(baseShare.multiply(count, ROUNDING.FLOOR));
-
-    for (let i = 0; i < count; i++) {
-      allocations.push(baseShare.clone());
-    }
-
-    return this.addRemainderToAllocations(allocations, remainder);
   }
 
   /**
@@ -399,32 +254,13 @@ export default class Money {
    * If not, throw an error.
    * @param value - The money object which is used for currency check
    */
-  private checkValueCurrency(value: Money) {
+  protected checkValueCurrency(value: Money) {
     if (!this.hasSameCurrency(value)) {
       throw new CurrencyMismatchError();
     }
   }
 
-  /**
-   * Used by allocation methods to add the remainder to the array of allocations
-   * @param allocations - an array of Money instances already allocated
-   * @param remainder - a Money instance with the remainder yet to be added
-   * to the array of allocations
-   * @returns - the final allocations array of Money instances
-   */
-  private addRemainderToAllocations(allocations: Money[], remainder: Money) {
-    const noMoney = new Money('0', this.currency);
 
-    let i = 0;
-
-    while (!remainder.equals(noMoney)) {
-      allocations[i] = allocations[i].add(this.smallestUnit);
-      remainder = remainder.subtract(this.smallestUnit);
-      i++;
-    }
-
-    return allocations;
-  }
 
   /**
    * Convert the constructor input value to an internal BigNumber instance
@@ -432,7 +268,7 @@ export default class Money {
    * @param BN - BigNumber constructor used by this "Money" instance
    * @returns - Internal BigNumber instance
    */
-  private preProcessInputValue(value: number|string|Money, BN: typeof BigNumber) {
+  protected preProcessInputValue(value: number|string|Money, BN: typeof BigNumber) {
     if (value instanceof Money) {
       this.checkValueCurrency(value);
       return value.amountAsBigNumber;
@@ -470,7 +306,7 @@ export default class Money {
    * It is used for converting an integer value to a float value (or vice versa).
    * @returns - Smallest unit divisor
    */
-  private getSmallestUnitDivisor() {
+  protected getSmallestUnitDivisor() {
     const	decimalDigits = this.currency.decimalDigits;
     return (new BigNumber('10')).exponentiatedBy(decimalDigits);
   }
@@ -479,7 +315,7 @@ export default class Money {
    * Get the smallest unit of the currency as a big number
    * @returns - Smallest unit of the currency
    */
-  private getSmallestUnitAsBigNumber() {
+  protected getSmallestUnitAsBigNumber() {
     return (new BigNumber('1')).dividedBy(this.getSmallestUnitDivisor());
   }
 
@@ -488,7 +324,7 @@ export default class Money {
    * @param value - value to be converted
    * @return - String integer value of the BigNumber value
    */
-  private convertBigNumberToStringInteger(value: BigNumber) {
+  protected convertBigNumberToStringInteger(value: BigNumber) {
     return value.times(this.getSmallestUnitDivisor()).toString();
   }
 
@@ -496,7 +332,7 @@ export default class Money {
    * Generate a compatible BigNumber constructor
    * @returns - a new BigNumber constructor
    */
-  private generateBigNumberConstructor() {
+  protected generateBigNumberConstructor() {
     return BigNumber.clone({
       DECIMAL_PLACES: 20,
       ROUNDING_MODE: ROUNDING.HALF_UP as any,
