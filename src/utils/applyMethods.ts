@@ -1,36 +1,17 @@
-import Money from '../Money/Money';
+import Money from '../Money';
 
 interface Methods {
   [name: string]: Function;
 }
 
-class A {
-
-}
-
-const random = (message: string): number => {
-  return Math.random();
-};
-
-const applyMethods = (methods: Methods) => {
+const applyMethods = (classConstructor: any, methods: Methods) => {
+  const CustomMoney = class extends classConstructor {};
   for (const [name, method] of Object.entries(methods)) {
-    Money.prototype[name] = function (...args: any[]) {
+    CustomMoney.prototype[name] = function (...args: any[]) {
       return method(this, ...args);
     };
   }
+  return CustomMoney;
 };
 
-applyMethods({
-  random,
-});
-
-const a = new A();
-a.random('hello');
-
-export default (methods: Methods) => {
-  for (const [name, method] of Object.entries(methods)) {
-    A.prototype[name] = function (...args: any[]) {
-      return method(this, ...args);
-    };
-  }
-};
+export default applyMethods;
