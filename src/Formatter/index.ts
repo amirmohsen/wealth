@@ -44,4 +44,8 @@ const format = (value: Money, settings?: CurrencyInputSettings|string|Currency):
   return defaultFormatted;
 };
 
-export default format;
+export interface FormatterInterface {
+  format: typeof format;
+}
+
+export { format };

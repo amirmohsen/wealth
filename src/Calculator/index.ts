@@ -1,7 +1,27 @@
-export { default as add } from './add';
-export { default as subtract } from './subtract';
-export { default as multiply } from './multiply';
-export { default as divide } from './divide';
-export { default as absolute } from './absolute';
-export { default as ceil } from './ceil';
-export { default as floor } from './floor';
+import add from './add';
+import subtract from './subtract';
+import multiply from './multiply';
+import divide from './divide';
+import absolute from './absolute';
+import ceil from './ceil';
+import floor from './floor';
+
+export interface CalculatorInterface {
+  add: typeof add;
+  subtract: typeof subtract;
+  multiply: typeof multiply;
+  divide: typeof divide;
+  absolute: typeof absolute;
+  ceil: typeof ceil;
+  floor: typeof floor;
+}
+
+export {
+  add,
+  subtract,
+  multiply,
+  divide,
+  absolute,
+  ceil,
+  floor,
+};
