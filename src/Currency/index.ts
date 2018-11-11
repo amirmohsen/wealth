@@ -54,7 +54,7 @@ export interface CurrencyInputSettings {
   symbol?: string;
   formatter?: CurrencyFormatter;
   parser?: CurrencyParser;
-  code?: string;
+  code: string;
 }
 
 /**

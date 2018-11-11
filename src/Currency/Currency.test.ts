@@ -2,6 +2,7 @@ import { USD, GBP, EUR } from '../constants/ISO_CURRENCIES';
 import Currency from '../Currency';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 import WrongInputError from '../errors/WrongInputError';
+import getDefaultSettings from './getDefaultSettings';
 
 jest.mock('../CurrencyStore/data', () => ({
   USD,
@@ -31,12 +32,7 @@ describe('Currency', () => {
       test('can be initialized with default built-in settings included', () => {
         const currency = new Currency({ code: 'EUR' });
         expect(currency.settings).toEqual({
-          code: 'EUR',
-          thousandsSeparator: ',',
-          decimalSeparator: '.',
-          decimalDigits: 2,
-          pattern: '%ns%s%v',
-          symbol: 'EUR',
+          ...getDefaultSettings('EUR'),
           formatter: undefined,
           parser: undefined,
         });

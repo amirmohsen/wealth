@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getDefaultSettings() should match the snapshot 1`] = `
+Object {
+  "code": "USD",
+  "decimalDigits": 2,
+  "decimalSeparator": ".",
+  "pattern": "%ns%s%v",
+  "symbol": "USD",
+  "thousandsSeparator": ",",
+}
+`;
+
+exports[`getDefaultSettings() should match the snapshot 2`] = `
+Object {
+  "code": "GBP",
+  "decimalDigits": 2,
+  "decimalSeparator": ".",
+  "pattern": "%ns%s%v",
+  "symbol": "GBP",
+  "thousandsSeparator": ",",
+}
+`;

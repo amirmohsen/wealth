@@ -1,4 +1,4 @@
-import { CurrencySettings } from '.';
+import { CurrencySettings } from '..';
 
 const getDefaultSettings = (code: string): CurrencySettings => ({
   code,
