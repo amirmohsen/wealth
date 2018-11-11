@@ -1,4 +1,4 @@
-import data from './data';
+import getData from './data';
 import isRegistered from './isRegistered';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 
@@ -8,6 +8,7 @@ import InvalidCurrencyError from '../errors/InvalidCurrencyError';
  * @returns - Currency settings
  */
 const get = (code: string) => {
+  const data = getData();
   if (!isRegistered(code)) {
     throw new InvalidCurrencyError(`No currency with code "${code}" is registered.`);
   }

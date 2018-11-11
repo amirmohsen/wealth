@@ -14,3 +14,5 @@ export * from './utils';
 export { default as ROUNDING } from './constants/ROUNDING';
 export { default as Money } from './Money';
 export { default as Currency } from './Currency';
+
+export { default as FullMoney } from './full';

@@ -1,7 +1,6 @@
 import BigNumber from 'bignumber.js';
 import Money from '../Money';
-import { CurrencyInputSettings } from '../CurrencyStore';
-import Currency from '../Currency';
+import Currency, { CurrencyInputSettings } from '../Currency';
 
 /**
  * Get the smallest unit divisor for the current value's currency,

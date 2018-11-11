@@ -2,12 +2,12 @@ import isEqual from 'lodash.isequal';
 import deepFreeze from 'deep-freeze';
 import Money from '../Money';
 import {
-  register as registerCurrency,
   get as getRegisteredCurrency,
   isRegistered as isCurrencyRegistered,
 } from '../CurrencyStore';
 import WrongInputError from '../errors/WrongInputError';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
+import getDefaultSettings from './getDefaultSettings';
 
 export interface CurrencyFormatter {
   (settings: {
@@ -95,10 +95,24 @@ export default class Currency {
    * @param currency - Currency string code, custom settings or instance of Currency
    */
   constructor(currency: string|CurrencyInputSettings|Currency) {
-    /**
-     * an object holding currency details such as decimal digits, etc.
-     */
-    Object.assign(this, this.preProcess(currency));
+    const {
+      thousandsSeparator,
+      decimalSeparator,
+      decimalDigits,
+      pattern,
+      symbol,
+      formatter,
+      parser,
+      code,
+    } = this.preProcess(currency);
+    this.thousandsSeparator = thousandsSeparator;
+    this.decimalSeparator = decimalSeparator;
+    this.decimalDigits = decimalDigits;
+    this.pattern = pattern;
+    this.symbol = symbol;
+    this.formatter = formatter;
+    this.parser = parser;
+    this.code = code;
     deepFreeze(this);
   }
 
@@ -108,7 +122,8 @@ export default class Currency {
    * @returns - returns true if the parameter currency is the same as the current currency
    */
   is(currency: string|Currency) {
-    currency = new Currency(currency);
+    const CurrencyConstructor = this.constructor as typeof Currency;
+    currency = new CurrencyConstructor(currency);
     return isEqual(this.settings, currency.settings);
   }
 
@@ -133,7 +148,8 @@ export default class Currency {
    * @returns - new Currency instance
    */
   clone() {
-    return new Currency(this.code);
+    const CurrencyConstructor = this.constructor as typeof Currency;
+    return new CurrencyConstructor(this.settings);
   }
 
   /**
@@ -163,20 +179,14 @@ export default class Currency {
 
     if (currency instanceof Currency) {
       settings = currency.settings;
-    } else if (typeof currency === 'string') {
+    } else if (currency && typeof currency === 'string') {
       settings = getRegisteredCurrency(currency);
-    } else if (typeof currency === 'object') {
+    } else if (currency && typeof currency === 'object' && !Array.isArray(currency)) {
       if (typeof currency.code !== 'string' || !currency.code) {
         throw new InvalidCurrencyError('Invalid currency settings; code is required.');
       }
 
-      let defaultSettings = {
-        thousandsSeparator: ',',
-        decimalSeparator: '.',
-        decimalDigits: 2,
-        pattern: '%s%ns%v',
-        symbol: currency.code,
-      };
+      let defaultSettings = getDefaultSettings(currency.code);
 
       if (isCurrencyRegistered(currency.code)) {
         defaultSettings = {
@@ -201,7 +211,7 @@ export default class Currency {
    * @param currency - Currency string code, custom settings or instance of Currency
    */
   static init(currency: string|CurrencyInputSettings|Currency): Currency {
-    const CurrencyConstructor = this.constructor as typeof Currency;
+    const CurrencyConstructor = this as typeof Currency;
     return new CurrencyConstructor(currency);
   }
 }

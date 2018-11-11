@@ -1,6 +1,5 @@
-import { CurrencyInputSettings } from '../CurrencyStore';
+import Currency, { CurrencyInputSettings } from '../Currency';
 import Money from '../Money';
-import Currency from '../Currency';
 import { getCurrency } from '../utils/internals';
 
 /**

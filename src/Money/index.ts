@@ -1,8 +1,9 @@
 import BigNumber from 'bignumber.js';
 import deepFreeze from 'deep-freeze';
+import { oneLine } from 'common-tags';
 import isInt from 'validator/lib/isInt';
 import isFloat from 'validator/lib/isFloat';
-import Currency from '../Currency';
+import Currency, { CurrencyInputSettings } from '../Currency';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
 import WrongInputError from '../errors/WrongInputError';
 import {
@@ -71,7 +72,7 @@ export default class Money {
    * @param value - integer, integer string, float string, instance of `Money`
    * @param currency - currency code as string, instance of `Currency`
    */
-  constructor(value: number|string|Money, currency: string|Currency) {
+  constructor(value: number|string|Money, currency: string|CurrencyInputSettings|Currency) {
     this.currency = new Currency(currency);
     this.bigNumberConstructor = this.generateBigNumberConstructor();
     this.value = this.preProcessInputValue(value, this.bigNumberConstructor);
@@ -83,7 +84,7 @@ export default class Money {
    * @param value - value to check currency against the current value; type same as constructor
    * @returns - true if the current value has the same currency as the parameter
    */
-  hasSameCurrency(value: number|string|Money): Boolean {
+  hasSameCurrency(value: Money): Boolean {
     if (!(value instanceof Money)) {
       throw new WrongInputError('The input value must be a "Money" instance.');
     }
@@ -95,7 +96,8 @@ export default class Money {
    * @returns - the cloned money instance
    */
   clone() {
-    return new Money(this.amount, this.currency);
+    const MoneyConstructor = this.constructor as typeof Money;
+    return new MoneyConstructor(this.amount, this.currency);
   }
 
   /**
@@ -143,7 +145,8 @@ export default class Money {
    * @returns - new Money instance holding the smallest unit of the current monetary value
    */
   get smallestUnit() {
-    return new Money(getSmallestUnitAsBigNumber(this).toString(), this.currency);
+    const MoneyConstructor = this.constructor as typeof Money;
+    return new MoneyConstructor(getSmallestUnitAsBigNumber(this).toString(), this.currency);
   }
 
   /**
@@ -201,8 +204,10 @@ export default class Money {
     }
 
     throw new WrongInputError(
-      `The input value must be either an integer,
-      an integer-like string, a float-like string or a "Money" instance.`,
+      oneLine`
+      The input value must be either an integer,
+      an integer-like string, a float-like string or a "Money" instance.
+      `,
     );
   }
 
@@ -231,7 +236,7 @@ export default class Money {
    * @param currency - currency code as string, instance of `Currency`
    */
   static init(value: number|string|Money, currency: string|Currency) {
-    const MoneyConstructor = this.constructor as typeof Money;
+    const MoneyConstructor = this as typeof Money;
     return new MoneyConstructor(value, currency);
   }
 }

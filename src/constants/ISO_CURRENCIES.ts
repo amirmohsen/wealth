@@ -1446,4 +1446,3 @@ export const WON = {
   decimalDigits: 2,
   pattern: '%ns%s%v',
 };
-

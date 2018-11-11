@@ -1,12 +1,13 @@
 import { DeepReadonly } from 'deep-freeze';
 import { CurrencySettings } from '../Currency';
-import data from './data';
+import getData from './data';
 
 /**
  * Get all registered currencies
  * @returns - List of currencies, sorted by code alphabetically
  */
 const getAll = (): CurrencySettings[]  => {
+  const data = getData();
   return Object
     .values(data)
     .reduce(

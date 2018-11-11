@@ -1,10 +1,10 @@
 module.exports = {
-  projects: [
-    {
+  // projects: [
+  //   {
       displayName: 'test',
       preset: 'ts-jest',
       testMatch: [
-        '**/?(*.)+(test).ts'
+        '**/src/**/?(*.)+(test).ts',
       ],
       testEnvironment: 'node',
       watchPathIgnorePatterns: [
@@ -16,30 +16,30 @@ module.exports = {
         '<rootDir>/lib/',
         '<rootDir>/testOutput/',
         '<rootDir>/node_modules/'
-      ]
-    },
-    {
-      displayName: 'lint',
-      runner: 'jest-runner-tslint',
-      moduleFileExtensions: [
-        'ts'
       ],
-      testMatch: [
-        'index.ts',
-        '**/*.ts'
-      ],
-      watchPathIgnorePatterns: [
-        '<rootDir>/lib/',
-        '<rootDir>/testOutput/',
-        '<rootDir>/node_modules/'
-      ],
-      testPathIgnorePatterns: [
-        '<rootDir>/lib/',
-        '<rootDir>/testOutput/',
-        '<rootDir>/node_modules/'
-      ]
-    }
-  ],
+    // },
+    // {
+    //   displayName: 'lint',
+    //   runner: 'jest-runner-tslint',
+    //   moduleFileExtensions: [
+    //     'ts'
+    //   ],
+    //   testMatch: [
+    //     'index.ts',
+    //     'src/**/*.ts'
+    //   ],
+    //   watchPathIgnorePatterns: [
+    //     '<rootDir>/lib/',
+    //     '<rootDir>/testOutput/',
+    //     '<rootDir>/node_modules/'
+    //   ],
+    //   testPathIgnorePatterns: [
+    //     '<rootDir>/lib/',
+    //     '<rootDir>/testOutput/',
+    //     '<rootDir>/node_modules/'
+    //   ]
+    // }
+  // ],
   collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.ts',
@@ -54,6 +54,11 @@ module.exports = {
     }
   },
   coverageDirectory: 'testOutput/coverage',
+  coverageReporters: [
+    "json",
+    "lcov",
+    "text-summary"
+  ],
   reporters: [
     'default',
     'jest-stare'
