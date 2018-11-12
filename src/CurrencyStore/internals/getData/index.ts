@@ -1,5 +1,5 @@
 import { DeepReadonly } from 'deep-freeze';
-import { CurrencySettings } from '../Currency';
+import { CurrencySettings } from '../../../Currency';
 
 export interface CurrencySettingsInternalStore {
   [key: string]: DeepReadonly<CurrencySettings>;

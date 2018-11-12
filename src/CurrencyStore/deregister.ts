@@ -1,4 +1,5 @@
-import getData from './data';
+import getData from './internals/getData';
+import assertCurrencyCode from './internals/assertCurrencyCode';
 
 /**
  * Delete a registered currency
@@ -6,7 +7,8 @@ import getData from './data';
  */
 const deregister = (code: string) => {
   const data = getData();
-  return delete data[code.toUpperCase()];
+  assertCurrencyCode(code);
+  return delete data[code];
 };
 
 export default deregister;

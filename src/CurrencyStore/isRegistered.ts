@@ -1,4 +1,5 @@
-import getData from './data';
+import getData from './internals/getData';
+import assertCurrencyCode from './internals/assertCurrencyCode';
 
 /**
  * Check if currency has been registered
@@ -7,7 +8,8 @@ import getData from './data';
  */
 const isRegistered = (code: string) => {
   const data = getData();
-  return code.toUpperCase() in data;
+  assertCurrencyCode(code);
+  return code in data;
 };
 
 export default isRegistered;

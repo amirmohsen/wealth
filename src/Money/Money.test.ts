@@ -5,7 +5,7 @@ import Currency from '../Currency';
 import WrongInputError from '../errors/WrongInputError';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
 
-jest.mock('../CurrencyStore/data', () => ({
+jest.mock('../CurrencyStore/internals/getData', () => () => ({
   USD,
   GBP,
 }));

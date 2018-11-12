@@ -22,6 +22,7 @@ export default class WealthError extends ExtendableError {
    * @param message - Error message
    */
   constructor(message = 'Wealth error') {
+    /* istanbul ignore next */
     super(message);
   }
 }

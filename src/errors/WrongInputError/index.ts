@@ -1,4 +1,4 @@
-import WealthError from './WealthError';
+import WealthError from '../WealthError';
 
 /**
  * Error thrown when the input argument is wrong
@@ -21,6 +21,7 @@ export default class WrongInputError extends WealthError {
    * @param message - Error message
    */
   constructor(message = 'Wrong input argument') {
+    /* istanbul ignore next */
     super(message);
   }
 }

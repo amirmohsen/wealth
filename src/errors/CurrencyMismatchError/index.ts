@@ -1,4 +1,4 @@
-import WealthError from './WealthError';
+import WealthError from '../WealthError';
 
 /**
  * Error thrown when the currency of a parameter
@@ -22,6 +22,7 @@ export default class CurrencyMismatchError extends WealthError {
    * @param message - Error message
    */
   constructor(message = 'Currency mismatch between values') {
+    /* istanbul ignore next */
     super(message);
   }
 }

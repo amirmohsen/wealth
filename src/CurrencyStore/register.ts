@@ -1,9 +1,8 @@
 import deepFreeze from 'deep-freeze';
-import getData from './data';
+import getData from './internals/getData';
 import { CurrencyInputSettings, CurrencySettings } from '../Currency';
-import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 import getDefaultSettings from '../Currency/getDefaultSettings';
-import { WrongInputError } from '../errors';
+import assertCurrencyCode from './internals/assertCurrencyCode';
 
 /**
  * Set (register or replace) a currency
@@ -13,20 +12,12 @@ const register = (settings: CurrencyInputSettings) => {
   const data = getData();
   const { code } = settings;
 
-  if (typeof code !== 'string' || !code) {
-    throw new InvalidCurrencyError('Invalid currency settings; code is required.');
-  }
-
-  if (code !== code.trim().toUpperCase()) {
-    throw new WrongInputError(
-      'Currency code must be uppercase and contain no leading or trailing spaces',
-    );
-  }
+  assertCurrencyCode(code);
 
   const finalSettings: CurrencySettings = {
     ...getDefaultSettings(code),
+    symbol: code,
     ...settings,
-    symbol: settings.symbol || code,
   };
 
   data[code] = deepFreeze(finalSettings);

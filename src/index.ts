@@ -1,6 +1,8 @@
 import * as ISO_CURRENCIES from './constants/ISO_CURRENCIES';
+import * as CurrencyStore from './CurrencyStore';
 
 export { ISO_CURRENCIES };
+export { CurrencyStore };
 
 export * from './Allocator';
 export * from './Calculator';

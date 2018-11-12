@@ -1,6 +1,6 @@
 import { DeepReadonly } from 'deep-freeze';
 import { CurrencySettings } from '../Currency';
-import getData from './data';
+import getData from './internals/getData';
 
 /**
  * Get all registered currencies
