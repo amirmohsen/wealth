@@ -1,6 +1,6 @@
-import Money from '../Money';
-import { convertBigNumberToStringInteger } from '../utils/internals';
-import ROUNDING from '../constants/ROUNDING';
+import { Money } from '../../Money';
+import { convertBigNumberToStringInteger } from '../../utils/internals';
+import ROUNDING from '../../constants/ROUNDING';
 
 /**
  * Performs multiplication

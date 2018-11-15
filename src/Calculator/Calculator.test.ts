@@ -1,4 +1,4 @@
-import Money from '../Money';
+import { Money } from '../Money';
 import { USD, JPY, OMR } from '../constants/ISO_CURRENCIES';
 import {
   add,

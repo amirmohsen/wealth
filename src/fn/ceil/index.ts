@@ -1,6 +1,6 @@
-import Money from '../Money';
-import ROUNDING from '../constants/ROUNDING';
-import { convertBigNumberToStringInteger } from '../utils/internals';
+import { Money } from '../../Money';
+import ROUNDING from '../../constants/ROUNDING';
+import { convertBigNumberToStringInteger } from '../../utils/internals';
 
 /**
  * Return the smallest integer greater than or equal to the current value

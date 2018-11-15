@@ -1,5 +1,5 @@
-import Money from '../Money';
-import { convertBigNumberToStringInteger } from '../utils/internals';
+import { Money } from '../../Money';
+import { convertBigNumberToStringInteger } from '../../utils/internals';
 
 /**
  * Return the absolute monetary value of the current value,

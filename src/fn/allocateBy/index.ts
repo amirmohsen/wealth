@@ -1,7 +1,7 @@
-import Money from '../Money';
-import ROUNDING from '../constants/ROUNDING';
-import { subtract, multiply, divide } from '../Calculator';
-import { addRemainderToAllocations } from './internals';
+import { Money } from '../../Money';
+import ROUNDING from '../../constants/ROUNDING';
+import { subtract, multiply, divide } from '..';
+import { addRemainderToAllocations } from '../internals';
 
 /**
  * Split the current value by the count

@@ -1,4 +1,4 @@
-import Money from '../Money';
+import { Money } from '../../Money';
 
 /**
  * Performs a check if the current value is less than the parameter

@@ -1,5 +1,5 @@
-import Money from '../Money';
-import { convertBigNumberToStringInteger } from '../utils/internals';
+import { Money } from '../../Money';
+import { convertBigNumberToStringInteger } from '../../utils/internals';
 
 /**
  * Performs addition

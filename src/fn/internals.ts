@@ -1,6 +1,5 @@
-import Money from '../Money';
-import { add, subtract } from '../Calculator';
-import { equals } from '../EqualityChecker';
+import { Money } from '../Money';
+import { add, subtract, equals } from '.';
 
 /**
  * Used by allocation methods to add the remainder to the array of allocations

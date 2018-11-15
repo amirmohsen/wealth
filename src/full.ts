@@ -29,7 +29,13 @@ import {
 import applyMethods from './utils/applyMethods';
 import addParser from './Parser';
 
-const MoneyConstructor: FullMoney = applyMethods(Money, {
+export type FullMoney = typeof Money & CalculatorInterface;
+// CalculatorInterface &
+// EqualityCheckerInterface &
+// AllocatorInterface &
+// FormatterInterface;
+
+const MoneyConstructor = applyMethods(Money, {
   add,
   subtract,
   multiply,
@@ -49,9 +55,8 @@ const MoneyConstructor: FullMoney = applyMethods(Money, {
 
 addParser(MoneyConstructor);
 
-export type FullMoney = CalculatorInterface &
-EqualityCheckerInterface &
-AllocatorInterface &
-FormatterInterface;
+const value = new MoneyConstructor('15.00', 'USD');
+
+
 
 export default MoneyConstructor;

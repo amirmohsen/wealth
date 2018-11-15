@@ -21,7 +21,7 @@ import ROUNDING from '../constants/ROUNDING';
  * let price = new Money('7856', 'USD'); // $78.56
  * ```
  */
-export default class Money {
+export class Money {
 
   /**
    * Internal currency
