@@ -1,62 +1,24 @@
-import Money from './Money';
-import {
-  allocate,
-  allocateBy,
-  AllocatorInterface,
-} from './Allocator';
-import {
-  add,
-  subtract,
-  multiply,
-  divide,
-  absolute,
-  ceil,
-  floor,
-  CalculatorInterface,
-} from './Calculator';
-import {
-  equals,
-  lessThan,
-  lessThanOrEqualTo,
-  greaterThan,
-  greaterThanOrEqualTo,
-  EqualityCheckerInterface,
-} from './EqualityChecker';
-import {
-  format,
-  FormatterInterface,
-} from './Formatter';
-import applyMethods from './utils/applyMethods';
-import addParser from './Parser';
+import { Money } from './Money';
 
-export type FullMoney = typeof Money & CalculatorInterface;
-// CalculatorInterface &
-// EqualityCheckerInterface &
-// AllocatorInterface &
-// FormatterInterface;
+import './Money/oo/add';
+import './Money/oo/subtract';
+import './Money/oo/multiply';
+import './Money/oo/divide';
 
-const MoneyConstructor = applyMethods(Money, {
-  add,
-  subtract,
-  multiply,
-  divide,
-  absolute,
-  ceil,
-  floor,
-  equals,
-  lessThan,
-  lessThanOrEqualTo,
-  greaterThan,
-  greaterThanOrEqualTo,
-  allocate,
-  allocateBy,
-  format,
-}) as unknown as FullMoney;
+import './Money/oo/absolute';
+import './Money/oo/ceil';
+import './Money/oo/floor';
 
-addParser(MoneyConstructor);
+import './Money/oo/equals';
+import './Money/oo/lessThan';
+import './Money/oo/lessThanOrEqualTo';
+import './Money/oo/greaterThan';
+import './Money/oo/greaterThanOrEqualTo';
 
-const value = new MoneyConstructor('15.00', 'USD');
+import './Money/oo/allocate';
+import './Money/oo/allocateBy';
 
+import './Money/oo/format';
+import './Money/oo/parse';
 
-
-export default MoneyConstructor;
+export default Money;

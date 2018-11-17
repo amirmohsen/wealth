@@ -10,7 +10,7 @@ import {
   convertBigNumberToStringInteger,
   getSmallestUnitAsBigNumber,
   getSmallestUnitDivisor,
-} from '../utils/internals';
+} from './fn/_internals';
 import ROUNDING from '../constants/ROUNDING';
 
 /**
@@ -240,3 +240,5 @@ export class Money {
     return new MoneyConstructor(value, currency);
   }
 }
+
+export default Money;
