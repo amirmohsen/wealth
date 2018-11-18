@@ -25,10 +25,7 @@ export const getFormattingDetails = (
 
   let bigNumberValue;
 
-  if (
-    settings === undefined
-    || (settings instanceof Currency && value.currency.is(settings))
-  ) {
+  if (settings === undefined) {
     bigNumberValue = value.amountAsBigNumber;
   } else {
     const BN = value.bigNumberConstructor.clone({

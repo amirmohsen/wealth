@@ -12,9 +12,26 @@ const getCurrency = (
   settings?: CurrencyInputSettings|string|Currency,
   value?: Money,
 ) => {
-  return !settings && value instanceof Money
-    ? value.currency
-    : new Currency(settings as string);
+  let finalSettings = {};
+
+  if (value instanceof Money) {
+    finalSettings = value.currency.settings;
+  }
+
+  if (typeof settings === 'object') {
+    finalSettings = {
+      ...finalSettings,
+      ...settings,
+    };
+  }
+
+  if (typeof settings === 'string') {
+    finalSettings = {
+      code: settings,
+    };
+  }
+
+  return new Currency(finalSettings as CurrencyInputSettings);
 };
 
 export default getCurrency;

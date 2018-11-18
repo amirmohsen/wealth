@@ -1,10 +1,10 @@
 import {
-  register,
-  registerMultiple,
-  isRegistered,
-  deregister,
-  get,
-  getAll,
+  registerCurrency,
+  registerMultipleCurrencies,
+  isCurrencyRegistered,
+  deregisterCurrency,
+  getRegisteredCurrency,
+  getAllRegisteredCurrencies,
 } from '.';
 import { USD, GBP, EUR } from '../constants/ISO_CURRENCIES';
 import getDefaultSettings from '../Currency/getDefaultSettings';
@@ -36,7 +36,7 @@ describe('CurrencyStore', () => {
       test('should add a currency to the store as a frozen object', () => {
         expect(mockData).toEqual({});
 
-        register(USD);
+        registerCurrency(USD);
         expect(assertCurrencyCodeSpy).toHaveBeenLastCalledWith('USD');
 
         expect(mockData).toEqual({
@@ -49,11 +49,11 @@ describe('CurrencyStore', () => {
       test('should add multiple currencies when called with different currencies', () => {
         expect(mockData).toEqual({});
 
-        register(USD);
+        registerCurrency(USD);
 
         expect(assertCurrencyCodeSpy).toHaveBeenLastCalledWith('USD');
 
-        register(GBP);
+        registerCurrency(GBP);
 
         expect(assertCurrencyCodeSpy).toHaveBeenLastCalledWith('GBP');
 
@@ -66,13 +66,13 @@ describe('CurrencyStore', () => {
       test('should replace a currency in the store with the same code', () => {
         expect(mockData).toEqual({});
 
-        register(USD);
+        registerCurrency(USD);
 
         expect(mockData).toEqual({
           USD,
         });
 
-        register({
+        registerCurrency({
           ...USD,
           symbol: 'US$',
         });
@@ -88,7 +88,7 @@ describe('CurrencyStore', () => {
       test('should use the default built-in settings with partial input settings', () => {
         expect(mockData).toEqual({});
 
-        register({
+        registerCurrency({
           code: 'EUR',
         });
 
@@ -111,7 +111,7 @@ describe('CurrencyStore', () => {
           pattern: '%ns%v %s',
         };
 
-        register(EUR);
+        registerCurrency(EUR);
 
         expect(assertCurrencyCodeSpy).toHaveBeenLastCalledWith('EUR');
 
@@ -129,7 +129,7 @@ describe('CurrencyStore', () => {
 
       expect(mockData).toEqual({});
 
-      registerMultiple(currencies);
+      registerMultipleCurrencies(currencies);
 
       expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('USD');
       expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('GBP');
@@ -142,15 +142,15 @@ describe('CurrencyStore', () => {
 
     describe('isRegistered', () => {
       beforeEach(() => {
-        register(USD);
-        register(GBP);
+        registerCurrency(USD);
+        registerCurrency(GBP);
         assertCurrencyCodeSpy.mockClear();
       });
 
       describe('when given a registered currency', () => {
         test('should return true', () => {
-          expect(isRegistered('USD')).toBe(true);
-          expect(isRegistered('GBP')).toBe(true);
+          expect(isCurrencyRegistered('USD')).toBe(true);
+          expect(isCurrencyRegistered('GBP')).toBe(true);
 
           expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('USD');
           expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('GBP');
@@ -159,8 +159,8 @@ describe('CurrencyStore', () => {
 
       describe('when given a non-registered currency', () => {
         test('should return false', () => {
-          expect(isRegistered('EUR')).toBe(false);
-          expect(isRegistered('JPY')).toBe(false);
+          expect(isCurrencyRegistered('EUR')).toBe(false);
+          expect(isCurrencyRegistered('JPY')).toBe(false);
 
           expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('EUR');
           expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('JPY');
@@ -171,8 +171,8 @@ describe('CurrencyStore', () => {
 
   describe('deregister', () => {
     beforeEach(() => {
-      register(USD);
-      register(GBP);
+      registerCurrency(USD);
+      registerCurrency(GBP);
       assertCurrencyCodeSpy.mockClear();
     });
 
@@ -182,8 +182,8 @@ describe('CurrencyStore', () => {
           USD,
           GBP,
         });
-        expect(deregister('USD')).toBe(true);
-        expect(deregister('GBP')).toBe(true);
+        expect(deregisterCurrency('USD')).toBe(true);
+        expect(deregisterCurrency('GBP')).toBe(true);
         expect(mockData).toEqual({});
 
         expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('USD');
@@ -197,8 +197,8 @@ describe('CurrencyStore', () => {
           USD,
           GBP,
         });
-        expect(deregister('EUR')).toBe(true);
-        expect(deregister('JPY')).toBe(true);
+        expect(deregisterCurrency('EUR')).toBe(true);
+        expect(deregisterCurrency('JPY')).toBe(true);
         expect(mockData).toEqual({
           USD,
           GBP,
@@ -212,15 +212,15 @@ describe('CurrencyStore', () => {
 
   describe('get', () => {
     beforeEach(() => {
-      register(USD);
-      register(GBP);
+      registerCurrency(USD);
+      registerCurrency(GBP);
       assertCurrencyCodeSpy.mockClear();
     });
 
     describe('when given a registered currency', () => {
       test('should return the currency', () => {
-        expect(get('USD')).toEqual(USD);
-        expect(get('GBP')).toEqual(GBP);
+        expect(getRegisteredCurrency('USD')).toEqual(USD);
+        expect(getRegisteredCurrency('GBP')).toEqual(GBP);
 
         expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('USD');
         expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('GBP');
@@ -229,9 +229,9 @@ describe('CurrencyStore', () => {
 
     describe('when given a non-registered currency', () => {
       test('should throw an error', () => {
-        expect(() => get('EUR'))
+        expect(() => getRegisteredCurrency('EUR'))
           .toThrow(new InvalidCurrencyError('No currency with code "EUR" is registered.'));
-        expect(() => get('JPY'))
+        expect(() => getRegisteredCurrency('JPY'))
           .toThrow(new InvalidCurrencyError('No currency with code "JPY" is registered.'));
 
         expect(assertCurrencyCodeSpy).toHaveBeenCalledWith('EUR');
@@ -241,10 +241,10 @@ describe('CurrencyStore', () => {
   });
 
   test('getAll should return the registered currencies in alphabetical order', () => {
-    register(USD);
-    register(EUR);
-    register(GBP);
-    expect(getAll())
+    registerCurrency(USD);
+    registerCurrency(EUR);
+    registerCurrency(GBP);
+    expect(getAllRegisteredCurrencies())
       .toEqual([
         EUR,
         GBP,

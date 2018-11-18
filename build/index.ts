@@ -49,30 +49,38 @@ const runStep = async(name: string, action?: Function) => {
   spinner.succeed();
 };
 
-const run = async () => {
-  const argv = getArgv() as unknown as Argv;
-  const { dev } = argv;
+const copyPackageJSON = async() => {
   const packageJSON = await readJson(join(root, 'package.json'));
 
   packageJSON.sideEffects = [
     './methods/*.js',
   ];
+  packageJSON.main = 'node/index.js';
+  packageJSON.module = 'index.js';
+  packageJSON.jsdelivr = 'umd.js';
+  packageJSON.types = 'index.d.ts';
   delete packageJSON['jest-stare'];
   delete packageJSON.scripts;
 
-  await runStep('emptying lib directory', () => emptyDir(join(root, 'lib')));
-
-  await runStep('copying package.json', () => writeJSON(
+  await writeJSON(
     join(root, 'lib/package.json'),
     packageJSON,
     {
       spaces: 2,
     },
-  ));
+  );
+};
+
+const run = async () => {
+  const argv = getArgv() as unknown as Argv;
+  const { dev } = argv;
+
+  await runStep('emptying lib directory', () => emptyDir(join(root, 'lib')));
+  await runStep('copying package.json', () => copyPackageJSON());
 
   if (dev) {
     runStep('dev esm build with watch');
-    await startChildProcess('npx tsc --watch')
+    await startChildProcess('npx tsc --watch');
   } else {
     await runStep('esm build', () => startChildProcess('npx tsc'));
 
