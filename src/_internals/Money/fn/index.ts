@@ -15,3 +15,6 @@ export { default as lessThanOrEqualTo } from './lessThanOrEqualTo';
 
 export { default as allocate } from './allocate';
 export { default as allocateBy } from './allocateBy';
+
+export { default as format } from './format';
+export { default as parse } from './parse';

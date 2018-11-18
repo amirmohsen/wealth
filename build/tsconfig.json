@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
-    "lib": ["esnext"],
+    "module": "commonjs",
+    "lib": ["esnext", "dom"],
     "declaration": true,
     "sourceMap": true,
     "outDir": "lib",
@@ -13,11 +13,6 @@
     "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "src/**/*.ts",
-  ],
-  "exclude": [
-    "node_modules",
-    "src/**/*.test.ts",
-    "src/_internals/Money/oo/**"
+    "build/**/*.ts",
   ]
 }

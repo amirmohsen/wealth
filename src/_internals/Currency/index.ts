@@ -2,8 +2,8 @@ import isEqual from 'lodash.isequal';
 import deepFreeze from 'deep-freeze';
 import Money from '../Money';
 import {
-  get as getRegisteredCurrency,
-  isRegistered as isCurrencyRegistered,
+  getRegisteredCurrency,
+  isCurrencyRegistered,
 } from '../CurrencyStore';
 import WrongInputError from '../errors/WrongInputError';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';

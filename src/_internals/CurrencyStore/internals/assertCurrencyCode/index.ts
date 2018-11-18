@@ -1,5 +1,5 @@
-import { WrongInputError } from '../../../errors';
 import { oneLine } from 'common-tags';
+import WrongInputError from '../../../errors/WrongInputError';
 
 const assertCurrencyCode = (code: string) => {
   if (typeof code !== 'string' || !code || code !== code.trim().toUpperCase()) {

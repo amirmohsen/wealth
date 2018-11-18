@@ -1,24 +1,24 @@
-import { Money } from './Money';
+import { Money } from './_internals/Money';
 
-import './Money/oo/add';
-import './Money/oo/subtract';
-import './Money/oo/multiply';
-import './Money/oo/divide';
+import './_internals/Money/oo/add';
+import './_internals/Money/oo/subtract';
+import './_internals/Money/oo/multiply';
+import './_internals/Money/oo/divide';
 
-import './Money/oo/absolute';
-import './Money/oo/ceil';
-import './Money/oo/floor';
+import './_internals/Money/oo/absolute';
+import './_internals/Money/oo/ceil';
+import './_internals/Money/oo/floor';
 
-import './Money/oo/equals';
-import './Money/oo/lessThan';
-import './Money/oo/lessThanOrEqualTo';
-import './Money/oo/greaterThan';
-import './Money/oo/greaterThanOrEqualTo';
+import './_internals/Money/oo/equals';
+import './_internals/Money/oo/lessThan';
+import './_internals/Money/oo/lessThanOrEqualTo';
+import './_internals/Money/oo/greaterThan';
+import './_internals/Money/oo/greaterThanOrEqualTo';
 
-import './Money/oo/allocate';
-import './Money/oo/allocateBy';
+import './_internals/Money/oo/allocate';
+import './_internals/Money/oo/allocateBy';
 
-import './Money/oo/format';
-import './Money/oo/parse';
+import './_internals/Money/oo/format';
+import './_internals/Money/oo/parse';
 
-export default Money;
+export * from '.';
