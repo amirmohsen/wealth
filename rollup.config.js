@@ -3,15 +3,15 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import json from 'rollup-plugin-json';
-import pkg from './package.json';
 
 export default [
 	{
-		input: 'index.ts',
+		input: 'src/umd.ts',
 		output: {
-			file: pkg.browser,
+			file: 'lib/umd.js',
 			format: 'umd',
-			name: 'Wealth'
+			name: 'Wealth',
+			sourcemap: true,
 		},
 		plugins: [
 			json({
@@ -24,33 +24,6 @@ export default [
 				cacheRoot: `${os.tmpdir()}/.rpt2_cache`
 			}),
 			commonjs()
-		]
-	},
-	{
-		input: 'index.ts',
-		external: [
-			...Object.keys(pkg.dependencies),
-			'validator/lib/isInt',
-			'validator/lib/isFloat'
-		],
-		output: [
-			{
-				file: pkg.main,
-				format: 'cjs'
-			},
-			{
-				file: pkg.module,
-				format: 'es'
-			}
-		],
-		plugins: [
-			json({
-				preferConst: true
-			}),
-			typescript({
-				typescript: require('typescript'),
-				cacheRoot: `${os.tmpdir()}/.rpt2_cache`
-			})
 		]
 	}
 ];

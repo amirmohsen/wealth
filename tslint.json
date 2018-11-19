@@ -4,6 +4,7 @@
         "import-name": false,
         "no-parameter-reassignment": false,
         "one-variable-per-declaration": false,
-        "no-increment-decrement": false
+        "no-increment-decrement": false,
+        "variable-name": false
     }
 }

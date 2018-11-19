@@ -9,13 +9,15 @@
     "strict": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
   ],
   "exclude": [
     "node_modules",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "src/_internals/Money/oo/**"
   ]
 }
