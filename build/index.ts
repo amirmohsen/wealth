@@ -11,6 +11,7 @@ import * as spinners from 'cli-spinners';
 interface Argv {
   dev: boolean;
   d: boolean;
+  disablePackageCopy: boolean;
 }
 
 const root = process.cwd();
@@ -18,6 +19,10 @@ const root = process.cwd();
 const getArgv = () => yargs
   .option('dev', {
     alias: 'd',
+    type: 'boolean',
+    default: false,
+  })
+  .option('disablePackageCopy', {
     type: 'boolean',
     default: false,
   })
@@ -73,10 +78,13 @@ const copyPackageJSON = async() => {
 
 const run = async () => {
   const argv = getArgv() as unknown as Argv;
-  const { dev } = argv;
+  const { dev, disablePackageCopy } = argv;
 
   await runStep('emptying lib directory', () => emptyDir(join(root, 'lib')));
-  await runStep('copying package.json', () => copyPackageJSON());
+
+  if (!disablePackageCopy) {
+    await runStep('copying package.json', () => copyPackageJSON());
+  }
 
   if (dev) {
     runStep('dev esm build with watch');
