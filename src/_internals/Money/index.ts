@@ -29,12 +29,12 @@ export class Money {
   currency: Currency;
 
   /**
-   * BigNumber constructor used by this "Money" instance
+   * Internal value as a big number
    */
   value: BigNumber;
 
   /**
-   * Internal value as a big number
+   * BigNumber constructor used by this "Money" instance
    */
   bigNumberConstructor: typeof BigNumber;
 
@@ -70,7 +70,7 @@ export class Money {
    * ```
    *
    * @param value - integer, integer string, float string, instance of `Money`
-   * @param currency - currency code as string, instance of `Currency`
+   * @param currency - currency code as string, currency settings or instance of `Currency`
    */
   constructor(value: number|string|Money, currency: string|CurrencyInputSettings|Currency) {
     this.currency = new Currency(currency);
@@ -81,7 +81,7 @@ export class Money {
 
   /**
    * Checks if the current currency is the same as that of the parameter
-   * @param value - value to check currency against the current value; type same as constructor
+   * @param value - value to check currency against the current value
    * @returns - true if the current value has the same currency as the parameter
    */
   hasSameCurrency(value: Money): Boolean {
@@ -233,9 +233,9 @@ export class Money {
   /**
    * Creates a new instance of Money
    * @param value - integer, integer string, float string, instance of `Money`
-   * @param currency - currency code as string, instance of `Currency`
+   * @param currency - currency code as string, currency settings or instance of `Currency`
    */
-  static init(value: number|string|Money, currency: string|Currency) {
+  static init(value: number|string|Money, currency: string|CurrencyInputSettings|Currency) {
     const MoneyConstructor = this as typeof Money;
     return new MoneyConstructor(value, currency);
   }
