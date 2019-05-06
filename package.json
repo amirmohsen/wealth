@@ -1,6 +1,6 @@
 {
   "name": "wealth",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/amirmohsen/wealth",
   "description": "A full-featured money library",
   "scripts": {

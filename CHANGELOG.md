@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.1] - 2019-05-06
+### Added
+- Readme and license files to the published lib folder
+
 ## [1.0.0] - 2019-05-06
 ### Updated
 - **BREAKING:** Complete rewrite
@@ -49,6 +53,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial release
 
+[1.0.1]: https://github.com/amirmohsen/wealth/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/amirmohsen/wealth/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/amirmohsen/wealth/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/amirmohsen/wealth/compare/v0.1.0...v0.1.1

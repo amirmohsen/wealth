@@ -3,7 +3,7 @@
 
 import yargs from 'yargs';
 import { join } from 'path';
-import { emptyDir, readJson, writeJSON } from 'fs-extra';
+import { emptyDir, readJson, writeJSON, copy } from 'fs-extra';
 import { spawn } from 'child_process';
 import ora from 'ora';
 import * as spinners from 'cli-spinners';
@@ -76,11 +76,18 @@ const copyPackageJSON = async() => {
   );
 };
 
+const copyMetaFiles = async() => {
+  await copy(join(root, 'LICENSE.md'), join(root, 'lib/LICENSE.md'));
+  await copy(join(root, 'README.md'), join(root, 'lib/README.md'));
+};
+
 const run = async () => {
   const argv = getArgv() as unknown as Argv;
   const { dev, disablePackageCopy } = argv;
 
   await runStep('emptying lib directory', () => emptyDir(join(root, 'lib')));
+
+  await runStep('copying meta files', () => copyMetaFiles());
 
   if (!disablePackageCopy) {
     await runStep('copying package.json', () => copyPackageJSON());
