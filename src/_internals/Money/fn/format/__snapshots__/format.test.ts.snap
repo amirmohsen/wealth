@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`format when given a custom formatter should call it once with the snapshotted arguments 1`] = `
+Array [
+  Object {
+    "code": "USD",
+    "decimalDigits": 2,
+    "decimalSeparator": ".",
+    "defaultFormatted": "$80.90",
+    "pattern": "%ns%s%v",
+    "symbol": "$",
+    "thousandsSeparator": ",",
+    "value": Object {
+      "amount": "80.90",
+      "currency": "USD",
+    },
+  },
+]
+`;
+
+exports[`format with "EUR" should format EUR -120.99 correctly 1`] = `"-120,99 €"`;
+
+exports[`format with "EUR" should format EUR 54.42 correctly 1`] = `"54,42 €"`;
+
+exports[`format with "EUR" should format EUR 100.00 correctly 1`] = `"100,00 €"`;
+
+exports[`format with "EUR" should format EUR 1200145154.42 correctly 1`] = `"1 200 145 154,42 €"`;
+
+exports[`format with "GBP" should format GBP -120.99 correctly 1`] = `"-£120.99"`;
+
+exports[`format with "GBP" should format GBP 54.42 correctly 1`] = `"£54.42"`;
+
+exports[`format with "GBP" should format GBP 100.00 correctly 1`] = `"£100.00"`;
+
+exports[`format with "GBP" should format GBP 1200145154.42 correctly 1`] = `"£1,200,145,154.42"`;
+
+exports[`format with "JPY" should format JPY -120.99 correctly 1`] = `"-¥121"`;
+
+exports[`format with "JPY" should format JPY 54.42 correctly 1`] = `"¥54"`;
+
+exports[`format with "JPY" should format JPY 100.00 correctly 1`] = `"¥100"`;
+
+exports[`format with "JPY" should format JPY 1200145154.42 correctly 1`] = `"¥1,200,145,154"`;
+
+exports[`format with "OMR" should format OMR -120.99 correctly 1`] = `"﷼ -120.990"`;
+
+exports[`format with "OMR" should format OMR 54.42 correctly 1`] = `"﷼ 54.420"`;
+
+exports[`format with "OMR" should format OMR 100.00 correctly 1`] = `"﷼ 100.000"`;
+
+exports[`format with "OMR" should format OMR 1200145154.42 correctly 1`] = `"﷼ 1,200,145,154.420"`;
+
+exports[`format with "USD" should format USD -120.99 correctly 1`] = `"-$120.99"`;
+
+exports[`format with "USD" should format USD 54.42 correctly 1`] = `"$54.42"`;
+
+exports[`format with "USD" should format USD 100.00 correctly 1`] = `"$100.00"`;
+
+exports[`format with "USD" should format USD 1200145154.42 correctly 1`] = `"$1,200,145,154.42"`;
