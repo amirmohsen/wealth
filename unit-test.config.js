@@ -2,7 +2,7 @@ module.exports = {
   displayName: 'unit test',
   preset: 'ts-jest',
   testMatch: [
-    '<rootDir>/src/**/?(*.)+(test).ts',
+    '**/src/**/?(*.)+(test).ts',
   ],
   testEnvironment: 'node',
   watchPathIgnorePatterns: [

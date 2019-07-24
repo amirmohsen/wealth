@@ -79,10 +79,10 @@ describe('format', () => {
 
   describe('when given a custom formatter', () => {
     const customFormattedValue = 'custom formatting';
-    const customFormatter = jest.fn(() => customFormattedValue);
+    const customFormatter = jest.fn((args: object) => customFormattedValue);
     const customUSD = new Currency({
       ...USD,
-      formatter: (...args) => customFormatter(...args),
+      formatter: (args: object) => customFormatter(args),
     });
     const money = new Money('80.90', customUSD);
     const formattedValue = format(money);

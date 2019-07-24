@@ -82,11 +82,11 @@ describe('parse', () => {
   });
 
   describe('when given a custom parser', () => {
-    const customParsedValue = 'custom parsed';
-    const customParser = jest.fn(() => customParsedValue);
+    const customParsedValue = Symbol('custom parsed');
+    const customParser = jest.fn((args: object) => customParsedValue as unknown as Money);
     const customUSD = new Currency({
       ...USD,
-      parser: (...args) => customParser(...args),
+      parser: (args: object) => customParser(args),
     });
     const parsedValue = parse('$80.90', customUSD);
 
