@@ -11,7 +11,7 @@
     "test:functional": "yarn rm:lib && jest --config ./functional-test.config.js",
     "test": "yarn lint && yarn test:unit && yarn test:functional",
     "rm:lib": "rm -rf ./lib",
-    "release": "yarn semantic-release"
+    "release": "cd lib && yarn semantic-release"
   },
   "keywords": [
     "flexverse",
