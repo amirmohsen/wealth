@@ -13,18 +13,18 @@ jobs:
 
       - restore_cache:
           keys:
-          - wealth-{{ checksum "yarn.lock" }}
+          - wealth-v1-{{ checksum "yarn.lock" }}
           # fallback to using the latest cache if no exact match is found
-          - wealth-
+          - wealth-v1-
 
       - run:
           name: Install Dependencies
-          command: yarn install
+          command: yarn install --frozen-lockfile
 
       - save_cache:
           paths:
-            - node_modules
-          key: wealth-{{ checksum "yarn.lock" }}
+            - ~/.cache/yarn
+          key: wealth-v1-{{ checksum "yarn.lock" }}
 
       - persist_to_workspace:
           root: ~/repo
