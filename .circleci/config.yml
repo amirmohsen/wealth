@@ -1,0 +1,114 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.16
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - wealth-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - wealth-
+
+      - run:
+          name: Install Dependencies
+          command: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: wealth-{{ checksum "yarn.lock" }}
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run linting
+          command: yarn lint
+
+  test:unit:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run unit tests
+          command: yarn test:unit
+
+  test:functional:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run functional tests
+          command: yarn test:functional
+
+  build:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Build packages
+          command: yarn build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+
+  publish:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Publish packages
+          command: |
+            git remote set-url origin "https://${GH_TOKEN}@github.com/amirmohsen/wealth.git"
+            mkdir -p ~/.ssh
+            chmod 0700 ~/.ssh
+            git config --global user.email "circlecibot@circlecibot.com"
+            git config --global user.name "circlecibot"
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+            yarn publish
+
+workflows:
+  version: 2
+  test-build-publish:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:unit:
+          requires:
+            - install
+      - test:functional:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
+      - publish:
+          requires:
+            - lint
+            - test:unit
+            - test:functional
+            - build
+          filters:
+            branches:
+              only: master
