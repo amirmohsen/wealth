@@ -44,7 +44,7 @@
     "validator": "^11"
   },
   "devDependencies": {
-    "@semantic-release/git": "^7.0.16",
+    "@semantic-release/git": "^7",
     "@types/common-tags": "^1",
     "@types/deep-freeze": "^0.1",
     "@types/fs-extra": "^8",
