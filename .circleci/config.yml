@@ -84,7 +84,7 @@ jobs:
             git config --global user.email "circlecibot@circlecibot.com"
             git config --global user.name "circlecibot"
             ssh-keyscan github.com >> ~/.ssh/known_hosts
-            yarn publish
+            yarn release
 
 workflows:
   version: 2
