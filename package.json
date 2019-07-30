@@ -10,8 +10,7 @@
     "test:unit": "yarn rm:lib && jest --config ./unit-test.config.js",
     "test:functional": "yarn rm:lib && jest --config ./functional-test.config.js",
     "test": "yarn lint && yarn test:unit && yarn test:functional",
-    "rm:lib": "rm -rf ./lib",
-    "postversion": "cp -r package.json ../"
+    "rm:lib": "rm -rf ./lib"
   },
   "keywords": [
     "flexverse",
@@ -44,6 +43,7 @@
     "validator": "^11"
   },
   "devDependencies": {
+    "@semantic-release/exec": "^3",
     "@semantic-release/git": "^7",
     "@types/common-tags": "^1",
     "@types/deep-freeze": "^0.1",
