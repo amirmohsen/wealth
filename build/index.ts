@@ -99,7 +99,7 @@ const run = async () => {
   } else {
     await runStep('esm build', () => startChildProcess('npx tsc'));
 
-    await runStep('csj build', () => startChildProcess(
+    await runStep('cjs build', () => startChildProcess(
       'npx tsc --module "commonjs" --outDir "lib/node"',
     ));
 
