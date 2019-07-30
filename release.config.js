@@ -5,8 +5,13 @@ module.exports = {
     ['@semantic-release/npm', {
       pkgRoot: 'lib',
     }],
+    ['@semantic-release/exec', {
+      prepareCmd: 'cp -r ./lib/package.json .',
+    }],
     ['@semantic-release/git', {
-      assets: ['package.json']
+      assets: [
+        'package.json'
+      ]
     }],
     '@semantic-release/github'
   ]
