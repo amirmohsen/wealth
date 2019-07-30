@@ -86,7 +86,6 @@ jobs:
             ssh-keyscan github.com >> ~/.ssh/known_hosts
             yarn semantic-release
             git status
-            git log --name-status HEAD^..HEAD
             ls -la lib
 
 workflows:
