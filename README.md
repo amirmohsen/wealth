@@ -1,4 +1,4 @@
-# Wealth
+# [Wealth](https://amirmohsen.github.io/wealth/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/amirmohsen/wealth/blob/master/LICENSE.md) [![npm version](https://img.shields.io/npm/v/wealth.svg?style=flat)](https://www.npmjs.com/package/wealth)
 
 Wealth is a JavaScript library for handling money calculation, allocation, formatting, serialization, and currency handling.
 
@@ -16,5 +16,3 @@ or
 
 ## Documentation
 https://amirmohsen.github.io/wealth/
-```
-
