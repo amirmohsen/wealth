@@ -14,7 +14,7 @@ const updateVersion = async() => {
   rootPackageJson.version = libPackageJson.version;
 
   await writeJson(ROOT_PACKAGE_JSON, rootPackageJson, {
-    spaces: 2
+    spaces: 2,
   });
 };
 
