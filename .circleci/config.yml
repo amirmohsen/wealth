@@ -77,16 +77,7 @@ jobs:
           at: ~/repo
       - run:
           name: Publish packages
-          command: |
-            git remote set-url origin "https://${GH_TOKEN}@github.com/amirmohsen/wealth.git"
-            mkdir -p ~/.ssh
-            chmod 0700 ~/.ssh
-            git config --global user.email "circlecibot@circlecibot.com"
-            git config --global user.name "circlecibot"
-            ssh-keyscan github.com >> ~/.ssh/known_hosts
-            yarn semantic-release
-            git status
-            ls -la lib
+          command: yarn semantic-release
 
 workflows:
   version: 2

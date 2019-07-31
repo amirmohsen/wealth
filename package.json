@@ -3,6 +3,16 @@
   "version": "1.1.7",
   "repository": "https://github.com/amirmohsen/wealth",
   "description": "A full-featured money library",
+  "scripts": {
+    "build": "ts-node --project ./build/tsconfig.json build",
+    "dev": "ts-node --project ./build/tsconfig.json build --dev",
+    "lint": "yarn rm:lib && jest --config ./lint.config.js",
+    "test:unit": "yarn rm:lib && jest --config ./unit-test.config.js",
+    "test:functional": "yarn rm:lib && jest --config ./functional-test.config.js",
+    "test": "yarn lint && yarn test:unit && yarn test:functional",
+    "updateRootPackageJSONVersion": "ts-node --project ./build/tsconfig.json build/updateRootPackageJSONVersion",
+    "rm:lib": "rm -rf ./lib"
+  },
   "keywords": [
     "flexverse",
     "money",
@@ -21,6 +31,10 @@
     "url": "https://github.com/amirmohsen/wealth/issues"
   },
   "homepage": "https://github.com/amirmohsen/wealth#readme",
+  "jest-stare": {
+    "resultDir": "testOutput/unit/report",
+    "coverageLink": "../coverage/lcov-report/index.html"
+  },
   "dependencies": {
     "bignumber.js": "^9",
     "common-tags": "^1",
@@ -62,12 +76,5 @@
     "tslint-config-airbnb": "^5",
     "typescript": "^3",
     "yargs": "^13"
-  },
-  "sideEffects": [
-    "./methods/*.js"
-  ],
-  "main": "node/index.js",
-  "module": "index.js",
-  "jsdelivr": "umd.js",
-  "types": "index.d.ts"
+  }
 }
