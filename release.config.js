@@ -6,7 +6,7 @@ module.exports = {
       pkgRoot: 'lib',
     }],
     ['@semantic-release/exec', {
-      prepareCmd: 'cp -r ./lib/package.json .',
+      prepareCmd: 'yarn updateRootPackageJSONVersion',
     }],
     ['@semantic-release/git', {
       assets: [
