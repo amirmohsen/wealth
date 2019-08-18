@@ -1,1 +1,0 @@
-{"data":{"markdownRemark":{"html":"<h1>Getting Started</h1>\n<h2>Installation</h2>\n<p>Using npm:</p>\n<pre><code class=\"language-sh\">npm i wealth\n</code></pre>\n<p>Using Yarn:</p>\n<pre><code class=\"language-sh\">yarn add wealth\n</code></pre>","frontmatter":{"path":"/getting-started","title":"Getting Started"}}},"pageContext":{}}

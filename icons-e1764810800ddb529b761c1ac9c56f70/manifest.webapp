@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "name": "Wealth",
+  "description": null,
+  "icons": {
+    "60": "/wealth/icons-e1764810800ddb529b761c1ac9c56f70/firefox_app_60x60.png",
+    "128": "/wealth/icons-e1764810800ddb529b761c1ac9c56f70/firefox_app_128x128.png",
+    "512": "/wealth/icons-e1764810800ddb529b761c1ac9c56f70/firefox_app_512x512.png"
+  },
+  "developer": {
+    "name": null,
+    "url": null
+  }
+}
