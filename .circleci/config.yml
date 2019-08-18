@@ -83,19 +83,34 @@ workflows:
   version: 2
   test-build-publish:
     jobs:
-      - install
+      - install:
+          filters:
+            branches:
+              ignore: gh-pages
       - lint:
           requires:
             - install
+          filters:
+            branches:
+              ignore: gh-pages
       - test:unit:
           requires:
             - install
+          filters:
+            branches:
+              ignore: gh-pages
       - test:functional:
           requires:
             - install
+          filters:
+            branches:
+              ignore: gh-pages
       - build:
           requires:
             - install
+          filters:
+            branches:
+              ignore: gh-pages
       - publish:
           requires:
             - lint
