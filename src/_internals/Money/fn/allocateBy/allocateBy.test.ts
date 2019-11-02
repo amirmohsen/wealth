@@ -1,14 +1,18 @@
 import { Money } from '../..';
 import { USD, JPY, OMR } from '../../../constants/ISO_CURRENCIES';
+import getData from '../../../CurrencyStore/internals/getData';
 import allocateBy from '.';
 
-jest.mock('../../../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  JPY,
-  OMR,
-}));
+jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('allocateBy', () => {
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      JPY,
+      OMR,
+    });
+  });
 
   test('should allocate based on a given number of shares', () => {
     const money = new Money('483.41', 'USD');

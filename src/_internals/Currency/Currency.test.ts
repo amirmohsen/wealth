@@ -1,15 +1,19 @@
 import { USD, GBP, EUR } from '../constants/ISO_CURRENCIES';
-import Currency from '../Currency';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 import WrongInputError from '../errors/WrongInputError';
 import getDefaultSettings from './getDefaultSettings';
+import getData from '../CurrencyStore/internals/getData';
+import Currency from '.';
 
-jest.mock('../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  GBP,
-}));
+jest.mock('../CurrencyStore/internals/getData');
 
 describe('Currency', () => {
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      GBP,
+    });
+  });
 
   test('can be initialized with the currency code of an already-registered currency', () => {
     const currency = new Currency('USD');
@@ -51,14 +55,17 @@ describe('Currency', () => {
   });
 
   test('can be initialized with the static "init" factory function', () => {
-
     const currency = Currency.init('USD');
     expect(currency).toBeInstanceOf(Currency);
     expect(currency.settings).toEqual(USD);
   });
 
   describe('with valid values', () => {
-    const currency = new Currency('USD');
+    let currency;
+
+    beforeAll(() => {
+      currency = new Currency('USD');
+    });
 
     test('should return a frozen object', () => {
       expect(Object.isFrozen(currency)).toBe(true);

@@ -1,14 +1,18 @@
 import { Money } from '../..';
 import { USD, JPY, OMR } from '../../../constants/ISO_CURRENCIES';
+import getData from '../../../CurrencyStore/internals/getData';
 import lessThanOrEqualTo from '.';
 
-jest.mock('../../../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  JPY,
-  OMR,
-}));
+jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('lessThanOrEqualTo', () => {
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      JPY,
+      OMR,
+    });
+  });
 
   test(
     'should return true when the first Money value is less than the second one',

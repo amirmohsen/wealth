@@ -1,14 +1,12 @@
 import { oneLine } from 'common-tags';
 import { USD, GBP } from '../constants/ISO_CURRENCIES';
-import Money from '../Money';
 import Currency from '../Currency';
 import WrongInputError from '../errors/WrongInputError';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
+import getData from '../CurrencyStore/internals/getData';
+import Money from '.';
 
-jest.mock('../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  GBP,
-}));
+jest.mock('../CurrencyStore/internals/getData');
 
 describe('Money', () => {
   const invalidMonetaryValues: any[] = [
@@ -21,6 +19,13 @@ describe('Money', () => {
     '$123.60',
     '$1,345,223.60',
   ];
+
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      GBP,
+    });
+  });
 
   test('can be initialized with float string values', () => {
     const money = new Money('15.75', 'USD');
@@ -60,7 +65,11 @@ describe('Money', () => {
   });
 
   describe('with valid values', () => {
-    const money = new Money('15.75', 'USD');
+    let money;
+
+    beforeAll(() => {
+      money = new Money('15.75', 'USD');
+    });
 
     test('should return a frozen object', () => {
       expect(Object.isFrozen(money)).toBe(true);
@@ -116,15 +125,15 @@ describe('Money', () => {
     );
 
     describe('when given a money instance of the same currency', () => {
-      const money2 = new Money('190.90', 'USD');
       test('"hasSameCurrency" should return true', () => {
+        const money2 = new Money('190.90', 'USD');
         expect(money.hasSameCurrency(money2)).toBe(true);
       });
     });
 
     describe('when given a Money instance of a different currency', () => {
-      const money2 = new Money('190.90', 'GBP');
       test('"hasSameCurrency" should return false', () => {
+        const money2 = new Money('190.90', 'GBP');
         expect(money.hasSameCurrency(money2)).toBe(false);
       });
     });
@@ -137,8 +146,8 @@ describe('Money', () => {
   });
 
   describe('when given anything other than a Money instance', () => {
-    const money = new Money('15.75', 'USD');
     test('"hasSameCurrency" should throw an error', () => {
+      const money = new Money('15.75', 'USD');
       for (const invalidMonetaryValue of invalidMonetaryValues) {
         expect(() => money.hasSameCurrency(invalidMonetaryValue as unknown as Money))
           .toThrow(new WrongInputError('The input value must be a "Money" instance.'));
@@ -147,8 +156,8 @@ describe('Money', () => {
   });
 
   describe('when given a Money instance with a different currency', () => {
-    const money = new Money('15.75', 'USD');
     test('"constructor" should throw an error', () => {
+      const money = new Money('15.75', 'USD');
       expect(() => new Money(money, 'GBP'))
         .toThrow(new CurrencyMismatchError());
     });

@@ -10,13 +10,12 @@ import { USD, GBP, EUR } from '../constants/ISO_CURRENCIES';
 import getDefaultSettings from '../Currency/getDefaultSettings';
 import * as assertCurrencyCodeModule from './internals/assertCurrencyCode';
 import { InvalidCurrencyError } from '../errors';
+import getData from './internals/getData';
 
-let mockData = {};
-
-jest.mock('./internals/getData', () => () => mockData);
+jest.mock('./internals/getData');
 
 describe('CurrencyStore', () => {
-
+  let mockData = {};
   let assertCurrencyCodeSpy: any;
 
   beforeAll(() => {
@@ -27,8 +26,9 @@ describe('CurrencyStore', () => {
     assertCurrencyCodeSpy.mockRestore();
   });
 
-  afterEach(() => {
+  beforeEach(() => {
     mockData = {};
+    getData.mockReturnValue(mockData);
   });
 
   describe('methods', () => {

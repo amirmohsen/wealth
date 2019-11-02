@@ -1,14 +1,18 @@
 import { Money } from '../..';
 import { USD, JPY, OMR } from '../../../constants/ISO_CURRENCIES';
+import getData from '../../../CurrencyStore/internals/getData';
 import floor from '.';
 
-jest.mock('../../../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  JPY,
-  OMR,
-}));
+jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('floor', () => {
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      JPY,
+      OMR,
+    });
+  });
 
   test('should round down a Money value to the nearest integer value', () => {
     const moneyA = new Money('100.18', 'USD');

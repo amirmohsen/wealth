@@ -1,14 +1,18 @@
 import { Money } from '../..';
 import { USD, JPY, OMR } from '../../../constants/ISO_CURRENCIES';
+import getData from '../../../CurrencyStore/internals/getData';
 import divide from '.';
 
-jest.mock('../../../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  JPY,
-  OMR,
-}));
+jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('divide', () => {
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      JPY,
+      OMR,
+    });
+  });
 
   describe('with "USD" that has 2 decimal digits', () => {
 

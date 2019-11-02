@@ -1,15 +1,10 @@
 import { Money } from '../..';
 import { USD, GBP, EUR, OMR, JPY } from '../../../constants/ISO_CURRENCIES';
+import getData from '../../../CurrencyStore/internals/getData';
 import Currency from '../../../Currency';
 import format from '.';
 
-jest.mock('../../../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  GBP,
-  EUR,
-  OMR,
-  JPY,
-}));
+jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('format', () => {
   const currencies = [
@@ -27,11 +22,21 @@ describe('format', () => {
     '1200145154.42',
   ];
 
+  beforeAll(() => {
+    getData.mockReturnValue({
+      USD,
+      GBP,
+      EUR,
+      OMR,
+      JPY,
+    });
+  });
+
   for (const currency of currencies) {
     describe(`with "${currency}"`, () => {
       for (const value of values) {
-        const	money = new Money(value, currency);
         test(`should format ${currency} ${value} correctly`, () => {
+          const	money = new Money(value, currency);
           expect(format(money)).toMatchSnapshot();
         });
       }
@@ -80,12 +85,16 @@ describe('format', () => {
   describe('when given a custom formatter', () => {
     const customFormattedValue = 'custom formatting';
     const customFormatter = jest.fn((args: object) => customFormattedValue);
-    const customUSD = new Currency({
-      ...USD,
-      formatter: (args: object) => customFormatter(args),
+    let formattedValue;
+
+    beforeAll(() => {
+      const customUSD = new Currency({
+        ...USD,
+        formatter: (args: object) => customFormatter(args),
+      });
+      const money = new Money('80.90', customUSD);
+      formattedValue = format(money);
     });
-    const money = new Money('80.90', customUSD);
-    const formattedValue = format(money);
 
     test('should use its return value for formatting', () => {
       expect(formattedValue).toBe(customFormattedValue);

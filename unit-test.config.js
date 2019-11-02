@@ -1,8 +1,7 @@
 module.exports = {
   displayName: 'unit test',
-  preset: 'ts-jest',
   testMatch: [
-    '**/src/**/?(*.)+(test).ts',
+    '<rootDir>/src/**/?(*.)+(test).ts',
   ],
   testEnvironment: 'node',
   watchPathIgnorePatterns: [
@@ -42,7 +41,7 @@ module.exports = {
     ['jest-watch-suspend', {
       key: 's',
       prompt: 'suspend watch mode',
-      'suspend-on-start': true
+      'suspend-on-start': false
     }],
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
