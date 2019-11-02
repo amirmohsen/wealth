@@ -8,22 +8,20 @@ import { add, subtract, equals } from '..';
  * to the array of allocations
  * @returns - the final allocations array of Money instances
  */
-const addRemainderToAllocations = (
-  money: Money,
-  allocations: Money[],
-  remainder: Money,
-) => {
+const addRemainderToAllocations = (money: Money, allocations: Money[], remainder: Money): Money[] => {
+  const finalAllocations = [...allocations];
+  let remainingRemainder = remainder.clone();
   const noMoney = new Money('0', money.currency);
 
   let i = 0;
 
-  while (!equals(remainder, noMoney)) {
-    allocations[i] = add(allocations[i], money.smallestUnit);
-    remainder = subtract(remainder, money.smallestUnit);
-    i++;
+  while (!equals(remainingRemainder, noMoney)) {
+    finalAllocations[i] = add(finalAllocations[i], money.smallestUnit);
+    remainingRemainder = subtract(remainingRemainder, money.smallestUnit);
+    i += 1;
   }
 
-  return allocations;
+  return finalAllocations;
 };
 
 export default addRemainderToAllocations;

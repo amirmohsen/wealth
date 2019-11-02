@@ -1,5 +1,5 @@
 describe('floor (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -17,7 +17,7 @@ describe('floor (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/floor');
   };
@@ -26,19 +26,19 @@ describe('floor (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add floor to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add floor to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.floor).toBe(undefined);
+    expect(Money.prototype.floor).toBeUndefined();
 
-    await import('../floor');
+    await import('.');
 
     expect(typeof Money.prototype.floor).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
-    await import('../floor');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
+    await import('.');
 
     const { default: floor } = await import('../../fn/floor');
 

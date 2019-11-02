@@ -2,7 +2,6 @@ import InvalidCurrencyError from '.';
 import WealthError from '../WealthError';
 
 describe('InvalidCurrencyError', () => {
-
   test('should extend "WealthError"', () => {
     const error = new InvalidCurrencyError();
     expect(error).toBeInstanceOf(WealthError);

@@ -1,5 +1,5 @@
 describe('format (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -17,7 +17,7 @@ describe('format (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/format');
   };
@@ -26,19 +26,19 @@ describe('format (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add format to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add format to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.format).toBe(undefined);
+    expect(Money.prototype.format).toBeUndefined();
 
-    await import('../format');
+    await import('.');
 
     expect(typeof Money.prototype.format).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
-    await import('../format');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
+    await import('.');
 
     const { default: format } = await import('../../fn/format');
 

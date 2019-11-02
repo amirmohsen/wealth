@@ -1,7 +1,6 @@
 import getData from '.';
 
 describe('getData', () => {
-
   afterAll(() => {
     jest.resetModules();
   });

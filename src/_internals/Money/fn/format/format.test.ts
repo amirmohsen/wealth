@@ -1,29 +1,18 @@
 import { Money } from '../..';
 import { USD, GBP, EUR, OMR, JPY } from '../../../constants/ISO_CURRENCIES';
-import getData from '../../../CurrencyStore/internals/getData';
+import getData, { CurrencySettingsInternalStore } from '../../../CurrencyStore/internals/getData';
 import Currency from '../../../Currency';
 import format from '.';
 
 jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('format', () => {
-  const currencies = [
-    'USD',
-    'GBP',
-    'EUR',
-    'OMR',
-    'JPY',
-  ];
+  const currencies = ['USD', 'GBP', 'EUR', 'OMR', 'JPY'];
 
-  const values = [
-    '100.00',
-    '54.42',
-    '-120.99',
-    '1200145154.42',
-  ];
+  const values = ['100.00', '54.42', '-120.99', '1200145154.42'];
 
   beforeAll(() => {
-    getData.mockReturnValue({
+    (getData as jest.MockedFunction<() => CurrencySettingsInternalStore>).mockReturnValue({
       USD,
       GBP,
       EUR,
@@ -36,7 +25,7 @@ describe('format', () => {
     describe(`with "${currency}"`, () => {
       for (const value of values) {
         test(`should format ${currency} ${value} correctly`, () => {
-          const	money = new Money(value, currency);
+          const money = new Money(value, currency);
           expect(format(money)).toMatchSnapshot();
         });
       }
@@ -44,14 +33,13 @@ describe('format', () => {
   }
 
   describe('when given a currency as settings', () => {
-
     test('should merge it with the built-in currency to format', () => {
       const customEUR = new Currency({
         ...EUR,
-        thousandsSeparator: ',',
-        decimalSeparator: '.',
-        decimalDigits: 2,
-        pattern: '%ns%s%v',
+        thousandsSeparator: ',',
+        decimalSeparator: '.',
+        decimalDigits: 2,
+        pattern: '%ns%s%v',
       });
       const money = new Money('45680.90', 'EUR');
       expect(format(money)).toBe('45 680,90 €');
@@ -60,21 +48,18 @@ describe('format', () => {
   });
 
   describe('when given a settings object', () => {
-
     test('should merge it with the built-in currency to format', () => {
       const money = new Money('-45680.90', 'GBP');
       expect(format(money)).toBe('-£45,680.90');
-      expect(format(
-        money,
-        {
-          pattern: '%c %ns%v',
-        },
-      )).toBe('GBP -45,680.90');
+      expect(
+        format(money, {
+          pattern: '%c %ns%v',
+        }),
+      ).toBe('GBP -45,680.90');
     });
   });
 
   describe('when given a currency code as settings', () => {
-
     test('should completely override the built-in currency to format', () => {
       const money = new Money('-45680.90', 'GBP');
       expect(format(money)).toBe('-£45,680.90');
@@ -84,13 +69,14 @@ describe('format', () => {
 
   describe('when given a custom formatter', () => {
     const customFormattedValue = 'custom formatting';
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const customFormatter = jest.fn((args: object) => customFormattedValue);
-    let formattedValue;
+    let formattedValue: string;
 
     beforeAll(() => {
       const customUSD = new Currency({
         ...USD,
-        formatter: (args: object) => customFormatter(args),
+        formatter: (args: object): string => customFormatter(args),
       });
       const money = new Money('80.90', customUSD);
       formattedValue = format(money);

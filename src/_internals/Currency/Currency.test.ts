@@ -2,14 +2,14 @@ import { USD, GBP, EUR } from '../constants/ISO_CURRENCIES';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 import WrongInputError from '../errors/WrongInputError';
 import getDefaultSettings from './getDefaultSettings';
-import getData from '../CurrencyStore/internals/getData';
+import getData, { CurrencySettingsInternalStore } from '../CurrencyStore/internals/getData';
 import Currency from '.';
 
 jest.mock('../CurrencyStore/internals/getData');
 
 describe('Currency', () => {
   beforeAll(() => {
-    getData.mockReturnValue({
+    (getData as jest.MockedFunction<() => CurrencySettingsInternalStore>).mockReturnValue({
       USD,
       GBP,
     });
@@ -61,7 +61,7 @@ describe('Currency', () => {
   });
 
   describe('with valid values', () => {
-    let currency;
+    let currency: Currency;
 
     beforeAll(() => {
       currency = new Currency('USD');
@@ -105,15 +105,12 @@ describe('Currency', () => {
       expect(currency.toJSON()).toBe('USD');
     });
 
-    test(
-      '"clone()" should return a new instance of the Currency class with the same settings',
-      () => {
-        const clonedCurency = currency.clone();
-        expect(clonedCurency).toBeInstanceOf(Currency);
-        expect(clonedCurency).not.toBe(currency);
-        expect(currency.is(clonedCurency)).toBe(true);
-      },
-    );
+    test('"clone()" should return a new instance of the Currency class with the same settings', () => {
+      const clonedCurency = currency.clone();
+      expect(clonedCurency).toBeInstanceOf(Currency);
+      expect(clonedCurency).not.toBe(currency);
+      expect(currency.is(clonedCurency)).toBe(true);
+    });
 
     test('"settings" getter should return the settings', () => {
       expect(currency.settings).toEqual({
@@ -125,40 +122,25 @@ describe('Currency', () => {
   });
 
   describe('when given any invalid or missing code as part of input settings', () => {
-    const invalidCurrencyCodes: any[] = [
-      undefined,
-      null,
-      false,
-      true,
-      '',
-      123,
-      {},
-      [],
-    ];
+    const invalidCurrencyCodes: any[] = [undefined, null, false, true, '', 123, {}, []];
 
     test('"constructor" should throw an error', () => {
       for (const invalidCurrencyCode of invalidCurrencyCodes) {
-        expect(() => new Currency({ code: invalidCurrencyCode as unknown as string }))
-          .toThrow(new InvalidCurrencyError('Invalid currency settings; code is required.'));
+        expect(() => new Currency({ code: (invalidCurrencyCode as unknown) as string })).toThrow(
+          new InvalidCurrencyError('Invalid currency settings; code is required.'),
+        );
       }
     });
   });
 
   describe('when given any invalid input', () => {
-    const invalidCurrencyInputs: any[] = [
-      undefined,
-      null,
-      false,
-      true,
-      '',
-      123,
-      [],
-    ];
+    const invalidCurrencyInputs: any[] = [undefined, null, false, true, '', 123, []];
 
     test('"constructor" should throw an error', () => {
       for (const invalidCurrencyInput of invalidCurrencyInputs) {
-        expect(() => new Currency(invalidCurrencyInput as unknown as string))
-          .toThrow(new WrongInputError('Invalid currency provided.'));
+        expect(() => new Currency((invalidCurrencyInput as unknown) as string)).toThrow(
+          new WrongInputError('Invalid currency provided.'),
+        );
       }
     });
   });

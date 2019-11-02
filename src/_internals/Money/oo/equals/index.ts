@@ -1,12 +1,12 @@
-import { Money } from '../../../Money';
-import equals from '../../fn/equals';
+import { Money } from '../..';
+import _equals from '../../fn/equals';
 
 declare module '../../../Money' {
   interface Money {
-    equals: (value: number|string|Money) => boolean;
+    equals: (value: number | string | Money) => boolean;
   }
 }
 
-Money.prototype.equals = function (value) {
-  return equals(this, value);
+Money.prototype.equals = function equals(value): boolean {
+  return _equals(this, value);
 };

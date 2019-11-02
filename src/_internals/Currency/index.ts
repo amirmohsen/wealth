@@ -1,10 +1,7 @@
 import isEqual from 'lodash.isequal';
 import deepFreeze from 'deep-freeze';
 import Money from '../Money';
-import {
-  getRegisteredCurrency,
-  isCurrencyRegistered,
-} from '../CurrencyStore';
+import { getRegisteredCurrency, isCurrencyRegistered } from '../CurrencyStore';
 import WrongInputError from '../errors/WrongInputError';
 import InvalidCurrencyError from '../errors/InvalidCurrencyError';
 import getDefaultSettings from './getDefaultSettings';
@@ -81,20 +78,26 @@ export interface CurrencyInputSettings {
  * ```
  */
 export default class Currency {
-
   thousandsSeparator: string;
+
   decimalSeparator: string;
+
   decimalDigits: number;
+
   pattern: string;
+
   symbol: string;
+
   formatter?: CurrencyFormatter;
+
   parser?: CurrencyParser;
+
   code: string;
 
   /**
    * @param currency - Currency string code, custom settings or instance of Currency
    */
-  constructor(currency: string|CurrencyInputSettings|Currency) {
+  constructor(currency: string | CurrencyInputSettings | Currency) {
     const {
       thousandsSeparator,
       decimalSeparator,
@@ -118,12 +121,12 @@ export default class Currency {
 
   /**
    * Check if the parameter currency is the same as the current currency
-   * @param currency - Currency string code or instance of Currency
+   * @param currencyInput - Currency string code or instance of Currency
    * @returns - returns true if the parameter currency is the same as the current currency
    */
-  is(currency: string|Currency) {
+  is(currencyInput: string | Currency): boolean {
     const CurrencyConstructor = this.constructor as typeof Currency;
-    currency = new CurrencyConstructor(currency);
+    const currency = new CurrencyConstructor(currencyInput);
     return isEqual(this.settings, currency.settings);
   }
 
@@ -131,7 +134,7 @@ export default class Currency {
    * Get currency code
    * @returns - Currency code
    */
-  toString() {
+  toString(): string {
     return this.code;
   }
 
@@ -139,7 +142,7 @@ export default class Currency {
    * Get currency code
    * @returns - Currency code
    */
-  toJSON() {
+  toJSON(): string {
     return this.code;
   }
 
@@ -147,7 +150,7 @@ export default class Currency {
    * Clone the currency instance
    * @returns - new Currency instance
    */
-  clone() {
+  clone(): Currency {
     const CurrencyConstructor = this.constructor as typeof Currency;
     return new CurrencyConstructor(this.settings);
   }
@@ -174,7 +177,7 @@ export default class Currency {
    * @param currency - Currency code, settings or instance of Currency
    * @returns - Currency settings
    */
-  private preProcess(currency: string|CurrencyInputSettings|Currency) {
+  private preProcess(currency: string | CurrencyInputSettings | Currency): CurrencySettings {
     let settings = {};
 
     if (currency instanceof Currency) {
@@ -191,7 +194,7 @@ export default class Currency {
       if (isCurrencyRegistered(currency.code)) {
         defaultSettings = {
           ...defaultSettings,
-          ...getRegisteredCurrency(currency.code) as CurrencySettings,
+          ...(getRegisteredCurrency(currency.code) as CurrencySettings),
         };
       }
 
@@ -210,7 +213,7 @@ export default class Currency {
    * Creates a new instance of Currency
    * @param currency - Currency string code, custom settings or instance of Currency
    */
-  static init(currency: string|CurrencyInputSettings|Currency): Currency {
+  static init(currency: string | CurrencyInputSettings | Currency): Currency {
     const CurrencyConstructor = this as typeof Currency;
     return new CurrencyConstructor(currency);
   }

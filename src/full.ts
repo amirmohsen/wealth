@@ -1,4 +1,4 @@
-import { Money } from './_internals/Money';
+import './_internals/Money';
 
 import './_internals/Money/oo/add';
 import './_internals/Money/oo/subtract';

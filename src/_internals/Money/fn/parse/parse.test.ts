@@ -1,6 +1,6 @@
 import { Money } from '../..';
 import { USD, GBP, EUR, OMR, JPY } from '../../../constants/ISO_CURRENCIES';
-import getData from '../../../CurrencyStore/internals/getData';
+import getData, { CurrencySettingsInternalStore } from '../../../CurrencyStore/internals/getData';
 import Currency from '../../../Currency';
 import parse from '.';
 
@@ -31,7 +31,7 @@ describe('parse', () => {
   ];
 
   beforeAll(() => {
-    getData.mockReturnValue({
+    (getData as jest.MockedFunction<() => CurrencySettingsInternalStore>).mockReturnValue({
       USD,
       GBP,
       EUR,
@@ -89,13 +89,14 @@ describe('parse', () => {
 
   describe('when given a custom parser', () => {
     const customParsedValue = Symbol('custom parsed');
-    const customParser = jest.fn((args: object) => customParsedValue as unknown as Money);
-    let parsedValue;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const customParser = jest.fn((args: object): Money => (customParsedValue as unknown) as Money);
+    let parsedValue: Money;
 
     beforeAll(() => {
       const customUSD = new Currency({
         ...USD,
-        parser: (args: object) => customParser(args),
+        parser: (args: object): Money => customParser(args),
       });
       parsedValue = parse('$80.90', customUSD);
     });

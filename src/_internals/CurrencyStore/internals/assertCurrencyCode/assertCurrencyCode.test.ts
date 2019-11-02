@@ -4,18 +4,11 @@ import { WrongInputError } from '../../../errors';
 
 describe('assertCurrencyCode', () => {
   describe('when given valid values', () => {
-    const validValues = [
-      'USD',
-      'GBP',
-      'RANDOM',
-      'AB',
-      'C',
-      '123',
-    ];
+    const validValues = ['USD', 'GBP', 'RANDOM', 'AB', 'C', '123'];
 
     test('should do nothing', () => {
       for (const validValue of validValues) {
-        expect(assertCurrencyCode(validValue)).toBe(undefined);
+        expect(assertCurrencyCode(validValue)).toBeUndefined();
       }
     });
   });

@@ -1,5 +1,5 @@
-import { Money } from '../../../Money';
-import absolute from '../../fn/absolute';
+import { Money } from '../..';
+import _absolute from '../../fn/absolute';
 
 declare module '../../../Money' {
   interface Money {
@@ -7,6 +7,6 @@ declare module '../../../Money' {
   }
 }
 
-Money.prototype.absolute = function () {
-  return absolute(this);
+Money.prototype.absolute = function absolute(): Money {
+  return _absolute(this);
 };

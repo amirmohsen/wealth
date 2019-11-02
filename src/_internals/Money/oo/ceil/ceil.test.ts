@@ -1,5 +1,5 @@
 describe('ceil (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -17,7 +17,7 @@ describe('ceil (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/ceil');
   };
@@ -26,19 +26,19 @@ describe('ceil (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add ceil to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add ceil to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.ceil).toBe(undefined);
+    expect(Money.prototype.ceil).toBeUndefined();
 
-    await import('../ceil');
+    await import('.');
 
     expect(typeof Money.prototype.ceil).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
-    await import('../ceil');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
+    await import('.');
 
     const { default: ceil } = await import('../../fn/ceil');
 

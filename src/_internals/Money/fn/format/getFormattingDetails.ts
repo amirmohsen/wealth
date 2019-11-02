@@ -1,6 +1,18 @@
-import Currency, { CurrencyInputSettings } from '../../../Currency';
+import BigNumber from 'bignumber.js';
+import Currency, { CurrencyInputSettings, CurrencyFormatter } from '../../../Currency';
 import { Money } from '../..';
 import { getCurrency } from '../_internals';
+
+export interface FormattingDetails {
+  symbol: string;
+  code: string;
+  decimalDigits: number;
+  thousandsSeparator: string;
+  decimalSeparator: string;
+  pattern: string;
+  formatter?: CurrencyFormatter;
+  value: BigNumber;
+}
 
 /**
  * Get formatting details
@@ -9,19 +21,14 @@ import { getCurrency } from '../_internals';
  * @returns - Formatting details
  * @private
  */
-export const getFormattingDetails = (
+const getFormattingDetails = (
   value: Money,
-  settings?: CurrencyInputSettings|string|Currency,
-) => {
-  const {
-    symbol,
-    code,
-    thousandsSeparator,
-    decimalSeparator,
-    decimalDigits,
-    pattern,
-    formatter,
-  } = getCurrency(settings, value).settings;
+  settings?: CurrencyInputSettings | string | Currency,
+): FormattingDetails => {
+  const { symbol, code, thousandsSeparator, decimalSeparator, decimalDigits, pattern, formatter } = getCurrency(
+    settings,
+    value,
+  ).settings;
 
   let bigNumberValue;
 
@@ -53,3 +60,5 @@ export const getFormattingDetails = (
     value: bigNumberValue,
   };
 };
+
+export default getFormattingDetails;

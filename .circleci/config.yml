@@ -30,6 +30,16 @@ jobs:
           root: ~/repo
           paths:
             - .
+
+  check-types:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run type checking
+          command: yarn check-types
+
   lint:
     <<: *defaults
     steps:
@@ -84,6 +94,12 @@ workflows:
   test-build-publish:
     jobs:
       - install:
+          filters:
+            branches:
+              ignore: gh-pages
+      - check-types:
+          requires:
+            - install
           filters:
             branches:
               ignore: gh-pages

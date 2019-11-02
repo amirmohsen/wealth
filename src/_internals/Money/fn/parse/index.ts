@@ -1,7 +1,7 @@
 import Currency, { CurrencyInputSettings } from '../../../Currency';
-import { Money } from '../../../Money';
+import { Money } from '../..';
 import { getCurrency } from '../_internals';
-import { replaceMultipleStrings } from './internals';
+import replaceMultipleStrings from './replaceMultipleStrings';
 
 /**
  * Parse money based on settings
@@ -9,26 +9,16 @@ import { replaceMultipleStrings } from './internals';
  * @param settings - Parsing settings, currency code or currency
  * @returns - Parsed "Money" value
  */
-const parse = (value: string, settings: CurrencyInputSettings|string|Currency): Money => {
-  const
-    currency = getCurrency(settings),
-    {
-      symbol,
-      code,
-      thousandsSeparator,
-      decimalSeparator,
-      decimalDigits,
-      pattern,
-      parser,
-    } = currency.settings;
+const parse = (value: string, settings: CurrencyInputSettings | string | Currency): Money => {
+  const currency = getCurrency(settings);
+  const { symbol, code, thousandsSeparator, decimalSeparator, decimalDigits, pattern, parser } = currency.settings;
 
   const numberValue = replaceMultipleStrings(value, {
     [thousandsSeparator]: '',
     [symbol]: '',
     [code]: '',
     [decimalSeparator]: '',
-  })
-  .replace(/\s/g, '');
+  }).replace(/\s/g, '');
   const defaultParsed = new Money(numberValue, currency);
 
   if (typeof parser === 'function') {

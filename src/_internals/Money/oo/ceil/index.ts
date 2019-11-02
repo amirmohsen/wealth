@@ -1,5 +1,5 @@
-import { Money } from '../../../Money';
-import ceil from '../../fn/ceil';
+import { Money } from '../..';
+import _ceil from '../../fn/ceil';
 
 declare module '../../../Money' {
   interface Money {
@@ -7,6 +7,6 @@ declare module '../../../Money' {
   }
 }
 
-Money.prototype.ceil = function () {
-  return ceil(this);
+Money.prototype.ceil = function ceil(): Money {
+  return _ceil(this);
 };

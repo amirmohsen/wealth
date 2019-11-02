@@ -17,7 +17,6 @@ import WealthError from '../WealthError';
  * ```
  */
 export default class CurrencyMismatchError extends WealthError {
-
   /**
    * @param message - Error message
    */

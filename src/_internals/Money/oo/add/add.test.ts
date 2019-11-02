@@ -1,5 +1,5 @@
 describe('add (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -17,7 +17,7 @@ describe('add (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/add');
   };
@@ -26,19 +26,19 @@ describe('add (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add add to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add add to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.add).toBe(undefined);
+    expect(Money.prototype.add).toBeUndefined();
 
-    await import('../add');
+    await import('.');
 
     expect(typeof Money.prototype.add).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
-    await import('../add');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
+    await import('.');
 
     const { default: add } = await import('../../fn/add');
 

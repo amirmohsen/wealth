@@ -1,12 +1,12 @@
 const babelConfigTemplate = require('./build/babelConfigTemplate');
 
-module.exports = (api) => {
+module.exports = api => {
   api.cache(true);
   return babelConfigTemplate({
     envOptions: {
       targets: {
-        node: 'current'
-      }
-    }
-  })
+        node: 'current',
+      },
+    },
+  });
 };

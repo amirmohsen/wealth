@@ -1,11 +1,13 @@
 import Currency, { CurrencyInputSettings } from '../../../Currency';
-import { Money } from '../../../Money';
-import parse from '../../fn/parse';
+import { Money } from '../..';
+import _parse from '../../fn/parse';
 
 declare module '../../../Money' {
+  // eslint-disable-next-line @typescript-eslint/no-namespace,no-shadow
   namespace Money {
-      export function parse(value: string, settings: CurrencyInputSettings|string|Currency): Money;
+    // eslint-disable-next-line import/prefer-default-export
+    export function parse(value: string, settings: CurrencyInputSettings | string | Currency): Money;
   }
 }
 
-Money.parse = parse;
+Money.parse = _parse;

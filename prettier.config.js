@@ -1,7 +1,7 @@
 module.exports = {
-  "singleQuote": true,
-  "trailingComma": "all",
-  "bracketSpacing": true,
-  "arrowParens": "always",
-  "parser": "typescript",
+  singleQuote: true,
+  trailingComma: 'all',
+  bracketSpacing: true,
+  arrowParens: 'always',
+  parser: 'typescript',
 };

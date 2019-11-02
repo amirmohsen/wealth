@@ -1,13 +1,13 @@
 import { Money } from '../..';
 import { USD, JPY, OMR } from '../../../constants/ISO_CURRENCIES';
-import getData from '../../../CurrencyStore/internals/getData';
+import getData, { CurrencySettingsInternalStore } from '../../../CurrencyStore/internals/getData';
 import ceil from '.';
 
 jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('ceil', () => {
   beforeAll(() => {
-    getData.mockReturnValue({
+    (getData as jest.MockedFunction<() => CurrencySettingsInternalStore>).mockReturnValue({
       USD,
       JPY,
       OMR,

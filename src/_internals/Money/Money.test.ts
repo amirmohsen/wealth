@@ -3,7 +3,7 @@ import { USD, GBP } from '../constants/ISO_CURRENCIES';
 import Currency from '../Currency';
 import WrongInputError from '../errors/WrongInputError';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
-import getData from '../CurrencyStore/internals/getData';
+import getData, { CurrencySettingsInternalStore } from '../CurrencyStore/internals/getData';
 import Money from '.';
 
 jest.mock('../CurrencyStore/internals/getData');
@@ -15,13 +15,13 @@ describe('Money', () => {
     false,
     true,
     { value: '15.75', currency: 'USD' },
-    123.50,
+    123.5,
     '$123.60',
     '$1,345,223.60',
   ];
 
   beforeAll(() => {
-    getData.mockReturnValue({
+    (getData as jest.MockedFunction<() => CurrencySettingsInternalStore>).mockReturnValue({
       USD,
       GBP,
     });
@@ -65,7 +65,7 @@ describe('Money', () => {
   });
 
   describe('with valid values', () => {
-    let money;
+    let money: Money;
 
     beforeAll(() => {
       money = new Money('15.75', 'USD');
@@ -81,12 +81,9 @@ describe('Money', () => {
       expect(bigNumberInstance.toString()).toBe('15.75');
     });
 
-    test(
-      '"amountAsStringInteger" getter should return the amount as a string integer value',
-      () => {
-        expect(money.amountAsStringInteger).toBe('1575');
-      },
-    );
+    test('"amountAsStringInteger" getter should return the amount as a string integer value', () => {
+      expect(money.amountAsStringInteger).toBe('1575');
+    });
 
     test('"amountAsStringFloat" getter should return the amount as a string float value', () => {
       expect(money.amountAsStringFloat).toBe('15.75');
@@ -149,8 +146,9 @@ describe('Money', () => {
     test('"hasSameCurrency" should throw an error', () => {
       const money = new Money('15.75', 'USD');
       for (const invalidMonetaryValue of invalidMonetaryValues) {
-        expect(() => money.hasSameCurrency(invalidMonetaryValue as unknown as Money))
-          .toThrow(new WrongInputError('The input value must be a "Money" instance.'));
+        expect(() => money.hasSameCurrency((invalidMonetaryValue as unknown) as Money)).toThrow(
+          new WrongInputError('The input value must be a "Money" instance.'),
+        );
       }
     });
   });
@@ -158,21 +156,21 @@ describe('Money', () => {
   describe('when given a Money instance with a different currency', () => {
     test('"constructor" should throw an error', () => {
       const money = new Money('15.75', 'USD');
-      expect(() => new Money(money, 'GBP'))
-        .toThrow(new CurrencyMismatchError());
+      expect(() => new Money(money, 'GBP')).toThrow(new CurrencyMismatchError());
     });
   });
 
   describe('when given any invalid input value', () => {
     test('"constructor" should throw an error', () => {
       for (const invalidMonetaryValue of invalidMonetaryValues) {
-        expect(() => new Money(invalidMonetaryValue as unknown as Money, 'USD'))
-          .toThrow(new WrongInputError(
+        expect(() => new Money((invalidMonetaryValue as unknown) as Money, 'USD')).toThrow(
+          new WrongInputError(
             oneLine`
             The input value must be either an integer,
             an integer-like string, a float-like string or a "Money" instance.
             `,
-          ));
+          ),
+        );
       }
     });
   });

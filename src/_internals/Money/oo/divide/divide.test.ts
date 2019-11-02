@@ -1,7 +1,7 @@
 import ROUNDING from '../../../constants/ROUNDING';
 
 describe('divide (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -19,7 +19,7 @@ describe('divide (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/divide');
   };
@@ -28,18 +28,18 @@ describe('divide (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add divide to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add divide to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.divide).toBe(undefined);
+    expect(Money.prototype.divide).toBeUndefined();
 
     await import('.');
 
     expect(typeof Money.prototype.divide).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
     await import('.');
 
     const { default: divide } = await import('../../fn/divide');

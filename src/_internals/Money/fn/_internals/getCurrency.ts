@@ -1,4 +1,4 @@
-import { Money } from '../../../Money';
+import { Money } from '../..';
 import Currency, { CurrencyInputSettings } from '../../../Currency';
 
 /**
@@ -8,10 +8,7 @@ import Currency, { CurrencyInputSettings } from '../../../Currency';
  * @returns - Currency
  * @private
  */
-const getCurrency = (
-  settings?: CurrencyInputSettings|string|Currency,
-  value?: Money,
-) => {
+const getCurrency = (settings?: CurrencyInputSettings | string | Currency, value?: Money): Currency => {
   let finalSettings = {};
 
   if (value instanceof Money) {

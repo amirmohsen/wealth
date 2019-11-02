@@ -1,5 +1,5 @@
 describe('greaterThan (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -17,7 +17,7 @@ describe('greaterThan (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/greaterThan');
   };
@@ -26,19 +26,19 @@ describe('greaterThan (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add greaterThan to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add greaterThan to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.greaterThan).toBe(undefined);
+    expect(Money.prototype.greaterThan).toBeUndefined();
 
-    await import('../greaterThan');
+    await import('.');
 
     expect(typeof Money.prototype.greaterThan).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
-    await import('../greaterThan');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
+    await import('.');
 
     const { default: greaterThan } = await import('../../fn/greaterThan');
 
