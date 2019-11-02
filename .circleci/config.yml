@@ -55,7 +55,7 @@ jobs:
           at: ~/repo
       - run:
           name: Run functional tests
-          command: yarn test:functional -- --maxWorkers=2
+          command: yarn test:functional:with-build -- --maxWorkers=2
 
   build:
     <<: *defaults

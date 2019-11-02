@@ -2,7 +2,7 @@ module.exports = {
   displayName: 'functional test',
   preset: 'ts-jest',
   testMatch: [
-    '<rootDir>/test/functional/wealth.test.ts',
+    '<rootDir>/test/functional/**/?(*.)+(test).ts',
   ],
   testEnvironment: 'node',
   watchPathIgnorePatterns: [
