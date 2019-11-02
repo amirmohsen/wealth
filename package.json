@@ -5,10 +5,12 @@
   "description": "A full-featured money library",
   "scripts": {
     "build": "ts-node --project ./build/tsconfig.json build",
+    "build:no-pkg": "ts-node --project ./build/tsconfig.json build --disablePackageCopy",
     "dev": "ts-node --project ./build/tsconfig.json build --dev",
-    "lint": "yarn rm:lib && jest --config ./lint.config.js",
-    "test:unit": "yarn rm:lib && jest --config ./unit-test.config.js",
-    "test:functional": "yarn rm:lib && jest --config ./functional-test.config.js",
+    "lint": "jest --config ./lint.config.js",
+    "test:unit": "jest --config ./unit-test.config.js",
+    "test:functional": "jest --config ./functional-test.config.js",
+    "test:functional:with-build": "yarn build:no-pkg && yarn test:functional",
     "test": "yarn lint && yarn test:unit && yarn test:functional",
     "updateRootPackageJSONVersion": "ts-node --project ./build/tsconfig.json build/updateRootPackageJSONVersion",
     "rm:lib": "rm -rf ./lib"
