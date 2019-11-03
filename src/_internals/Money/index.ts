@@ -6,11 +6,7 @@ import isFloat from 'validator/lib/isFloat';
 import Currency, { CurrencyInputSettings } from '../Currency';
 import CurrencyMismatchError from '../errors/CurrencyMismatchError';
 import WrongInputError from '../errors/WrongInputError';
-import {
-  convertBigNumberToStringInteger,
-  getSmallestUnitAsBigNumber,
-  getSmallestUnitDivisor,
-} from './fn/_internals';
+import { convertBigNumberToStringInteger, getSmallestUnitAsBigNumber, getSmallestUnitDivisor } from './fn/_internals';
 import ROUNDING from '../constants/ROUNDING';
 
 /**
@@ -22,7 +18,6 @@ import ROUNDING from '../constants/ROUNDING';
  * ```
  */
 export class Money {
-
   /**
    * Internal currency
    */
@@ -72,7 +67,7 @@ export class Money {
    * @param value - integer, integer string, float string, instance of `Money`
    * @param currency - currency code as string, currency settings or instance of `Currency`
    */
-  constructor(value: number|string|Money, currency: string|CurrencyInputSettings|Currency) {
+  constructor(value: number | string | Money, currency: string | CurrencyInputSettings | Currency) {
     this.currency = new Currency(currency);
     this.bigNumberConstructor = this.generateBigNumberConstructor();
     this.value = this.preProcessInputValue(value, this.bigNumberConstructor);
@@ -84,7 +79,7 @@ export class Money {
    * @param value - value to check currency against the current value
    * @returns - true if the current value has the same currency as the parameter
    */
-  hasSameCurrency(value: Money): Boolean {
+  hasSameCurrency(value: Money): boolean {
     if (!(value instanceof Money)) {
       throw new WrongInputError('The input value must be a "Money" instance.');
     }
@@ -95,7 +90,7 @@ export class Money {
    * Create a new money instance, holding an identical value and currency to the current one
    * @returns - the cloned money instance
    */
-  clone() {
+  clone(): Money {
     const MoneyConstructor = this.constructor as typeof Money;
     return new MoneyConstructor(this.amount, this.currency);
   }
@@ -104,7 +99,7 @@ export class Money {
    * Get the current value as an instance of BigNumber
    * @returns - Internal BigNumber representation of the current value
    */
-  get amountAsBigNumber() {
+  get amountAsBigNumber(): BigNumber {
     return this.value;
   }
 
@@ -120,7 +115,7 @@ export class Money {
    * Get the current value as a string float
    * @returns - String float representation of the current value
    */
-  get amountAsStringFloat() {
+  get amountAsStringFloat(): string {
     return this.value.toFixed(this.currency.decimalDigits);
   }
 
@@ -136,7 +131,7 @@ export class Money {
    * Get the current value as a string float (same as `amount`)
    * @returns - String float representation of the current value
    */
-  toString() {
+  toString(): string {
     return this.amount;
   }
 
@@ -144,7 +139,7 @@ export class Money {
    * Get the smallest unit of the current monetary value, i.e., 0.01 (aka penny) in a USD money
    * @returns - new Money instance holding the smallest unit of the current monetary value
    */
-  get smallestUnit() {
+  get smallestUnit(): Money {
     const MoneyConstructor = this.constructor as typeof Money;
     return new MoneyConstructor(getSmallestUnitAsBigNumber(this).toString(), this.currency);
   }
@@ -153,7 +148,7 @@ export class Money {
    * Get a simple object representing the current monetary value
    * @returns - object with a string integer value and currency code
    */
-  toJSON() {
+  toJSON(): { amount: string; currency: string } {
     return {
       amount: this.amount,
       currency: this.currency.toJSON(),
@@ -165,7 +160,7 @@ export class Money {
    * If not, throw an error.
    * @param value - The money object which is used for currency check
    */
-  private checkValueCurrency(value: Money) {
+  private checkValueCurrency(value: Money): void {
     if (!this.hasSameCurrency(value)) {
       throw new CurrencyMismatchError();
     }
@@ -177,7 +172,7 @@ export class Money {
    * @param BN - BigNumber constructor used by this "Money" instance
    * @returns - Internal BigNumber instance
    */
-  private preProcessInputValue(value: number|string|Money, BN: typeof BigNumber) {
+  private preProcessInputValue(value: number | string | Money, BN: typeof BigNumber): BigNumber {
     if (value instanceof Money) {
       this.checkValueCurrency(value);
       return value.amountAsBigNumber;
@@ -186,17 +181,12 @@ export class Money {
     const divisor = getSmallestUnitDivisor(this);
 
     if (
-      divisor.isGreaterThan(1)
-      && (
-        (typeof value === 'string' && isInt(value))
-        || Number.isInteger(value as number)
-      )
+      divisor.isGreaterThan(1) &&
+      ((typeof value === 'string' && isInt(value)) || Number.isInteger(value as number))
     ) {
       const bignumber = new BN(value);
 
-      return bignumber
-        .dividedBy(divisor)
-        .decimalPlaces(this.currency.decimalDigits);
+      return bignumber.dividedBy(divisor).decimalPlaces(this.currency.decimalDigits);
     }
 
     if (typeof value === 'string' && isFloat(value)) {
@@ -215,7 +205,7 @@ export class Money {
    * Generate a compatible BigNumber constructor
    * @returns - a new BigNumber constructor
    */
-  private generateBigNumberConstructor() {
+  private generateBigNumberConstructor(): typeof BigNumber {
     return BigNumber.clone({
       DECIMAL_PLACES: 20,
       ROUNDING_MODE: ROUNDING.HALF_UP as any,
@@ -235,7 +225,7 @@ export class Money {
    * @param value - integer, integer string, float string, instance of `Money`
    * @param currency - currency code as string, currency settings or instance of `Currency`
    */
-  static init(value: number|string|Money, currency: string|CurrencyInputSettings|Currency) {
+  static init(value: number | string | Money, currency: string | CurrencyInputSettings | Currency): Money {
     const MoneyConstructor = this as typeof Money;
     return new MoneyConstructor(value, currency);
   }

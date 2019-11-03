@@ -1,15 +1,10 @@
 import { Money } from '../..';
 import { USD, GBP, EUR, OMR, JPY } from '../../../constants/ISO_CURRENCIES';
+import getData, { CurrencySettingsInternalStore } from '../../../CurrencyStore/internals/getData';
 import Currency from '../../../Currency';
 import parse from '.';
 
-jest.mock('../../../CurrencyStore/internals/getData', () => () => ({
-  USD,
-  GBP,
-  EUR,
-  OMR,
-  JPY,
-}));
+jest.mock('../../../CurrencyStore/internals/getData');
 
 describe('parse', () => {
   const formatted = [
@@ -35,6 +30,16 @@ describe('parse', () => {
     ['$1,200,145,154.42', 'USD'],
   ];
 
+  beforeAll(() => {
+    (getData as jest.MockedFunction<() => CurrencySettingsInternalStore>).mockReturnValue({
+      USD,
+      GBP,
+      EUR,
+      OMR,
+      JPY,
+    });
+  });
+
   for (const [value, currency] of formatted) {
     describe(`with "${currency}"`, () => {
       test(`should parse "${value}" given ${JSON.stringify(currency)} correctly`, () => {
@@ -52,6 +57,7 @@ describe('parse', () => {
         decimalDigits: 2,
         pattern: '%ns%s%v',
       });
+
       expect(parse('45 680,90 €', 'EUR').toJSON()).toEqual({
         amount: '45680.90',
         currency: 'EUR',
@@ -83,12 +89,17 @@ describe('parse', () => {
 
   describe('when given a custom parser', () => {
     const customParsedValue = Symbol('custom parsed');
-    const customParser = jest.fn((args: object) => customParsedValue as unknown as Money);
-    const customUSD = new Currency({
-      ...USD,
-      parser: (args: object) => customParser(args),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const customParser = jest.fn((args: object): Money => (customParsedValue as unknown) as Money);
+    let parsedValue: Money;
+
+    beforeAll(() => {
+      const customUSD = new Currency({
+        ...USD,
+        parser: (args: object): Money => customParser(args),
+      });
+      parsedValue = parse('$80.90', customUSD);
     });
-    const parsedValue = parse('$80.90', customUSD);
 
     test('should use its return value for parsing', () => {
       expect(parsedValue).toBe(customParsedValue);

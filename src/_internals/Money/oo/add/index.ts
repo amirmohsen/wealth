@@ -1,12 +1,12 @@
-import { Money } from '../../../Money';
-import add from '../../fn/add';
+import { Money } from '../..';
+import _add from '../../fn/add';
 
 declare module '../../../Money' {
   interface Money {
-    add: (value: number|string|Money) => Money;
+    add: (value: number | string | Money) => Money;
   }
 }
 
-Money.prototype.add = function (value) {
-  return add(this, value);
+Money.prototype.add = function add(value): Money {
+  return _add(this, value);
 };

@@ -1,27 +1,20 @@
 module.exports = {
   displayName: 'functional test',
-  preset: 'ts-jest',
-  testMatch: [
-    '<rootDir>/test/functional/**/?(*.)+(test).ts',
-  ],
+  testMatch: ['<rootDir>/test/functional/**/?(*.)+(test).ts'],
   testEnvironment: 'node',
-  watchPathIgnorePatterns: [
-    '<rootDir>/lib/',
-    '<rootDir>/testOutput/',
-    '<rootDir>/node_modules/'
-  ],
-  testPathIgnorePatterns: [
-    '<rootDir>/lib/',
-    '<rootDir>/testOutput/',
-    '<rootDir>/node_modules/'
-  ],
+  watchPathIgnorePatterns: ['<rootDir>/lib/', '<rootDir>/testOutput/', '<rootDir>/node_modules/'],
+  testPathIgnorePatterns: ['<rootDir>/lib/', '<rootDir>/testOutput/', '<rootDir>/node_modules/'],
   watchPlugins: [
-    ['jest-watch-suspend', {
-      key: 's',
-      prompt: 'suspend watch mode',
-      'suspend-on-start': true
-    }],
+    [
+      'jest-watch-suspend',
+      {
+        key: 's',
+        prompt: 'suspend watch mode',
+        'suspend-on-start': false,
+      },
+    ],
     'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
-  ]
+    'jest-watch-typeahead/testname',
+  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };

@@ -1,12 +1,12 @@
-import { Money } from '../../../Money';
-import allocate from '../../fn/allocate';
+import { Money } from '../..';
+import _allocate from '../../fn/allocate';
 
 declare module '../../../Money' {
   interface Money {
-    allocate: (ratios: (string|number)[]) => Money[];
+    allocate: (ratios: (string | number)[]) => Money[];
   }
 }
 
-Money.prototype.allocate = function (ratios) {
-  return allocate(this, ratios);
+Money.prototype.allocate = function allocate(ratios): Money[] {
+  return _allocate(this, ratios);
 };

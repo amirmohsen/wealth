@@ -1,7 +1,6 @@
 import WealthError from '.';
 
 describe('WealthError', () => {
-
   test('should use "Wealth error" as default message', () => {
     const error = new WealthError();
     expect(error.message).toBe('Wealth error');

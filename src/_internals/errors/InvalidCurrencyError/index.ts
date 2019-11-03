@@ -16,7 +16,6 @@ import WealthError from '../WealthError';
  * ```
  */
 export default class InvalidCurrencyError extends WealthError {
-
   /**
    * @param message - Error message
    */

@@ -1,7 +1,5 @@
-import ROUNDING from '../../../constants/ROUNDING';
-
 describe('parse (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -19,7 +17,7 @@ describe('parse (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/parse');
   };
@@ -28,11 +26,11 @@ describe('parse (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add parse to the Money class', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add parse to the Money class', async () => {
+    const { Money } = await import('../..');
     const { default: parse } = await import('../../fn/parse');
 
-    expect(Money.parse).toBe(undefined);
+    expect(Money.parse).toBeUndefined();
 
     await import('.');
 

@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import { Money } from '../../../Money';
+import { Money } from '../..';
 
 /**
  * Get the smallest unit divisor for the current value's currency,
@@ -7,9 +7,9 @@ import { Money } from '../../../Money';
  * It is used for converting an integer value to a float value (or vice versa).
  * @returns - Smallest unit divisor
  */
-const getSmallestUnitDivisor = (money: Money) => {
-  const	decimalDigits = money.currency.decimalDigits;
-  return (new BigNumber('10')).exponentiatedBy(decimalDigits);
+const getSmallestUnitDivisor = (money: Money): BigNumber => {
+  const { decimalDigits } = money.currency;
+  return new BigNumber('10').exponentiatedBy(decimalDigits);
 };
 
 export default getSmallestUnitDivisor;

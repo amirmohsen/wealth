@@ -7,4 +7,4 @@ export interface CurrencySettingsInternalStore {
 
 const data: CurrencySettingsInternalStore = {};
 
-export default () => data;
+export default (): CurrencySettingsInternalStore => data;

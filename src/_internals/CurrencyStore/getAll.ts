@@ -6,17 +6,13 @@ import getData from './internals/getData';
  * Get all registered currencies
  * @returns - List of currencies, sorted by code alphabetically
  */
-const getAll = (): CurrencySettings[]  => {
+const getAll = (): CurrencySettings[] => {
   const data = getData();
-  return Object
-    .values(data)
+  return Object.values(data)
     .reduce(
-      (
-        all: CurrencySettings[],
-        settings: DeepReadonly<CurrencySettings>,
-      ) => [...all, settings as CurrencySettings],
+      (all: CurrencySettings[], settings: DeepReadonly<CurrencySettings>) => [...all, settings as CurrencySettings],
       [],
-      )
+    )
     .sort((a: CurrencySettings, b: CurrencySettings) => a.code.localeCompare(b.code));
 };
 

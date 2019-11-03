@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "module": "esnext",
     "lib": ["esnext"],
     "declaration": true,
@@ -10,14 +10,15 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "types": ["jest"],
+    "typeRoots": ["./src/types", "node_modules/@types"]
   },
   "include": [
     "src/**/*.ts",
   ],
   "exclude": [
     "node_modules",
-    "src/**/*.test.ts",
-    "src/_internals/Money/oo/**"
+    "lib"
   ]
 }

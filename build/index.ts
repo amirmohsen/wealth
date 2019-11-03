@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/// <reference path="declarations.d.ts"/>
+// / <reference path="declarations.d.ts"/>
 
 import yargs from 'yargs';
 import { join } from 'path';
@@ -16,32 +16,32 @@ interface Argv {
 
 const root = process.cwd();
 
-const getArgv = () => yargs
-  .option('dev', {
-    alias: 'd',
-    type: 'boolean',
-    default: false,
-  })
-  .option('disablePackageCopy', {
-    type: 'boolean',
-    default: false,
-  })
-  .argv;
+const getArgv = (): Argv =>
+  (yargs
+    .option('dev', {
+      alias: 'd',
+      type: 'boolean',
+      default: false,
+    })
+    .option('disablePackageCopy', {
+      type: 'boolean',
+      default: false,
+    }).argv as unknown) as Argv;
 
-const startChildProcess = (command: string) => {
+const startChildProcess = (command: string): Promise<{ code: number }> => {
   const childProcess = spawn(command, [], {
-    stdio: 'inherit',
+    stdio: ['ignore', 'ignore', 'inherit'],
     shell: true,
   });
   return new Promise((resolve, reject) => {
-    childProcess.on('close', code => code === 0 ? resolve({ code }) : reject({ code }));
+    childProcess.on('close', code => (code === 0 ? resolve({ code }) : reject(new Error(`Error: ${code}`))));
   });
 };
 
-const runStep = async(name: string, action?: Function) => {
+const runStep = async (name: string, action?: Function): Promise<void> => {
   const spinner = ora({
     text: name,
-    spinner: spinners['growHorizontal'],
+    spinner: spinners.growHorizontal,
   }).start();
   try {
     if (action) {
@@ -54,12 +54,10 @@ const runStep = async(name: string, action?: Function) => {
   spinner.succeed();
 };
 
-const copyPackageJSON = async() => {
+const copyPackageJSON = async (): Promise<void> => {
   const packageJSON = await readJson(join(root, 'package.json'));
 
-  packageJSON.sideEffects = [
-    './methods/*.js',
-  ];
+  packageJSON.sideEffects = ['./methods/*.js'];
   packageJSON.main = 'node/index.js';
   packageJSON.module = 'index.js';
   packageJSON.jsdelivr = 'umd.js';
@@ -67,22 +65,18 @@ const copyPackageJSON = async() => {
   delete packageJSON['jest-stare'];
   delete packageJSON.scripts;
 
-  await writeJSON(
-    join(root, 'lib/package.json'),
-    packageJSON,
-    {
-      spaces: 2,
-    },
-  );
+  await writeJSON(join(root, 'lib/package.json'), packageJSON, {
+    spaces: 2,
+  });
 };
 
-const copyMetaFiles = async() => {
+const copyMetaFiles = async (): Promise<void> => {
   await copy(join(root, 'LICENSE.md'), join(root, 'lib/LICENSE.md'));
   await copy(join(root, 'README.md'), join(root, 'lib/README.md'));
 };
 
-const run = async () => {
-  const argv = getArgv() as unknown as Argv;
+const run = async (): Promise<void> => {
+  const argv = (getArgv() as unknown) as Argv;
   const { dev, disablePackageCopy } = argv;
 
   await runStep('emptying lib directory', () => emptyDir(join(root, 'lib')));
@@ -95,13 +89,21 @@ const run = async () => {
 
   if (dev) {
     runStep('dev esm build with watch');
-    await startChildProcess('npx tsc --watch');
+    await startChildProcess(
+      'babel src --config-file="./build/babelConfigs/browser.js" --out-dir lib --source-maps --extensions ".ts" --watch',
+    );
   } else {
-    await runStep('esm build', () => startChildProcess('npx tsc'));
+    await runStep('esm build', () =>
+      startChildProcess(
+        'babel src --config-file="./build/babelConfigs/browser.js" --out-dir lib --source-maps --extensions ".ts"',
+      ),
+    );
 
-    await runStep('cjs build', () => startChildProcess(
-      'npx tsc --module "commonjs" --outDir "lib/node"',
-    ));
+    await runStep('cjs build', () =>
+      startChildProcess(
+        'babel src --config-file="./build/babelConfigs/node.js" --out-dir lib/node --source-maps --extensions ".ts"',
+      ),
+    );
 
     await runStep('umd build', () => startChildProcess('npx rollup --config --silent'));
   }

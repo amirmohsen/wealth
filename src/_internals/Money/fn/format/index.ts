@@ -1,6 +1,6 @@
 import Currency, { CurrencyInputSettings } from '../../../Currency';
 import { Money } from '../..';
-import { getFormattingDetails } from './internals';
+import getFormattingDetails from './getFormattingDetails';
 
 export interface FormattingSettings {
   thousandsSeparator?: CurrencyInputSettings['thousandsSeparator'];
@@ -19,7 +19,7 @@ export interface FormattingSettings {
  * @param settings - Formatting settings, currency code or currency
  * @returns - Formatted money string
  */
-const format = (value: Money, settings?: FormattingSettings|string|Currency): string => {
+const format = (value: Money, settings?: FormattingSettings | string | Currency): string => {
   const {
     symbol,
     code,

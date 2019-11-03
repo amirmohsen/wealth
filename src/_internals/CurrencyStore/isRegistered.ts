@@ -6,7 +6,7 @@ import assertCurrencyCode from './internals/assertCurrencyCode';
  * @param code - Currency code
  * @returns - True if currency has been registered
  */
-const isRegistered = (code: string) => {
+const isRegistered = (code: string): boolean => {
   const data = getData();
   assertCurrencyCode(code);
   return code in data;

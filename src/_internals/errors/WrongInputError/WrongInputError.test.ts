@@ -2,7 +2,6 @@ import WrongInputError from '.';
 import WealthError from '../WealthError';
 
 describe('WrongInputError', () => {
-
   test('should extend "WealthError"', () => {
     const error = new WrongInputError();
     expect(error).toBeInstanceOf(WealthError);

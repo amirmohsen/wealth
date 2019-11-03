@@ -8,7 +8,7 @@ import assertCurrencyCode from './internals/assertCurrencyCode';
  * Set (register or replace) a currency
  * @param settings - Currency settings
  */
-const register = (settings: CurrencyInputSettings) => {
+const register = (settings: CurrencyInputSettings): void => {
   const data = getData();
   const { code } = settings;
 

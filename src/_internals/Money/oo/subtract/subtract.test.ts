@@ -1,5 +1,5 @@
 describe('subtract (oo)', () => {
-  const doMock = () => {
+  const doMock = (): void => {
     class MockMoney {}
     const mockAction = jest.fn(() => 'return value');
 
@@ -17,7 +17,7 @@ describe('subtract (oo)', () => {
     }));
   };
 
-  const dontMock = () => {
+  const dontMock = (): void => {
     jest.dontMock('../../../Money');
     jest.dontMock('../../fn/subtract');
   };
@@ -26,19 +26,19 @@ describe('subtract (oo)', () => {
 
   afterEach(dontMock);
 
-  test('should add subtract to the Money prototype', async() => {
-    const { Money } = await import('../../../Money');
+  test('should add subtract to the Money prototype', async () => {
+    const { Money } = await import('../..');
 
-    expect(Money.prototype.subtract).toBe(undefined);
+    expect(Money.prototype.subtract).toBeUndefined();
 
-    await import('../subtract');
+    await import('.');
 
     expect(typeof Money.prototype.subtract).toBe('function');
   });
 
-  test('should call the fn version', async() => {
-    const { Money } = await import('../../../Money');
-    await import('../subtract');
+  test('should call the fn version', async () => {
+    const { Money } = await import('../..');
+    await import('.');
 
     const { default: subtract } = await import('../../fn/subtract');
 

@@ -5,10 +5,10 @@ import assertCurrencyCode from './internals/assertCurrencyCode';
  * Delete a registered currency
  * @param code - Currency code
  */
-const deregister = (code: string) => {
+const deregister = (code: string): void => {
   const data = getData();
   assertCurrencyCode(code);
-  return delete data[code];
+  delete data[code];
 };
 
 export default deregister;
