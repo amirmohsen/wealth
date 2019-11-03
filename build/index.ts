@@ -30,7 +30,7 @@ const getArgv = (): Argv =>
 
 const startChildProcess = (command: string): Promise<{ code: number }> => {
   const childProcess = spawn(command, [], {
-    stdio: 'inherit',
+    stdio: ['ignore', 'ignore', 'inherit'],
     shell: true,
   });
   return new Promise((resolve, reject) => {
@@ -89,11 +89,21 @@ const run = async (): Promise<void> => {
 
   if (dev) {
     runStep('dev esm build with watch');
-    await startChildProcess('npx tsc --watch');
+    await startChildProcess(
+      'babel src --config-file="./build/babelConfigs/browser.js" --out-dir lib --source-maps --extensions ".ts" --watch',
+    );
   } else {
-    await runStep('esm build', () => startChildProcess('npx tsc'));
+    await runStep('esm build', () =>
+      startChildProcess(
+        'babel src --config-file="./build/babelConfigs/browser.js" --out-dir lib --source-maps --extensions ".ts"',
+      ),
+    );
 
-    await runStep('cjs build', () => startChildProcess('npx tsc --module "commonjs" --outDir "lib/node"'));
+    await runStep('cjs build', () =>
+      startChildProcess(
+        'babel src --config-file="./build/babelConfigs/node.js" --out-dir lib/node --source-maps --extensions ".ts"',
+      ),
+    );
 
     await runStep('umd build', () => startChildProcess('npx rollup --config --silent'));
   }
