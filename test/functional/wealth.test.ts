@@ -1,9 +1,9 @@
-import { Money } from '../../lib/node';
-import { USD } from '../../lib/node/iso';
-import { registerMultipleCurrencies } from '../../lib/node/store';
-import '../../lib/node/methods/add';
-import '../../lib/node/methods/divide';
-import '../../lib/node/methods/equals';
+import { Money } from '../../src';
+import { USD } from '../../src/iso';
+import { registerMultipleCurrencies } from '../../src/store';
+import '../../src/methods/add';
+import '../../src/methods/divide';
+import '../../src/methods/equals';
 
 describe('Wealth (oo)', () => {
   test('should work correctly', () => {
