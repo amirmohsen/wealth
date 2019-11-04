@@ -1,3 +1,4 @@
+import { DeepReadonly } from 'deep-freeze';
 import BigNumber from 'bignumber.js';
 
 export interface BaseCurrencyFormatter {
@@ -27,6 +28,7 @@ export interface BaseCurrencyParser {
 }
 
 export interface BaseCurrencyInputSettings {
+  code?: string;
   thousandsSeparator?: string;
   decimalSeparator?: string;
   decimalDigits?: number;
@@ -34,7 +36,20 @@ export interface BaseCurrencyInputSettings {
   symbol?: string;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
+}
+
+export interface BaseCurrencyInputSettingsWithRequiredCode extends BaseCurrencyInputSettings {
   code: string;
+}
+
+export interface BaseCurrencySettings {
+  thousandsSeparator: string;
+  decimalSeparator: string;
+  decimalDigits: number;
+  pattern: string;
+  symbol: string;
+  formatter?: BaseCurrencyFormatter;
+  parser?: BaseCurrencyParser;
 }
 
 export interface BaseCurrency {
@@ -48,16 +63,16 @@ export interface BaseCurrency {
   code: string;
 }
 
+export type FrozenBaseCurrency = DeepReadonly<BaseCurrency>;
+
 export interface BaseMoney {
   currency: BaseCurrency;
   value: BigNumber;
 }
 
+export type FrozenBaseMoney = DeepReadonly<BaseMoney>;
+
 export interface BaseSerializedMoney {
   currency: string;
   amount: string;
 }
-
-export type BaseMoneyInput = string | number | BaseMoney;
-
-export type BaseCurrencyInput = string | BaseCurrencyInputSettings | BaseCurrency;

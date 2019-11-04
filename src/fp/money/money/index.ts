@@ -1,5 +1,5 @@
-import { BaseMoneyInput, BaseCurrencyInput, BaseMoney } from '../types';
+import { FrozenBaseCurrency, FrozenBaseMoney } from 'src/fp/types';
 
-const money = (value: BaseMoneyInput, currency: BaseCurrencyInput): BaseMoney => ({});
+const money = (value: string, currency: FrozenBaseCurrency): FrozenBaseMoney => ({});
 
 export default money;

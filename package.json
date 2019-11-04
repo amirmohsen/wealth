@@ -44,7 +44,7 @@
     "common-tags": "^1",
     "deep-freeze": "^0.0.1",
     "es6-error": "^4",
-    "lodash.isequal": "^4",
+    "lodash": "^4",
     "validator": "^11"
   },
   "devDependencies": {
@@ -65,10 +65,12 @@
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
     "babel-jest": "^24.9.0",
+    "babel-plugin-module-resolver": "^3.2.0",
     "cli-spinners": "^2",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.5.0",
+    "eslint-import-resolver-babel-module": "^5.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.0.2",
     "eslint-plugin-prettier": "^3.1.1",

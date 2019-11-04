@@ -7,6 +7,18 @@ const sharedTypeScriptRules = {
   "@typescript-eslint/no-explicit-any": ["off"]
 };
 
+const sharedSettings = {
+  "import/resolver": {
+    "babel-module": {
+      "root": ["."],
+      "extensions": [".js", ".jsx", ".ts", ".tsx"]
+    },
+    "node": {
+      "extensions": [".js", ".jsx", ".ts", ".tsx"]
+    }
+  }
+};
+
 module.exports =  {
   extends:  [
     'eslint-config-airbnb-base',
@@ -16,13 +28,7 @@ module.exports =  {
     ecmaVersion:  2020,
     sourceType:  'module',
   },
-  settings: {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
-  },
+  settings: sharedSettings,
   rules: {
     "import/no-extraneous-dependencies": [
       "error", {
@@ -41,13 +47,7 @@ module.exports =  {
         'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
       ],
-      settings: {
-        "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx", ".ts", ".tsx"]
-          }
-        }
-      },
+      settings: sharedSettings,
       rules: {
         "import/no-extraneous-dependencies": [
           "error", {
@@ -73,13 +73,7 @@ module.exports =  {
       env: {
         "jest/globals": true
       },
-      settings: {
-        "import/resolver": {
-          "node": {
-            "extensions": [".js", ".jsx", ".ts", ".tsx"]
-          }
-        }
-      },
+      settings: sharedSettings,
       rules: {
         "import/no-extraneous-dependencies": [
           "error", {
