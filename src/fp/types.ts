@@ -1,5 +1,6 @@
 import { DeepReadonly } from 'deep-freeze';
 import BigNumber from 'bignumber.js';
+import { WealthSymbolType } from './symbols';
 
 export interface BaseCurrencyFormatter {
   (settings: {
@@ -61,13 +62,15 @@ export interface BaseCurrency {
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
   code: string;
+  $$typeof: WealthSymbolType;
 }
 
 export type FrozenBaseCurrency = DeepReadonly<BaseCurrency>;
 
 export interface BaseMoney {
-  currency: BaseCurrency;
+  currency: FrozenBaseCurrency;
   value: BigNumber;
+  $$typeof: WealthSymbolType;
 }
 
 export type FrozenBaseMoney = DeepReadonly<BaseMoney>;

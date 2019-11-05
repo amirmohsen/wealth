@@ -1,7 +1,7 @@
-import getDefaultSettings from '.';
+import getDefaultCurrencySettings from '.';
 
-test('getDefaultSettings() should match the snapshot', () => {
-  expect(getDefaultSettings('USD')).toMatchInlineSnapshot(`
+test('getDefaultCurrencySettings() should match the snapshot', () => {
+  expect(getDefaultCurrencySettings('USD')).toMatchInlineSnapshot(`
 Object {
   "code": "USD",
   "decimalDigits": 2,
@@ -11,7 +11,7 @@ Object {
   "thousandsSeparator": ",",
 }
 `);
-  expect(getDefaultSettings('GBP')).toMatchInlineSnapshot(`
+  expect(getDefaultCurrencySettings('GBP')).toMatchInlineSnapshot(`
 Object {
   "code": "GBP",
   "decimalDigits": 2,
