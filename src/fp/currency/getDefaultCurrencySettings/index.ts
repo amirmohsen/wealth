@@ -6,6 +6,8 @@ const getDefaultCurrencySettings = (code: string): BaseCurrencySettings => ({
   decimalSeparator: '.',
   decimalDigits: 2,
   pattern: '%ns%s%v',
+  toString: (): string => code,
+  toJSON: (): string => code,
 });
 
 export default getDefaultCurrencySettings;

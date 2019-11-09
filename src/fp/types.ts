@@ -1,4 +1,4 @@
-import { DeepReadonly } from 'deep-freeze';
+// import { DeepReadonly } from 'deep-freeze';
 import BigNumber from 'bignumber.js';
 import { WealthSymbolType } from './symbols';
 
@@ -37,6 +37,8 @@ export interface BaseCurrencyInputSettings {
   symbol?: string;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
+  toString?: () => string;
+  toJSON?: () => string | object;
 }
 
 export interface BaseCurrencyInputSettingsWithRequiredCode extends BaseCurrencyInputSettings {
@@ -49,6 +51,8 @@ export interface BaseCurrencySettings {
   decimalDigits: number;
   pattern: string;
   symbol: string;
+  toString: () => string;
+  toJSON: () => string | object;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
 }
@@ -61,11 +65,13 @@ export interface BaseCurrency {
   symbol: string;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
+  toString?: () => string;
+  toJSON?: () => string | object;
   code: string;
   $$typeof: WealthSymbolType;
 }
 
-export type FrozenBaseCurrency = DeepReadonly<BaseCurrency>;
+export type FrozenBaseCurrency = Readonly<BaseCurrency>;
 
 export interface BaseMoney {
   currency: FrozenBaseCurrency;
@@ -73,7 +79,7 @@ export interface BaseMoney {
   $$typeof: WealthSymbolType;
 }
 
-export type FrozenBaseMoney = DeepReadonly<BaseMoney>;
+export type FrozenBaseMoney = Readonly<BaseMoney>;
 
 export interface BaseSerializedMoney {
   currency: string;

@@ -1,4 +1,3 @@
-import deepFreeze from 'deep-freeze';
 import pipe from 'lodash/fp/pipe';
 import { BaseCurrencyInputSettings, FrozenBaseCurrency } from 'src/fp/types';
 import assertCurrencyCode from './assertCurrencyInput';
@@ -8,7 +7,7 @@ const currency = (code: string, settings?: BaseCurrencyInputSettings): FrozenBas
   pipe(
     assertCurrencyCode,
     mergeCurrencyInput,
-    deepFreeze,
+    Object.freeze,
   )(code, settings) as FrozenBaseCurrency;
 
 export default currency;

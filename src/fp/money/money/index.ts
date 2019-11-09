@@ -1,4 +1,3 @@
-import deepFreeze from 'deep-freeze';
 import pipe from 'lodash/fp/pipe';
 import { FrozenBaseCurrency, FrozenBaseMoney } from 'src/fp/types';
 import assertMoneyInput from './assertMoneyInput';
@@ -14,7 +13,7 @@ const money = (value: string, currency: FrozenBaseCurrency): FrozenBaseMoney =>
       generateBigNumberValue,
     )(currency),
     mergeFields(currency),
-    deepFreeze,
+    Object.freeze,
   )(value, currency) as FrozenBaseMoney;
 
 export default money;
