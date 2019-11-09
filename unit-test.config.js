@@ -1,11 +1,11 @@
 module.exports = {
   displayName: 'unit test',
-  testMatch: ['<rootDir>/src/**/?(*.)+(test).ts'],
+  testMatch: ['<rootDir>/src/fp/**/?(*.)+(test).ts'],
   testEnvironment: 'node',
   watchPathIgnorePatterns: ['<rootDir>/lib/', '<rootDir>/testOutput/', '<rootDir>/node_modules/'],
   testPathIgnorePatterns: ['<rootDir>/lib/', '<rootDir>/testOutput/', '<rootDir>/node_modules/'],
   collectCoverage: true,
-  collectCoverageFrom: ['src/_internals/**/*.ts', '!**/node_modules/**'],
+  collectCoverageFrom: ['src/fp/**/*.ts', '!**/node_modules/**'],
   coverageThreshold: {
     global: {
       branches: 100,
@@ -30,4 +30,5 @@ module.exports = {
     'jest-watch-typeahead/testname',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleDirectories: ['node_modules', '.'],
 };

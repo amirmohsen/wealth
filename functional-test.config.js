@@ -17,4 +17,5 @@ module.exports = {
     'jest-watch-typeahead/testname',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleDirectories: ['node_modules', '.'],
 };

@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`money when provided with valid values should create a Money object 1`] = `
+Object {
+  "$$typeof": Symbol(wealth.money),
+  "currency": Object {
+    "$$typeof": Symbol(wealth.currency),
+    "code": "JPY",
+    "decimalDigits": 0,
+    "decimalSeparator": ".",
+    "pattern": "%ns%s%v",
+    "symbol": "JPY",
+    "thousandsSeparator": ",",
+  },
+  "value": "123334",
+}
+`;
+
+exports[`money when provided with valid values should create a Money object 2`] = `
+Object {
+  "$$typeof": Symbol(wealth.money),
+  "currency": Object {
+    "$$typeof": Symbol(wealth.currency),
+    "code": "USD",
+    "decimalDigits": 2,
+    "decimalSeparator": ".",
+    "pattern": "%ns%s%v",
+    "symbol": "USD",
+    "thousandsSeparator": ",",
+  },
+  "value": "1234232.9",
+}
+`;
+
+exports[`money when provided with valid values should create a Money object 3`] = `
+Object {
+  "$$typeof": Symbol(wealth.money),
+  "currency": Object {
+    "$$typeof": Symbol(wealth.currency),
+    "code": "EUR",
+    "decimalDigits": 2,
+    "decimalSeparator": ",",
+    "pattern": "%ns%s%v",
+    "symbol": "EUR",
+    "thousandsSeparator": ".",
+  },
+  "value": "34233.89",
+}
+`;

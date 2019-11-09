@@ -10,7 +10,7 @@ const assertInt = (value: string): void => {
 };
 
 const assertFixedDigitDecimal = (value: string, decimalDigits: number): void => {
-  if (new RegExp(`^[-|+]?\\d+\\.\\d{${decimalDigits}}$`).exec(value)) {
+  if (!new RegExp(`^[-|+]?\\d+\\.\\d{${decimalDigits}}$`).exec(value)) {
     throw new WrongInputError(
       `The input value, "${value}", is not a fixed decimal number to match the currency's ${decimalDigits} decimal digits.`,
     );

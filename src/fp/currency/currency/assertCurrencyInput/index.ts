@@ -5,7 +5,7 @@ const assertCurrencyInput = (
   code: string,
   settings: BaseCurrencyInputSettings = {},
 ): BaseCurrencyInputSettingsWithRequiredCode => {
-  if (typeof code !== 'string' && code) {
+  if (typeof code !== 'string' || !code) {
     throw new InvalidCurrencyError('Currency code is required.');
   }
 
