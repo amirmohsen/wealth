@@ -1,4 +1,4 @@
-import { currencySymbol } from 'src/fp/symbols';
+import { CurrencySymbol } from 'src/symbols';
 import { FrozenBaseCurrency } from 'src/fp/types';
 import currency from 'src/fp/currency/currency';
 import isCurrency from '.';
@@ -23,7 +23,7 @@ describe('isCurrency', () => {
   describe.each([
     [
       {
-        $$typeof: currencySymbol,
+        $$typeof: CurrencySymbol,
       } as FrozenBaseCurrency,
     ],
     [currency('USD')],

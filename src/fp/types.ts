@@ -1,6 +1,6 @@
 // import { DeepReadonly } from 'deep-freeze';
 import BigNumber from 'bignumber.js';
-import { WealthSymbolType } from './symbols';
+import { WealthSymbolType } from '../symbols';
 
 export interface BaseCurrencyFormatter {
   (settings: {

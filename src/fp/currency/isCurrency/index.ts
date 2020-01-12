@@ -1,6 +1,6 @@
 import { FrozenBaseCurrency } from 'src/fp/types';
-import { currencySymbol } from 'src/fp/symbols';
+import { CurrencySymbol } from 'src/symbols';
 
-const isCurrency = (currency: FrozenBaseCurrency): boolean => Boolean(currency) && currency.$$typeof === currencySymbol;
+const isCurrency = (currency: FrozenBaseCurrency): boolean => Boolean(currency) && currency.$$typeof === CurrencySymbol;
 
 export default isCurrency;
