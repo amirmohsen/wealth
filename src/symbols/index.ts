@@ -1,5 +1,7 @@
 import createSymbol, { WealthSymbolType } from '../utils/createSymbol';
 
+export { WealthSymbolType } from '../utils/createSymbol';
+
 export const CurrencySymbol: WealthSymbolType = createSymbol('Wealth.Currency');
 
 export const MoneySymbol: WealthSymbolType = createSymbol('Wealth.Money');

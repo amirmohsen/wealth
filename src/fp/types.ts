@@ -1,34 +1,36 @@
-// import { DeepReadonly } from 'deep-freeze';
 import BigNumber from 'bignumber.js';
 import { WealthSymbolType } from '../symbols';
 
+export interface BaseSerializedMoney {
+  currency: string;
+  amount: string;
+}
+
 export interface BaseCurrencyFormatter {
-  (settings: {
-    value: BaseMoney;
-    defaultFormatted: string;
-    symbol: string;
-    code: string;
-    decimalDigits: number;
-    thousandsSeparator: string;
-    decimalSeparator: string;
-    pattern: string;
-  }): string;
+  (settings: { money: FrozenBaseMoney; defaultFormatted: string }): string;
 }
 
 export interface BaseCurrencyParser {
-  (settings: {
-    symbol: string;
-    code: string;
-    thousandsSeparator: string;
-    decimalSeparator: string;
-    decimalDigits: number;
-    pattern: string;
-    value: string;
-    defaultParsed: BaseMoney;
-  }): BaseMoney;
+  (settings: { value: string; defaultParsed: BaseMoney }): BaseMoney;
 }
 
-export interface BaseCurrencyInputSettings {
+export interface BaseCurrencyStringifier {
+  (currency: FrozenBaseCurrency): string;
+}
+
+export interface BaseCurrencySerializer<T = string> {
+  (currency: FrozenBaseCurrency): T;
+}
+
+export interface BaseMoneyStringifier {
+  (money: FrozenBaseMoney): string;
+}
+
+export interface BaseMoneySerializer<T = BaseSerializedMoney> {
+  (money: FrozenBaseMoney): T;
+}
+
+export interface BaseCurrencyInputSettings<T = string> {
   code?: string;
   thousandsSeparator?: string;
   decimalSeparator?: string;
@@ -37,27 +39,27 @@ export interface BaseCurrencyInputSettings {
   symbol?: string;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
-  toString?: () => string;
-  toJSON?: () => string | object;
+  toString?: BaseCurrencyStringifier;
+  toJSON?: BaseCurrencySerializer<T>;
 }
 
-export interface BaseCurrencyInputSettingsWithRequiredCode extends BaseCurrencyInputSettings {
+export interface BaseCurrencyInputSettingsWithRequiredCode<T = string> extends BaseCurrencyInputSettings<T> {
   code: string;
 }
 
-export interface BaseCurrencySettings {
+export interface BaseCurrencySettings<T> {
   thousandsSeparator: string;
   decimalSeparator: string;
   decimalDigits: number;
   pattern: string;
   symbol: string;
-  toString: () => string;
-  toJSON: () => string | object;
+  toString?: BaseCurrencyStringifier;
+  toJSON?: BaseCurrencySerializer<T>;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
 }
 
-export interface BaseCurrency {
+export interface BaseCurrency<T = string> {
   thousandsSeparator: string;
   decimalSeparator: string;
   decimalDigits: number;
@@ -65,8 +67,8 @@ export interface BaseCurrency {
   symbol: string;
   formatter?: BaseCurrencyFormatter;
   parser?: BaseCurrencyParser;
-  toString?: () => string;
-  toJSON?: () => string | object;
+  toString?: BaseCurrencyStringifier;
+  toJSON?: BaseCurrencySerializer<T>;
   code: string;
   $$typeof: WealthSymbolType;
 }
@@ -76,12 +78,13 @@ export type FrozenBaseCurrency = Readonly<BaseCurrency>;
 export interface BaseMoney {
   currency: FrozenBaseCurrency;
   value: BigNumber;
+  options: BaseMoneyOptions;
   $$typeof: WealthSymbolType;
 }
 
 export type FrozenBaseMoney = Readonly<BaseMoney>;
 
-export interface BaseSerializedMoney {
-  currency: string;
-  amount: string;
+export interface BaseMoneyOptions<T = BaseSerializedMoney> {
+  toString?: BaseMoneyStringifier;
+  toJSON?: BaseMoneySerializer<T>;
 }

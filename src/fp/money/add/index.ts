@@ -1,8 +1,8 @@
 import { FrozenBaseMoney } from 'src/fp/types';
 import moneyFromBigNumber from '../moneyFromBigNumber';
-import assertMonies from '../assertMonies';
+import assertMoneyMatch from '../assertMoneyMatch';
 
 const add = (moneyA: FrozenBaseMoney, moneyB: FrozenBaseMoney): FrozenBaseMoney =>
-  assertMonies(moneyA, moneyB) && moneyFromBigNumber(moneyA.value.plus(moneyB.value), moneyA.currency);
+  assertMoneyMatch(moneyA, moneyB) && moneyFromBigNumber(moneyA.value.plus(moneyB.value), moneyA.currency);
 
 export default add;

@@ -1,7 +1,7 @@
 import { FrozenBaseMoney } from 'src/fp/types';
-import assertMonies from '../assertMonies';
+import assertMoneyMatch from '../assertMoneyMatch';
 
 const greaterThan = (moneyA: FrozenBaseMoney, moneyB: FrozenBaseMoney): boolean =>
-  assertMonies(moneyA, moneyB) && moneyA.value.isGreaterThan(moneyB.value);
+  assertMoneyMatch(moneyA, moneyB) && moneyA.value.isGreaterThan(moneyB.value);
 
 export default greaterThan;

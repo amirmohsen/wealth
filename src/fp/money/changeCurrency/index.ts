@@ -1,8 +1,13 @@
 import { FrozenBaseMoney, FrozenBaseCurrency } from 'src/fp/types';
 import amountAsStringFloat from '../amountAsStringFloat';
-import money from '../money';
+import createMoney from '../createMoney';
 
-const changeCurrency = (inputMoney: FrozenBaseMoney, currency: FrozenBaseCurrency): FrozenBaseMoney =>
-  money(amountAsStringFloat(inputMoney), currency);
+const adjustDecimalDigits = (money: FrozenBaseMoney, currency: FrozenBaseCurrency): string =>
+  money.currency.decimalDigits !== currency.decimalDigits
+    ? money.value.toFixed(currency.decimalDigits)
+    : amountAsStringFloat(money);
+
+const changeCurrency = (money: FrozenBaseMoney, currency: FrozenBaseCurrency): FrozenBaseMoney =>
+  createMoney(adjustDecimalDigits(money, currency), currency);
 
 export default changeCurrency;

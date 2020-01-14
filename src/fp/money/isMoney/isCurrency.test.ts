@@ -1,6 +1,6 @@
 import { CurrencySymbol } from 'src/symbols';
 import { FrozenBaseCurrency } from 'src/fp/types';
-import currency from 'src/fp/currency/currency';
+import currency from 'src/fp/currency/createCurrency';
 import isCurrency from '.';
 
 describe('isCurrency', () => {

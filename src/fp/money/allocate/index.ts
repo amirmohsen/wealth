@@ -6,7 +6,7 @@ import serialize from 'src/utils/serialize';
 import ROUNDING, { RoundingType } from 'src/constants/ROUNDING';
 import addRemainderToAllocations from 'src/utils/addRemainderToAllocations';
 import assertMoney from '../assertMoney';
-import clone from '../clone';
+import cloneMoney from '../cloneMoney';
 import multiply from '../multiply';
 import divide from '../divide';
 import subtract from '../subtract';
@@ -56,10 +56,10 @@ const allocate = (money: FrozenBaseMoney, ratios: (string | number)[]): FrozenBa
   assertRatios(ratios);
 
   const allocations: FrozenBaseMoney[] = [];
-  const totalValue = clone(money);
+  const totalValue = cloneMoney(money);
   const total: BigNumber = ratios.reduce((acc, ratio) => acc.plus(ratio), new BigNumber('0'));
 
-  let remainder = clone(money);
+  let remainder = cloneMoney(money);
 
   for (const ratio of ratios) {
     let share = multiply(totalValue, ratio, ROUNDING.FLOOR);

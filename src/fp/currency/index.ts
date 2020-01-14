@@ -1,3 +1,9 @@
-export { default as currency } from './currency';
+export { default as assertCurrency } from './assertCurrency';
+export { default as assertCurrencyMatch } from './assertCurrencyMatch';
+export { default as cloneCurrency } from './cloneCurrency';
+export { default as createCurrency } from './createCurrency';
 export { default as getDefaultCurrencySettings } from './getDefaultCurrencySettings';
 export { default as isCurrency } from './isCurrency';
+export { default as isCurrencySameAs } from './isCurrencySameAs';
+export { default as serializeCurrency } from './serializeCurrency';
+export { default as stringifyCurrency } from './stringifyCurrency';

@@ -1,6 +1,6 @@
 import { BaseCurrencySettings } from 'src/fp/types';
 
-const getDefaultCurrencySettings = (code: string): BaseCurrencySettings => ({
+const getDefaultCurrencySettings = (code: string): BaseCurrencySettings<string> => ({
   symbol: code,
   thousandsSeparator: ',',
   decimalSeparator: '.',
