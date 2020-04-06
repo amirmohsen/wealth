@@ -6,12 +6,11 @@ import assertMoney from '../assertMoney';
 const multiply = (
   money: FrozenBaseMoney,
   value: number | string,
-  rounding: ROUNDING = ROUNDING.HALF_UP,
+  rounding: RoundingType = ROUNDING.HALF_UP,
 ): FrozenBaseMoney =>
+  // remove truthy assertions and introduce the complexity rule
   assertMoney(money) &&
-  moneyFromBigNumber(
-    money.value.times(value).decimalPlaces(money.currency.decimalDigits, rounding as RoundingType),
-    money.currency,
-  );
+  // pass options to all of the moneyFromBigNumber usages
+  moneyFromBigNumber(money.value.times(value).decimalPlaces(money.currency.decimalDigits, rounding), money.currency);
 
 export default multiply;

@@ -1,8 +1,5 @@
-import { InvalidCurrencyError } from 'src/shared/errors';
-import {
-  BaseCurrencyInputSettings,
-  BaseCurrencyInputSettingsWithRequiredCode,
-} from '../../cloneCurrency/node_modules/src/fp/types';
+import { InvalidCurrencyError } from 'src/errors';
+import { BaseCurrencyInputSettings, BaseCurrencyInputSettingsWithRequiredCode } from 'src/fp/types';
 
 const assertCurrencyInput = <T>(
   code: string,

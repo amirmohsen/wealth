@@ -1,5 +1,5 @@
 import pipe from 'lodash/fp/pipe';
-import { BaseCurrencyInputSettings, FrozenBaseCurrency } from '../cloneCurrency/node_modules/src/fp/types';
+import { BaseCurrencyInputSettings, FrozenBaseCurrency } from '../../types';
 import assertCurrencyInput from './assertCurrencyInput';
 import mergeCurrencyInput from './mergeCurrencyInput';
 

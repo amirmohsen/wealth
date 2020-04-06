@@ -1,4 +1,4 @@
-import createCurrency from 'src/fp/currency/create';
+import createCurrency from 'src/fp/currency/createCurrency';
 
 const WST = createCurrency('WST', {
   code: 'WST',

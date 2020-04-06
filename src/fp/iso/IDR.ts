@@ -1,4 +1,4 @@
-import createCurrency from 'src/fp/currency/create';
+import createCurrency from 'src/fp/currency/createCurrency';
 
 const IDR = createCurrency('IDR', {
   code: 'IDR',

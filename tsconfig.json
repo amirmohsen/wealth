@@ -13,7 +13,12 @@
     "esModuleInterop": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": ["jest", "node"],
-    "typeRoots": ["./src/types", "node_modules/@types"]
+    "typeRoots": ["./src/types", "node_modules/@types"],
+    "paths": {
+      "src/*": [
+        "src/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts",

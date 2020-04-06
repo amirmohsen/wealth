@@ -6,11 +6,11 @@ import assertMoney from '../assertMoney';
 const divide = (
   money: FrozenBaseMoney,
   value: number | string,
-  rounding: ROUNDING = ROUNDING.HALF_UP,
+  rounding: RoundingType = ROUNDING.HALF_UP,
 ): FrozenBaseMoney =>
   assertMoney(money) &&
   moneyFromBigNumber(
-    money.value.dividedBy(value).decimalPlaces(money.currency.decimalDigits, rounding as RoundingType),
+    money.value.dividedBy(value).decimalPlaces(money.currency.decimalDigits, rounding),
     money.currency,
   );
 

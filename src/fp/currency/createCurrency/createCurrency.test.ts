@@ -1,4 +1,4 @@
-import { InvalidCurrencyError } from 'src/shared/errors';
+import { InvalidCurrencyError } from 'src/errors';
 import { FrozenBaseCurrency } from 'src/fp/types';
 import currency from '.';
 

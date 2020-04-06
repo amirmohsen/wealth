@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-identical-title */
 import { createCurrency } from 'src/fp/currency';
-import { WrongInputError } from 'src/shared/errors';
+import { InvalidInputError } from 'src/errors';
 import { FrozenBaseCurrency, FrozenBaseMoney } from 'src/fp/types';
 import BigNumber from 'bignumber.js';
 import createMoney from '.';
@@ -18,7 +18,7 @@ describe('createMoney', () => {
     (value: any) => {
       test('should throw an error', () => {
         expect(() => createMoney(value, doubleDigitCurrency)).toThrow(
-          new WrongInputError(`The input value, "${value}", is not a string.`),
+          new InvalidInputError(value, 'The input value is not a string.'),
         );
       });
     },
@@ -29,9 +29,7 @@ describe('createMoney', () => {
     (value: string) => {
       test('should throw an error', () => {
         expect(() => createMoney(value, zeroDigitCurrency)).toThrow(
-          new WrongInputError(
-            `The input value, "${value}", is not an integer to match the currency's 0 decimal digits.`,
-          ),
+          new InvalidInputError(value, `The input value is not an integer to match the currency's 0 decimal digits.`),
         );
       });
     },
@@ -42,8 +40,12 @@ describe('createMoney', () => {
     (value: string) => {
       test('should throw an error', () => {
         expect(() => createMoney(value, doubleDigitCurrency)).toThrow(
-          new WrongInputError(
-            `The input value, "${value}", is not a fixed decimal number to match the currency's 2 decimal digits.`,
+          new InvalidInputError(
+            value,
+            `The input value is not a fixed decimal number to match the currency's decimal digits.`,
+            {
+              decimalDigits: 2,
+            },
           ),
         );
       });

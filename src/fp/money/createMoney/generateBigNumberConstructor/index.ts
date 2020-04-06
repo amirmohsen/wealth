@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js';
-import ROUNDING from 'src/shared/constants/ROUNDING';
+import ROUNDING from 'src/constants/ROUNDING';
 import { FrozenBaseCurrency } from 'src/fp/types';
 
 const generateBigNumberConstructor = ({
@@ -8,7 +8,7 @@ const generateBigNumberConstructor = ({
 }: FrozenBaseCurrency): typeof BigNumber => {
   return BigNumber.clone({
     DECIMAL_PLACES: 20,
-    ROUNDING_MODE: ROUNDING.HALF_UP as any,
+    ROUNDING_MODE: ROUNDING.HALF_UP,
     FORMAT: {
       decimalSeparator,
       groupSeparator,
