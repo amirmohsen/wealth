@@ -1,14 +1,15 @@
 import { InvalidInputError } from 'src/errors';
 import { FrozenBaseCurrency } from 'src/fp/types';
+import { decimalRegex, intRegex } from './regex';
 
 const assertInt = (value: string): void => {
-  if (!/^[-|+]?\d+$/.exec(value)) {
+  if (!intRegex.exec(value)) {
     throw new InvalidInputError(value, `The input value is not an integer to match the currency's 0 decimal digits.`);
   }
 };
 
 const assertFixedDigitDecimal = (value: string, decimalDigits: number): void => {
-  if (!new RegExp(`^[-|+]?\\d+\\.\\d{${decimalDigits}}$`).exec(value)) {
+  if (!decimalRegex({ decimalDigits }).exec(value)) {
     throw new InvalidInputError(
       value,
       `The input value is not a fixed decimal number to match the currency's decimal digits.`,
