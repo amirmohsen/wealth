@@ -86,7 +86,7 @@
     "rollup-plugin-json": "^4",
     "rollup-plugin-node-resolve": "^5",
     "rollup-plugin-typescript2": "^0.22.0",
-    "semantic-release": "^15",
+    "semantic-release": "^17",
     "typescript": "^3",
     "yargs": "^13"
   }
