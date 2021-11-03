@@ -45,7 +45,7 @@
     "deep-freeze": "^0.0.1",
     "es6-error": "^4",
     "lodash.isequal": "^4",
-    "validator": "^11"
+    "validator": "^13"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
